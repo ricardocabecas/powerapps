@@ -188,3 +188,58 @@ Todas as medidas são calculadas num só registo. `With` encadeados guardam os r
 A tabela `htmDescritiva` (controlo *Texto HTML*) aplica esta fórmula a todos os dados («Total») e, se for
 escolhida uma variável de agrupamento, a cada grupo (`ForAll` sobre os valores distintos do grupo), e mostra
 uma coluna por grupo.
+
+## 3. Frequências e gráficos (ecrã `scrFrequencias`)
+
+### 3.1 Definições
+
+Para cada valor (ou classe) i, com n observações no total:
+
+* **nᵢ** — frequência absoluta (n.º de observações iguais ao valor ou dentro da classe);
+* **fᵢ = nᵢ / n** — frequência relativa (também em %);
+* **Nᵢ = n₁ + … + nᵢ** — frequência absoluta acumulada;
+* **Fᵢ = Nᵢ / n** — frequência relativa acumulada.
+
+### 3.2 Dados discretos e categóricos
+
+Os valores distintos obtêm-se com `Distinct`, ordenados com `Sort`, e cada frequência com `CountIf`. As
+acumuladas somam as primeiras i linhas (`Sum(FirstN(_t; i); ni)`):
+
+{{pt: F_frequencias._acumular("_base")}}
+
+### 3.3 Dados agrupados em classes
+
+* **N.º de classes** — por omissão a **regra de Sturges**: k = ⌈1 + log₂ n⌉ (por exemplo n = 20 → k = 6).
+* **Início** — por omissão o mínimo da amostra.
+* **Amplitude** — por omissão h = (máximo − início) / k, para a última classe terminar no máximo.
+* Classes **[Lᵢ ; Lᵢ₊₁[** fechadas à esquerda e abertas à direita; a última é fechada dos dois lados para
+  incluir o máximo. (O separador «;» evita confusão com a vírgula decimal.)
+
+Cada valor x é atribuído à classe i = ⌊(x − início) / h⌋ + 1 (com uma pequena tolerância de 10⁻⁹ para que os
+valores exatamente sobre um limite não «caiam» na classe anterior por erros de arredondamento). Os valores que
+ficam antes do início ou depois da última classe são contados e assinalados com um aviso.
+
+Fórmula completa (devolve as linhas da tabela e os parâmetros usados):
+
+{{pt: F_frequencias.tabela()}}
+
+### 3.4 Gráficos em SVG
+
+O controlo **Imagem** aceita um *URI de dados*: `"data:image/svg+xml;utf8," & EncodeUrl(<texto SVG>)`. O texto
+SVG é construído com `Concat` (uma barra por linha da tabela). Duas precauções:
+
+* as **coordenadas** são escritas com `Text(…; "[$-en-US]0.00"; "en-US")`, para terem sempre ponto decimal
+  (o SVG não aceita vírgula), mesmo num computador em pt-PT;
+* os **nomes** escritos pelos alunos passam por `Substitute` para escapar `&`, `<` e `>`.
+
+O eixo vertical usa um passo «redondo» (1, 2 ou 5 × 10ᵐ):
+
+{{pt: F_graficos.passo_bonito("_mx / 5")}}
+
+* **Histograma** (dados em classes): retângulos contíguos com largura igual à amplitude da classe e altura
+  proporcional a nᵢ.
+* **Diagrama de barras** (dados discretos ou categóricos): barras separadas, uma por valor/categoria.
+
+Fórmula do histograma:
+
+{{pt: F_graficos.histograma("_F", "_titulo", "_rotulo")}}

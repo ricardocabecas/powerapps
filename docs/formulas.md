@@ -377,3 +377,162 @@ With(
 A tabela `htmDescritiva` (controlo *Texto HTML*) aplica esta fórmula a todos os dados («Total») e, se for
 escolhida uma variável de agrupamento, a cada grupo (`ForAll` sobre os valores distintos do grupo), e mostra
 uma coluna por grupo.
+
+## 3. Frequências e gráficos (ecrã `scrFrequencias`)
+
+### 3.1 Definições
+
+Para cada valor (ou classe) i, com n observações no total:
+
+* **nᵢ** — frequência absoluta (n.º de observações iguais ao valor ou dentro da classe);
+* **fᵢ = nᵢ / n** — frequência relativa (também em %);
+* **Nᵢ = n₁ + … + nᵢ** — frequência absoluta acumulada;
+* **Fᵢ = Nᵢ / n** — frequência relativa acumulada.
+
+### 3.2 Dados discretos e categóricos
+
+Os valores distintos obtêm-se com `Distinct`, ordenados com `Sort`, e cada frequência com `CountIf`. As
+acumuladas somam as primeiras i linhas (`Sum(FirstN(_t; i); ni)`):
+
+```powerfx
+With({_t: _base; _ntot: Sum(_base; ni)};
+        ForAll(Sequence(CountRows(_t)) As _i;
+            With({_r: Index(_t; _i.Value); _Ni: Sum(FirstN(_t; _i.Value); ni)};
+                {Ordem: _i.Value; Classe: _r.Classe; Centro: _r.Centro; Li: _r.Li; Ls: _r.Ls;
+                 ni: _r.ni; fi: _r.ni / _ntot; Ni: _Ni; Fi: _Ni / _ntot})))
+```
+
+### 3.3 Dados agrupados em classes
+
+* **N.º de classes** — por omissão a **regra de Sturges**: k = ⌈1 + log₂ n⌉ (por exemplo n = 20 → k = 6).
+* **Início** — por omissão o mínimo da amostra.
+* **Amplitude** — por omissão h = (máximo − início) / k, para a última classe terminar no máximo.
+* Classes **[Lᵢ ; Lᵢ₊₁[** fechadas à esquerda e abertas à direita; a última é fechada dos dois lados para
+  incluir o máximo. (O separador «;» evita confusão com a vírgula decimal.)
+
+Cada valor x é atribuído à classe i = ⌊(x − início) / h⌋ + 1 (com uma pequena tolerância de 10⁻⁹ para que os
+valores exatamente sobre um limite não «caiam» na classe anterior por erros de arredondamento). Os valores que
+ficam antes do início ou depois da última classe são contados e assinalados com um aviso.
+
+Fórmula completa (devolve as linhas da tabela e os parâmetros usados):
+
+```powerfx
+With(
+    {_kv: Switch(drpFreVar.Selected.Value; varNomes.N1; 1; varNomes.N2; 2; varNomes.N3; 3; varNomes.C1; 4; varNomes.C2; 5; 1)};
+    With(
+        {_tipo: If(_kv >= 4; 1; If(drpFreTipo.Selected.Value = "Classes (dados agrupados)"; 2; 1));
+         // Valores numéricos (variáveis 1 a 3) e categóricos (4 e 5), sem células vazias
+         _x: Filter(ForAll(colDados As _d; {x: Switch(_kv; 1; _d.N1; 2; _d.N2; 3; _d.N3; Blank())}); !IsBlank(x));
+         _g: Filter(ForAll(colDados As _d; {g: Switch(_kv; 4; _d.C1; 5; _d.C2; "")}); !IsBlank(g))};
+        With(
+            {_n: If(_kv >= 4; CountRows(_g); CountRows(_x)); _min: Min(_x; x); _max: Max(_x; x)};
+            With(
+                // Classes: k pela regra de Sturges (ou o valor escrito), início no mínimo e amplitude (máx − início)/k
+                {_kS: If(_n > 0; RoundUp(1 + Log(_n; 2) - 1E-9; 0); 0);
+                 _kU: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtFreK.Text); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank()); _aU: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtFreInicio.Text); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank()); _hU: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtFreAmplitude.Text); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank())};
+                With(
+                    {_k: If(!IsBlank(_kU) && _kU >= 1; Min(RoundDown(_kU; 0); 50); Max(_kS; 1));
+                     _a: Coalesce(_aU; _min)};
+                    With(
+                        {_h: If(!IsBlank(_hU) && _hU > 0; _hU; If(_max > _a; (_max - _a) / _k; 1))};
+                        With(
+                            // Classe de cada valor: [Li ; Ls[ (a última é fechada à direita)
+                            {_cls: ForAll(_x As _v; {c: With({_z: (_v.x - _a) / _h};
+                                If(_z < -1E-9; 0; Min(RoundDown(_z + 1E-9; 0) + 1; If(_z <= _k + 1E-9; _k; _k + 1))))})};
+                            {
+                                Tipo: _tipo; n: _n; k: _k; kSturges: _kS; a: _a; h: _h; Minimo: _min; Maximo: _max;
+                                Fora: If(_tipo = 2; CountRows(Filter(_cls; c < 1 || c > _k)); 0);
+                                Linhas: If(
+                                    _n = 0; Filter(With({_t: Table({Classe: ""; Centro: 0; Li: 0; Ls: 0; ni: 0}); _ntot: Sum(Table({Classe: ""; Centro: 0; Li: 0; Ls: 0; ni: 0}); ni)};
+        ForAll(Sequence(CountRows(_t)) As _i;
+            With({_r: Index(_t; _i.Value); _Ni: Sum(FirstN(_t; _i.Value); ni)};
+                {Ordem: _i.Value; Classe: _r.Classe; Centro: _r.Centro; Li: _r.Li; Ls: _r.Ls;
+                 ni: _r.ni; fi: _r.ni / _ntot; Ni: _Ni; Fi: _Ni / _ntot}))); false);
+                                    _tipo = 2;
+                                    With({_t: ForAll(Sequence(_k) As _c;
+                                            {Classe: "[" & With({_r: Round(_a + (_c.Value - 1) * _h; 4)}; If(_r = Int(_r); Text(_r; "[$-en-US]0"; "pt-PT"); Text(_r; "[$-en-US]0.####"; "pt-PT"))) & " ; " & With({_r: Round(_a + _c.Value * _h; 4)}; If(_r = Int(_r); Text(_r; "[$-en-US]0"; "pt-PT"); Text(_r; "[$-en-US]0.####"; "pt-PT"))) & If(_c.Value = _k; "]"; "[");
+                                             Centro: _a + (_c.Value - 0,5) * _h; Li: _a + (_c.Value - 1) * _h; Ls: _a + _c.Value * _h;
+                                             ni: CountIf(_cls; c = _c.Value)}); _ntot: Sum(ForAll(Sequence(_k) As _c;
+                                            {Classe: "[" & With({_r: Round(_a + (_c.Value - 1) * _h; 4)}; If(_r = Int(_r); Text(_r; "[$-en-US]0"; "pt-PT"); Text(_r; "[$-en-US]0.####"; "pt-PT"))) & " ; " & With({_r: Round(_a + _c.Value * _h; 4)}; If(_r = Int(_r); Text(_r; "[$-en-US]0"; "pt-PT"); Text(_r; "[$-en-US]0.####"; "pt-PT"))) & If(_c.Value = _k; "]"; "[");
+                                             Centro: _a + (_c.Value - 0,5) * _h; Li: _a + (_c.Value - 1) * _h; Ls: _a + _c.Value * _h;
+                                             ni: CountIf(_cls; c = _c.Value)}); ni)};
+        ForAll(Sequence(CountRows(_t)) As _i;
+            With({_r: Index(_t; _i.Value); _Ni: Sum(FirstN(_t; _i.Value); ni)};
+                {Ordem: _i.Value; Classe: _r.Classe; Centro: _r.Centro; Li: _r.Li; Ls: _r.Ls;
+                 ni: _r.ni; fi: _r.ni / _ntot; Ni: _Ni; Fi: _Ni / _ntot})));
+                                    _kv >= 4;
+                                    With({_t: ForAll(Sort(Distinct(_g; g); Value) As _d;
+                                            {Classe: _d.Value; Centro: Blank(); Li: Blank(); Ls: Blank(); ni: CountIf(_g; g = _d.Value)}); _ntot: Sum(ForAll(Sort(Distinct(_g; g); Value) As _d;
+                                            {Classe: _d.Value; Centro: Blank(); Li: Blank(); Ls: Blank(); ni: CountIf(_g; g = _d.Value)}); ni)};
+        ForAll(Sequence(CountRows(_t)) As _i;
+            With({_r: Index(_t; _i.Value); _Ni: Sum(FirstN(_t; _i.Value); ni)};
+                {Ordem: _i.Value; Classe: _r.Classe; Centro: _r.Centro; Li: _r.Li; Ls: _r.Ls;
+                 ni: _r.ni; fi: _r.ni / _ntot; Ni: _Ni; Fi: _Ni / _ntot})));
+                                    With({_t: ForAll(Sort(Distinct(_x; x); Value) As _d;
+                                            {Classe: With({_v: _d.Value}; If(IsBlank(_v); ""; If(_v = Int(_v); Text(_v; "[$-en-US]0"; "pt-PT"); Text(_v; "[$-en-US]0.##########"; "pt-PT")))); Centro: _d.Value; Li: Blank(); Ls: Blank();
+                                             ni: CountIf(_x; x = _d.Value)}); _ntot: Sum(ForAll(Sort(Distinct(_x; x); Value) As _d;
+                                            {Classe: With({_v: _d.Value}; If(IsBlank(_v); ""; If(_v = Int(_v); Text(_v; "[$-en-US]0"; "pt-PT"); Text(_v; "[$-en-US]0.##########"; "pt-PT")))); Centro: _d.Value; Li: Blank(); Ls: Blank();
+                                             ni: CountIf(_x; x = _d.Value)}); ni)};
+        ForAll(Sequence(CountRows(_t)) As _i;
+            With({_r: Index(_t; _i.Value); _Ni: Sum(FirstN(_t; _i.Value); ni)};
+                {Ordem: _i.Value; Classe: _r.Classe; Centro: _r.Centro; Li: _r.Li; Ls: _r.Ls;
+                 ni: _r.ni; fi: _r.ni / _ntot; Ni: _Ni; Fi: _Ni / _ntot})))
+                                )
+                            }
+                        )
+                    )
+                )
+            )
+        )
+    )
+)
+```
+
+### 3.4 Gráficos em SVG
+
+O controlo **Imagem** aceita um *URI de dados*: `"data:image/svg+xml;utf8," & EncodeUrl(<texto SVG>)`. O texto
+SVG é construído com `Concat` (uma barra por linha da tabela). Duas precauções:
+
+* as **coordenadas** são escritas com `Text(…; "[$-en-US]0.00"; "en-US")`, para terem sempre ponto decimal
+  (o SVG não aceita vírgula), mesmo num computador em pt-PT;
+* os **nomes** escritos pelos alunos passam por `Substitute` para escapar `&`, `<` e `>`.
+
+O eixo vertical usa um passo «redondo» (1, 2 ou 5 × 10ᵐ):
+
+```powerfx
+With({_e: Power(10; RoundDown(Log(_mx / 5; 10) + 1E-9; 0))}; With({_f: _mx / 5 / _e}; If(_f <= 1; 1; _f <= 2; 2; _f <= 5; 5; 10) * _e))
+```
+
+* **Histograma** (dados em classes): retângulos contíguos com largura igual à amplitude da classe e altura
+  proporcional a nᵢ.
+* **Diagrama de barras** (dados discretos ou categóricos): barras separadas, uma por valor/categoria.
+
+Fórmula do histograma:
+
+```powerfx
+"data:image/svg+xml;utf8," & EncodeUrl(With({_lin: _F.Linhas; _k: CountRows(_F.Linhas)};
+    With({_mx: Max(Max(_lin; ni); 1)}; With({_passo: Max(1; With({_e: Power(10; RoundDown(Log(_mx / 5; 10) + 1E-9; 0))}; With({_f: _mx / 5 / _e}; If(_f <= 1; 1; _f <= 2; 2; _f <= 5; 5; 10) * _e)))}; With({_ymax: _passo * RoundUp(_mx * 1,08 / _passo - 1E-9; 0)}; 
+    With({_bw: 550 / Max(_k; 1); _salto: RoundUp(_k / 10; 0)};
+    "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 400' font-family='Segoe UI, Arial, sans-serif'>" &
+    "<rect x='0' y='0' width='640' height='400' fill='white'/>" &
+    "<text x='320' y='22' text-anchor='middle' font-size='15' font-weight='600' fill='rgb(33,37,41)'>" & Substitute(Substitute(Substitute(_titulo; "&"; "&amp;"); "<"; "&lt;"); ">"; "&gt;") & "</text>" &
+    Concat(Sequence(RoundDown(_ymax / _passo + 1E-9; 0) + 1; 0) As _t;
+        With({_y: 330 - _t.Value * _passo / _ymax * 290};
+            "<line x1='" & Text(Round(70; 2); "[$-en-US]0.00"; "en-US") & "' y1='" & Text(Round(_y; 2); "[$-en-US]0.00"; "en-US") & "' x2='" & Text(Round(620; 2); "[$-en-US]0.00"; "en-US") & "' y2='" & Text(Round(_y; 2); "[$-en-US]0.00"; "en-US") & "' stroke='rgb(225,229,234)'/>" &
+            "<text x='" & Text(Round(62; 2); "[$-en-US]0.00"; "en-US") & "' y='" & Text(Round(_y + 4; 2); "[$-en-US]0.00"; "en-US") & "' text-anchor='end' font-size='11' fill='rgb(90,98,106)'>" & Text(_t.Value * _passo; "[$-en-US]0"; "pt-PT") & "</text>")) &
+    "<text transform='translate(18,185) rotate(-90)' text-anchor='middle' font-size='12' fill='rgb(90,98,106)'>Frequência absoluta (nᵢ)</text>" &
+    // Barras contíguas: largura = amplitude da classe, altura proporcional a nᵢ
+    Concat(Sequence(_k) As _i; With({_r: Index(_lin; _i.Value)};
+        With({_hb: _r.ni / _ymax * 290};
+            "<rect x='" & Text(Round(70 + (_i.Value - 1) * _bw; 2); "[$-en-US]0.00"; "en-US") & "' y='" & Text(Round(330 - _hb; 2); "[$-en-US]0.00"; "en-US") & "' width='" & Text(Round(_bw; 2); "[$-en-US]0.00"; "en-US") &
+            "' height='" & Text(Round(_hb; 2); "[$-en-US]0.00"; "en-US") & "' fill='rgb(31,78,121)' stroke='white' stroke-width='1'/>" &
+            If(_r.ni > 0; "<text x='" & Text(Round(70 + (_i.Value - 0,5) * _bw; 2); "[$-en-US]0.00"; "en-US") & "' y='" & Text(Round(330 - _hb - 4; 2); "[$-en-US]0.00"; "en-US") & "' text-anchor='middle' font-size='10' fill='rgb(33,37,41)'>" & Text(_r.ni; "[$-en-US]0"; "pt-PT") & "</text>"; "")))) &
+    // Limites das classes no eixo horizontal (só alguns, se forem muitas classes)
+    Concat(Sequence(_k + 1; 0) As _j;
+        If(Mod(_j.Value; _salto) = 0 || _j.Value = _k;
+            "<text x='" & Text(Round(70 + _j.Value * _bw; 2); "[$-en-US]0.00"; "en-US") & "' y='" & Text(Round(346; 2); "[$-en-US]0.00"; "en-US") & "' text-anchor='middle' font-size='10' fill='rgb(90,98,106)'>" & With({_r: Round(_F.a + _j.Value * _F.h; 4)}; If(_r = Int(_r); Text(_r; "[$-en-US]0"; "pt-PT"); Text(_r; "[$-en-US]0.####"; "pt-PT"))) & "</text>"; "")) &
+    "<line x1='70' x2='620' y1='330' y2='330' stroke='rgb(90,98,106)'/>" &
+    "<text x='345' y='370' text-anchor='middle' font-size='12' fill='rgb(90,98,106)'>" & Substitute(Substitute(Substitute(_rotulo; "&"; "&amp;"); "<"; "&lt;"); ">"; "&gt;") & "</text>" &
+    "</svg>"
+    ))))))
+```

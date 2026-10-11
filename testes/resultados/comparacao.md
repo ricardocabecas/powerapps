@@ -2,11 +2,11 @@
 
 Gerado em 11/10/2026 por `testes/executar_testes.py`. As fórmulas foram executadas com o interpretador open source **Microsoft.PowerFx.Interpreter 1.8.1** (.NET 8), com números em vírgula flutuante (como nas canvas apps).
 
-**Total: 1843/1843 verificações sem diferenças.**
+**Total: 2725/2725 verificações sem diferenças.**
 
 ## Sintaxe de todas as fórmulas dos ecrãs
 
-866 fórmulas analisadas em formato invariante (ficheiros .pa.yaml) e convertidas para pt-PT (barra de fórmulas): **1732/1732 sem erros de sintaxe**.
+1289 fórmulas analisadas em formato invariante (ficheiros .pa.yaml) e convertidas para pt-PT (barra de fórmulas): **2578/2578 sem erros de sintaxe**.
 
 
 ## Fase 1 — Entrada de dados
@@ -133,4 +133,47 @@ Gerado em 11/10/2026 por `testes/executar_testes.py`. As fórmulas foram executa
 | grupos_desiguais (quartis 2) por grupo | ✅ | n=6, média=13.333333333333334, Q1=8.75, Q3=20.5, s²=41.46666666666666, moda=não existe (amodal) |
 | grupos_desiguais (quartis 3) por grupo | ✅ | n=6, média=13.333333333333334, Q1=10, Q3=20, s²=41.46666666666666, moda=não existe (amodal) |
 | grupos_desiguais: tabela HTML | ✅ | 7053 caracteres |
+
+## Fase 3 — Frequências e gráficos
+
+**36/36 casos de acordo com a referência.**
+
+| Caso | Resultado | Detalhe |
+|---|---|---|
+| tabela «nota_discreta» | ✅ | 9: 1 \| 10: 2 \| 11: 2 \| 12: 3 \| 13: 2 \| 14: 3 \| 15: 2 \| 16: 2 |
+| gráfico «nota_discreta» | ✅ | SVG válido, 4144 caracteres, 10 barras |
+| resumo «nota_discreta» | ✅ | n = 20   ·   10 valores distintos |
+| tabela «sexo_categorica» | ✅ | F: 10 \| M: 10 |
+| gráfico «sexo_categorica» | ✅ | SVG válido, 2311 caracteres, 2 barras |
+| resumo «sexo_categorica» | ✅ | n = 20   ·   2 valores distintos |
+| tabela «turma_categorica» | ✅ | A: 7 \| B: 7 \| C: 6 |
+| gráfico «turma_categorica» | ✅ | SVG válido, 2241 caracteres, 3 barras |
+| resumo «turma_categorica» | ✅ | n = 20   ·   3 valores distintos |
+| tabela «altura_sturges» | ✅ | [155 ; 160[: 3 \| [160 ; 165[: 3 \| [165 ; 170[: 4 \| [170 ; 175[: 4 \| [175 ; 180[: 3 \| [180 ; 185]: 3 |
+| gráfico «altura_sturges» | ✅ | SVG válido, 3512 caracteres, 6 barras |
+| resumo «altura_sturges» | ✅ | n = 20   ·   6 classes ⏎ Regra de Sturges: k = ⌈1 + log₂ n⌉ = 6 ⏎ Amplitude das classes: h = 5   ·   1.ª classe começa em 155 ⏎ Mínimo = 155   ·   Máximo = 185 |
+| tabela «altura_k4_inicio150_h10» | ✅ | [150 ; 160[: 3 \| [160 ; 170[: 7 \| [170 ; 180[: 7 \| [180 ; 190]: 3 |
+| gráfico «altura_k4_inicio150_h10» | ✅ | SVG válido, 2744 caracteres, 4 barras |
+| resumo «altura_k4_inicio150_h10» | ✅ | n = 20   ·   4 classes ⏎ Regra de Sturges: k = ⌈1 + log₂ n⌉ = 6 ⏎ Amplitude das classes: h = 10   ·   1.ª classe começa em 150 ⏎ Mínimo = 155   ·   Máximo = 185 |
+| tabela «altura_k3_inicio160_h10_fora» | ✅ | [160 ; 170[: 7 \| [170 ; 180[: 7 \| [180 ; 190]: 3 |
+| gráfico «altura_k3_inicio160_h10_fora» | ✅ | SVG válido, 2441 caracteres, 3 barras |
+| resumo «altura_k3_inicio160_h10_fora» | ✅ | n = 20   ·   3 classes ⏎ Regra de Sturges: k = ⌈1 + log₂ n⌉ = 6 ⏎ Amplitude das classes: h = 10   ·   1.ª classe começa em 160 ⏎ Mínimo = 155   ·   Máximo = 185 ⏎ ⚠ 3 valor(es) ficaram fora das classes: ajuste o início ou a amplitude. |
+| tabela «peso_sturges» | ✅ | [48 ; 54,2667[: 4 \| [54,2667 ; 60,5333[: 4 \| [60,5333 ; 66,8[: 4 \| [66,8 ; 73,0667[: 4 \| [73,0667 ; 79,3333[: 2 \| [79,3333 ; 85,6]: 2 |
+| gráfico «peso_sturges» | ✅ | SVG válido, 3521 caracteres, 6 barras |
+| resumo «peso_sturges» | ✅ | n = 20   ·   6 classes ⏎ Regra de Sturges: k = ⌈1 + log₂ n⌉ = 6 ⏎ Amplitude das classes: h = 6,2667   ·   1.ª classe começa em 48 ⏎ Mínimo = 48   ·   Máximo = 85,6 |
+| tabela «peso_k5_h8» | ✅ | [45 ; 53[: 4 \| [53 ; 61[: 4 \| [61 ; 69[: 5 \| [69 ; 77[: 4 \| [77 ; 85]: 2 |
+| gráfico «peso_k5_h8» | ✅ | SVG válido, 3375 caracteres, 5 barras |
+| resumo «peso_k5_h8» | ✅ | n = 20   ·   5 classes ⏎ Regra de Sturges: k = ⌈1 + log₂ n⌉ = 6 ⏎ Amplitude das classes: h = 8   ·   1.ª classe começa em 45 ⏎ Mínimo = 48   ·   Máximo = 85,6 ⏎ ⚠ 1 valor(es) ficaram fora das classes: ajuste o início ou a amplitude. |
+| tabela «fronteiras_exatas» | ✅ | [0,1 ; 0,3[: 1 \| [0,3 ; 0,5[: 2 \| [0,5 ; 0,7[: 1 \| [0,7 ; 0,9]: 2 |
+| gráfico «fronteiras_exatas» | ✅ | SVG válido, 2576 caracteres, 4 barras |
+| resumo «fronteiras_exatas» | ✅ | n = 6   ·   4 classes ⏎ Regra de Sturges: k = ⌈1 + log₂ n⌉ = 4 ⏎ Amplitude das classes: h = 0,2   ·   1.ª classe começa em 0,1 ⏎ Mínimo = 0,1   ·   Máximo = 0,9 |
+| tabela «todos_iguais_classes» | ✅ | [5 ; 6[: 3 \| [6 ; 7[: 0 \| [7 ; 8]: 0 |
+| gráfico «todos_iguais_classes» | ✅ | SVG válido, 2247 caracteres, 3 barras |
+| resumo «todos_iguais_classes» | ✅ | n = 3   ·   3 classes ⏎ Regra de Sturges: k = ⌈1 + log₂ n⌉ = 3 ⏎ Amplitude das classes: h = 1   ·   1.ª classe começa em 5 ⏎ Mínimo = 5   ·   Máximo = 5 |
+| tabela «um_valor» | ✅ | [2,5 ; 3,5]: 1 |
+| gráfico «um_valor» | ✅ | SVG válido, 1499 caracteres, 1 barras |
+| resumo «um_valor» | ✅ | n = 1   ·   1 classes ⏎ Regra de Sturges: k = ⌈1 + log₂ n⌉ = 1 ⏎ Amplitude das classes: h = 1   ·   1.ª classe começa em 2,5 ⏎ Mínimo = 2,5   ·   Máximo = 2,5 |
+| tabela «discreta_decimais» | ✅ | 1,5: 2 \| 2,25: 1 \| 3: 1 |
+| gráfico «discreta_decimais» | ✅ | SVG válido, 2090 caracteres, 3 barras |
+| resumo «discreta_decimais» | ✅ | n = 4   ·   3 valores distintos |
 

@@ -47,3 +47,24 @@ DESCRITIVA = {
     "vazio": ([None, None], None),
     "grupos_desiguais": ([10, 12, 11, 20, 22, 5], ["x", "x", "x", "y", "y", "z"]),
 }
+
+# Frequências: (nome, índice da variável 1..5, coluna de valores, tipo, k, início, amplitude)
+_ALT = [r[1] for r in DADOS_EXEMPLO]
+_PESO = [r[2] for r in DADOS_EXEMPLO]
+_NOTA = [r[3] for r in DADOS_EXEMPLO]
+_SEXO = [r[4] for r in DADOS_EXEMPLO]
+_TURMA = [r[5] for r in DADOS_EXEMPLO]
+FREQUENCIAS = [
+    ("nota_discreta", 3, _NOTA, 1, None, None, None),
+    ("sexo_categorica", 4, _SEXO, 1, None, None, None),
+    ("turma_categorica", 5, _TURMA, 1, None, None, None),
+    ("altura_sturges", 1, _ALT, 2, None, None, None),
+    ("altura_k4_inicio150_h10", 1, _ALT, 2, 4, 150, 10),
+    ("altura_k3_inicio160_h10_fora", 1, _ALT, 2, 3, 160, 10),
+    ("peso_sturges", 2, _PESO, 2, None, None, None),
+    ("peso_k5_h8", 2, _PESO, 2, 5, 45, 8),
+    ("fronteiras_exatas", 1, [0.1, 0.3, 0.5, 0.7, 0.9, 0.3], 2, 4, 0.1, 0.2),
+    ("todos_iguais_classes", 1, [5, 5, 5], 2, None, None, None),
+    ("um_valor", 1, [2.5], 2, None, None, None),
+    ("discreta_decimais", 1, [1.5, 2.25, 1.5, None, 3], 1, None, None, None),
+]

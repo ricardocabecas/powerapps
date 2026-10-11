@@ -1,0 +1,801 @@
+- retCabFre:
+    Control: Rectangle
+    Properties:
+      Fill: =RGBA(31, 78, 121, 1)
+      X: =0
+      Y: =0
+      Width: =1366
+      Height: =64
+- lblCabFre:
+    Control: Label
+    Properties:
+      Text: ="Estatística · " & "Frequências e gráficos"
+      X: =16
+      Y: =0
+      Width: =420
+      Height: =64
+      Font: =Font.'Segoe UI'
+      Size: =18
+      Color: =RGBA(255, 255, 255, 1)
+      FontWeight: =FontWeight.Semibold
+- btnNavFreDad:
+    Control: Classic/Button
+    Properties:
+      Text: ="Dados"
+      OnSelect: =Navigate(scrDados, ScreenTransition.None)
+      X: =446
+      Y: =14
+      Width: =112
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavFreDes:
+    Control: Classic/Button
+    Properties:
+      Text: ="Descritiva"
+      OnSelect: =Navigate(scrDescritiva, ScreenTransition.None)
+      X: =564
+      Y: =14
+      Width: =112
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavFreFre:
+    Control: Classic/Button
+    Properties:
+      Text: ="Frequências"
+      OnSelect: =Navigate(scrFrequencias, ScreenTransition.None)
+      X: =682
+      Y: =14
+      Width: =120
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(255, 255, 255, 1)
+      Color: =RGBA(31, 78, 121, 1)
+      HoverFill: =RGBA(255, 255, 255, 1)
+      HoverColor: =RGBA(31, 78, 121, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+      FontWeight: =FontWeight.Semibold
+- btnNavFreReg:
+    Control: Classic/Button
+    Properties:
+      Text: ="Regressão"
+      OnSelect: =Navigate(scrRegressao, ScreenTransition.None)
+      X: =808
+      Y: =14
+      Width: =112
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavFreTt:
+    Control: Classic/Button
+    Properties:
+      Text: ="Testes t"
+      OnSelect: =Navigate(scrTestesT, ScreenTransition.None)
+      X: =926
+      Y: =14
+      Width: =112
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavFreAno:
+    Control: Classic/Button
+    Properties:
+      Text: ="ANOVA"
+      OnSelect: =Navigate(scrAnova, ScreenTransition.None)
+      X: =1044
+      Y: =14
+      Width: =112
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavFreQui:
+    Control: Classic/Button
+    Properties:
+      Text: ="Qui-quadrado"
+      OnSelect: =Navigate(scrQuiQuadrado, ScreenTransition.None)
+      X: =1162
+      Y: =14
+      Width: =124
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- retFrePainel:
+    Control: Rectangle
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      X: =12
+      Y: =72
+      Width: =308
+      Height: =684
+      BorderColor: =RGBA(206, 212, 218, 1)
+      BorderThickness: =1
+- lblFreVar:
+    Control: Label
+    Properties:
+      Text: ="Variável"
+      X: =24
+      Y: =80
+      Width: =284
+      Height: =26
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(33, 37, 41, 1)
+      FontWeight: =FontWeight.Semibold
+- drpFreVar:
+    Control: Classic/DropDown
+    Properties:
+      Items: =[varNomes.N1, varNomes.N2, varNomes.N3, varNomes.C1, varNomes.C2]
+      X: =24
+      Y: =108
+      Width: =284
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =12
+- lblFreTipo:
+    Control: Label
+    Properties:
+      Text: ="Tipo de tabela"
+      X: =24
+      Y: =154
+      Width: =284
+      Height: =26
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(33, 37, 41, 1)
+      FontWeight: =FontWeight.Semibold
+- drpFreTipo:
+    Control: Classic/DropDown
+    Properties:
+      Items: =["Valores distintos (discreta)", "Classes (dados agrupados)"]
+      X: =24
+      Y: =182
+      Width: =284
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =12
+      Default: ="Valores distintos (discreta)"
+      DisplayMode: =If(Switch(drpFreVar.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, varNomes.C1, 4, varNomes.C2, 5, 1) >= 4, DisplayMode.Disabled, DisplayMode.Edit)
+- lblFreK:
+    Control: Label
+    Properties:
+      Text: ="N.º de classes (vazio = regra de Sturges)"
+      X: =24
+      Y: =228
+      Width: =284
+      Height: =24
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =RGBA(33, 37, 41, 1)
+      Visible: =Switch(drpFreVar.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, varNomes.C1, 4, varNomes.C2, 5, 1) <= 3 && drpFreTipo.Selected.Value = "Classes (dados agrupados)"
+- txtFreK:
+    Control: Classic/TextInput
+    Properties:
+      Default: =""
+      X: =24
+      Y: =252
+      Width: =284
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =12
+      BorderColor: =RGBA(206, 212, 218, 1)
+      HintText: |-
+        ="ex.: 6"
+      Visible: =Switch(drpFreVar.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, varNomes.C1, 4, varNomes.C2, 5, 1) <= 3 && drpFreTipo.Selected.Value = "Classes (dados agrupados)"
+- lblFreInicio:
+    Control: Label
+    Properties:
+      Text: ="Início da 1.ª classe (vazio = mínimo)"
+      X: =24
+      Y: =294
+      Width: =284
+      Height: =24
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =RGBA(33, 37, 41, 1)
+      Visible: =Switch(drpFreVar.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, varNomes.C1, 4, varNomes.C2, 5, 1) <= 3 && drpFreTipo.Selected.Value = "Classes (dados agrupados)"
+- txtFreInicio:
+    Control: Classic/TextInput
+    Properties:
+      Default: =""
+      X: =24
+      Y: =318
+      Width: =284
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =12
+      BorderColor: =RGBA(206, 212, 218, 1)
+      HintText: |-
+        ="ex.: 150"
+      Visible: =Switch(drpFreVar.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, varNomes.C1, 4, varNomes.C2, 5, 1) <= 3 && drpFreTipo.Selected.Value = "Classes (dados agrupados)"
+- lblFreAmplitude:
+    Control: Label
+    Properties:
+      Text: ="Amplitude das classes (vazio = automática)"
+      X: =24
+      Y: =360
+      Width: =284
+      Height: =24
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =RGBA(33, 37, 41, 1)
+      Visible: =Switch(drpFreVar.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, varNomes.C1, 4, varNomes.C2, 5, 1) <= 3 && drpFreTipo.Selected.Value = "Classes (dados agrupados)"
+- txtFreAmplitude:
+    Control: Classic/TextInput
+    Properties:
+      Default: =""
+      X: =24
+      Y: =384
+      Width: =284
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =12
+      BorderColor: =RGBA(206, 212, 218, 1)
+      HintText: |-
+        ="ex.: 5"
+      Visible: =Switch(drpFreVar.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, varNomes.C1, 4, varNomes.C2, 5, 1) <= 3 && drpFreTipo.Selected.Value = "Classes (dados agrupados)"
+- lblFreResumo:
+    Control: Label
+    Properties:
+      Text: |-
+        =With({_F: With(
+            {_kv: Switch(drpFreVar.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, varNomes.C1, 4, varNomes.C2, 5, 1)},
+            With(
+                {_tipo: If(_kv >= 4, 1, If(drpFreTipo.Selected.Value = "Classes (dados agrupados)", 2, 1)),
+                 // Valores numéricos (variáveis 1 a 3) e categóricos (4 e 5), sem células vazias
+                 _x: Filter(ForAll(colDados As _d, {x: Switch(_kv, 1, _d.N1, 2, _d.N2, 3, _d.N3, Blank())}), !IsBlank(x)),
+                 _g: Filter(ForAll(colDados As _d, {g: Switch(_kv, 4, _d.C1, 5, _d.C2, "")}), !IsBlank(g))},
+                With(
+                    {_n: If(_kv >= 4, CountRows(_g), CountRows(_x)), _min: Min(_x, x), _max: Max(_x, x)},
+                    With(
+                        // Classes: k pela regra de Sturges (ou o valor escrito), início no mínimo e amplitude (máx − início)/k
+                        {_kS: If(_n > 0, RoundUp(1 + Log(_n, 2) - 1E-9, 0), 0),
+                         _kU: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtFreK.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), _aU: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtFreInicio.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), _hU: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtFreAmplitude.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())},
+                        With(
+                            {_k: If(!IsBlank(_kU) && _kU >= 1, Min(RoundDown(_kU, 0), 50), Max(_kS, 1)),
+                             _a: Coalesce(_aU, _min)},
+                            With(
+                                {_h: If(!IsBlank(_hU) && _hU > 0, _hU, If(_max > _a, (_max - _a) / _k, 1))},
+                                With(
+                                    // Classe de cada valor: [Li ; Ls[ (a última é fechada à direita)
+                                    {_cls: ForAll(_x As _v, {c: With({_z: (_v.x - _a) / _h},
+                                        If(_z < -1E-9, 0, Min(RoundDown(_z + 1E-9, 0) + 1, If(_z <= _k + 1E-9, _k, _k + 1))))})},
+                                    {
+                                        Tipo: _tipo, n: _n, k: _k, kSturges: _kS, a: _a, h: _h, Minimo: _min, Maximo: _max,
+                                        Fora: If(_tipo = 2, CountRows(Filter(_cls, c < 1 || c > _k)), 0),
+                                        Linhas: If(
+                                            _n = 0, Filter(With({_t: Table({Classe: "", Centro: 0, Li: 0, Ls: 0, ni: 0}), _ntot: Sum(Table({Classe: "", Centro: 0, Li: 0, Ls: 0, ni: 0}), ni)},
+                ForAll(Sequence(CountRows(_t)) As _i,
+                    With({_r: Index(_t, _i.Value), _Ni: Sum(FirstN(_t, _i.Value), ni)},
+                        {Ordem: _i.Value, Classe: _r.Classe, Centro: _r.Centro, Li: _r.Li, Ls: _r.Ls,
+                         ni: _r.ni, fi: _r.ni / _ntot, Ni: _Ni, Fi: _Ni / _ntot}))), false),
+                                            _tipo = 2,
+                                            With({_t: ForAll(Sequence(_k) As _c,
+                                                    {Classe: "[" & With({_r: Round(_a + (_c.Value - 1) * _h, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & " ; " & With({_r: Round(_a + _c.Value * _h, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & If(_c.Value = _k, "]", "["),
+                                                     Centro: _a + (_c.Value - 0.5) * _h, Li: _a + (_c.Value - 1) * _h, Ls: _a + _c.Value * _h,
+                                                     ni: CountIf(_cls, c = _c.Value)}), _ntot: Sum(ForAll(Sequence(_k) As _c,
+                                                    {Classe: "[" & With({_r: Round(_a + (_c.Value - 1) * _h, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & " ; " & With({_r: Round(_a + _c.Value * _h, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & If(_c.Value = _k, "]", "["),
+                                                     Centro: _a + (_c.Value - 0.5) * _h, Li: _a + (_c.Value - 1) * _h, Ls: _a + _c.Value * _h,
+                                                     ni: CountIf(_cls, c = _c.Value)}), ni)},
+                ForAll(Sequence(CountRows(_t)) As _i,
+                    With({_r: Index(_t, _i.Value), _Ni: Sum(FirstN(_t, _i.Value), ni)},
+                        {Ordem: _i.Value, Classe: _r.Classe, Centro: _r.Centro, Li: _r.Li, Ls: _r.Ls,
+                         ni: _r.ni, fi: _r.ni / _ntot, Ni: _Ni, Fi: _Ni / _ntot}))),
+                                            _kv >= 4,
+                                            With({_t: ForAll(Sort(Distinct(_g, g), Value) As _d,
+                                                    {Classe: _d.Value, Centro: Blank(), Li: Blank(), Ls: Blank(), ni: CountIf(_g, g = _d.Value)}), _ntot: Sum(ForAll(Sort(Distinct(_g, g), Value) As _d,
+                                                    {Classe: _d.Value, Centro: Blank(), Li: Blank(), Ls: Blank(), ni: CountIf(_g, g = _d.Value)}), ni)},
+                ForAll(Sequence(CountRows(_t)) As _i,
+                    With({_r: Index(_t, _i.Value), _Ni: Sum(FirstN(_t, _i.Value), ni)},
+                        {Ordem: _i.Value, Classe: _r.Classe, Centro: _r.Centro, Li: _r.Li, Ls: _r.Ls,
+                         ni: _r.ni, fi: _r.ni / _ntot, Ni: _Ni, Fi: _Ni / _ntot}))),
+                                            With({_t: ForAll(Sort(Distinct(_x, x), Value) As _d,
+                                                    {Classe: With({_v: _d.Value}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT")))), Centro: _d.Value, Li: Blank(), Ls: Blank(),
+                                                     ni: CountIf(_x, x = _d.Value)}), _ntot: Sum(ForAll(Sort(Distinct(_x, x), Value) As _d,
+                                                    {Classe: With({_v: _d.Value}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT")))), Centro: _d.Value, Li: Blank(), Ls: Blank(),
+                                                     ni: CountIf(_x, x = _d.Value)}), ni)},
+                ForAll(Sequence(CountRows(_t)) As _i,
+                    With({_r: Index(_t, _i.Value), _Ni: Sum(FirstN(_t, _i.Value), ni)},
+                        {Ordem: _i.Value, Classe: _r.Classe, Centro: _r.Centro, Li: _r.Li, Ls: _r.Ls,
+                         ni: _r.ni, fi: _r.ni / _ntot, Ni: _Ni, Fi: _Ni / _ntot})))
+                                        )
+                                    }
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )}, If(_F.n = 0, "Não há valores para a variável escolhida.",
+            "n = " & _F.n & "   ·   " & CountRows(_F.Linhas) & If(_F.Tipo = 2, " classes", " valores distintos") &
+            If(_F.Tipo = 2,
+                Char(10) & "Regra de Sturges: k = ⌈1 + log₂ n⌉ = " & _F.kSturges &
+                Char(10) & "Amplitude das classes: h = " & With({_r: Round(_F.h, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) &
+                "   ·   1.ª classe começa em " & With({_r: Round(_F.a, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) &
+                Char(10) & "Mínimo = " & With({_r: Round(_F.Minimo, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & "   ·   Máximo = " & With({_r: Round(_F.Maximo, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) &
+                If(_F.Fora > 0, Char(10) & "⚠ " & _F.Fora & " valor(es) ficaram fora das classes: ajuste o início ou a amplitude.", ""),
+                "")))
+      X: =24
+      Y: =430
+      Width: =284
+      Height: =150
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =If(Find("⚠", Self.Text) > 0, RGBA(176, 0, 32, 1), RGBA(33, 37, 41, 1))
+      VerticalAlign: =VerticalAlign.Top
+- lblFreNotas:
+    Control: Label
+    Properties:
+      Text: ="nᵢ = frequência absoluta · fᵢ = nᵢ / n (relativa)" & Char(10) & "Nᵢ e Fᵢ = frequências acumuladas (absoluta e relativa)" & Char(10) & "Classes [Lᵢ ; Lᵢ₊₁[ fechadas à esquerda; a última é fechada dos dois lados."
+      X: =24
+      Y: =640
+      Width: =284
+      Height: =100
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =RGBA(90, 98, 106, 1)
+      VerticalAlign: =VerticalAlign.Top
+- lblFreCol1:
+    Control: Label
+    Properties:
+      Text: ="Classe / valor"
+      X: =332
+      Y: =72
+      Width: =170
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(255, 255, 255, 1)
+      FontWeight: =FontWeight.Semibold
+      Fill: =RGBA(31, 78, 121, 1)
+      Align: =Align.Left
+      PaddingLeft: =6
+      PaddingRight: =6
+- lblFreCol2:
+    Control: Label
+    Properties:
+      Text: ="nᵢ"
+      X: =502
+      Y: =72
+      Width: =50
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(255, 255, 255, 1)
+      FontWeight: =FontWeight.Semibold
+      Fill: =RGBA(31, 78, 121, 1)
+      Align: =Align.Right
+      PaddingLeft: =6
+      PaddingRight: =6
+- lblFreCol3:
+    Control: Label
+    Properties:
+      Text: ="fᵢ"
+      X: =552
+      Y: =72
+      Width: =70
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(255, 255, 255, 1)
+      FontWeight: =FontWeight.Semibold
+      Fill: =RGBA(31, 78, 121, 1)
+      Align: =Align.Right
+      PaddingLeft: =6
+      PaddingRight: =6
+- lblFreCol4:
+    Control: Label
+    Properties:
+      Text: ="fᵢ (%)"
+      X: =622
+      Y: =72
+      Width: =66
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(255, 255, 255, 1)
+      FontWeight: =FontWeight.Semibold
+      Fill: =RGBA(31, 78, 121, 1)
+      Align: =Align.Right
+      PaddingLeft: =6
+      PaddingRight: =6
+- lblFreCol5:
+    Control: Label
+    Properties:
+      Text: ="Nᵢ"
+      X: =688
+      Y: =72
+      Width: =50
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(255, 255, 255, 1)
+      FontWeight: =FontWeight.Semibold
+      Fill: =RGBA(31, 78, 121, 1)
+      Align: =Align.Right
+      PaddingLeft: =6
+      PaddingRight: =6
+- lblFreCol6:
+    Control: Label
+    Properties:
+      Text: ="Fᵢ"
+      X: =738
+      Y: =72
+      Width: =64
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(255, 255, 255, 1)
+      FontWeight: =FontWeight.Semibold
+      Fill: =RGBA(31, 78, 121, 1)
+      Align: =Align.Right
+      PaddingLeft: =6
+      PaddingRight: =6
+- galFrequencias:
+    Control: Gallery
+    Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
+    Properties:
+      Items: |-
+        =With({_F: With(
+            {_kv: Switch(drpFreVar.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, varNomes.C1, 4, varNomes.C2, 5, 1)},
+            With(
+                {_tipo: If(_kv >= 4, 1, If(drpFreTipo.Selected.Value = "Classes (dados agrupados)", 2, 1)),
+                 // Valores numéricos (variáveis 1 a 3) e categóricos (4 e 5), sem células vazias
+                 _x: Filter(ForAll(colDados As _d, {x: Switch(_kv, 1, _d.N1, 2, _d.N2, 3, _d.N3, Blank())}), !IsBlank(x)),
+                 _g: Filter(ForAll(colDados As _d, {g: Switch(_kv, 4, _d.C1, 5, _d.C2, "")}), !IsBlank(g))},
+                With(
+                    {_n: If(_kv >= 4, CountRows(_g), CountRows(_x)), _min: Min(_x, x), _max: Max(_x, x)},
+                    With(
+                        // Classes: k pela regra de Sturges (ou o valor escrito), início no mínimo e amplitude (máx − início)/k
+                        {_kS: If(_n > 0, RoundUp(1 + Log(_n, 2) - 1E-9, 0), 0),
+                         _kU: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtFreK.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), _aU: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtFreInicio.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), _hU: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtFreAmplitude.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())},
+                        With(
+                            {_k: If(!IsBlank(_kU) && _kU >= 1, Min(RoundDown(_kU, 0), 50), Max(_kS, 1)),
+                             _a: Coalesce(_aU, _min)},
+                            With(
+                                {_h: If(!IsBlank(_hU) && _hU > 0, _hU, If(_max > _a, (_max - _a) / _k, 1))},
+                                With(
+                                    // Classe de cada valor: [Li ; Ls[ (a última é fechada à direita)
+                                    {_cls: ForAll(_x As _v, {c: With({_z: (_v.x - _a) / _h},
+                                        If(_z < -1E-9, 0, Min(RoundDown(_z + 1E-9, 0) + 1, If(_z <= _k + 1E-9, _k, _k + 1))))})},
+                                    {
+                                        Tipo: _tipo, n: _n, k: _k, kSturges: _kS, a: _a, h: _h, Minimo: _min, Maximo: _max,
+                                        Fora: If(_tipo = 2, CountRows(Filter(_cls, c < 1 || c > _k)), 0),
+                                        Linhas: If(
+                                            _n = 0, Filter(With({_t: Table({Classe: "", Centro: 0, Li: 0, Ls: 0, ni: 0}), _ntot: Sum(Table({Classe: "", Centro: 0, Li: 0, Ls: 0, ni: 0}), ni)},
+                ForAll(Sequence(CountRows(_t)) As _i,
+                    With({_r: Index(_t, _i.Value), _Ni: Sum(FirstN(_t, _i.Value), ni)},
+                        {Ordem: _i.Value, Classe: _r.Classe, Centro: _r.Centro, Li: _r.Li, Ls: _r.Ls,
+                         ni: _r.ni, fi: _r.ni / _ntot, Ni: _Ni, Fi: _Ni / _ntot}))), false),
+                                            _tipo = 2,
+                                            With({_t: ForAll(Sequence(_k) As _c,
+                                                    {Classe: "[" & With({_r: Round(_a + (_c.Value - 1) * _h, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & " ; " & With({_r: Round(_a + _c.Value * _h, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & If(_c.Value = _k, "]", "["),
+                                                     Centro: _a + (_c.Value - 0.5) * _h, Li: _a + (_c.Value - 1) * _h, Ls: _a + _c.Value * _h,
+                                                     ni: CountIf(_cls, c = _c.Value)}), _ntot: Sum(ForAll(Sequence(_k) As _c,
+                                                    {Classe: "[" & With({_r: Round(_a + (_c.Value - 1) * _h, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & " ; " & With({_r: Round(_a + _c.Value * _h, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & If(_c.Value = _k, "]", "["),
+                                                     Centro: _a + (_c.Value - 0.5) * _h, Li: _a + (_c.Value - 1) * _h, Ls: _a + _c.Value * _h,
+                                                     ni: CountIf(_cls, c = _c.Value)}), ni)},
+                ForAll(Sequence(CountRows(_t)) As _i,
+                    With({_r: Index(_t, _i.Value), _Ni: Sum(FirstN(_t, _i.Value), ni)},
+                        {Ordem: _i.Value, Classe: _r.Classe, Centro: _r.Centro, Li: _r.Li, Ls: _r.Ls,
+                         ni: _r.ni, fi: _r.ni / _ntot, Ni: _Ni, Fi: _Ni / _ntot}))),
+                                            _kv >= 4,
+                                            With({_t: ForAll(Sort(Distinct(_g, g), Value) As _d,
+                                                    {Classe: _d.Value, Centro: Blank(), Li: Blank(), Ls: Blank(), ni: CountIf(_g, g = _d.Value)}), _ntot: Sum(ForAll(Sort(Distinct(_g, g), Value) As _d,
+                                                    {Classe: _d.Value, Centro: Blank(), Li: Blank(), Ls: Blank(), ni: CountIf(_g, g = _d.Value)}), ni)},
+                ForAll(Sequence(CountRows(_t)) As _i,
+                    With({_r: Index(_t, _i.Value), _Ni: Sum(FirstN(_t, _i.Value), ni)},
+                        {Ordem: _i.Value, Classe: _r.Classe, Centro: _r.Centro, Li: _r.Li, Ls: _r.Ls,
+                         ni: _r.ni, fi: _r.ni / _ntot, Ni: _Ni, Fi: _Ni / _ntot}))),
+                                            With({_t: ForAll(Sort(Distinct(_x, x), Value) As _d,
+                                                    {Classe: With({_v: _d.Value}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT")))), Centro: _d.Value, Li: Blank(), Ls: Blank(),
+                                                     ni: CountIf(_x, x = _d.Value)}), _ntot: Sum(ForAll(Sort(Distinct(_x, x), Value) As _d,
+                                                    {Classe: With({_v: _d.Value}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT")))), Centro: _d.Value, Li: Blank(), Ls: Blank(),
+                                                     ni: CountIf(_x, x = _d.Value)}), ni)},
+                ForAll(Sequence(CountRows(_t)) As _i,
+                    With({_r: Index(_t, _i.Value), _Ni: Sum(FirstN(_t, _i.Value), ni)},
+                        {Ordem: _i.Value, Classe: _r.Classe, Centro: _r.Centro, Li: _r.Li, Ls: _r.Ls,
+                         ni: _r.ni, fi: _r.ni / _ntot, Ni: _Ni, Fi: _Ni / _ntot})))
+                                        )
+                                    }
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )}, _F.Linhas)
+      X: =332
+      Y: =106
+      Width: =486
+      Height: =650
+      TemplateSize: =30
+      TemplatePadding: =0
+      ShowScrollbar: =true
+      BorderColor: =RGBA(206, 212, 218, 1)
+      BorderThickness: =1
+      Fill: =RGBA(255, 255, 255, 1)
+      TemplateFill: =If(Mod(ThisItem.Ordem, 2) = 1, RGBA(255, 255, 255, 1), RGBA(243, 246, 250, 1))
+    Children:
+      - lblFreGal1:
+          Control: Label
+          Properties:
+            Text: =ThisItem.Classe
+            X: =0
+            Y: =0
+            Width: =170
+            Height: =30
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Color: =RGBA(33, 37, 41, 1)
+            Align: =Align.Left
+            PaddingLeft: =6
+            PaddingRight: =6
+      - lblFreGal2:
+          Control: Label
+          Properties:
+            Text: =Text(ThisItem.ni, "[$-en-US]0", "pt-PT")
+            X: =170
+            Y: =0
+            Width: =50
+            Height: =30
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Color: =RGBA(33, 37, 41, 1)
+            Align: =Align.Right
+            PaddingLeft: =6
+            PaddingRight: =6
+      - lblFreGal3:
+          Control: Label
+          Properties:
+            Text: |-
+              =With({_v: ThisItem.fi}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT")))
+            X: =220
+            Y: =0
+            Width: =70
+            Height: =30
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Color: =RGBA(33, 37, 41, 1)
+            Align: =Align.Right
+            PaddingLeft: =6
+            PaddingRight: =6
+      - lblFreGal4:
+          Control: Label
+          Properties:
+            Text: |-
+              =With({_v: ThisItem.fi * 100}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 0.005, 0, _v), "[$-en-US]#,##0.00", "pt-PT")))
+            X: =290
+            Y: =0
+            Width: =66
+            Height: =30
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Color: =RGBA(33, 37, 41, 1)
+            Align: =Align.Right
+            PaddingLeft: =6
+            PaddingRight: =6
+      - lblFreGal5:
+          Control: Label
+          Properties:
+            Text: =Text(ThisItem.Ni, "[$-en-US]0", "pt-PT")
+            X: =356
+            Y: =0
+            Width: =50
+            Height: =30
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Color: =RGBA(33, 37, 41, 1)
+            Align: =Align.Right
+            PaddingLeft: =6
+            PaddingRight: =6
+      - lblFreGal6:
+          Control: Label
+          Properties:
+            Text: |-
+              =With({_v: ThisItem.Fi}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT")))
+            X: =406
+            Y: =0
+            Width: =64
+            Height: =30
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Color: =RGBA(33, 37, 41, 1)
+            Align: =Align.Right
+            PaddingLeft: =6
+            PaddingRight: =6
+- imgFreGrafico:
+    Control: Image
+    Properties:
+      Image: |-
+        =With({_F: With(
+            {_kv: Switch(drpFreVar.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, varNomes.C1, 4, varNomes.C2, 5, 1)},
+            With(
+                {_tipo: If(_kv >= 4, 1, If(drpFreTipo.Selected.Value = "Classes (dados agrupados)", 2, 1)),
+                 // Valores numéricos (variáveis 1 a 3) e categóricos (4 e 5), sem células vazias
+                 _x: Filter(ForAll(colDados As _d, {x: Switch(_kv, 1, _d.N1, 2, _d.N2, 3, _d.N3, Blank())}), !IsBlank(x)),
+                 _g: Filter(ForAll(colDados As _d, {g: Switch(_kv, 4, _d.C1, 5, _d.C2, "")}), !IsBlank(g))},
+                With(
+                    {_n: If(_kv >= 4, CountRows(_g), CountRows(_x)), _min: Min(_x, x), _max: Max(_x, x)},
+                    With(
+                        // Classes: k pela regra de Sturges (ou o valor escrito), início no mínimo e amplitude (máx − início)/k
+                        {_kS: If(_n > 0, RoundUp(1 + Log(_n, 2) - 1E-9, 0), 0),
+                         _kU: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtFreK.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), _aU: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtFreInicio.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), _hU: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtFreAmplitude.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())},
+                        With(
+                            {_k: If(!IsBlank(_kU) && _kU >= 1, Min(RoundDown(_kU, 0), 50), Max(_kS, 1)),
+                             _a: Coalesce(_aU, _min)},
+                            With(
+                                {_h: If(!IsBlank(_hU) && _hU > 0, _hU, If(_max > _a, (_max - _a) / _k, 1))},
+                                With(
+                                    // Classe de cada valor: [Li ; Ls[ (a última é fechada à direita)
+                                    {_cls: ForAll(_x As _v, {c: With({_z: (_v.x - _a) / _h},
+                                        If(_z < -1E-9, 0, Min(RoundDown(_z + 1E-9, 0) + 1, If(_z <= _k + 1E-9, _k, _k + 1))))})},
+                                    {
+                                        Tipo: _tipo, n: _n, k: _k, kSturges: _kS, a: _a, h: _h, Minimo: _min, Maximo: _max,
+                                        Fora: If(_tipo = 2, CountRows(Filter(_cls, c < 1 || c > _k)), 0),
+                                        Linhas: If(
+                                            _n = 0, Filter(With({_t: Table({Classe: "", Centro: 0, Li: 0, Ls: 0, ni: 0}), _ntot: Sum(Table({Classe: "", Centro: 0, Li: 0, Ls: 0, ni: 0}), ni)},
+                ForAll(Sequence(CountRows(_t)) As _i,
+                    With({_r: Index(_t, _i.Value), _Ni: Sum(FirstN(_t, _i.Value), ni)},
+                        {Ordem: _i.Value, Classe: _r.Classe, Centro: _r.Centro, Li: _r.Li, Ls: _r.Ls,
+                         ni: _r.ni, fi: _r.ni / _ntot, Ni: _Ni, Fi: _Ni / _ntot}))), false),
+                                            _tipo = 2,
+                                            With({_t: ForAll(Sequence(_k) As _c,
+                                                    {Classe: "[" & With({_r: Round(_a + (_c.Value - 1) * _h, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & " ; " & With({_r: Round(_a + _c.Value * _h, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & If(_c.Value = _k, "]", "["),
+                                                     Centro: _a + (_c.Value - 0.5) * _h, Li: _a + (_c.Value - 1) * _h, Ls: _a + _c.Value * _h,
+                                                     ni: CountIf(_cls, c = _c.Value)}), _ntot: Sum(ForAll(Sequence(_k) As _c,
+                                                    {Classe: "[" & With({_r: Round(_a + (_c.Value - 1) * _h, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & " ; " & With({_r: Round(_a + _c.Value * _h, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & If(_c.Value = _k, "]", "["),
+                                                     Centro: _a + (_c.Value - 0.5) * _h, Li: _a + (_c.Value - 1) * _h, Ls: _a + _c.Value * _h,
+                                                     ni: CountIf(_cls, c = _c.Value)}), ni)},
+                ForAll(Sequence(CountRows(_t)) As _i,
+                    With({_r: Index(_t, _i.Value), _Ni: Sum(FirstN(_t, _i.Value), ni)},
+                        {Ordem: _i.Value, Classe: _r.Classe, Centro: _r.Centro, Li: _r.Li, Ls: _r.Ls,
+                         ni: _r.ni, fi: _r.ni / _ntot, Ni: _Ni, Fi: _Ni / _ntot}))),
+                                            _kv >= 4,
+                                            With({_t: ForAll(Sort(Distinct(_g, g), Value) As _d,
+                                                    {Classe: _d.Value, Centro: Blank(), Li: Blank(), Ls: Blank(), ni: CountIf(_g, g = _d.Value)}), _ntot: Sum(ForAll(Sort(Distinct(_g, g), Value) As _d,
+                                                    {Classe: _d.Value, Centro: Blank(), Li: Blank(), Ls: Blank(), ni: CountIf(_g, g = _d.Value)}), ni)},
+                ForAll(Sequence(CountRows(_t)) As _i,
+                    With({_r: Index(_t, _i.Value), _Ni: Sum(FirstN(_t, _i.Value), ni)},
+                        {Ordem: _i.Value, Classe: _r.Classe, Centro: _r.Centro, Li: _r.Li, Ls: _r.Ls,
+                         ni: _r.ni, fi: _r.ni / _ntot, Ni: _Ni, Fi: _Ni / _ntot}))),
+                                            With({_t: ForAll(Sort(Distinct(_x, x), Value) As _d,
+                                                    {Classe: With({_v: _d.Value}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT")))), Centro: _d.Value, Li: Blank(), Ls: Blank(),
+                                                     ni: CountIf(_x, x = _d.Value)}), _ntot: Sum(ForAll(Sort(Distinct(_x, x), Value) As _d,
+                                                    {Classe: With({_v: _d.Value}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT")))), Centro: _d.Value, Li: Blank(), Ls: Blank(),
+                                                     ni: CountIf(_x, x = _d.Value)}), ni)},
+                ForAll(Sequence(CountRows(_t)) As _i,
+                    With({_r: Index(_t, _i.Value), _Ni: Sum(FirstN(_t, _i.Value), ni)},
+                        {Ordem: _i.Value, Classe: _r.Classe, Centro: _r.Centro, Li: _r.Li, Ls: _r.Ls,
+                         ni: _r.ni, fi: _r.ni / _ntot, Ni: _Ni, Fi: _Ni / _ntot})))
+                                        )
+                                    }
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )},
+            If(_F.Tipo = 2,
+                "data:image/svg+xml;utf8," & EncodeUrl(With({_lin: _F.Linhas, _k: CountRows(_F.Linhas)},
+            With({_mx: Max(Max(_lin, ni), 1)}, With({_passo: Max(1, With({_e: Power(10, RoundDown(Log(_mx / 5, 10) + 1E-9, 0))}, With({_f: _mx / 5 / _e}, If(_f <= 1, 1, _f <= 2, 2, _f <= 5, 5, 10) * _e)))}, With({_ymax: _passo * RoundUp(_mx * 1.08 / _passo - 1E-9, 0)},
+            With({_bw: 550 / Max(_k, 1), _salto: RoundUp(_k / 10, 0)},
+            "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 400' font-family='Segoe UI, Arial, sans-serif'>" &
+            "<rect x='0' y='0' width='640' height='400' fill='white'/>" &
+            "<text x='320' y='22' text-anchor='middle' font-size='15' font-weight='600' fill='rgb(33,37,41)'>" & Substitute(Substitute(Substitute("Histograma — " & drpFreVar.Selected.Value, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & "</text>" &
+            Concat(Sequence(RoundDown(_ymax / _passo + 1E-9, 0) + 1, 0) As _t,
+                With({_y: 330 - _t.Value * _passo / _ymax * 290},
+                    "<line x1='" & Text(Round(70, 2), "[$-en-US]0.00", "en-US") & "' y1='" & Text(Round(_y, 2), "[$-en-US]0.00", "en-US") & "' x2='" & Text(Round(620, 2), "[$-en-US]0.00", "en-US") & "' y2='" & Text(Round(_y, 2), "[$-en-US]0.00", "en-US") & "' stroke='rgb(225,229,234)'/>" &
+                    "<text x='" & Text(Round(62, 2), "[$-en-US]0.00", "en-US") & "' y='" & Text(Round(_y + 4, 2), "[$-en-US]0.00", "en-US") & "' text-anchor='end' font-size='11' fill='rgb(90,98,106)'>" & Text(_t.Value * _passo, "[$-en-US]0", "pt-PT") & "</text>")) &
+            "<text transform='translate(18,185) rotate(-90)' text-anchor='middle' font-size='12' fill='rgb(90,98,106)'>Frequência absoluta (nᵢ)</text>" &
+            // Barras contíguas: largura = amplitude da classe, altura proporcional a nᵢ
+            Concat(Sequence(_k) As _i, With({_r: Index(_lin, _i.Value)},
+                With({_hb: _r.ni / _ymax * 290},
+                    "<rect x='" & Text(Round(70 + (_i.Value - 1) * _bw, 2), "[$-en-US]0.00", "en-US") & "' y='" & Text(Round(330 - _hb, 2), "[$-en-US]0.00", "en-US") & "' width='" & Text(Round(_bw, 2), "[$-en-US]0.00", "en-US") &
+                    "' height='" & Text(Round(_hb, 2), "[$-en-US]0.00", "en-US") & "' fill='rgb(31,78,121)' stroke='white' stroke-width='1'/>" &
+                    If(_r.ni > 0, "<text x='" & Text(Round(70 + (_i.Value - 0.5) * _bw, 2), "[$-en-US]0.00", "en-US") & "' y='" & Text(Round(330 - _hb - 4, 2), "[$-en-US]0.00", "en-US") & "' text-anchor='middle' font-size='10' fill='rgb(33,37,41)'>" & Text(_r.ni, "[$-en-US]0", "pt-PT") & "</text>", "")))) &
+            // Limites das classes no eixo horizontal (só alguns, se forem muitas classes)
+            Concat(Sequence(_k + 1, 0) As _j,
+                If(Mod(_j.Value, _salto) = 0 || _j.Value = _k,
+                    "<text x='" & Text(Round(70 + _j.Value * _bw, 2), "[$-en-US]0.00", "en-US") & "' y='" & Text(Round(346, 2), "[$-en-US]0.00", "en-US") & "' text-anchor='middle' font-size='10' fill='rgb(90,98,106)'>" & With({_r: Round(_F.a + _j.Value * _F.h, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & "</text>", "")) &
+            "<line x1='70' x2='620' y1='330' y2='330' stroke='rgb(90,98,106)'/>" &
+            "<text x='345' y='370' text-anchor='middle' font-size='12' fill='rgb(90,98,106)'>" & Substitute(Substitute(Substitute(drpFreVar.Selected.Value, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & "</text>" &
+            "</svg>"
+            )))))),
+                "data:image/svg+xml;utf8," & EncodeUrl(With({_lin: _F.Linhas, _k: CountRows(_F.Linhas)},
+            With({_mx: Max(Max(_lin, ni), 1)}, With({_passo: Max(1, With({_e: Power(10, RoundDown(Log(_mx / 5, 10) + 1E-9, 0))}, With({_f: _mx / 5 / _e}, If(_f <= 1, 1, _f <= 2, 2, _f <= 5, 5, 10) * _e)))}, With({_ymax: _passo * RoundUp(_mx * 1.08 / _passo - 1E-9, 0)},
+            With({_slot: 550 / Max(_k, 1), _salto: RoundUp(_k / 12, 0)},
+            "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 400' font-family='Segoe UI, Arial, sans-serif'>" &
+            "<rect x='0' y='0' width='640' height='400' fill='white'/>" &
+            "<text x='320' y='22' text-anchor='middle' font-size='15' font-weight='600' fill='rgb(33,37,41)'>" & Substitute(Substitute(Substitute("Diagrama de barras — " & drpFreVar.Selected.Value, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & "</text>" &
+            Concat(Sequence(RoundDown(_ymax / _passo + 1E-9, 0) + 1, 0) As _t,
+                With({_y: 330 - _t.Value * _passo / _ymax * 290},
+                    "<line x1='" & Text(Round(70, 2), "[$-en-US]0.00", "en-US") & "' y1='" & Text(Round(_y, 2), "[$-en-US]0.00", "en-US") & "' x2='" & Text(Round(620, 2), "[$-en-US]0.00", "en-US") & "' y2='" & Text(Round(_y, 2), "[$-en-US]0.00", "en-US") & "' stroke='rgb(225,229,234)'/>" &
+                    "<text x='" & Text(Round(62, 2), "[$-en-US]0.00", "en-US") & "' y='" & Text(Round(_y + 4, 2), "[$-en-US]0.00", "en-US") & "' text-anchor='end' font-size='11' fill='rgb(90,98,106)'>" & Text(_t.Value * _passo, "[$-en-US]0", "pt-PT") & "</text>")) &
+            "<text transform='translate(18,185) rotate(-90)' text-anchor='middle' font-size='12' fill='rgb(90,98,106)'>Frequência absoluta (nᵢ)</text>" &
+            // Uma barra por valor/categoria (70 % do espaço disponível, no máximo 90 px)
+            Concat(Sequence(_k) As _i, With({_r: Index(_lin, _i.Value)},
+                With({_hb: _r.ni / _ymax * 290, _xc: 70 + (_i.Value - 0.5) * _slot, _lb: Min(0.7 * _slot, 90)},
+                    "<rect x='" & Text(Round(_xc - _lb / 2, 2), "[$-en-US]0.00", "en-US") & "' y='" & Text(Round(330 - _hb, 2), "[$-en-US]0.00", "en-US") & "' width='" & Text(Round(_lb, 2), "[$-en-US]0.00", "en-US") &
+                    "' height='" & Text(Round(_hb, 2), "[$-en-US]0.00", "en-US") & "' fill='rgb(46,117,182)'/>" &
+                    "<text x='" & Text(Round(_xc, 2), "[$-en-US]0.00", "en-US") & "' y='" & Text(Round(330 - _hb - 4, 2), "[$-en-US]0.00", "en-US") & "' text-anchor='middle' font-size='10' fill='rgb(33,37,41)'>" & Text(_r.ni, "[$-en-US]0", "pt-PT") & "</text>" &
+                    If(Mod(_i.Value - 1, _salto) = 0, "<text x='" & Text(Round(_xc, 2), "[$-en-US]0.00", "en-US") & "' y='" & Text(Round(346, 2), "[$-en-US]0.00", "en-US") & "' text-anchor='middle' font-size='10' fill='rgb(90,98,106)'>" & Substitute(Substitute(Substitute(If(Len(_r.Classe) > 12, Left(_r.Classe, 11) & "…", _r.Classe), "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & "</text>", "")))) &
+            "<line x1='70' x2='620' y1='330' y2='330' stroke='rgb(90,98,106)'/>" &
+            "<text x='345' y='370' text-anchor='middle' font-size='12' fill='rgb(90,98,106)'>" & Substitute(Substitute(Substitute(drpFreVar.Selected.Value, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & "</text>" &
+            "</svg>"
+            ))))))))
+      X: =834
+      Y: =72
+      Width: =516
+      Height: =322
+      ImagePosition: =ImagePosition.Fit
+      Fill: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(206, 212, 218, 1)
+      BorderThickness: =1
