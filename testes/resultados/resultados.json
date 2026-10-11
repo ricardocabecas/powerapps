@@ -1,6 +1,6 @@
 {
- "total": 3220,
- "ok": 3220,
+ "total": 3958,
+ "ok": 3958,
  "sintaxe_falhas": [],
  "fases": {
   "Fase 1 — Entrada de dados": [
@@ -909,6 +909,178 @@
     "caso": "dispersão «decimais_negativos»",
     "ok": true,
     "detalhe": "SVG válido, 5 pontos, com reta"
+   }
+  ],
+  "Fase 5 — Inferência": [
+   {
+    "caso": "teste t «1amostra_altura_170_bilateral»",
+    "ok": true,
+    "detalhe": "t=-0.28956340830869276, gl=19, p=0.775286438213695 (scipy 0.7752864382137891)"
+   },
+   {
+    "caso": "relatório t «1amostra_altura_170_bilateral»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "teste t «1amostra_altura_165_direita»",
+    "ok": true,
+    "detalhe": "t=2.3428312126793687, gl=19, p=0.01508741001969021 (scipy 0.01508741001968566)"
+   },
+   {
+    "caso": "relatório t «1amostra_altura_165_direita»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "teste t «1amostra_altura_172_esquerda»",
+    "ok": true,
+    "detalhe": "t=-1.6057607188027234, gl=19, p=0.062409487445890956 (scipy 0.062409487445887805)"
+   },
+   {
+    "caso": "relatório t «1amostra_altura_172_esquerda»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "teste t «1amostra_n2»",
+    "ok": true,
+    "detalhe": "t=15, gl=1, p=0.04237860926989309 (scipy 0.04237860926989283)"
+   },
+   {
+    "caso": "relatório t «1amostra_n2»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "teste t «1amostra_n1»",
+    "ok": true,
+    "detalhe": "t=None, gl=None, p=None (scipy None)"
+   },
+   {
+    "caso": "relatório t «1amostra_n1»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "teste t «1amostra_variancia_nula»",
+    "ok": true,
+    "detalhe": "t=None, gl=3, p=None (scipy None)"
+   },
+   {
+    "caso": "relatório t «1amostra_variancia_nula»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "teste t «ind_altura_sexo_FM»",
+    "ok": true,
+    "detalhe": "t=-6.5533319422692795, gl=18, p=3.702650750247683e-06 (scipy 3.702650750255874e-06)"
+   },
+   {
+    "caso": "relatório t «ind_altura_sexo_FM»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "teste t «ind_altura_sexo_FM_esquerda»",
+    "ok": true,
+    "detalhe": "t=-6.5533319422692795, gl=18, p=1.8513253751238415e-06 (scipy 1.851325375127937e-06)"
+   },
+   {
+    "caso": "relatório t «ind_altura_sexo_FM_esquerda»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "teste t «welch_altura_sexo_FM»",
+    "ok": true,
+    "detalhe": "t=-6.5533319422692795, gl=17.888962171928235, p=3.818401627395311e-06 (scipy 3.8184016274034145e-06)"
+   },
+   {
+    "caso": "relatório t «welch_altura_sexo_FM»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "teste t «welch_d0_menos10_direita»",
+    "ok": true,
+    "detalhe": "t=-1.8387046456726777, gl=17.888962171928235, p=0.9586899134854601 (scipy 0.9586899134854648)"
+   },
+   {
+    "caso": "relatório t «welch_d0_menos10_direita»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "teste t «ind_duas_colunas»",
+    "ok": true,
+    "detalhe": "t=3.3234702564419836, gl=9, p=0.008891040066831049 (scipy 0.008891040066830983)"
+   },
+   {
+    "caso": "relatório t «ind_duas_colunas»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "teste t «welch_duas_colunas_desiguais»",
+    "ok": true,
+    "detalhe": "t=0.30562873784578987, gl=6.032273852579569, p=0.7701597909404814 (scipy 0.7701597909404835)"
+   },
+   {
+    "caso": "relatório t «welch_duas_colunas_desiguais»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "teste t «welch_gl_fracionarios_n2»",
+    "ok": true,
+    "detalhe": "t=-3.3443794565778315, gl=2.027593804617546, p=0.07749387508187552 (scipy 0.07749387493182988)"
+   },
+   {
+    "caso": "relatório t «welch_gl_fracionarios_n2»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "teste t «ind_um_grupo_vazio»",
+    "ok": true,
+    "detalhe": "t=None, gl=None, p=None (scipy None)"
+   },
+   {
+    "caso": "relatório t «ind_um_grupo_vazio»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "teste t «emparelhado_peso_altura»",
+    "ok": true,
+    "detalhe": "t=9.988467827373201, gl=19, p=5.361750091034704e-09 (scipy 5.361750091066275e-09)"
+   },
+   {
+    "caso": "relatório t «emparelhado_peso_altura»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "teste t «emparelhado_antes_depois»",
+    "ok": true,
+    "detalhe": "t=2.4445060351935237, gl=5, p=0.029164651403131372 (scipy 0.029164651403131323)"
+   },
+   {
+    "caso": "relatório t «emparelhado_antes_depois»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "teste t «emparelhado_com_faltas»",
+    "ok": true,
+    "detalhe": "t=1.1470786693528088, gl=2, p=0.3700592116512881 (scipy 0.37005921165128797)"
+   },
+   {
+    "caso": "relatório t «emparelhado_com_faltas»",
+    "ok": true,
+    "detalhe": "ok"
    }
   ]
  }

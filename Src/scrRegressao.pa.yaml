@@ -272,7 +272,7 @@ Screens:
               =With({_R: With(
                       {_p: Filter(ForAll(colDados As _d, {x: Switch(Switch(drpRegX.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, 1), 1, _d.N1, 2, _d.N2, _d.N3), y: Switch(Switch(drpRegY.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, 1), 1, _d.N1, 2, _d.N2, _d.N3)}), !IsBlank(x) && !IsBlank(y)), _x0: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtRegX0.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())},
                       With({_n: CountRows(_p)},
-                      With({_mx: Average(_p, x), _my: Average(_p, y)},
+                      With({_mx: If(_n > 0, Average(_p, x)), _my: If(_n > 0, Average(_p, y))},
                       With(
                           // Somas de quadrados e de produtos dos desvios em relação às médias
                           {_Sxx: Sum(_p, Power(x - _mx, 2)), _Syy: Sum(_p, Power(y - _my, 2)), _Sxy: Sum(_p, (x - _mx) * (y - _my))},
@@ -348,7 +348,7 @@ Screens:
               =With({_R: With(
                   {_p: Filter(ForAll(colDados As _d, {x: Switch(Switch(drpRegX.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, 1), 1, _d.N1, 2, _d.N2, _d.N3), y: Switch(Switch(drpRegY.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, 1), 1, _d.N1, 2, _d.N2, _d.N3)}), !IsBlank(x) && !IsBlank(y)), _x0: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtRegX0.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())},
                   With({_n: CountRows(_p)},
-                  With({_mx: Average(_p, x), _my: Average(_p, y)},
+                  With({_mx: If(_n > 0, Average(_p, x)), _my: If(_n > 0, Average(_p, y))},
                   With(
                       // Somas de quadrados e de produtos dos desvios em relação às médias
                       {_Sxx: Sum(_p, Power(x - _mx, 2)), _Syy: Sum(_p, Power(y - _my, 2)), _Sxy: Sum(_p, (x - _mx) * (y - _my))},

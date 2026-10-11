@@ -105,7 +105,7 @@ def colunas(drp_var="drpDesVar", drp_grupo="drpDesGrupo", drp_metodo="drpDesQuar
                 {{Grupo: "Total"}}),
             // Uma coluna por grupo (valores distintos não vazios da variável categórica)
             // (sem agrupamento a lista de grupos fica vazia)
-            ForAll(If(_kg = 0, Filter(Distinct(_dados, g), false),
+            ForAll(If(_kg = 0, FirstN(Distinct(_dados, g), 0),
                       Sort(Filter(Distinct(_dados, g), !IsBlank(Value)), Value)) As _G,
                 Patch({resultados("ForAll(Filter(_dados, g = _G.Value), {x: x})", metodo).replace(chr(10), chr(10) + "                ")},
                     {{Grupo: _G.Value}}))

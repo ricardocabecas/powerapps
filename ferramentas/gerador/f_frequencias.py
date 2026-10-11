@@ -48,7 +48,7 @@ def tabela(drp_var="drpFreVar", drp_tipo="drpFreTipo", txt_k="txtFreK", txt_inic
                                 Tipo: _tipo, n: _n, k: _k, kSturges: _kS, a: _a, h: _h, Minimo: _min, Maximo: _max,
                                 Fora: If(_tipo = 2, CountRows(Filter(_cls, c < 1 || c > _k)), 0),
                                 Linhas: If(
-                                    _n = 0, Filter({_acumular('Table({Classe: "", Centro: 0, Li: 0, Ls: 0, ni: 0})')}, false),
+                                    _n = 0, FirstN({_acumular('Table({Classe: "", Centro: 0, Li: 0, Ls: 0, ni: 0})')}, 0),
                                     _tipo = 2,
                                     {_acumular('''ForAll(Sequence(_k) As _c,
                                             {Classe: "[" & ''' + fmt_curto("_a + (_c.Value - 1) * _h") + ''' & " ; " & ''' + fmt_curto("_a + _c.Value * _h") + ''' & If(_c.Value = _k, "]", "["),

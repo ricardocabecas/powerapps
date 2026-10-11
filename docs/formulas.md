@@ -443,11 +443,11 @@ With(
                                 Tipo: _tipo; n: _n; k: _k; kSturges: _kS; a: _a; h: _h; Minimo: _min; Maximo: _max;
                                 Fora: If(_tipo = 2; CountRows(Filter(_cls; c < 1 || c > _k)); 0);
                                 Linhas: If(
-                                    _n = 0; Filter(With({_t: Table({Classe: ""; Centro: 0; Li: 0; Ls: 0; ni: 0}); _ntot: Sum(Table({Classe: ""; Centro: 0; Li: 0; Ls: 0; ni: 0}); ni)};
+                                    _n = 0; FirstN(With({_t: Table({Classe: ""; Centro: 0; Li: 0; Ls: 0; ni: 0}); _ntot: Sum(Table({Classe: ""; Centro: 0; Li: 0; Ls: 0; ni: 0}); ni)};
         ForAll(Sequence(CountRows(_t)) As _i;
             With({_r: Index(_t; _i.Value); _Ni: Sum(FirstN(_t; _i.Value); ni)};
                 {Ordem: _i.Value; Classe: _r.Classe; Centro: _r.Centro; Li: _r.Li; Ls: _r.Ls;
-                 ni: _r.ni; fi: _r.ni / _ntot; Ni: _Ni; Fi: _Ni / _ntot}))); false);
+                 ni: _r.ni; fi: _r.ni / _ntot; Ni: _Ni; Fi: _Ni / _ntot}))); 0);
                                     _tipo = 2;
                                     With({_t: ForAll(Sequence(_k) As _c;
                                             {Classe: "[" & With({_r: Round(_a + (_c.Value - 1) * _h; 4)}; If(_r = Int(_r); Text(_r; "[$-en-US]0"; "pt-PT"); Text(_r; "[$-en-US]0.####"; "pt-PT"))) & " ; " & With({_r: Round(_a + _c.Value * _h; 4)}; If(_r = Int(_r); Text(_r; "[$-en-US]0"; "pt-PT"); Text(_r; "[$-en-US]0.####"; "pt-PT"))) & If(_c.Value = _k; "]"; "[");
@@ -571,7 +571,7 @@ numericamente mais estável do que a fórmula Σxᵢyᵢ − n·x̄·ȳ quando o
 With(
     {_p: Filter(ForAll(colDados As _d; {x: Switch(Switch(drpRegX.Selected.Value; varNomes.N1; 1; varNomes.N2; 2; varNomes.N3; 3; 1); 1; _d.N1; 2; _d.N2; _d.N3); y: Switch(Switch(drpRegY.Selected.Value; varNomes.N1; 1; varNomes.N2; 2; varNomes.N3; 3; 1); 1; _d.N1; 2; _d.N2; _d.N3)}); !IsBlank(x) && !IsBlank(y)); _x0: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtRegX0.Text); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank())};
     With({_n: CountRows(_p)};
-    With({_mx: Average(_p; x); _my: Average(_p; y)};
+    With({_mx: If(_n > 0; Average(_p; x)); _my: If(_n > 0; Average(_p; y))};
     With(
         // Somas de quadrados e de produtos dos desvios em relação às médias
         {_Sxx: Sum(_p; Power(x - _mx; 2)); _Syy: Sum(_p; Power(y - _my; 2)); _Sxy: Sum(_p; (x - _mx) * (y - _my))};

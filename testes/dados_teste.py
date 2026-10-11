@@ -83,3 +83,25 @@ REGRESSAO = {
     "sem_correlacao": ([1, 2, 3, 4, 5], [2, 4, 1, 4, 2], "3"),
     "decimais_negativos": ([-1.5, -0.25, 0.5, 2.75, 3.1], [0.2, -1.1, 0.4, -2.6, -2.95], "-1"),
 }
+
+# Testes t: (nome, tipo, formato, var1 (N1), var2 (N2), grupos (C1), grupoA, grupoB, d0, alternativa)
+_PESO_F = [r[2] for r in DADOS_EXEMPLO]
+TESTES_T = [
+    ("1amostra_altura_170_bilateral", 1, 1, _ALT, None, None, "", "", "170", 1),
+    ("1amostra_altura_165_direita", 1, 1, _ALT, None, None, "", "", "165", 3),
+    ("1amostra_altura_172_esquerda", 1, 1, _ALT, None, None, "", "", "172,5", 2),
+    ("1amostra_n2", 1, 1, [3.5, 4.0], None, None, "", "", "0", 1),
+    ("1amostra_n1", 1, 1, [3.5], None, None, "", "", "0", 1),
+    ("1amostra_variancia_nula", 1, 1, [5, 5, 5, 5], None, None, "", "", "4", 1),
+    ("ind_altura_sexo_FM", 2, 1, _ALT, None, _SEXO, "F", "M", "0", 1),
+    ("ind_altura_sexo_FM_esquerda", 2, 1, _ALT, None, _SEXO, "F", "M", "0", 2),
+    ("welch_altura_sexo_FM", 3, 1, _ALT, None, _SEXO, "F", "M", "0", 1),
+    ("welch_d0_menos10_direita", 3, 1, _ALT, None, _SEXO, "F", "M", "-10", 3),
+    ("ind_duas_colunas", 2, 2, [12, 15, 11, 14, 13, None], [10, 9, 12, 8, 11, 10], None, "", "", "0", 1),
+    ("welch_duas_colunas_desiguais", 3, 2, [10.1, 10.3, 9.9, 10.0], [8, 14, 6, 15, 12, 3, 9], None, "", "", "0", 1),
+    ("welch_gl_fracionarios_n2", 3, 2, [1, 2], [10, 30, 25], None, "", "", "0", 1),
+    ("ind_um_grupo_vazio", 2, 1, [1, 2, 3, 4], None, ["A", "A", "A", "A"], "A", "B", "0", 1),
+    ("emparelhado_peso_altura", 4, 1, _ALT, _PESO_F, None, "", "", "100", 1),
+    ("emparelhado_antes_depois", 4, 1, [80, 75, 90, 68, 72, 85], [78, 74, 85, 69, 70, 80], None, "", "", "0", 3),
+    ("emparelhado_com_faltas", 4, 1, [5, 6, None, 8, 7], [4, 6.5, 3, None, 5], None, "", "", "0", 1),
+]

@@ -106,3 +106,23 @@ def recuar(f, n):
     """Acrescenta n espaços a todas as linhas exceto a primeira (para encaixar subfórmulas)."""
     pad = " " * n
     return f.replace("\n", "\n" + pad)
+
+
+def verificar_parenteses(f):
+    """Confirma que (), {} e [] estão equilibrados fora de textos e comentários. Devolve None ou o erro."""
+    pilha = []
+    pares = {")": "(", "}": "{", "]": "["}
+    pos = 0
+    for tipo, t in _tokens(f):
+        if tipo == "simbolo":
+            if t in "({[":
+                pilha.append((t, pos))
+            elif t in ")}]":
+                if not pilha or pilha[-1][0] != pares[t]:
+                    return f"'{t}' inesperado na posição {pos}: …{f[max(0, pos - 60):pos + 1]}"
+                pilha.pop()
+        pos += len(t)
+    if pilha:
+        t, p = pilha[-1]
+        return f"'{t}' por fechar (posição {p}): …{f[p:p + 60]}"
+    return None

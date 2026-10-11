@@ -2,11 +2,11 @@
 
 Gerado em 11/10/2026 por `testes/executar_testes.py`. As fórmulas foram executadas com o interpretador open source **Microsoft.PowerFx.Interpreter 1.8.1** (.NET 8), com números em vírgula flutuante (como nas canvas apps).
 
-**Total: 3220/3220 verificações sem diferenças.**
+**Total: 3958/3958 verificações sem diferenças.**
 
 ## Sintaxe de todas as fórmulas dos ecrãs
 
-1520 fórmulas analisadas em formato invariante (ficheiros .pa.yaml) e convertidas para pt-PT (barra de fórmulas): **3040/3040 sem erros de sintaxe**.
+1872 fórmulas analisadas em formato invariante (ficheiros .pa.yaml) e convertidas para pt-PT (barra de fórmulas): **3744/3744 sem erros de sintaxe**.
 
 
 ## Fase 1 — Entrada de dados
@@ -216,4 +216,45 @@ Gerado em 11/10/2026 por `testes/executar_testes.py`. As fórmulas foram executa
 | regressão «decimais_negativos» | ✅ | n=5, r=-0.8672854478323896, b=-0.6807714635876927, a=-0.5836902534993229, ŷ(x0)=0.09708121008836978 |
 | tabela HTML «decimais_negativos» | ✅ | ok |
 | dispersão «decimais_negativos» | ✅ | SVG válido, 5 pontos, com reta |
+
+## Fase 5 — Inferência
+
+**34/34 casos de acordo com a referência.**
+
+| Caso | Resultado | Detalhe |
+|---|---|---|
+| teste t «1amostra_altura_170_bilateral» | ✅ | t=-0.28956340830869276, gl=19, p=0.775286438213695 (scipy 0.7752864382137891) |
+| relatório t «1amostra_altura_170_bilateral» | ✅ | ok |
+| teste t «1amostra_altura_165_direita» | ✅ | t=2.3428312126793687, gl=19, p=0.01508741001969021 (scipy 0.01508741001968566) |
+| relatório t «1amostra_altura_165_direita» | ✅ | ok |
+| teste t «1amostra_altura_172_esquerda» | ✅ | t=-1.6057607188027234, gl=19, p=0.062409487445890956 (scipy 0.062409487445887805) |
+| relatório t «1amostra_altura_172_esquerda» | ✅ | ok |
+| teste t «1amostra_n2» | ✅ | t=15, gl=1, p=0.04237860926989309 (scipy 0.04237860926989283) |
+| relatório t «1amostra_n2» | ✅ | ok |
+| teste t «1amostra_n1» | ✅ | t=None, gl=None, p=None (scipy None) |
+| relatório t «1amostra_n1» | ✅ | ok |
+| teste t «1amostra_variancia_nula» | ✅ | t=None, gl=3, p=None (scipy None) |
+| relatório t «1amostra_variancia_nula» | ✅ | ok |
+| teste t «ind_altura_sexo_FM» | ✅ | t=-6.5533319422692795, gl=18, p=3.702650750247683e-06 (scipy 3.702650750255874e-06) |
+| relatório t «ind_altura_sexo_FM» | ✅ | ok |
+| teste t «ind_altura_sexo_FM_esquerda» | ✅ | t=-6.5533319422692795, gl=18, p=1.8513253751238415e-06 (scipy 1.851325375127937e-06) |
+| relatório t «ind_altura_sexo_FM_esquerda» | ✅ | ok |
+| teste t «welch_altura_sexo_FM» | ✅ | t=-6.5533319422692795, gl=17.888962171928235, p=3.818401627395311e-06 (scipy 3.8184016274034145e-06) |
+| relatório t «welch_altura_sexo_FM» | ✅ | ok |
+| teste t «welch_d0_menos10_direita» | ✅ | t=-1.8387046456726777, gl=17.888962171928235, p=0.9586899134854601 (scipy 0.9586899134854648) |
+| relatório t «welch_d0_menos10_direita» | ✅ | ok |
+| teste t «ind_duas_colunas» | ✅ | t=3.3234702564419836, gl=9, p=0.008891040066831049 (scipy 0.008891040066830983) |
+| relatório t «ind_duas_colunas» | ✅ | ok |
+| teste t «welch_duas_colunas_desiguais» | ✅ | t=0.30562873784578987, gl=6.032273852579569, p=0.7701597909404814 (scipy 0.7701597909404835) |
+| relatório t «welch_duas_colunas_desiguais» | ✅ | ok |
+| teste t «welch_gl_fracionarios_n2» | ✅ | t=-3.3443794565778315, gl=2.027593804617546, p=0.07749387508187552 (scipy 0.07749387493182988) |
+| relatório t «welch_gl_fracionarios_n2» | ✅ | ok |
+| teste t «ind_um_grupo_vazio» | ✅ | t=None, gl=None, p=None (scipy None) |
+| relatório t «ind_um_grupo_vazio» | ✅ | ok |
+| teste t «emparelhado_peso_altura» | ✅ | t=9.988467827373201, gl=19, p=5.361750091034704e-09 (scipy 5.361750091066275e-09) |
+| relatório t «emparelhado_peso_altura» | ✅ | ok |
+| teste t «emparelhado_antes_depois» | ✅ | t=2.4445060351935237, gl=5, p=0.029164651403131372 (scipy 0.029164651403131323) |
+| relatório t «emparelhado_antes_depois» | ✅ | ok |
+| teste t «emparelhado_com_faltas» | ✅ | t=1.1470786693528088, gl=2, p=0.3700592116512881 (scipy 0.37005921165128797) |
+| relatório t «emparelhado_com_faltas» | ✅ | ok |
 

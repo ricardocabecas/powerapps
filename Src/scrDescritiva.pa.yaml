@@ -313,7 +313,7 @@ Screens:
                                   {Grupo: "Total"}),
                               // Uma coluna por grupo (valores distintos não vazios da variável categórica)
                               // (sem agrupamento a lista de grupos fica vazia)
-                              ForAll(If(_kg = 0, Filter(Distinct(_dados, g), false),
+                              ForAll(If(_kg = 0, FirstN(Distinct(_dados, g), 0),
                                         Sort(Filter(Distinct(_dados, g), !IsBlank(Value)), Value)) As _G,
                                   Patch(With(
                                       // Amostra ordenada por ordem crescente e dimensão

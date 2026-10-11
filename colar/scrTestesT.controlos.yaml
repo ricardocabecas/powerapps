@@ -1,0 +1,555 @@
+- retCabTt:
+    Control: Rectangle
+    Properties:
+      Fill: =RGBA(31, 78, 121, 1)
+      X: =0
+      Y: =0
+      Width: =1366
+      Height: =64
+- lblCabTt:
+    Control: Label
+    Properties:
+      Text: ="Estatística · " & "Testes t"
+      X: =16
+      Y: =0
+      Width: =420
+      Height: =64
+      Font: =Font.'Segoe UI'
+      Size: =18
+      Color: =RGBA(255, 255, 255, 1)
+      FontWeight: =FontWeight.Semibold
+- btnNavTtDad:
+    Control: Classic/Button
+    Properties:
+      Text: ="Dados"
+      OnSelect: =Navigate(scrDados, ScreenTransition.None)
+      X: =446
+      Y: =14
+      Width: =112
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavTtDes:
+    Control: Classic/Button
+    Properties:
+      Text: ="Descritiva"
+      OnSelect: =Navigate(scrDescritiva, ScreenTransition.None)
+      X: =564
+      Y: =14
+      Width: =112
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavTtFre:
+    Control: Classic/Button
+    Properties:
+      Text: ="Frequências"
+      OnSelect: =Navigate(scrFrequencias, ScreenTransition.None)
+      X: =682
+      Y: =14
+      Width: =120
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavTtReg:
+    Control: Classic/Button
+    Properties:
+      Text: ="Regressão"
+      OnSelect: =Navigate(scrRegressao, ScreenTransition.None)
+      X: =808
+      Y: =14
+      Width: =112
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavTtTt:
+    Control: Classic/Button
+    Properties:
+      Text: ="Testes t"
+      OnSelect: =Navigate(scrTestesT, ScreenTransition.None)
+      X: =926
+      Y: =14
+      Width: =112
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(255, 255, 255, 1)
+      Color: =RGBA(31, 78, 121, 1)
+      HoverFill: =RGBA(255, 255, 255, 1)
+      HoverColor: =RGBA(31, 78, 121, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+      FontWeight: =FontWeight.Semibold
+- btnNavTtAno:
+    Control: Classic/Button
+    Properties:
+      Text: ="ANOVA"
+      OnSelect: =Navigate(scrAnova, ScreenTransition.None)
+      X: =1044
+      Y: =14
+      Width: =112
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavTtQui:
+    Control: Classic/Button
+    Properties:
+      Text: ="Qui-quadrado"
+      OnSelect: =Navigate(scrQuiQuadrado, ScreenTransition.None)
+      X: =1162
+      Y: =14
+      Width: =124
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- retTtPainel:
+    Control: Rectangle
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      X: =12
+      Y: =72
+      Width: =338
+      Height: =684
+      BorderColor: =RGBA(206, 212, 218, 1)
+      BorderThickness: =1
+- lblTtTipo:
+    Control: Label
+    Properties:
+      Text: ="Teste"
+      X: =24
+      Y: =78
+      Width: =314
+      Height: =22
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =RGBA(33, 37, 41, 1)
+      FontWeight: =FontWeight.Semibold
+      Visible: =true
+- drpTtTipo:
+    Control: Classic/DropDown
+    Properties:
+      Items: =["Uma amostra", "Duas amostras independentes (variâncias iguais)", "Duas amostras independentes (Welch, variâncias diferentes)", "Amostras emparelhadas"]
+      X: =24
+      Y: =100
+      Width: =314
+      Height: =32
+      Font: =Font.'Segoe UI'
+      Size: =12
+      Default: ="Uma amostra"
+      Visible: =true
+- lblTtFormato:
+    Control: Label
+    Properties:
+      Text: ="Formato dos dados"
+      X: =24
+      Y: =138
+      Width: =314
+      Height: =22
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =RGBA(33, 37, 41, 1)
+      FontWeight: =FontWeight.Semibold
+      Visible: =(drpTtTipo.Selected.Value = "Duas amostras independentes (variâncias iguais)" || drpTtTipo.Selected.Value = "Duas amostras independentes (Welch, variâncias diferentes)")
+- drpTtFormato:
+    Control: Classic/DropDown
+    Properties:
+      Items: =["Variável numérica + variável de grupo", "Duas colunas numéricas"]
+      X: =24
+      Y: =160
+      Width: =314
+      Height: =32
+      Font: =Font.'Segoe UI'
+      Size: =12
+      Default: ="Variável numérica + variável de grupo"
+      Visible: =(drpTtTipo.Selected.Value = "Duas amostras independentes (variâncias iguais)" || drpTtTipo.Selected.Value = "Duas amostras independentes (Welch, variâncias diferentes)")
+- lblTtVar:
+    Control: Label
+    Properties:
+      Text: ="Variável numérica (1.ª amostra / X)"
+      X: =24
+      Y: =198
+      Width: =314
+      Height: =22
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =RGBA(33, 37, 41, 1)
+      FontWeight: =FontWeight.Semibold
+      Visible: =true
+- drpTtVar:
+    Control: Classic/DropDown
+    Properties:
+      Items: =[varNomes.N1, varNomes.N2, varNomes.N3]
+      X: =24
+      Y: =220
+      Width: =314
+      Height: =32
+      Font: =Font.'Segoe UI'
+      Size: =12
+      Default: =varNomes.N1
+      Visible: =true
+- lblTtVar2:
+    Control: Label
+    Properties:
+      Text: ="2.ª variável numérica (2.ª amostra / Y)"
+      X: =24
+      Y: =258
+      Width: =314
+      Height: =22
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =RGBA(33, 37, 41, 1)
+      FontWeight: =FontWeight.Semibold
+      Visible: =drpTtTipo.Selected.Value = "Amostras emparelhadas" || ((drpTtTipo.Selected.Value = "Duas amostras independentes (variâncias iguais)" || drpTtTipo.Selected.Value = "Duas amostras independentes (Welch, variâncias diferentes)") && drpTtFormato.Selected.Value = "Duas colunas numéricas")
+- drpTtVar2:
+    Control: Classic/DropDown
+    Properties:
+      Items: =[varNomes.N1, varNomes.N2, varNomes.N3]
+      X: =24
+      Y: =280
+      Width: =314
+      Height: =32
+      Font: =Font.'Segoe UI'
+      Size: =12
+      Default: =varNomes.N2
+      Visible: =drpTtTipo.Selected.Value = "Amostras emparelhadas" || ((drpTtTipo.Selected.Value = "Duas amostras independentes (variâncias iguais)" || drpTtTipo.Selected.Value = "Duas amostras independentes (Welch, variâncias diferentes)") && drpTtFormato.Selected.Value = "Duas colunas numéricas")
+- lblTtGrupoVar:
+    Control: Label
+    Properties:
+      Text: ="Variável de grupo"
+      X: =24
+      Y: =318
+      Width: =314
+      Height: =22
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =RGBA(33, 37, 41, 1)
+      FontWeight: =FontWeight.Semibold
+      Visible: =(drpTtTipo.Selected.Value = "Duas amostras independentes (variâncias iguais)" || drpTtTipo.Selected.Value = "Duas amostras independentes (Welch, variâncias diferentes)") && drpTtFormato.Selected.Value = "Variável numérica + variável de grupo"
+- drpTtGrupoVar:
+    Control: Classic/DropDown
+    Properties:
+      Items: =[varNomes.C1, varNomes.C2]
+      X: =24
+      Y: =340
+      Width: =314
+      Height: =32
+      Font: =Font.'Segoe UI'
+      Size: =12
+      Default: =varNomes.C1
+      Visible: =(drpTtTipo.Selected.Value = "Duas amostras independentes (variâncias iguais)" || drpTtTipo.Selected.Value = "Duas amostras independentes (Welch, variâncias diferentes)") && drpTtFormato.Selected.Value = "Variável numérica + variável de grupo"
+- lblTtGrupoA:
+    Control: Label
+    Properties:
+      Text: ="Grupo da amostra 1"
+      X: =24
+      Y: =378
+      Width: =314
+      Height: =22
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =RGBA(33, 37, 41, 1)
+      FontWeight: =FontWeight.Semibold
+      Visible: =(drpTtTipo.Selected.Value = "Duas amostras independentes (variâncias iguais)" || drpTtTipo.Selected.Value = "Duas amostras independentes (Welch, variâncias diferentes)") && drpTtFormato.Selected.Value = "Variável numérica + variável de grupo"
+- drpTtGrupoA:
+    Control: Classic/DropDown
+    Properties:
+      Items: =Sort(Filter(Distinct(colDados, Switch(Switch(drpTtGrupoVar.Selected.Value, varNomes.C2, 2, 1), 1, C1, C2)), !IsBlank(Value)), Value)
+      X: =24
+      Y: =400
+      Width: =314
+      Height: =32
+      Font: =Font.'Segoe UI'
+      Size: =12
+      Default: =First(Sort(Filter(Distinct(colDados, Switch(Switch(drpTtGrupoVar.Selected.Value, varNomes.C2, 2, 1), 1, C1, C2)), !IsBlank(Value)), Value)).Value
+      Visible: =(drpTtTipo.Selected.Value = "Duas amostras independentes (variâncias iguais)" || drpTtTipo.Selected.Value = "Duas amostras independentes (Welch, variâncias diferentes)") && drpTtFormato.Selected.Value = "Variável numérica + variável de grupo"
+- lblTtGrupoB:
+    Control: Label
+    Properties:
+      Text: ="Grupo da amostra 2"
+      X: =24
+      Y: =438
+      Width: =314
+      Height: =22
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =RGBA(33, 37, 41, 1)
+      FontWeight: =FontWeight.Semibold
+      Visible: =(drpTtTipo.Selected.Value = "Duas amostras independentes (variâncias iguais)" || drpTtTipo.Selected.Value = "Duas amostras independentes (Welch, variâncias diferentes)") && drpTtFormato.Selected.Value = "Variável numérica + variável de grupo"
+- drpTtGrupoB:
+    Control: Classic/DropDown
+    Properties:
+      Items: =Sort(Filter(Distinct(colDados, Switch(Switch(drpTtGrupoVar.Selected.Value, varNomes.C2, 2, 1), 1, C1, C2)), !IsBlank(Value)), Value)
+      X: =24
+      Y: =460
+      Width: =314
+      Height: =32
+      Font: =Font.'Segoe UI'
+      Size: =12
+      Default: |-
+        =With({_n: Sort(Filter(Distinct(colDados, Switch(Switch(drpTtGrupoVar.Selected.Value, varNomes.C2, 2, 1), 1, C1, C2)), !IsBlank(Value)), Value)}, If(CountRows(_n) >= 2, Index(_n, 2).Value, First(_n).Value))
+      Visible: =(drpTtTipo.Selected.Value = "Duas amostras independentes (variâncias iguais)" || drpTtTipo.Selected.Value = "Duas amostras independentes (Welch, variâncias diferentes)") && drpTtFormato.Selected.Value = "Variável numérica + variável de grupo"
+- lblTtMu0:
+    Control: Label
+    Properties:
+      Text: ="Valor sob H₀ (μ₀ ou diferença Δ₀)"
+      X: =24
+      Y: =498
+      Width: =314
+      Height: =22
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =RGBA(33, 37, 41, 1)
+      FontWeight: =FontWeight.Semibold
+      Visible: =true
+- txtTtMu0:
+    Control: Classic/TextInput
+    Properties:
+      Default: ="0"
+      X: =24
+      Y: =520
+      Width: =314
+      Height: =32
+      Font: =Font.'Segoe UI'
+      Size: =12
+      BorderColor: =RGBA(206, 212, 218, 1)
+      HintText: |-
+        ="ex.: 170"
+      Visible: =true
+- lblTtAlternativa:
+    Control: Label
+    Properties:
+      Text: ="Hipótese alternativa H₁"
+      X: =24
+      Y: =558
+      Width: =314
+      Height: =22
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =RGBA(33, 37, 41, 1)
+      FontWeight: =FontWeight.Semibold
+      Visible: =true
+- drpTtAlternativa:
+    Control: Classic/DropDown
+    Properties:
+      Items: =["Bilateral (≠)", "Unilateral à esquerda (<)", "Unilateral à direita (>)"]
+      X: =24
+      Y: =580
+      Width: =314
+      Height: =32
+      Font: =Font.'Segoe UI'
+      Size: =12
+      Default: ="Bilateral (≠)"
+      Visible: =true
+- lblTtAlfa:
+    Control: Label
+    Properties:
+      Text: ="Nível de significância α"
+      X: =24
+      Y: =618
+      Width: =314
+      Height: =22
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =RGBA(33, 37, 41, 1)
+      FontWeight: =FontWeight.Semibold
+      Visible: =true
+- drpTtAlfa:
+    Control: Classic/DropDown
+    Properties:
+      Items: =["0,10", "0,05", "0,01", "0,001"]
+      X: =24
+      Y: =640
+      Width: =314
+      Height: =32
+      Font: =Font.'Segoe UI'
+      Size: =12
+      Default: ="0,05"
+      Visible: =true
+- htmTtResultado:
+    Control: HtmlViewer
+    Properties:
+      HtmlText: |-
+        =With({_R: With(
+                // Opções escolhidas no ecrã
+                {_tipo: Switch(drpTtTipo.Selected.Value, "Uma amostra", 1, "Duas amostras independentes (variâncias iguais)", 2, "Duas amostras independentes (Welch, variâncias diferentes)", 3, "Amostras emparelhadas", 4, 1),
+                 _fmt: If(drpTtFormato.Selected.Value = "Duas colunas numéricas", 2, 1),
+                 _alt: Switch(drpTtAlternativa.Selected.Value, "Unilateral à esquerda (<)", 2, "Unilateral à direita (>)", 3, 1), _alfa: Value(Substitute(drpTtAlfa.Selected.Value, ",", "."), "en-US"),
+                 _d0: Coalesce(IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtTtMu0.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), 0),
+                 _k1: Switch(drpTtVar.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, 1), _k2: Switch(drpTtVar2.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, 1), _kg: Switch(drpTtGrupoVar.Selected.Value, varNomes.C2, 2, 1),
+                 _gA: drpTtGrupoA.Selected.Value, _gB: drpTtGrupoB.Selected.Value},
+                With(
+                    // Amostra A (ou diferenças, no teste emparelhado) e amostra B
+                    {_A: Switch(_tipo, 1, Filter(ForAll(colDados As _d, {x: Switch(_k1, 1, _d.N1, 2, _d.N2, _d.N3)}), !IsBlank(x)), 4, Filter(ForAll(colDados As _d, With({_a: Switch(_k1, 1, _d.N1, 2, _d.N2, _d.N3), _b: Switch(_k2, 1, _d.N1, 2, _d.N2, _d.N3)}, {x: If(IsBlank(_a) || IsBlank(_b), Blank(), _a - _b)})), !IsBlank(x)),
+                            If(_fmt = 1, Filter(ForAll(colDados As _d, {x: Switch(_k1, 1, _d.N1, 2, _d.N2, _d.N3), g: Switch(_kg, 1, _d.C1, _d.C2)}), !IsBlank(x) && g = _gA), Filter(ForAll(colDados As _d, {x: Switch(_k1, 1, _d.N1, 2, _d.N2, _d.N3)}), !IsBlank(x)))),
+                     _B: If(_tipo = 2 || _tipo = 3,
+                            If(_fmt = 1, Filter(ForAll(colDados As _d, {x: Switch(_k1, 1, _d.N1, 2, _d.N2, _d.N3), g: Switch(_kg, 1, _d.C1, _d.C2)}), !IsBlank(x) && g = _gB), Filter(ForAll(colDados As _d, {x: Switch(_k2, 1, _d.N1, 2, _d.N2, _d.N3)}), !IsBlank(x))), FirstN(Table({x: 0}), 0))},
+                With({_n1: CountRows(_A), _n2: CountRows(_B)},
+                With({_m1: If(_n1 > 0, Average(_A, x)), _m2: If(_n2 > 0, Average(_B, x))},
+                With(
+                    // Variâncias amostrais (divisor n − 1)
+                    {_v1: If(_n1 >= 2, Sum(_A, Power(x - _m1, 2)) / (_n1 - 1)),
+                     _v2: If(_n2 >= 2, Sum(_B, Power(x - _m2, 2)) / (_n2 - 1))},
+                With(
+                    // Erro padrão e graus de liberdade de cada teste
+                    {_ep: Switch(_tipo,
+                            1, If(_n1 >= 2, Sqrt(_v1 / _n1)),
+                            4, If(_n1 >= 2, Sqrt(_v1 / _n1)),
+                            2, If(_n1 >= 2 && _n2 >= 2,
+                                  Sqrt(((_n1 - 1) * _v1 + (_n2 - 1) * _v2) / (_n1 + _n2 - 2) * (1 / _n1 + 1 / _n2))),
+                            If(_n1 >= 2 && _n2 >= 2, Sqrt(_v1 / _n1 + _v2 / _n2))),
+                     _gl: Switch(_tipo,
+                            1, If(_n1 >= 2, _n1 - 1),
+                            4, If(_n1 >= 2, _n1 - 1),
+                            2, If(_n1 >= 2 && _n2 >= 2, _n1 + _n2 - 2),
+                            // Welch–Satterthwaite
+                            If(_n1 >= 2 && _n2 >= 2 && _v1 + _v2 > 0,
+                               Power(_v1 / _n1 + _v2 / _n2, 2) /
+                               (Power(_v1 / _n1, 2) / (_n1 - 1) + Power(_v2 / _n2, 2) / (_n2 - 1))))},
+                With(
+                    {_t: If(!IsBlank(_ep) && _ep > 0,
+                            (If(_tipo = 2 || _tipo = 3, _m1 - _m2, _m1) - _d0) / _ep)},
+                With(
+                    {_p: If(!IsBlank(_t) && _gl > 0, With({_tt: _t, _p2: With({_f: Power((_t), 2), _d1: 1, _d2: _gl},
+                        If(_f <= 0, 1,
+                        With({_t0: Atan(Sqrt(_d1 * _f / _d2)), _sg: 1 / Sqrt(Max(_d1 + _d2 - 2, 1)),
+                              _ts: If(_d2 > 1, Atan(Sqrt(Max(_d1 - 1, 0) / (_d2 - 1))), Pi() / 2)},
+                        With({_lo: Max(0, _ts - 10 * _sg), _hi: Min(Pi() / 2, _ts + 10 * _sg)},
+                            If(_t0 >= _hi, 0,
+                                With({_nd: ForAll(Sequence(300, 0) As _i, With({_s: RoundDown(_i.Value / 3, 0), _m: Mod(_i.Value, 3)}, {u: (_s + 0.5 + (_m - 1) * 0.3872983346207417) / 100, w: If(_m = 1, 8 / 9, 5 / 9) / 200}))},
+                            With({_Ltot: ForAll(_nd, With({t: _lo + u * (_hi - _lo)}, {L: (_d1 - 1) * Ln(Sin(t)) + (_d2 - 1) * Ln(Cos(t)), w: w * (_hi - _lo)})),
+                                  _Lcau: ForAll(_nd, With({t: Max(_t0, _lo) + u * (_hi - Max(_t0, _lo))}, {L: (_d1 - 1) * Ln(Sin(t)) + (_d2 - 1) * Ln(Cos(t)), w: w * (_hi - Max(_t0, _lo))}))},
+                                With({_M: Max(_Ltot, L)},
+                                    Min(1, Sum(_Lcau, Exp(L - _M) * w) / Sum(_Ltot, Exp(L - _M) * w))))))))))}, Switch(_alt, 1, _p2, 2, If(_tt < 0, _p2 / 2, 1 - _p2 / 2), If(_tt > 0, _p2 / 2, 1 - _p2 / 2))))},
+                {
+                    tipo: _tipo, alt: _alt, alfa: _alfa, d0: _d0,
+                    n1: _n1, n2: _n2, m1: _m1, m2: _m2, v1: _v1, v2: _v2,
+                    s1: If(!IsBlank(_v1), Sqrt(_v1)), s2: If(!IsBlank(_v2), Sqrt(_v2)),
+                    sp: If(_tipo = 2 && _n1 >= 2 && _n2 >= 2, Sqrt(((_n1 - 1) * _v1 + (_n2 - 1) * _v2) / (_n1 + _n2 - 2))),
+                    ep: _ep, t: _t, gl: _gl, p: _p,
+                    motivo: If(_n1 < 2 || ((_tipo = 2 || _tipo = 3) && _n2 < 2),
+                               "cada amostra precisa de pelo menos 2 observações.",
+                               "o erro padrão é zero (todos os valores iguais: variância nula), por isso t não está definido.")
+                }
+                )))))))
+            )},
+            "<div style='font-family:Segoe UI,Arial;font-size:13px;color:#212529;line-height:1.45'>" &
+            "<h4 style='margin:12px 0 4px 0;color:#1f4e79'>Dados</h4>" &
+            "<table style='border-collapse:collapse;margin:4px 0 10px 0'><tr style='background:#1f4e79;color:#ffffff'><th style='padding:5px 8px;text-align:left'>Amostra</th><th style='padding:5px 8px;text-align:right'>n</th><th style='padding:5px 8px;text-align:right'>Média</th><th style='padding:5px 8px;text-align:right'>Desvio padrão (s)</th><th style='padding:5px 8px;text-align:right'>Variância (s²)</th></tr>" & If(_R.tipo = 4, "<tr>" & "<td style='padding:4px 8px;text-align:left;border-bottom:1px solid #e1e5ea'>" & "Diferenças D = " & Substitute(Substitute(Substitute(drpTtVar.Selected.Value, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & " − " & Substitute(Substitute(Substitute(drpTtVar2.Selected.Value, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: _R.n1}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 0.5, 0, _v), "[$-en-US]#,##0", "pt-PT"))) & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: _R.m1}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: _R.s1}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: If(!IsBlank(_R.s1), Power(_R.s1, 2))}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>" & "</tr>", "<tr>" & "<td style='padding:4px 8px;text-align:left;border-bottom:1px solid #e1e5ea'>" & If(_R.tipo = 1, Substitute(Substitute(Substitute(drpTtVar.Selected.Value, "&", "&amp;"), "<", "&lt;"), ">", "&gt;"), "1: " & Substitute(Substitute(Substitute(If(_R.tipo = 4, "D", If(drpTtFormato.Selected.Value = "Duas colunas numéricas", drpTtVar.Selected.Value, drpTtGrupoA.Selected.Value)), "&", "&amp;"), "<", "&lt;"), ">", "&gt;")) & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: _R.n1}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 0.5, 0, _v), "[$-en-US]#,##0", "pt-PT"))) & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: _R.m1}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: _R.s1}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: If(!IsBlank(_R.s1), Power(_R.s1, 2))}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>" & "</tr>" & If(_R.tipo = 2 || _R.tipo = 3, "<tr>" & "<td style='padding:4px 8px;text-align:left;border-bottom:1px solid #e1e5ea'>" & "2: " & Substitute(Substitute(Substitute(If(drpTtFormato.Selected.Value = "Duas colunas numéricas", drpTtVar2.Selected.Value, drpTtGrupoB.Selected.Value), "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: _R.n2}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 0.5, 0, _v), "[$-en-US]#,##0", "pt-PT"))) & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: _R.m2}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: _R.s2}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: If(!IsBlank(_R.s2), Power(_R.s2, 2))}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>" & "</tr>", "")) & "</table>" &
+            "<h4 style='margin:12px 0 4px 0;color:#1f4e79'>Hipóteses</h4>" &
+            Switch(_R.tipo,
+                1, "H₀: μ = " & With({_r: Round(_R.d0, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & "<br>H₁: μ " & Switch(_R.alt, 1, "≠", 2, "<", ">") & " " & With({_r: Round(_R.d0, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & "<br><span style='color:#5a626a'>μ = média de " & Substitute(Substitute(Substitute(drpTtVar.Selected.Value, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & " na população</span>",
+                4, "H₀: μ<sub>D</sub> = " & With({_r: Round(_R.d0, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & "<br>H₁: μ<sub>D</sub> " & Switch(_R.alt, 1, "≠", 2, "<", ">") & " " & With({_r: Round(_R.d0, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & "<br><span style='color:#5a626a'>μ<sub>D</sub> = média da diferença D = " & Substitute(Substitute(Substitute(drpTtVar.Selected.Value, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & " − " & Substitute(Substitute(Substitute(drpTtVar2.Selected.Value, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & " na população</span>",
+                "H₀: μ₁ − μ₂ = " & With({_r: Round(_R.d0, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & "<br>H₁: μ₁ − μ₂ " & Switch(_R.alt, 1, "≠", 2, "<", ">") & " " & With({_r: Round(_R.d0, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & "<br><span style='color:#5a626a'>μ₁ e μ₂ = médias populacionais nas amostras 1 e 2</span>") &
+            "<h4 style='margin:12px 0 4px 0;color:#1f4e79'>Estatística de teste</h4>" &
+            Switch(_R.tipo,
+                1, "t = (x̄ − μ₀) / (s / √n)",
+                4, "t = (d̄ − Δ₀) / (s<sub>D</sub> / √n)",
+                2, "t = (x̄₁ − x̄₂ − Δ₀) / (s<sub>p</sub> √(1/n₁ + 1/n₂)), com s<sub>p</sub>² = [(n₁ − 1)s₁² + (n₂ − 1)s₂²] / (n₁ + n₂ − 2) &nbsp; (s<sub>p</sub> = " & With({_v: _R.sp}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & ")",
+                "t = (x̄₁ − x̄₂ − Δ₀) / √(s₁²/n₁ + s₂²/n₂)") &
+            "<br>Erro padrão = " & With({_v: _R.ep}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & " &nbsp;·&nbsp; <b>t = " & With({_v: _R.t}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</b>" &
+            "<h4 style='margin:12px 0 4px 0;color:#1f4e79'>Graus de liberdade</h4>" &
+            Switch(_R.tipo, 1, "gl = n − 1 = ", 4, "gl = n − 1 = ", 2, "gl = n₁ + n₂ − 2 = ",
+                "gl de Welch–Satterthwaite = (s₁²/n₁ + s₂²/n₂)² / [(s₁²/n₁)²/(n₁ − 1) + (s₂²/n₂)²/(n₂ − 1)] = ") &
+            "<b>" & If(_R.tipo = 3, With({_v: _R.gl}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))), With({_v: _R.gl}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 0.5, 0, _v), "[$-en-US]#,##0", "pt-PT")))) & "</b>" &
+            "<h4 style='margin:12px 0 4px 0;color:#1f4e79'>Valor de p</h4>" &
+            Switch(_R.alt, 1, "p = P(|T| ≥ |t|) = ", 2, "p = P(T ≤ t) = ", "p = P(T ≥ t) = ") & "<b>" & With({_pp: _R.p}, If(IsBlank(_pp), "n.d.", _pp < 0.0001, "< 0,0001", With({_v: _pp}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))))) & "</b>" &
+            " &nbsp;<span style='color:#5a626a'>(T segue a distribuição t de Student com os gl indicados)</span>" &
+            "<h4 style='margin:12px 0 4px 0;color:#1f4e79'>Decisão e conclusão</h4>" &
+            If(IsBlank(_R.p),
+                "<div style='border-left:4px solid #b00020;padding:6px 10px;background:#fdecee'>Não é possível calcular o teste: " & _R.motivo & "</div>",
+                If(_R.p <= _R.alfa,
+                    "<div style='border-left:4px solid #107c10;padding:6px 10px;background:#e8f5e8'><b>Decisão: rejeita-se H₀</b> (p = " & With({_pp: _R.p}, If(IsBlank(_pp), "n.d.", _pp < 0.0001, "< 0,0001", With({_v: _pp}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))))) & " ≤ α = " & With({_r: Round(_R.alfa, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & ").<br>" &
+                    "Conclusão: ao nível de significância de " & With({_r: Round(_R.alfa * 100, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & " %" & ", há evidência estatística de que " & Switch(_R.tipo,
+                    1, "a média de " & Substitute(Substitute(Substitute(drpTtVar.Selected.Value, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & " é " & Switch(_R.alt, 1, "diferente de", 2, "menor do que", "maior do que") & " " & With({_r: Round(_R.d0, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))),
+                    4, "a média das diferenças (" & Substitute(Substitute(Substitute(drpTtVar.Selected.Value, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & " − " & Substitute(Substitute(Substitute(drpTtVar2.Selected.Value, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & ") é " & Switch(_R.alt, 1, "diferente de", 2, "menor do que", "maior do que") & " " & With({_r: Round(_R.d0, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))),
+                    If(_R.d0 = 0,
+                       "a média de " & Substitute(Substitute(Substitute(drpTtVar.Selected.Value, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & " em «" & Substitute(Substitute(Substitute(If(_R.tipo = 4, "D", If(drpTtFormato.Selected.Value = "Duas colunas numéricas", drpTtVar.Selected.Value, drpTtGrupoA.Selected.Value)), "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & "» é " & Switch(_R.alt, 1, "diferente da", 2, "menor do que a", "maior do que a") & " média em «" & Substitute(Substitute(Substitute(If(drpTtFormato.Selected.Value = "Duas colunas numéricas", drpTtVar2.Selected.Value, drpTtGrupoB.Selected.Value), "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & "»",
+                       "a diferença entre as médias (μ₁ − μ₂) é " & Switch(_R.alt, 1, "diferente de", 2, "menor do que", "maior do que") & " " & With({_r: Round(_R.d0, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))))) & ".</div>",
+                    "<div style='border-left:4px solid #1f4e79;padding:6px 10px;background:#eef3f9'><b>Decisão: não se rejeita H₀</b> (p = " & With({_pp: _R.p}, If(IsBlank(_pp), "n.d.", _pp < 0.0001, "< 0,0001", With({_v: _pp}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))))) & " > α = " & With({_r: Round(_R.alfa, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & ").<br>" &
+                    "Conclusão: ao nível de significância de " & With({_r: Round(_R.alfa * 100, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & " %" & ", não há evidência estatística suficiente de que " & Switch(_R.tipo,
+                    1, "a média de " & Substitute(Substitute(Substitute(drpTtVar.Selected.Value, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & " é " & Switch(_R.alt, 1, "diferente de", 2, "menor do que", "maior do que") & " " & With({_r: Round(_R.d0, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))),
+                    4, "a média das diferenças (" & Substitute(Substitute(Substitute(drpTtVar.Selected.Value, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & " − " & Substitute(Substitute(Substitute(drpTtVar2.Selected.Value, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & ") é " & Switch(_R.alt, 1, "diferente de", 2, "menor do que", "maior do que") & " " & With({_r: Round(_R.d0, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))),
+                    If(_R.d0 = 0,
+                       "a média de " & Substitute(Substitute(Substitute(drpTtVar.Selected.Value, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & " em «" & Substitute(Substitute(Substitute(If(_R.tipo = 4, "D", If(drpTtFormato.Selected.Value = "Duas colunas numéricas", drpTtVar.Selected.Value, drpTtGrupoA.Selected.Value)), "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & "» é " & Switch(_R.alt, 1, "diferente da", 2, "menor do que a", "maior do que a") & " média em «" & Substitute(Substitute(Substitute(If(drpTtFormato.Selected.Value = "Duas colunas numéricas", drpTtVar2.Selected.Value, drpTtGrupoB.Selected.Value), "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & "»",
+                       "a diferença entre as médias (μ₁ − μ₂) é " & Switch(_R.alt, 1, "diferente de", 2, "menor do que", "maior do que") & " " & With({_r: Round(_R.d0, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))))) & ".</div>")) &
+            If((_R.tipo = 2 || _R.tipo = 3) && _R.v1 > 0 && _R.v2 > 0,
+                "<p style='color:#5a626a;font-size:12px'>Razão entre a maior e a menor variância: " &
+                With({_v: Max(_R.v1, _R.v2) / Min(_R.v1, _R.v2)}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 0.005, 0, _v), "[$-en-US]#,##0.00", "pt-PT"))) &
+                ". Regra prática: se for superior a 4, prefira o teste de Welch (não assume variâncias iguais).</p>", "") &
+            "</div>"
+        )
+      X: =366
+      Y: =72
+      Width: =984
+      Height: =684
+      Font: =Font.'Segoe UI'
+      Size: =12
+      Color: =RGBA(33, 37, 41, 1)
+      Fill: =RGBA(255, 255, 255, 1)
+      PaddingTop: =6
+      PaddingLeft: =10
+      PaddingRight: =10

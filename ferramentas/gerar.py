@@ -19,10 +19,11 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.dirname(AQUI)
 sys.path.insert(0, AQUI)
 
+from gerador.pfx import verificar_parenteses  # noqa: E402
 from gerador.yaml_pa import ecra_yaml, controlos_yaml, todas_formulas, todos_controlos  # noqa: E402
-from gerador import ecra_dados, ecra_descritiva, ecra_frequencias, ecra_regressao  # noqa: E402
+from gerador import ecra_dados, ecra_descritiva, ecra_frequencias, ecra_regressao, ecra_testes_t  # noqa: E402
 
-MODULOS = [ecra_dados, ecra_descritiva, ecra_frequencias, ecra_regressao]
+MODULOS = [ecra_dados, ecra_descritiva, ecra_frequencias, ecra_regressao, ecra_testes_t]
 
 
 def ecras():
@@ -96,6 +97,9 @@ def main():
                 raise SystemExit(f"Nome repetido: {c.nome} ({e.nome} e {nomes_vistos[c.nome]})")
             nomes_vistos[c.nome] = e.nome
         for (ecra, ctl, prop, f) in todas_formulas(e):
+            erro = verificar_parenteses(f)
+            if erro:
+                raise SystemExit(f"Parênteses desequilibrados em {ecra}.{ctl}.{prop}: {erro}")
             formulas.append({"ecra": ecra, "controlo": ctl, "propriedade": prop, "formula": f})
         print(f"{e.nome}: {len(todos_controlos(e))} controlos, {len(txt.splitlines())} linhas — esquema OK")
     with open(os.path.join(RAIZ, "testes", "resultados", "tmp", "formulas.json"), "w", encoding="utf-8") as f:

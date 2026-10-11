@@ -14,7 +14,7 @@ def resultados(drp_x="drpRegX", drp_y="drpRegY", txt_x0="txtRegX0"):
     return f"""With(
     {{_p: {pares(indice_num(drp_x), indice_num(drp_y))}, _x0: {num(txt_x0 + ".Text")}}},
     With({{_n: CountRows(_p)}},
-    With({{_mx: Average(_p, x), _my: Average(_p, y)}},
+    With({{_mx: If(_n > 0, Average(_p, x)), _my: If(_n > 0, Average(_p, y))}},
     With(
         // Somas de quadrados e de produtos dos desvios em relação às médias
         {{_Sxx: Sum(_p, Power(x - _mx, 2)), _Syy: Sum(_p, Power(y - _my, 2)), _Sxy: Sum(_p, (x - _mx) * (y - _my))}},
