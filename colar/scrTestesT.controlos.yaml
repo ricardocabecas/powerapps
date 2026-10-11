@@ -12,20 +12,41 @@
       Text: ="Estatística · " & "Testes t"
       X: =16
       Y: =0
-      Width: =420
+      Width: =340
       Height: =64
       Font: =Font.'Segoe UI'
-      Size: =18
+      Size: =15
       Color: =RGBA(255, 255, 255, 1)
       FontWeight: =FontWeight.Semibold
+- btnNavTtIni:
+    Control: Classic/Button
+    Properties:
+      Text: ="Início"
+      OnSelect: =Navigate(scrInicio, ScreenTransition.None)
+      X: =366
+      Y: =14
+      Width: =86
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
 - btnNavTtDad:
     Control: Classic/Button
     Properties:
       Text: ="Dados"
       OnSelect: =Navigate(scrDados, ScreenTransition.None)
-      X: =446
+      X: =458
       Y: =14
-      Width: =112
+      Width: =98
       Height: =36
       Font: =Font.'Segoe UI'
       Size: =11
@@ -44,9 +65,9 @@
     Properties:
       Text: ="Descritiva"
       OnSelect: =Navigate(scrDescritiva, ScreenTransition.None)
-      X: =564
+      X: =562
       Y: =14
-      Width: =112
+      Width: =110
       Height: =36
       Font: =Font.'Segoe UI'
       Size: =11
@@ -65,9 +86,9 @@
     Properties:
       Text: ="Frequências"
       OnSelect: =Navigate(scrFrequencias, ScreenTransition.None)
-      X: =682
+      X: =678
       Y: =14
-      Width: =120
+      Width: =122
       Height: =36
       Font: =Font.'Segoe UI'
       Size: =11
@@ -86,7 +107,7 @@
     Properties:
       Text: ="Regressão"
       OnSelect: =Navigate(scrRegressao, ScreenTransition.None)
-      X: =808
+      X: =806
       Y: =14
       Width: =112
       Height: =36
@@ -107,9 +128,9 @@
     Properties:
       Text: ="Testes t"
       OnSelect: =Navigate(scrTestesT, ScreenTransition.None)
-      X: =926
+      X: =924
       Y: =14
-      Width: =112
+      Width: =98
       Height: =36
       Font: =Font.'Segoe UI'
       Size: =11
@@ -129,9 +150,9 @@
     Properties:
       Text: ="ANOVA"
       OnSelect: =Navigate(scrAnova, ScreenTransition.None)
-      X: =1044
+      X: =1028
       Y: =14
-      Width: =112
+      Width: =98
       Height: =36
       Font: =Font.'Segoe UI'
       Size: =11
@@ -150,7 +171,7 @@
     Properties:
       Text: ="Qui-quadrado"
       OnSelect: =Navigate(scrQuiQuadrado, ScreenTransition.None)
-      X: =1162
+      X: =1132
       Y: =14
       Width: =124
       Height: =36

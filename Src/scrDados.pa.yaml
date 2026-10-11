@@ -2,41 +2,6 @@ Screens:
   scrDados:
     Properties:
       Fill: =RGBA(244, 246, 249, 1)
-      OnVisible: |-
-        =// Inicialização: corre apenas na primeira vez que o ecrã é aberto
-        If(!varIniciado,
-            Set(varIniciado, true);
-            // Nomes das variáveis (podem ser alterados no cabeçalho da tabela)
-            Set(varNomes, {N1: "Altura (cm)", N2: "Peso (kg)", N3: "Nota (0-20)", C1: "Sexo", C2: "Turma"});
-            // Coleção com os dados: N1-N3 numéricas, C1-C2 categóricas (grupo)
-            ClearCollect(colDados, Table(
-                {Id: 1, N1: 165, N2: 58.5, N3: 14, C1: "F", C2: "A"},
-                {Id: 2, N1: 178, N2: 72, N3: 12, C1: "M", C2: "A"},
-                {Id: 3, N1: 160, N2: 52.3, N3: 16, C1: "F", C2: "B"},
-                {Id: 4, N1: 182, N2: 80.1, N3: 11, C1: "M", C2: "B"},
-                {Id: 5, N1: 170, N2: 65.4, N3: 13, C1: "M", C2: "C"},
-                {Id: 6, N1: 158, N2: 49.8, N3: 17, C1: "F", C2: "A"},
-                {Id: 7, N1: 175, N2: 70.2, N3: 10, C1: "M", C2: "C"},
-                {Id: 8, N1: 168, N2: 61, N3: 15, C1: "F", C2: "B"},
-                {Id: 9, N1: 185, N2: 85.6, N3: 9, C1: "M", C2: "A"},
-                {Id: 10, N1: 162, N2: 55.1, N3: 18, C1: "F", C2: "C"},
-                {Id: 11, N1: 172, N2: 68.3, N3: 12, C1: "M", C2: "B"},
-                {Id: 12, N1: 166, N2: 60.2, N3: 14, C1: "F", C2: "A"},
-                {Id: 13, N1: 180, N2: 77.5, N3: 11, C1: "M", C2: "C"},
-                {Id: 14, N1: 155, N2: 48, N3: 16, C1: "F", C2: "B"},
-                {Id: 15, N1: 174, N2: 69.9, N3: 13, C1: "M", C2: "A"},
-                {Id: 16, N1: 163, N2: 57.4, N3: 15, C1: "F", C2: "C"},
-                {Id: 17, N1: 177, N2: 74.8, N3: 10, C1: "M", C2: "B"},
-                {Id: 18, N1: 169, N2: 63.1, N3: 14, C1: "F", C2: "C"},
-                {Id: 19, N1: 171, N2: 66.7, N3: 12, C1: "M", C2: "A"},
-                {Id: 20, N1: 159, N2: 51.6, N3: 17, C1: "F", C2: "B"}
-            ));
-            // Coleções auxiliares da colagem (ficam vazias até carregar em Analisar)
-            ClearCollect(colColagem, {Linha: 0, Celulas: Table({Texto: ""}), NCel: 0});
-            Clear(colColagem);
-            ClearCollect(colColunas, {Col: 0, Topo: "", TopoNumerico: false, NNaoVazias: 0, NNumeros: 0, Numerica: false, Rotulo: ""});
-            Clear(colColunas)
-        )
     Children:
       - retCabDad:
           Control: Rectangle
@@ -52,20 +17,41 @@ Screens:
             Text: ="Estatística · " & "Entrada de dados"
             X: =16
             Y: =0
-            Width: =420
+            Width: =340
             Height: =64
             Font: =Font.'Segoe UI'
-            Size: =18
+            Size: =15
             Color: =RGBA(255, 255, 255, 1)
             FontWeight: =FontWeight.Semibold
+      - btnNavDadIni:
+          Control: Classic/Button
+          Properties:
+            Text: ="Início"
+            OnSelect: =Navigate(scrInicio, ScreenTransition.None)
+            X: =366
+            Y: =14
+            Width: =86
+            Height: =36
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Fill: =RGBA(31, 78, 121, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            HoverFill: =RGBA(23, 58, 91, 1)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderThickness: =1
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
       - btnNavDadDad:
           Control: Classic/Button
           Properties:
             Text: ="Dados"
             OnSelect: =Navigate(scrDados, ScreenTransition.None)
-            X: =446
+            X: =458
             Y: =14
-            Width: =112
+            Width: =98
             Height: =36
             Font: =Font.'Segoe UI'
             Size: =11
@@ -85,9 +71,9 @@ Screens:
           Properties:
             Text: ="Descritiva"
             OnSelect: =Navigate(scrDescritiva, ScreenTransition.None)
-            X: =564
+            X: =562
             Y: =14
-            Width: =112
+            Width: =110
             Height: =36
             Font: =Font.'Segoe UI'
             Size: =11
@@ -106,9 +92,9 @@ Screens:
           Properties:
             Text: ="Frequências"
             OnSelect: =Navigate(scrFrequencias, ScreenTransition.None)
-            X: =682
+            X: =678
             Y: =14
-            Width: =120
+            Width: =122
             Height: =36
             Font: =Font.'Segoe UI'
             Size: =11
@@ -127,7 +113,7 @@ Screens:
           Properties:
             Text: ="Regressão"
             OnSelect: =Navigate(scrRegressao, ScreenTransition.None)
-            X: =808
+            X: =806
             Y: =14
             Width: =112
             Height: =36
@@ -148,9 +134,9 @@ Screens:
           Properties:
             Text: ="Testes t"
             OnSelect: =Navigate(scrTestesT, ScreenTransition.None)
-            X: =926
+            X: =924
             Y: =14
-            Width: =112
+            Width: =98
             Height: =36
             Font: =Font.'Segoe UI'
             Size: =11
@@ -169,9 +155,9 @@ Screens:
           Properties:
             Text: ="ANOVA"
             OnSelect: =Navigate(scrAnova, ScreenTransition.None)
-            X: =1044
+            X: =1028
             Y: =14
-            Width: =112
+            Width: =98
             Height: =36
             Font: =Font.'Segoe UI'
             Size: =11
@@ -190,7 +176,7 @@ Screens:
           Properties:
             Text: ="Qui-quadrado"
             OnSelect: =Navigate(scrQuiQuadrado, ScreenTransition.None)
-            X: =1162
+            X: =1132
             Y: =14
             Width: =124
             Height: =36

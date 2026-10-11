@@ -70,9 +70,9 @@ With({_v: _valor}; If(IsBlank(_v); "n.d."; Text(If(Abs(_v) < 5e-05; 0; _v); "[$-
 
 ## 1. Entrada de dados (ecrã `scrDados`)
 
-### 1.1 Inicialização (`scrDados.OnVisible`)
+### 1.1 Inicialização (`scrInicio.OnVisible`)
 
-Na primeira abertura cria `varNomes`, a coleção `colDados` com dados de exemplo (20 estudantes fictícios) e
+Fica no ecrã de início (`scrInicio`), que é o primeiro da app. Na primeira abertura cria `varNomes`, a coleção `colDados` com dados de exemplo (20 estudantes fictícios) e
 as coleções auxiliares da colagem. `ClearCollect` seguido de `Clear` serve só para o Power Apps ficar a
 conhecer o tipo das colunas.
 

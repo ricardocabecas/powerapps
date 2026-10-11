@@ -132,4 +132,4 @@ def construir():
                    XP + 312, 676, WP - 312, 40, primario=False,
                    extra={"DisplayMode": "If(CountRows(colColagem) > 0, DisplayMode.Edit, DisplayMode.Disabled)"}))
 
-    return Ecra(NOME, props_ecra(F.iniciar()), c, "Entrada de dados")
+    return Ecra(NOME, props_ecra(), c, "Entrada de dados")

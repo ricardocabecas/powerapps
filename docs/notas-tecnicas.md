@@ -39,7 +39,7 @@ conteúdo publicado no Learn), em outubro de 2026:
 7. **Colar código**: a vista de código permite copiar e colar controlos (Ctrl+C / Ctrl+V ou menu *Colar código*);
    o Studio valida o código antes de criar os controlos e o navegador tem de dar acesso à área de transferência.
    A única limitação documentada é o objeto **App**, que não pode ser copiado nem colado — por isso esta app não
-   precisa de nada em `App` (a inicialização está no `OnVisible` do primeiro ecrã).
+   precisa de nada em `App` (a inicialização está no `OnVisible` do primeiro ecrã, `scrInicio`).
 8. **`Text` com idioma**: «If the custom format includes a period, … the language-format placeholder specifies
    whether the period is a decimal separator». Por isso todos os formatos levam `[$-en-US]` e o resultado é pedido em
    `"pt-PT"` (3.º argumento).

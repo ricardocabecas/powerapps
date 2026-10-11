@@ -1,0 +1,647 @@
+- retCabIni:
+    Control: Rectangle
+    Properties:
+      Fill: =RGBA(31, 78, 121, 1)
+      X: =0
+      Y: =0
+      Width: =1366
+      Height: =64
+- lblCabIni:
+    Control: Label
+    Properties:
+      Text: ="Estatística · " & "Início"
+      X: =16
+      Y: =0
+      Width: =340
+      Height: =64
+      Font: =Font.'Segoe UI'
+      Size: =15
+      Color: =RGBA(255, 255, 255, 1)
+      FontWeight: =FontWeight.Semibold
+- btnNavIniIni:
+    Control: Classic/Button
+    Properties:
+      Text: ="Início"
+      OnSelect: =Navigate(scrInicio, ScreenTransition.None)
+      X: =366
+      Y: =14
+      Width: =86
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(255, 255, 255, 1)
+      Color: =RGBA(31, 78, 121, 1)
+      HoverFill: =RGBA(255, 255, 255, 1)
+      HoverColor: =RGBA(31, 78, 121, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+      FontWeight: =FontWeight.Semibold
+- btnNavIniDad:
+    Control: Classic/Button
+    Properties:
+      Text: ="Dados"
+      OnSelect: =Navigate(scrDados, ScreenTransition.None)
+      X: =458
+      Y: =14
+      Width: =98
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavIniDes:
+    Control: Classic/Button
+    Properties:
+      Text: ="Descritiva"
+      OnSelect: =Navigate(scrDescritiva, ScreenTransition.None)
+      X: =562
+      Y: =14
+      Width: =110
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavIniFre:
+    Control: Classic/Button
+    Properties:
+      Text: ="Frequências"
+      OnSelect: =Navigate(scrFrequencias, ScreenTransition.None)
+      X: =678
+      Y: =14
+      Width: =122
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavIniReg:
+    Control: Classic/Button
+    Properties:
+      Text: ="Regressão"
+      OnSelect: =Navigate(scrRegressao, ScreenTransition.None)
+      X: =806
+      Y: =14
+      Width: =112
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavIniTt:
+    Control: Classic/Button
+    Properties:
+      Text: ="Testes t"
+      OnSelect: =Navigate(scrTestesT, ScreenTransition.None)
+      X: =924
+      Y: =14
+      Width: =98
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavIniAno:
+    Control: Classic/Button
+    Properties:
+      Text: ="ANOVA"
+      OnSelect: =Navigate(scrAnova, ScreenTransition.None)
+      X: =1028
+      Y: =14
+      Width: =98
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavIniQui:
+    Control: Classic/Button
+    Properties:
+      Text: ="Qui-quadrado"
+      OnSelect: =Navigate(scrQuiQuadrado, ScreenTransition.None)
+      X: =1132
+      Y: =14
+      Width: =124
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- lblIniTitulo:
+    Control: Label
+    Properties:
+      Text: ="Estatística — aulas práticas"
+      X: =40
+      Y: =84
+      Width: =900
+      Height: =48
+      Font: =Font.'Segoe UI'
+      Size: =26
+      Color: =RGBA(31, 78, 121, 1)
+      FontWeight: =FontWeight.Semibold
+- lblIniSubtitulo:
+    Control: Label
+    Properties:
+      Text: |-
+        ="Escolha uma secção. Comece pelos Dados: a app traz um exemplo com 20 estudantes fictícios, que pode substituir pelos seus dados (escritos à mão ou colados do Excel)."
+      X: =40
+      Y: =134
+      Width: =1286
+      Height: =44
+      Font: =Font.'Segoe UI'
+      Size: =13
+      Color: =RGBA(90, 98, 106, 1)
+- retIniEstado:
+    Control: Rectangle
+    Properties:
+      Fill: =RGBA(222, 235, 247, 1)
+      X: =40
+      Y: =188
+      Width: =1286
+      Height: =56
+      BorderColor: =RGBA(206, 212, 218, 1)
+      BorderThickness: =1
+- lblIniEstado:
+    Control: Label
+    Properties:
+      Text: |-
+        ="Dados atuais: " & CountRows(colDados) & " linhas   ·   Variáveis numéricas: " & varNomes.N1 & ", " & varNomes.N2 & ", " & varNomes.N3 & "   ·   Variáveis de grupo: " & varNomes.C1 & ", " & varNomes.C2
+      X: =56
+      Y: =188
+      Width: =1254
+      Height: =56
+      Font: =Font.'Segoe UI'
+      Size: =12
+      Color: =RGBA(33, 37, 41, 1)
+      PaddingLeft: =4
+- retIniCartaoDad:
+    Control: Rectangle
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      X: =40
+      Y: =268
+      Width: =304
+      Height: =196
+      BorderColor: =RGBA(206, 212, 218, 1)
+      BorderThickness: =1
+- lblIniDescDad:
+    Control: Label
+    Properties:
+      Text: ="Escrever ou colar dados do Excel (vírgula ou ponto decimal) e dar nome às variáveis."
+      X: =56
+      Y: =340
+      Width: =272
+      Height: =70
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(90, 98, 106, 1)
+      VerticalAlign: =VerticalAlign.Top
+- btnIniAbrirDad:
+    Control: Classic/Button
+    Properties:
+      Text: ="1. Dados"
+      OnSelect: =Navigate(scrDados, ScreenTransition.Fade)
+      X: =56
+      Y: =284
+      Width: =272
+      Height: =48
+      Font: =Font.'Segoe UI'
+      Size: =13
+      FontWeight: =FontWeight.Semibold
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(31, 78, 121, 1)
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- lblIniIrDad:
+    Control: Label
+    Properties:
+      Text: ="Abrir →"
+      X: =56
+      Y: =422
+      Width: =272
+      Height: =30
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(31, 78, 121, 1)
+      FontWeight: =FontWeight.Semibold
+      Align: =Align.Right
+      OnSelect: =Navigate(scrDados, ScreenTransition.Fade)
+- retIniCartaoDes:
+    Control: Rectangle
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      X: =366
+      Y: =268
+      Width: =304
+      Height: =196
+      BorderColor: =RGBA(206, 212, 218, 1)
+      BorderThickness: =1
+- lblIniDescDes:
+    Control: Label
+    Properties:
+      Text: ="Média, mediana, moda, quartis, variância e desvio padrão (amostral e populacional), CV."
+      X: =382
+      Y: =340
+      Width: =272
+      Height: =70
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(90, 98, 106, 1)
+      VerticalAlign: =VerticalAlign.Top
+- btnIniAbrirDes:
+    Control: Classic/Button
+    Properties:
+      Text: ="2. Estatística descritiva"
+      OnSelect: =Navigate(scrDescritiva, ScreenTransition.Fade)
+      X: =382
+      Y: =284
+      Width: =272
+      Height: =48
+      Font: =Font.'Segoe UI'
+      Size: =13
+      FontWeight: =FontWeight.Semibold
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(31, 78, 121, 1)
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- lblIniIrDes:
+    Control: Label
+    Properties:
+      Text: ="Abrir →"
+      X: =382
+      Y: =422
+      Width: =272
+      Height: =30
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(31, 78, 121, 1)
+      FontWeight: =FontWeight.Semibold
+      Align: =Align.Right
+      OnSelect: =Navigate(scrDescritiva, ScreenTransition.Fade)
+- retIniCartaoFre:
+    Control: Rectangle
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      X: =692
+      Y: =268
+      Width: =304
+      Height: =196
+      BorderColor: =RGBA(206, 212, 218, 1)
+      BorderThickness: =1
+- lblIniDescFre:
+    Control: Label
+    Properties:
+      Text: ="Tabelas de frequências (valores ou classes), histograma e diagrama de barras."
+      X: =708
+      Y: =340
+      Width: =272
+      Height: =70
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(90, 98, 106, 1)
+      VerticalAlign: =VerticalAlign.Top
+- btnIniAbrirFre:
+    Control: Classic/Button
+    Properties:
+      Text: ="3. Frequências e gráficos"
+      OnSelect: =Navigate(scrFrequencias, ScreenTransition.Fade)
+      X: =708
+      Y: =284
+      Width: =272
+      Height: =48
+      Font: =Font.'Segoe UI'
+      Size: =13
+      FontWeight: =FontWeight.Semibold
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(31, 78, 121, 1)
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- lblIniIrFre:
+    Control: Label
+    Properties:
+      Text: ="Abrir →"
+      X: =708
+      Y: =422
+      Width: =272
+      Height: =30
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(31, 78, 121, 1)
+      FontWeight: =FontWeight.Semibold
+      Align: =Align.Right
+      OnSelect: =Navigate(scrFrequencias, ScreenTransition.Fade)
+- retIniCartaoReg:
+    Control: Rectangle
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      X: =1018
+      Y: =268
+      Width: =304
+      Height: =196
+      BorderColor: =RGBA(206, 212, 218, 1)
+      BorderThickness: =1
+- lblIniDescReg:
+    Control: Label
+    Properties:
+      Text: ="Coeficiente de Pearson, R², reta dos mínimos quadrados, previsão e diagrama de dispersão."
+      X: =1034
+      Y: =340
+      Width: =272
+      Height: =70
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(90, 98, 106, 1)
+      VerticalAlign: =VerticalAlign.Top
+- btnIniAbrirReg:
+    Control: Classic/Button
+    Properties:
+      Text: ="4. Correlação e regressão"
+      OnSelect: =Navigate(scrRegressao, ScreenTransition.Fade)
+      X: =1034
+      Y: =284
+      Width: =272
+      Height: =48
+      Font: =Font.'Segoe UI'
+      Size: =13
+      FontWeight: =FontWeight.Semibold
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(31, 78, 121, 1)
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- lblIniIrReg:
+    Control: Label
+    Properties:
+      Text: ="Abrir →"
+      X: =1034
+      Y: =422
+      Width: =272
+      Height: =30
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(31, 78, 121, 1)
+      FontWeight: =FontWeight.Semibold
+      Align: =Align.Right
+      OnSelect: =Navigate(scrRegressao, ScreenTransition.Fade)
+- retIniCartaoTt:
+    Control: Rectangle
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      X: =203
+      Y: =486
+      Width: =304
+      Height: =196
+      BorderColor: =RGBA(206, 212, 218, 1)
+      BorderThickness: =1
+- lblIniDescTt:
+    Control: Label
+    Properties:
+      Text: ="Uma amostra, duas amostras independentes (variâncias iguais ou Welch) e emparelhadas."
+      X: =219
+      Y: =558
+      Width: =272
+      Height: =70
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(90, 98, 106, 1)
+      VerticalAlign: =VerticalAlign.Top
+- btnIniAbrirTt:
+    Control: Classic/Button
+    Properties:
+      Text: ="5. Testes t"
+      OnSelect: =Navigate(scrTestesT, ScreenTransition.Fade)
+      X: =219
+      Y: =502
+      Width: =272
+      Height: =48
+      Font: =Font.'Segoe UI'
+      Size: =13
+      FontWeight: =FontWeight.Semibold
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(31, 78, 121, 1)
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- lblIniIrTt:
+    Control: Label
+    Properties:
+      Text: ="Abrir →"
+      X: =219
+      Y: =640
+      Width: =272
+      Height: =30
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(31, 78, 121, 1)
+      FontWeight: =FontWeight.Semibold
+      Align: =Align.Right
+      OnSelect: =Navigate(scrTestesT, ScreenTransition.Fade)
+- retIniCartaoAno:
+    Control: Rectangle
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      X: =529
+      Y: =486
+      Width: =304
+      Height: =196
+      BorderColor: =RGBA(206, 212, 218, 1)
+      BorderThickness: =1
+- lblIniDescAno:
+    Control: Label
+    Properties:
+      Text: ="Análise de variância a um fator com a tabela completa (SQ, gl, QM, F e valor de p)."
+      X: =545
+      Y: =558
+      Width: =272
+      Height: =70
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(90, 98, 106, 1)
+      VerticalAlign: =VerticalAlign.Top
+- btnIniAbrirAno:
+    Control: Classic/Button
+    Properties:
+      Text: ="6. ANOVA"
+      OnSelect: =Navigate(scrAnova, ScreenTransition.Fade)
+      X: =545
+      Y: =502
+      Width: =272
+      Height: =48
+      Font: =Font.'Segoe UI'
+      Size: =13
+      FontWeight: =FontWeight.Semibold
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(31, 78, 121, 1)
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- lblIniIrAno:
+    Control: Label
+    Properties:
+      Text: ="Abrir →"
+      X: =545
+      Y: =640
+      Width: =272
+      Height: =30
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(31, 78, 121, 1)
+      FontWeight: =FontWeight.Semibold
+      Align: =Align.Right
+      OnSelect: =Navigate(scrAnova, ScreenTransition.Fade)
+- retIniCartaoQui:
+    Control: Rectangle
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      X: =855
+      Y: =486
+      Width: =304
+      Height: =196
+      BorderColor: =RGBA(206, 212, 218, 1)
+      BorderThickness: =1
+- lblIniDescQui:
+    Control: Label
+    Properties:
+      Text: ="Testes de aderência e de independência, com frequências esperadas."
+      X: =871
+      Y: =558
+      Width: =272
+      Height: =70
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(90, 98, 106, 1)
+      VerticalAlign: =VerticalAlign.Top
+- btnIniAbrirQui:
+    Control: Classic/Button
+    Properties:
+      Text: ="7. Qui-quadrado"
+      OnSelect: =Navigate(scrQuiQuadrado, ScreenTransition.Fade)
+      X: =871
+      Y: =502
+      Width: =272
+      Height: =48
+      Font: =Font.'Segoe UI'
+      Size: =13
+      FontWeight: =FontWeight.Semibold
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(31, 78, 121, 1)
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- lblIniIrQui:
+    Control: Label
+    Properties:
+      Text: ="Abrir →"
+      X: =871
+      Y: =640
+      Width: =272
+      Height: =30
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(31, 78, 121, 1)
+      FontWeight: =FontWeight.Semibold
+      Align: =Align.Right
+      OnSelect: =Navigate(scrQuiQuadrado, ScreenTransition.Fade)
+- lblIniRodape:
+    Control: Label
+    Properties:
+      Text: |-
+        ="Números com vírgula decimal (pt-PT). Em todos os testes: rejeita-se H₀ quando p ≤ α. As fórmulas estão explicadas no documento «Fórmulas da app de Estatística»."
+      X: =40
+      Y: =720
+      Width: =1286
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =RGBA(90, 98, 106, 1)

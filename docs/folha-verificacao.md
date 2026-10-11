@@ -9,11 +9,12 @@
 
 Marque cada linha depois de confirmar. Os números devem coincidir em todas as casas mostradas.
 
-## 1. Ecrã Dados
+## 1. Ecrãs Início e Dados
 
 | ✓ | Ação | Resultado esperado |
 |---|---|---|
-| ☐ | Abrir a app (pré-visualização, F5) | Tabela com 20 linhas; cabeçalhos «Altura (cm)», «Peso (kg)», «Nota (0-20)», «Sexo», «Turma» |
+| ☐ | Abrir a app (pré-visualização, F5) | Abre o ecrã **Início** com «Dados atuais: 20 linhas · Variáveis numéricas: Altura (cm), Peso (kg), Nota (0-20) · Variáveis de grupo: Sexo, Turma» e 7 cartões |
+| ☐ | Carregar no cartão «1. Dados» | Tabela com 20 linhas; cabeçalhos «Altura (cm)», «Peso (kg)», «Nota (0-20)», «Sexo», «Turma» |
 | ☐ | Na linha 1, escrever `165,5` em Altura e sair da célula | Fica `165,5`; o resumo continua com 0 células vazias |
 | ☐ | Escrever `abc` numa célula numérica | Aviso «não é um número válido»; contorno vermelho; a célula conta como vazia |
 | ☐ | Escrever `1.5` (com ponto) | É aceite e mostrado como `1,5` |
@@ -203,7 +204,7 @@ Face<TAB>Obs
 | ✓ | O quê | Como confirmar |
 |---|---|---|
 | ☐ | Colagem dos ecrãs | Cada ficheiro de `Src/` cola sem erros e cria o ecrã com o nome indicado |
-| ☐ | Navegação | Os 7 botões da barra superior mudam de ecrã; o botão do ecrã atual aparece branco |
+| ☐ | Navegação | Os 8 botões da barra superior (Início … Qui-quadrado) e os 7 cartões do Início mudam de ecrã; o botão do ecrã atual aparece branco |
 | ☐ | Separador decimal | Todos os números aparecem com vírgula decimal (ex.: 169,4500) |
 | ☐ | Tabelas HTML | As tabelas dos ecrãs Descritiva, Regressão, Testes t, ANOVA e Qui-quadrado aparecem formatadas e cabem no painel |
 | ☐ | Gráficos SVG | Histograma, diagrama de barras e dispersão aparecem no controlo Imagem, com texto legível |

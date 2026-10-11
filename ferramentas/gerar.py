@@ -21,9 +21,9 @@ sys.path.insert(0, AQUI)
 
 from gerador.pfx import verificar_parenteses  # noqa: E402
 from gerador.yaml_pa import ecra_yaml, controlos_yaml, todas_formulas, todos_controlos  # noqa: E402
-from gerador import ecra_dados, ecra_descritiva, ecra_frequencias, ecra_regressao, ecra_testes_t, ecra_anova, ecra_qui  # noqa: E402
+from gerador import ecra_inicio, ecra_dados, ecra_descritiva, ecra_frequencias, ecra_regressao, ecra_testes_t, ecra_anova, ecra_qui  # noqa: E402
 
-MODULOS = [ecra_dados, ecra_descritiva, ecra_frequencias, ecra_regressao, ecra_testes_t, ecra_anova, ecra_qui]
+MODULOS = [ecra_inicio, ecra_dados, ecra_descritiva, ecra_frequencias, ecra_regressao, ecra_testes_t, ecra_anova, ecra_qui]
 
 
 def ecras():

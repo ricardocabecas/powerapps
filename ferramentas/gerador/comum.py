@@ -36,6 +36,7 @@ ALTURA_CAB = 64
 
 # Ecrãs da app, pela ordem da barra de navegação: (nome do ecrã, rótulo do botão, sufixo)
 ECRAS = [
+    ("scrInicio", "Início", "Ini"),
     ("scrDados", "Dados", "Dad"),
     ("scrDescritiva", "Descritiva", "Des"),
     ("scrFrequencias", "Frequências", "Fre"),
@@ -123,13 +124,16 @@ def cabecalho(ecra_atual, titulo):
     suf = dict((e, s) for e, _, s in ECRAS)[ecra_atual]
     ctl = [
         retangulo(f"retCab{suf}", 0, 0, LARGURA, ALTURA_CAB, COR_PRIMARIA),
-        etiqueta(f"lblCab{suf}", '"Estatística · " & ' + _t(titulo), 16, 0, 420, ALTURA_CAB, 18, True,
+        etiqueta(f"lblCab{suf}", '"Estatística · " & ' + _t(titulo), 16, 0, 340, ALTURA_CAB, 15, True,
                  "RGBA(255, 255, 255, 1)"),
     ]
-    x = 446
+    # largura de cada botão de acordo com o rótulo (8 botões cabem entre x = 366 e x = 1350)
+    larguras = {"Início": 86, "Dados": 98, "Descritiva": 110, "Frequências": 122, "Regressão": 112,
+                "Testes t": 98, "ANOVA": 98, "Qui-quadrado": 124}
+    x = 366
     for nome, rotulo, s in ECRAS:
         ativo = nome == ecra_atual
-        w = 124 if rotulo == "Qui-quadrado" else 120 if rotulo == "Frequências" else 112
+        w = larguras[rotulo]
         p = {"Text": _t(rotulo), "OnSelect": f"Navigate({nome}, ScreenTransition.None)", **pos(x, 14, w, 36),
              "Font": FONTE, "Size": "11",
              "Fill": "RGBA(255, 255, 255, 1)" if ativo else COR_PRIMARIA,

@@ -2,11 +2,11 @@
 
 Gerado em 11/10/2026 por `testes/executar_testes.py`. As fórmulas foram executadas com o interpretador open source **Microsoft.PowerFx.Interpreter 1.8.1** (.NET 8), com números em vírgula flutuante (como nas canvas apps).
 
-**Total: 5148/5148 verificações sem diferenças.**
+**Total: 6432/6432 verificações sem diferenças.**
 
 ## Sintaxe de todas as fórmulas dos ecrãs
 
-2444 fórmulas analisadas em formato invariante (ficheiros .pa.yaml) e convertidas para pt-PT (barra de fórmulas): **4888/4888 sem erros de sintaxe**.
+3086 fórmulas analisadas em formato invariante (ficheiros .pa.yaml) e convertidas para pt-PT (barra de fórmulas): **6172/6172 sem erros de sintaxe**.
 
 
 ## Fase 1 — Entrada de dados
