@@ -69,3 +69,23 @@ Diferenças conhecidas em relação ao Power Apps Studio:
   sintaxe.
 * O separador de milhares de `Text(...; "pt-PT")` no interpretador é um espaço (U+00A0/U+202F). No Studio pode ser
   outro espaço; isso não afeta os cálculos.
+
+## Comportamentos do Power Fx encontrados durante os testes
+
+* `RoundDown` e `RoundUp` arredondam **em direção a zero** (`RoundDown(-2,5; 0)` = −2). Para o chão de um número
+  que pode ser negativo usa-se `Int` (`Int(-2,5)` = −3) e para o teto `-Int(-x)`. Foi a causa de um erro nos
+  eixos do diagrama de dispersão com valores negativos, já corrigido e coberto por um teste.
+* `Average` de uma tabela vazia dá erro de divisão por zero no interpretador; a documentação não diz o que acontece
+  no Studio, por isso todas as médias estão protegidas com `If(n > 0; …)`.
+* `Text(Blank(); "0,00")` devolve `"0,00"` e não vazio: a formatação testa primeiro `IsBlank`.
+* Concatenar um número com `&` usa a conversão por omissão; para não depender da região, todos os números que
+  entram em SVG passam por `Text(…; "[$-en-US]0.00"; "en-US")` e os que se mostram por `Text(…; …; "pt-PT")`.
+* O gerador verifica automaticamente o equilíbrio de parênteses e chavetas de todas as fórmulas (fora de textos e
+  comentários) — apanhou vários erros antes de chegarem aos ficheiros.
+
+## Porque não há botão «Calcular»
+
+Todos os resultados são **fórmulas reativas** (propriedades `HtmlText`, `Items` e `Image`) que dependem de `colDados`
+e das listas pendentes. Vantagens: não há problemas de ordem de execução (a documentação diz que `Select` só põe o
+`OnSelect` em fila), o resultado está sempre atualizado e as mesmas fórmulas puras podem ser executadas no
+interpretador para os testes. A única lógica de comportamento está no ecrã de dados (editar, colar, importar).

@@ -97,6 +97,8 @@ def main():
         json.dump({"total": total, "ok": total_ok, "sintaxe_falhas": falhas, "fases": detalhe}, f,
                   ensure_ascii=False, indent=1)
     print(f"Total: {total_ok}/{total} verificações sem diferenças.")
+    import gerar_folha
+    gerar_folha.main()
     return 0 if total_ok == total else 1
 
 
