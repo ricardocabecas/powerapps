@@ -105,3 +105,40 @@ TESTES_T = [
     ("emparelhado_antes_depois", 4, 1, [80, 75, 90, 68, 72, 85], [78, 74, 85, 69, 70, 80], None, "", "", "0", 3),
     ("emparelhado_com_faltas", 4, 1, [5, 6, None, 8, 7], [4, 6.5, 3, None, 5], None, "", "", "0", 1),
 ]
+
+# ANOVA: (nome, formato, N1, C2 (fator), N2, N3)
+ANOVA = [
+    ("altura_por_turma", 1, _ALT, _TURMA, None, None),
+    ("nota_por_turma", 1, _NOTA, _TURMA, None, None),
+    ("tres_grupos_desiguais", 1, [4, 5, 6, 8, 9, 10, 11, 1, 2], ["a", "a", "a", "b", "b", "b", "b", "c", "c"], None, None),
+    ("dois_grupos_igual_t", 1, _ALT, _SEXO, None, None),
+    ("grupo_com_n1", 1, [3, 4, 5, 10], ["x", "x", "x", "y"], None, None),
+    ("variancia_dentro_nula", 1, [2, 2, 5, 5], ["p", "p", "q", "q"], None, None),
+    ("um_so_grupo", 1, [1, 2, 3], ["u", "u", "u"], None, None),
+    ("colunas_como_grupos", 2, [10, 12, 11, 14], None, [15, 17, 16, None], [9, 8, 10, 11]),
+    ("colunas_com_vazia", 2, [1.5, 2.5, 2.0], None, [None, None, None], [3.0, 3.5, 4.5]),
+]
+
+TAB = "\t"
+# Qui-quadrado: (nome, tipo 1/2, origem 1/2, var1 (1-5), var2, colDados como (N1, C1, C2), texto colado,
+#                esperadas 1/2, proporções texto, referência (observadas, proporções ou tabela))
+QUI = [
+    ("ader_sexo_iguais", 1, 1, 4, 5, None, "", 1, "", ([10, 10], None)),
+    ("ader_turma_iguais", 1, 1, 5, 4, None, "", 1, "", ([7, 7, 6], None)),
+    ("ader_turma_indicadas", 1, 1, 5, 4, None, "", 2, "0,5; 0,25; 0,25", ([7, 7, 6], [0.5, 0.25, 0.25])),
+    ("ader_nota_numerica_pesos", 1, 1, 3, 4, None, "", 2, "1\n2\n3\n4\n4\n3\n2\n2\n1\n1",
+     ([1, 2, 2, 3, 2, 3, 2, 2, 2, 1], [1, 2, 3, 4, 4, 3, 2, 2, 1, 1])),
+    ("ader_colada_dado", 1, 2, 1, 1, None, "Face\tObs\n1\t8\n2\t12\n3\t9\n4\t11\n5\t6\n6\t14", 1, "",
+     ([8, 12, 9, 11, 6, 14], None)),
+    ("ader_colada_percentagens", 1, 2, 1, 1, None, "A\t30\nB\t50\nC\t20", 2, "25%\t50%\t25%",
+     ([30, 50, 20], [0.25, 0.5, 0.25])),
+    ("ader_esperadas_baixas", 1, 2, 1, 1, None, "a\t1\nb\t2\nc\t7", 1, "", ([1, 2, 7], None)),
+    ("ader_proporcoes_em_falta", 1, 2, 1, 1, None, "a\t1\nb\t2\nc\t7", 2, "0,5; 0,5", None),
+    ("indep_sexo_turma", 2, 1, 4, 5, None, "", 1, "", ([[3, 4, 3], [4, 3, 3]], None)),
+    ("indep_colada_2x2", 2, 2, 1, 1, None, "\tSim\tNão\nHomem\t30\t10\nMulher\t15\t25", 1, "", ([[30, 10], [15, 25]], None)),
+    ("indep_colada_sem_nomes_3x3", 2, 2, 1, 1, None, "12\t7\t9\n5\t15\t8\n9\t6\t14\n", 1, "",
+     ([[12, 7, 9], [5, 15, 8], [9, 6, 14]], None)),
+    ("indep_colada_esperadas_baixas", 2, 2, 1, 1, None, "x\ty\n2\t1\n3\t9\n1\t0", 1, "", ([[2, 1], [3, 9], [1, 0]], None)),
+    ("indep_colada_linha_vazia", 2, 2, 1, 1, None, "\tA\tB\nL1\t5\t3\nL2\t0\t0\nL3\t2\t6", 1, "", None),
+    ("indep_colada_invalidos", 2, 2, 1, 1, None, "\tA\tB\nL1\t5\tabc\nL2\t4\t6", 1, "", ([[5, 0], [4, 6]], None)),
+]

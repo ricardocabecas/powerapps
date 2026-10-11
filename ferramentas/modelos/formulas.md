@@ -285,3 +285,102 @@ negativo usa-se `Int` (`Int(-2,5)` = −3) e para o «teto» `-Int(-x)`:
 {{pt: "// início e fim do eixo dos x, múltiplos do passo _xp\n{_x0: _xp * Int((_minX - 0.04 * _xd) / _xp + 1E-9),\n _x1: -_xp * Int(-(_maxX + 0.04 * _xd) / _xp + 1E-9)}"}}
 
 A reta é desenhada de um lado ao outro do gráfico e recortada à área dos dados com um `clipPath` SVG.
+
+## 5. Inferência (ecrãs `scrTestesT`, `scrAnova`, `scrQuiQuadrado`)
+
+### 5.1 Regra de decisão
+
+Em todos os testes: **rejeita-se H₀ quando p ≤ α**, com α escolhido pelo aluno (0,10; 0,05; 0,01; 0,001). A app
+escreve a decisão e uma conclusão por extenso no contexto dos dados. O nível α lê-se da lista pendente:
+
+{{pt: F_inferencia.alfa("drpTtAlfa")}}
+
+### 5.2 Valores de p por integração numérica
+
+O Power Fx não tem funções de distribuição (nem a função Gama). Os valores de p calculam-se com **integração
+numérica** em Power Fx puro, com `Sequence` (nós) e `Sum` (soma pesada). Detalhes e precisão medida em
+`docs/precisao-valores-p.md` (erro máximo 2,3×10⁻⁷; nenhum valor difere do scipy na 4.ª casa decimal).
+
+**Ideia matemática.** Para a distribuição F(d₁, d₂), fazendo x = d₁F/(d₁F + d₂) obtém-se uma Beta(d₁/2, d₂/2) e,
+com x = sen²θ,
+
+  P(F > f) = ∫ de θ₀ a π/2 de sen^(d₁−1)θ · cos^(d₂−1)θ dθ  ÷  ∫ de 0 a π/2 do mesmo integrando,
+  com θ₀ = atan(√(d₁ f / d₂)).
+
+O integrando é limitado (os expoentes são ≥ 0), por isso a regra de Gauss-Legendre é muito precisa. As constantes
+(funções Beta/Gama) cancelam-se na razão. Para o qui-quadrado, com u = v²:
+
+  P(χ² > x) = ∫ de √x a ∞ de v^(k−1) e^(−v²/2) dv  ÷  ∫ de 0 a ∞ do mesmo integrando.
+
+Para o t de Student usa-se T² ~ F(1, ν): o p bilateral é P(F(1, ν) > t²); os unilaterais são metade (ou 1 menos
+metade), conforme o sinal de t.
+
+**Nós e pesos de Gauss-Legendre** (100 subintervalos × 3 nós; u em ]0, 1[; os pesos somam 1):
+
+{{pt: F_inferencia._nos()}}
+
+**Valor de p da distribuição F** (`_f`, `_d1`, `_d2`):
+
+{{pt: F_inferencia.p_f("_estatisticaF", "_gl1", "_gl2")}}
+
+**Valor de p do qui-quadrado**:
+
+{{pt: F_inferencia.p_qui("_estatisticaQui2", "_gl")}}
+
+**Valor de p do teste t** segundo a hipótese alternativa (1 bilateral, 2 à esquerda, 3 à direita):
+
+{{pt: F_inferencia.p_t("_t", "_gl", "_alt")}}
+
+### 5.3 Testes t
+
+| Teste | Estatística | Graus de liberdade |
+|---|---|---|
+| Uma amostra (H₀: μ = μ₀) | t = (x̄ − μ₀) / (s / √n) | n − 1 |
+| Duas amostras independentes, variâncias iguais (H₀: μ₁ − μ₂ = Δ₀) | t = (x̄₁ − x̄₂ − Δ₀) / (sₚ √(1/n₁ + 1/n₂)), sₚ² = [(n₁ − 1)s₁² + (n₂ − 1)s₂²] / (n₁ + n₂ − 2) | n₁ + n₂ − 2 |
+| Duas amostras independentes, Welch (variâncias diferentes) | t = (x̄₁ − x̄₂ − Δ₀) / √(s₁²/n₁ + s₂²/n₂) | (s₁²/n₁ + s₂²/n₂)² / [(s₁²/n₁)²/(n₁ − 1) + (s₂²/n₂)²/(n₂ − 1)] |
+| Emparelhadas (H₀: μ_D = Δ₀, D = X − Y) | t = (d̄ − Δ₀) / (s_D / √n) | n − 1 (n = n.º de pares completos) |
+
+As duas amostras independentes podem vir de **uma variável numérica + uma variável de grupo** (escolhem-se os dois
+grupos) ou de **duas colunas numéricas**. Fórmula completa (registo com todos os resultados):
+
+{{pt: F_inferencia.teste_t()}}
+
+### 5.4 ANOVA a um fator
+
+Com k grupos, nᵢ observações e média x̄ᵢ no grupo i, N = Σnᵢ e x̄ a média global:
+
+| Fonte | SQ | gl | QM | F |
+|---|---|---|---|---|
+| Entre grupos | SQE = Σ nᵢ (x̄ᵢ − x̄)² | k − 1 | QME = SQE / (k − 1) | F = QME / QMD |
+| Dentro dos grupos | SQD = Σᵢ Σⱼ (xᵢⱼ − x̄ᵢ)² | N − k | QMD = SQD / (N − k) | |
+| Total | SQT = SQE + SQD | N − 1 | | |
+
+p = P(F(k − 1, N − k) ≥ F). A app mostra também η² = SQE / SQT.
+
+{{pt: F_inferencia.anova()}}
+
+### 5.5 Qui-quadrado
+
+* **Aderência**: k categorias com frequências observadas Oᵢ e proporções esperadas pᵢ (iguais ou indicadas pelo
+  aluno; são normalizadas para somar 1). Eᵢ = n·pᵢ, χ² = Σ (Oᵢ − Eᵢ)² / Eᵢ, gl = k − 1.
+* **Independência**: tabela r × c, Eᵢⱼ = Rᵢ·Cⱼ / N (totais de linha e coluna), χ² = Σ (Oᵢⱼ − Eᵢⱼ)² / Eᵢⱼ,
+  gl = (r − 1)(c − 1). Não se aplica a correção de continuidade de Yates.
+* **Regra de Cochran** (aviso): no máximo 20 % das células com E < 5 e nenhuma com E < 1.
+
+As frequências podem vir das variáveis da tabela de dados (as variáveis numéricas são tratadas como categorias)
+ou de uma **tabela colada do Excel**. Na tabela colada, a 1.ª linha é cabeçalho se tiver texto a partir da
+2.ª coluna e a 1.ª coluna tem os nomes das linhas se tiver texto:
+
+{{pt: F_inferencia.matriz_colada()}}
+
+Proporções esperadas escritas pelo aluno (separadas por `;`, tabulação ou mudança de linha):
+
+{{pt: F_inferencia._props_indicadas()}}
+
+Fórmula completa do teste:
+
+{{pt: F_inferencia.qui_quadrado()}}
+
+### 5.6 Teste de significância do coeficiente de correlação (ecrã `scrRegressao`)
+
+H₀: ρ = 0 contra H₁: ρ ≠ 0, com t = r √(n − 2) / √(1 − r²) e n − 2 graus de liberdade (precisa de n ≥ 3).

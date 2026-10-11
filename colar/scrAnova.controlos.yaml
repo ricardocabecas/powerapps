@@ -1,0 +1,370 @@
+- retCabAno:
+    Control: Rectangle
+    Properties:
+      Fill: =RGBA(31, 78, 121, 1)
+      X: =0
+      Y: =0
+      Width: =1366
+      Height: =64
+- lblCabAno:
+    Control: Label
+    Properties:
+      Text: ="Estatística · " & "ANOVA a um fator"
+      X: =16
+      Y: =0
+      Width: =420
+      Height: =64
+      Font: =Font.'Segoe UI'
+      Size: =18
+      Color: =RGBA(255, 255, 255, 1)
+      FontWeight: =FontWeight.Semibold
+- btnNavAnoDad:
+    Control: Classic/Button
+    Properties:
+      Text: ="Dados"
+      OnSelect: =Navigate(scrDados, ScreenTransition.None)
+      X: =446
+      Y: =14
+      Width: =112
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavAnoDes:
+    Control: Classic/Button
+    Properties:
+      Text: ="Descritiva"
+      OnSelect: =Navigate(scrDescritiva, ScreenTransition.None)
+      X: =564
+      Y: =14
+      Width: =112
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavAnoFre:
+    Control: Classic/Button
+    Properties:
+      Text: ="Frequências"
+      OnSelect: =Navigate(scrFrequencias, ScreenTransition.None)
+      X: =682
+      Y: =14
+      Width: =120
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavAnoReg:
+    Control: Classic/Button
+    Properties:
+      Text: ="Regressão"
+      OnSelect: =Navigate(scrRegressao, ScreenTransition.None)
+      X: =808
+      Y: =14
+      Width: =112
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavAnoTt:
+    Control: Classic/Button
+    Properties:
+      Text: ="Testes t"
+      OnSelect: =Navigate(scrTestesT, ScreenTransition.None)
+      X: =926
+      Y: =14
+      Width: =112
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavAnoAno:
+    Control: Classic/Button
+    Properties:
+      Text: ="ANOVA"
+      OnSelect: =Navigate(scrAnova, ScreenTransition.None)
+      X: =1044
+      Y: =14
+      Width: =112
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(255, 255, 255, 1)
+      Color: =RGBA(31, 78, 121, 1)
+      HoverFill: =RGBA(255, 255, 255, 1)
+      HoverColor: =RGBA(31, 78, 121, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+      FontWeight: =FontWeight.Semibold
+- btnNavAnoQui:
+    Control: Classic/Button
+    Properties:
+      Text: ="Qui-quadrado"
+      OnSelect: =Navigate(scrQuiQuadrado, ScreenTransition.None)
+      X: =1162
+      Y: =14
+      Width: =124
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- retAnoPainel:
+    Control: Rectangle
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      X: =12
+      Y: =72
+      Width: =338
+      Height: =684
+      BorderColor: =RGBA(206, 212, 218, 1)
+      BorderThickness: =1
+- lblAnoFormato:
+    Control: Label
+    Properties:
+      Text: ="Formato dos dados"
+      X: =24
+      Y: =78
+      Width: =314
+      Height: =22
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =RGBA(33, 37, 41, 1)
+      FontWeight: =FontWeight.Semibold
+      Visible: =true
+- drpAnoFormato:
+    Control: Classic/DropDown
+    Properties:
+      Items: =["Variável numérica + fator (grupo)", "Colunas numéricas como grupos"]
+      X: =24
+      Y: =100
+      Width: =314
+      Height: =32
+      Font: =Font.'Segoe UI'
+      Size: =12
+      Default: ="Variável numérica + fator (grupo)"
+      Visible: =true
+- lblAnoVar:
+    Control: Label
+    Properties:
+      Text: ="Variável numérica (resposta)"
+      X: =24
+      Y: =138
+      Width: =314
+      Height: =22
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =RGBA(33, 37, 41, 1)
+      FontWeight: =FontWeight.Semibold
+      Visible: =drpAnoFormato.Selected.Value = "Variável numérica + fator (grupo)"
+- drpAnoVar:
+    Control: Classic/DropDown
+    Properties:
+      Items: =[varNomes.N1, varNomes.N2, varNomes.N3]
+      X: =24
+      Y: =160
+      Width: =314
+      Height: =32
+      Font: =Font.'Segoe UI'
+      Size: =12
+      Default: =varNomes.N1
+      Visible: =drpAnoFormato.Selected.Value = "Variável numérica + fator (grupo)"
+- lblAnoFator:
+    Control: Label
+    Properties:
+      Text: ="Fator (variável de grupo)"
+      X: =24
+      Y: =198
+      Width: =314
+      Height: =22
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =RGBA(33, 37, 41, 1)
+      FontWeight: =FontWeight.Semibold
+      Visible: =drpAnoFormato.Selected.Value = "Variável numérica + fator (grupo)"
+- drpAnoFator:
+    Control: Classic/DropDown
+    Properties:
+      Items: =[varNomes.C1, varNomes.C2]
+      X: =24
+      Y: =220
+      Width: =314
+      Height: =32
+      Font: =Font.'Segoe UI'
+      Size: =12
+      Default: =varNomes.C2
+      Visible: =drpAnoFormato.Selected.Value = "Variável numérica + fator (grupo)"
+- lblAnoAlfa:
+    Control: Label
+    Properties:
+      Text: ="Nível de significância α"
+      X: =24
+      Y: =258
+      Width: =314
+      Height: =22
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =RGBA(33, 37, 41, 1)
+      FontWeight: =FontWeight.Semibold
+      Visible: =true
+- drpAnoAlfa:
+    Control: Classic/DropDown
+    Properties:
+      Items: =["0,10", "0,05", "0,01", "0,001"]
+      X: =24
+      Y: =280
+      Width: =314
+      Height: =32
+      Font: =Font.'Segoe UI'
+      Size: =12
+      Default: ="0,05"
+      Visible: =true
+- lblAnoNotas:
+    Control: Label
+    Properties:
+      Text: |-
+        ="Notas" & Char(10) & Char(10) & "• Formato «variável + fator»: cada linha da tabela de dados é uma observação; o fator diz a que grupo pertence." & Char(10) & Char(10) & "• Formato «colunas como grupos»: cada variável numérica (" & varNomes.N1 & ", " & varNomes.N2 & ", " & varNomes.N3 & ") é um grupo; colunas vazias são ignoradas." & Char(10) & Char(10) & "• Com 2 grupos, a ANOVA dá o mesmo valor de p do teste t com variâncias iguais (F = t²)."
+      X: =24
+      Y: =326
+      Width: =314
+      Height: =300
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =RGBA(90, 98, 106, 1)
+      VerticalAlign: =VerticalAlign.Top
+- htmAnoResultado:
+    Control: HtmlViewer
+    Properties:
+      HtmlText: |-
+        =With({_R: With(
+                {_fmt: If(drpAnoFormato.Selected.Value = "Colunas numéricas como grupos", 2, 1),
+                 _k: Switch(drpAnoVar.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, 1), _kg: Switch(drpAnoFator.Selected.Value, varNomes.C2, 2, 1), _alfa: Value(Substitute(drpAnoAlfa.Selected.Value, ",", "."), "en-US")},
+                With(
+                    // Resumo de cada grupo: n, média, soma e soma dos quadrados dos desvios em relação à média do grupo
+                    {_g: If(_fmt = 1, ForAll(Sort(Filter(Distinct(colDados, Switch(_kg, 1, C1, C2)), !IsBlank(Value)), Value) As _G, With({_v: Filter(ForAll(colDados As _d, {x: Switch(_k, 1, _d.N1, 2, _d.N2, _d.N3), g: Switch(_kg, 1, _d.C1, _d.C2)}), !IsBlank(x) && g = _G.Value)}, With({_n: CountRows(_v)}, With({_m: If(_n > 0, Average(_v, x))}, {Grupo: _G.Value, n: _n, media: _m, soma: Sum(_v, x), sq: Sum(_v, Power(x - _m, 2))})))), Filter(ForAll(Sequence(3) As _j, With({_v: Filter(ForAll(colDados As _d, {x: Switch(_j.Value, 1, _d.N1, 2, _d.N2, _d.N3)}), !IsBlank(x))}, With({_n: CountRows(_v)}, With({_m: If(_n > 0, Average(_v, x))}, {Grupo: Switch(_j.Value, 1, varNomes.N1, 2, varNomes.N2, varNomes.N3), n: _n, media: _m, soma: Sum(_v, x), sq: Sum(_v, Power(x - _m, 2))})))), n > 0))},
+                With({_N: Sum(_g, n), _kk: CountRows(_g)},
+                With({_mg: If(_N > 0, Sum(_g, soma) / _N)},
+                With(
+                    // SQ entre grupos (fator) e SQ dentro dos grupos (residual)
+                    {_SQE: Sum(_g, n * Power(media - _mg, 2)), _SQD: Sum(_g, sq)},
+                With(
+                    {_QME: If(_kk >= 2, _SQE / (_kk - 1)), _QMD: If(_N > _kk, _SQD / (_N - _kk))},
+                With(
+                    {_F: If(_kk >= 2 && _N > _kk && _SQD > 0, _QME / _QMD)},
+                {
+                    Grupos: _g, k: _kk, N: _N, mediaGlobal: _mg, alfa: _alfa,
+                    SQE: _SQE, SQD: _SQD, SQT: _SQE + _SQD,
+                    glE: _kk - 1, glD: _N - _kk, glT: _N - 1,
+                    QME: _QME, QMD: _QMD, F: _F,
+                    p: If(!IsBlank(_F), With({_f: _F, _d1: _kk - 1, _d2: _N - _kk},
+                            If(_f <= 0, 1,
+                            With({_t0: Atan(Sqrt(_d1 * _f / _d2)), _sg: 1 / Sqrt(Max(_d1 + _d2 - 2, 1)),
+                                  _ts: If(_d2 > 1, Atan(Sqrt(Max(_d1 - 1, 0) / (_d2 - 1))), Pi() / 2)},
+                            With({_lo: Max(0, _ts - 10 * _sg), _hi: Min(Pi() / 2, _ts + 10 * _sg)},
+                                If(_t0 >= _hi, 0,
+                                    With({_nd: ForAll(Sequence(300, 0) As _i, With({_s: RoundDown(_i.Value / 3, 0), _m: Mod(_i.Value, 3)}, {u: (_s + 0.5 + (_m - 1) * 0.3872983346207417) / 100, w: If(_m = 1, 8 / 9, 5 / 9) / 200}))},
+                                With({_Ltot: ForAll(_nd, With({t: _lo + u * (_hi - _lo)}, {L: (_d1 - 1) * Ln(Sin(t)) + (_d2 - 1) * Ln(Cos(t)), w: w * (_hi - _lo)})),
+                                      _Lcau: ForAll(_nd, With({t: Max(_t0, _lo) + u * (_hi - Max(_t0, _lo))}, {L: (_d1 - 1) * Ln(Sin(t)) + (_d2 - 1) * Ln(Cos(t)), w: w * (_hi - Max(_t0, _lo))}))},
+                                    With({_M: Max(_Ltot, L)},
+                                        Min(1, Sum(_Lcau, Exp(L - _M) * w) / Sum(_Ltot, Exp(L - _M) * w))))))))))),
+                    eta2: If(_SQE + _SQD > 0, _SQE / (_SQE + _SQD)),
+                    motivo: If(_kk < 2, "são precisos pelo menos 2 grupos com dados.",
+                               _N <= _kk, "é preciso que pelo menos um grupo tenha mais do que uma observação (N > k).",
+                               "a variabilidade dentro dos grupos é nula (SQ dentro = 0), por isso F não está definido.")
+                }
+                ))))))
+            ),
+              _nomeVar: If(drpAnoFormato.Selected.Value = "Colunas numéricas como grupos", "cada coluna", drpAnoVar.Selected.Value)},
+            "<div style='font-family:Segoe UI,Arial;font-size:13px;color:#212529;line-height:1.45'>" &
+            "<h4 style='margin:12px 0 4px 0;color:#1f4e79'>Resumo dos grupos</h4>" &
+            "<table style='border-collapse:collapse;margin:4px 0 10px 0'><tr style='background:#1f4e79;color:#ffffff'><th style='padding:5px 8px;text-align:left'>Grupo</th><th style='padding:5px 8px;text-align:right'>n</th><th style='padding:5px 8px;text-align:right'>Média</th><th style='padding:5px 8px;text-align:right'>Desvio padrão</th><th style='padding:5px 8px;text-align:right'>Variância</th></tr>" & Concat(_R.Grupos, "<tr>" & "<td style='padding:4px 8px;text-align:left;border-bottom:1px solid #e1e5ea'>" & Substitute(Substitute(Substitute(Grupo, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: n}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 0.5, 0, _v), "[$-en-US]#,##0", "pt-PT"))) & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: media}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: If(n >= 2, Sqrt(sq / (n - 1)))}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: If(n >= 2, sq / (n - 1))}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>" & "</tr>") & "</table>" &
+            "Média global x̄ = " & With({_v: _R.mediaGlobal}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & " &nbsp;·&nbsp; N = " & With({_v: _R.N}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 0.5, 0, _v), "[$-en-US]#,##0", "pt-PT"))) & " &nbsp;·&nbsp; k = " & With({_v: _R.k}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 0.5, 0, _v), "[$-en-US]#,##0", "pt-PT"))) & " grupos" &
+            "<h4 style='margin:12px 0 4px 0;color:#1f4e79'>Hipóteses</h4>" &
+            "H₀: μ₁ = μ₂ = … = μ<sub>k</sub> (todas as médias populacionais são iguais)<br>" &
+            "H₁: pelo menos duas médias populacionais são diferentes" &
+            "<h4 style='margin:12px 0 4px 0;color:#1f4e79'>Tabela da ANOVA</h4>" &
+            "<table style='border-collapse:collapse;margin:4px 0 10px 0'><tr style='background:#1f4e79;color:#ffffff'><th style='padding:5px 8px;text-align:left'>Fonte de variação</th><th style='padding:5px 8px;text-align:right'>SQ</th><th style='padding:5px 8px;text-align:right'>gl</th><th style='padding:5px 8px;text-align:right'>QM = SQ / gl</th><th style='padding:5px 8px;text-align:right'>F = QM<sub>entre</sub> / QM<sub>dentro</sub></th><th style='padding:5px 8px;text-align:right'>Valor de p</th></tr>" & "<tr>" & "<td style='padding:4px 8px;text-align:left;border-bottom:1px solid #e1e5ea'>" & "Entre grupos (fator)" & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: _R.SQE}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: _R.glE}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 0.5, 0, _v), "[$-en-US]#,##0", "pt-PT"))) & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: _R.QME}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & "<b>" & With({_v: _R.F}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</b>" & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & "<b>" & With({_pp: _R.p}, If(IsBlank(_pp), "n.d.", _pp < 0.0001, "< 0,0001", With({_v: _pp}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))))) & "</b>" & "</td>" & "</tr>" & "<tr>" & "<td style='padding:4px 8px;text-align:left;border-bottom:1px solid #e1e5ea'>" & "Dentro dos grupos (residual)" & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: _R.SQD}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: _R.glD}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 0.5, 0, _v), "[$-en-US]#,##0", "pt-PT"))) & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: _R.QMD}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & "" & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & "" & "</td>" & "</tr>" & "<tr style='font-weight:600'>" & "<td style='padding:4px 8px;text-align:left;border-bottom:1px solid #e1e5ea'>" & "Total" & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: _R.SQT}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: _R.glT}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 0.5, 0, _v), "[$-en-US]#,##0", "pt-PT"))) & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & "" & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & "" & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & "" & "</td>" & "</tr>" & "</table>" &
+            "<span style='color:#5a626a;font-size:12px'>SQ<sub>entre</sub> = Σ nᵢ (x̄ᵢ − x̄)² &nbsp;·&nbsp; SQ<sub>dentro</sub> = Σᵢ Σⱼ (xᵢⱼ − x̄ᵢ)² " &
+            "&nbsp;·&nbsp; gl: k − 1, N − k e N − 1 &nbsp;·&nbsp; p = P(F ≥ F<sub>obs</sub>) com F ~ F(k − 1, N − k)" &
+            " &nbsp;·&nbsp; η² = SQ<sub>entre</sub> / SQ<sub>total</sub> = " & With({_v: _R.eta2}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</span>" &
+            "<h4 style='margin:12px 0 4px 0;color:#1f4e79'>Decisão e conclusão</h4>" &
+            If(IsBlank(_R.p),
+                "<div style='border-left:4px solid #b00020;padding:6px 10px;background:#fdecee'>Não é possível calcular o teste: " & _R.motivo & "</div>",
+                If(_R.p <= _R.alfa,
+                    "<div style='border-left:4px solid #107c10;padding:6px 10px;background:#e8f5e8'><b>Decisão: rejeita-se H₀</b> (p" & With({_pp: _R.p}, If(IsBlank(_pp), " = n.d.", _pp < 0.0001, " < 0,0001", " = " & With({_v: _pp}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))))) & " ≤ α = " & With({_r: Round(_R.alfa, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & ").<br>" &
+                    "Conclusão: ao nível de significância de " & With({_r: Round(_R.alfa * 100, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & " %" & ", há evidência estatística de que " & "existem diferenças entre as médias de " & Substitute(Substitute(Substitute(_nomeVar, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & " nos " & _R.k & " grupos (pelo menos duas médias populacionais são diferentes)" & ".</div>",
+                    "<div style='border-left:4px solid #1f4e79;padding:6px 10px;background:#eef3f9'><b>Decisão: não se rejeita H₀</b> (p" & With({_pp: _R.p}, If(IsBlank(_pp), " = n.d.", _pp < 0.0001, " < 0,0001", " = " & With({_v: _pp}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))))) & " > α = " & With({_r: Round(_R.alfa, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & ").<br>" &
+                    "Conclusão: ao nível de significância de " & With({_r: Round(_R.alfa * 100, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & " %" & ", não há evidência estatística suficiente de que " & "existem diferenças entre as médias de " & Substitute(Substitute(Substitute(_nomeVar, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & " nos " & _R.k & " grupos (pelo menos duas médias populacionais são diferentes)" & ".</div>")) &
+            "<p style='color:#5a626a;font-size:12px'>Pressupostos: observações independentes, normalidade em cada grupo e " &
+            "variâncias semelhantes (homocedasticidade). Se rejeitar H₀, a ANOVA não diz quais as médias diferentes: " &
+            "é preciso um teste de comparações múltiplas.</p>" &
+            "</div>"
+        )
+      X: =366
+      Y: =72
+      Width: =984
+      Height: =684
+      Font: =Font.'Segoe UI'
+      Size: =12
+      Color: =RGBA(33, 37, 41, 1)
+      Fill: =RGBA(255, 255, 255, 1)
+      PaddingTop: =6
+      PaddingLeft: =10
+      PaddingRight: =10

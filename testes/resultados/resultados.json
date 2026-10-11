@@ -1,6 +1,6 @@
 {
- "total": 3958,
- "ok": 3958,
+ "total": 5148,
+ "ok": 5148,
  "sintaxe_falhas": [],
  "fases": {
   "Fase 1 — Entrada de dados": [
@@ -748,7 +748,7 @@
    {
     "caso": "regressão «exemplo_altura_peso»",
     "ok": true,
-    "detalhe": "n=20, r=0.9946312973208253, b=1.2346365658849703, a=-144.83416608920822, ŷ(x0)=68.14064152594915"
+    "detalhe": "n=20, r=0.9946312973208253, b=1.2346365658849703, a=-144.83416608920822, ŷ(x0)=68.14064152594915, p(ρ=0)=3.4511670810845736e-19 (scipy 3.4511670811081557e-19)"
    },
    {
     "caso": "tabela HTML «exemplo_altura_peso»",
@@ -763,7 +763,7 @@
    {
     "caso": "regressão «exemplo_altura_nota»",
     "ok": true,
-    "detalhe": "n=20, r=-0.9133869564529047, b=-0.27794594988876326, a=60.547941208650926, ŷ(x0)=18.856048725336436"
+    "detalhe": "n=20, r=-0.9133869564529047, b=-0.27794594988876326, a=60.547941208650926, ŷ(x0)=18.856048725336436, p(ρ=0)=1.8961535146080336e-08 (scipy 1.8961535146153764e-08)"
    },
    {
     "caso": "tabela HTML «exemplo_altura_nota»",
@@ -778,7 +778,7 @@
    {
     "caso": "regressão «reta_perfeita_positiva»",
     "ok": true,
-    "detalhe": "n=5, r=1, b=2, a=1, ŷ(x0)=6"
+    "detalhe": "n=5, r=1, b=2, a=1, ŷ(x0)=6, p(ρ=0)=0 (scipy 0.0)"
    },
    {
     "caso": "tabela HTML «reta_perfeita_positiva»",
@@ -793,7 +793,7 @@
    {
     "caso": "regressão «reta_perfeita_negativa»",
     "ok": true,
-    "detalhe": "n=4, r=-1, b=-2.5, a=10, ŷ(x0)=-15"
+    "detalhe": "n=4, r=-1, b=-2.5, a=10, ŷ(x0)=-15, p(ρ=0)=0 (scipy 0.0)"
    },
    {
     "caso": "tabela HTML «reta_perfeita_negativa»",
@@ -808,7 +808,7 @@
    {
     "caso": "regressão «y_constante»",
     "ok": true,
-    "detalhe": "n=4, r=None, b=0, a=5, ŷ(x0)=5"
+    "detalhe": "n=4, r=None, b=0, a=5, ŷ(x0)=5, p(ρ=0)=None (scipy None)"
    },
    {
     "caso": "tabela HTML «y_constante»",
@@ -823,7 +823,7 @@
    {
     "caso": "regressão «x_constante»",
     "ok": true,
-    "detalhe": "n=3, r=None, b=None, a=None, ŷ(x0)=None"
+    "detalhe": "n=3, r=None, b=None, a=None, ŷ(x0)=None, p(ρ=0)=None (scipy None)"
    },
    {
     "caso": "tabela HTML «x_constante»",
@@ -838,7 +838,7 @@
    {
     "caso": "regressão «n1»",
     "ok": true,
-    "detalhe": "n=1, r=None, b=None, a=None, ŷ(x0)=None"
+    "detalhe": "n=1, r=None, b=None, a=None, ŷ(x0)=None, p(ρ=0)=None (scipy None)"
    },
    {
     "caso": "tabela HTML «n1»",
@@ -853,7 +853,7 @@
    {
     "caso": "regressão «n2»",
     "ok": true,
-    "detalhe": "n=2, r=-1, b=-0.5, a=2.5, ŷ(x0)=1.5"
+    "detalhe": "n=2, r=-1, b=-0.5, a=2.5, ŷ(x0)=1.5, p(ρ=0)=None (scipy None)"
    },
    {
     "caso": "tabela HTML «n2»",
@@ -868,7 +868,7 @@
    {
     "caso": "regressão «com_faltas»",
     "ok": true,
-    "detalhe": "n=4, r=0.9862673700913519, b=0.7928571428571427, a=1.1535714285714285, ŷ(x0)=None"
+    "detalhe": "n=4, r=0.9862673700913519, b=0.7928571428571427, a=1.1535714285714285, ŷ(x0)=None, p(ρ=0)=0.013732629908648078 (scipy 0.013732629908647986)"
    },
    {
     "caso": "tabela HTML «com_faltas»",
@@ -883,7 +883,7 @@
    {
     "caso": "regressão «sem_correlacao»",
     "ok": true,
-    "detalhe": "n=5, r=0, b=0, a=2.6, ŷ(x0)=2.6"
+    "detalhe": "n=5, r=0, b=0, a=2.6, ŷ(x0)=2.6, p(ρ=0)=1 (scipy 1.0)"
    },
    {
     "caso": "tabela HTML «sem_correlacao»",
@@ -898,7 +898,7 @@
    {
     "caso": "regressão «decimais_negativos»",
     "ok": true,
-    "detalhe": "n=5, r=-0.8672854478323896, b=-0.6807714635876927, a=-0.5836902534993229, ŷ(x0)=0.09708121008836978"
+    "detalhe": "n=5, r=-0.8672854478323896, b=-0.6807714635876927, a=-0.5836902534993229, ŷ(x0)=0.09708121008836978, p(ρ=0)=0.056868470776834865 (scipy 0.056868470776834684)"
    },
    {
     "caso": "tabela HTML «decimais_negativos»",
@@ -912,6 +912,236 @@
    }
   ],
   "Fase 5 — Inferência": [
+   {
+    "caso": "qui-quadrado «ader_sexo_iguais»",
+    "ok": true,
+    "detalhe": "χ²=0, gl=1, p=1 (scipy 1.0), células com E<5: 0"
+   },
+   {
+    "caso": "relatório qui-quadrado «ader_sexo_iguais»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "qui-quadrado «ader_turma_iguais»",
+    "ok": true,
+    "detalhe": "χ²=0.09999999999999999, gl=2, p=0.95122942449563 (scipy 0.951229424500714), células com E<5: 0"
+   },
+   {
+    "caso": "relatório qui-quadrado «ader_turma_iguais»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "qui-quadrado «ader_turma_indicadas»",
+    "ok": true,
+    "detalhe": "χ²=1.9000000000000001, gl=2, p=0.3867410234458508 (scipy 0.38674102345450123), células com E<5: 0"
+   },
+   {
+    "caso": "relatório qui-quadrado «ader_turma_indicadas»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "qui-quadrado «ader_nota_numerica_pesos»",
+    "ok": true,
+    "detalhe": "χ²=2.5208333333333335, gl=9, p=0.9803179534746087 (scipy 0.980317953485687), células com E<5: 10"
+   },
+   {
+    "caso": "relatório qui-quadrado «ader_nota_numerica_pesos»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "qui-quadrado «ader_colada_dado»",
+    "ok": true,
+    "detalhe": "χ²=4.2, gl=5, p=0.5209949534257625 (scipy 0.5209949534314051), células com E<5: 0"
+   },
+   {
+    "caso": "relatório qui-quadrado «ader_colada_dado»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "qui-quadrado «ader_colada_percentagens»",
+    "ok": true,
+    "detalhe": "χ²=2, gl=2, p=0.36787944116331894 (scipy 0.36787944117144245), células com E<5: 0"
+   },
+   {
+    "caso": "relatório qui-quadrado «ader_colada_percentagens»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "qui-quadrado «ader_esperadas_baixas»",
+    "ok": true,
+    "detalhe": "χ²=6.199999999999999, gl=2, p=0.0450492023935935 (scipy 0.04504920239355781), células com E<5: 3"
+   },
+   {
+    "caso": "relatório qui-quadrado «ader_esperadas_baixas»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "qui-quadrado «ader_proporcoes_em_falta»",
+    "ok": true,
+    "detalhe": "teste não calculado: indique tantas proporções esperadas quantas as categorias (3), pela ordem da tabela."
+   },
+   {
+    "caso": "relatório qui-quadrado «ader_proporcoes_em_falta»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "qui-quadrado «indep_sexo_turma»",
+    "ok": true,
+    "detalhe": "χ²=0.2857142857142857, gl=2, p=0.8668778997406118 (scipy 0.8668778997501817), células com E<5: 6"
+   },
+   {
+    "caso": "relatório qui-quadrado «indep_sexo_turma»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "qui-quadrado «indep_colada_2x2»",
+    "ok": true,
+    "detalhe": "χ²=11.42857142857143, gl=1, p=0.000723232716418553 (scipy 0.0007232327164301923), células com E<5: 0"
+   },
+   {
+    "caso": "relatório qui-quadrado «indep_colada_2x2»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "qui-quadrado «indep_colada_sem_nomes_3x3»",
+    "ok": true,
+    "detalhe": "χ²=10.06955879810639, gl=4, p=0.039272132877815724 (scipy 0.03927213287544329), células com E<5: 0"
+   },
+   {
+    "caso": "relatório qui-quadrado «indep_colada_sem_nomes_3x3»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "qui-quadrado «indep_colada_esperadas_baixas»",
+    "ok": true,
+    "detalhe": "χ²=3.555555555555556, gl=2, p=0.16901331540381886 (scipy 0.16901331540606604), células com E<5: 5"
+   },
+   {
+    "caso": "relatório qui-quadrado «indep_colada_esperadas_baixas»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "qui-quadrado «indep_colada_linha_vazia»",
+    "ok": true,
+    "detalhe": "teste não calculado: há frequências esperadas nulas (uma linha ou coluna sem observações ou uma proporção igual a 0)."
+   },
+   {
+    "caso": "relatório qui-quadrado «indep_colada_linha_vazia»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "qui-quadrado «indep_colada_invalidos»",
+    "ok": true,
+    "detalhe": "χ²=5, gl=1, p=0.02534731867762744 (scipy 0.025347318677468325), células com E<5: 3"
+   },
+   {
+    "caso": "relatório qui-quadrado «indep_colada_invalidos»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "ANOVA «altura_por_turma»",
+    "ok": true,
+    "detalhe": "F=0.27128891198766825, gl=(2, 17), p=0.7656350924930889 (scipy 0.7656350924935016)"
+   },
+   {
+    "caso": "relatório ANOVA «altura_por_turma»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "ANOVA «nota_por_turma»",
+    "ok": true,
+    "detalhe": "F=0.17722573233773714, gl=(2, 17), p=0.8391184244256376 (scipy 0.8391184244260104)"
+   },
+   {
+    "caso": "relatório ANOVA «nota_por_turma»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "ANOVA «tres_grupos_desiguais»",
+    "ok": true,
+    "detalhe": "F=36.822222222222216, gl=(2, 6), p=0.000427550372854951 (scipy 0.00042755037285496377)"
+   },
+   {
+    "caso": "relatório ANOVA «tres_grupos_desiguais»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "ANOVA «dois_grupos_igual_t»",
+    "ok": true,
+    "detalhe": "F=42.94615954556684, gl=(1, 18), p=3.702650750247683e-06 (scipy 3.702650750255917e-06)"
+   },
+   {
+    "caso": "relatório ANOVA «dois_grupos_igual_t»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "ANOVA «grupo_com_n1»",
+    "ok": true,
+    "detalhe": "F=27, gl=(1, 2), p=0.03509871864598464 (scipy 0.03509871864598465)"
+   },
+   {
+    "caso": "relatório ANOVA «grupo_com_n1»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "ANOVA «variancia_dentro_nula»",
+    "ok": true,
+    "detalhe": "F=None, gl=(1, 2), p=None (scipy None)"
+   },
+   {
+    "caso": "relatório ANOVA «variancia_dentro_nula»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "ANOVA «um_so_grupo»",
+    "ok": true,
+    "detalhe": "F=None, gl=(0, 2), p=None (scipy None)"
+   },
+   {
+    "caso": "relatório ANOVA «um_so_grupo»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "ANOVA «colunas_como_grupos»",
+    "ok": true,
+    "detalhe": "F=18.58008658008658, gl=(2, 8), p=0.0009847762225222532 (scipy 0.0009847762225222944)"
+   },
+   {
+    "caso": "relatório ANOVA «colunas_como_grupos»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "ANOVA «colunas_com_vazia»",
+    "ok": true,
+    "detalhe": "F=10, gl=(1, 4), p=0.034109423167409586 (scipy 0.03410942316740961)"
+   },
+   {
+    "caso": "relatório ANOVA «colunas_com_vazia»",
+    "ok": true,
+    "detalhe": "ok"
+   },
    {
     "caso": "teste t «1amostra_altura_170_bilateral»",
     "ok": true,

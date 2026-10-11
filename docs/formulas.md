@@ -591,7 +591,23 @@ With(
         a: If(!IsBlank(_b); _my - _b * _mx);
         minX: Min(_p; x); maxX: Max(_p; x); minY: Min(_p; y); maxY: Max(_p; y);
         x0: _x0;
-        previsao: If(!IsBlank(_b) && !IsBlank(_x0); _my - _b * _mx + _b * _x0)
+        previsao: If(!IsBlank(_b) && !IsBlank(_x0); _my - _b * _mx + _b * _x0);
+        // Teste H0: ρ = 0  —  t = r √(n − 2) / √(1 − r²), com n − 2 graus de liberdade
+        glR: If(_n >= 3 && !IsBlank(_r); _n - 2);
+        tR: If(_n >= 3 && !IsBlank(_r) && _r * _r < 1; _r * Sqrt((_n - 2) / (1 - _r * _r)));
+        pR: If(_n >= 3 && !IsBlank(_r);
+               If(_r * _r >= 1; 0;
+                  With({_f: Power(_r * Sqrt((_n - 2) / (1 - _r * _r)); 2); _d1: 1; _d2: _n - 2};
+                      If(_f <= 0; 1;
+                      With({_t0: Atan(Sqrt(_d1 * _f / _d2)); _sg: 1 / Sqrt(Max(_d1 + _d2 - 2; 1));
+                            _ts: If(_d2 > 1; Atan(Sqrt(Max(_d1 - 1; 0) / (_d2 - 1))); Pi() / 2)};
+                      With({_lo: Max(0; _ts - 10 * _sg); _hi: Min(Pi() / 2; _ts + 10 * _sg)};
+                          If(_t0 >= _hi; 0;
+                              With({_nd: ForAll(Sequence(300; 0) As _i; With({_s: RoundDown(_i.Value / 3; 0); _m: Mod(_i.Value; 3)}; {u: (_s + 0,5 + (_m - 1) * 0,3872983346207417) / 100; w: If(_m = 1; 8 / 9; 5 / 9) / 200}))};
+                          With({_Ltot: ForAll(_nd; With({t: _lo + u * (_hi - _lo)}; {L: (_d1 - 1) * Ln(Sin(t)) + (_d2 - 1) * Ln(Cos(t)); w: w * (_hi - _lo)}));
+                                _Lcau: ForAll(_nd; With({t: Max(_t0; _lo) + u * (_hi - Max(_t0; _lo))}; {L: (_d1 - 1) * Ln(Sin(t)) + (_d2 - 1) * Ln(Cos(t)); w: w * (_hi - Max(_t0; _lo))}))};
+                              With({_M: Max(_Ltot; L)};
+                                  Min(1; Sum(_Lcau; Exp(L - _M) * w) / Sum(_Ltot; Exp(L - _M) * w))))))))))))
     }
     ))))
 )
@@ -612,3 +628,389 @@ negativo usa-se `Int` (`Int(-2,5)` = −3) e para o «teto» `-Int(-x)`:
 ```
 
 A reta é desenhada de um lado ao outro do gráfico e recortada à área dos dados com um `clipPath` SVG.
+
+## 5. Inferência (ecrãs `scrTestesT`, `scrAnova`, `scrQuiQuadrado`)
+
+### 5.1 Regra de decisão
+
+Em todos os testes: **rejeita-se H₀ quando p ≤ α**, com α escolhido pelo aluno (0,10; 0,05; 0,01; 0,001). A app
+escreve a decisão e uma conclusão por extenso no contexto dos dados. O nível α lê-se da lista pendente:
+
+```powerfx
+Value(Substitute(drpTtAlfa.Selected.Value; ","; "."); "en-US")
+```
+
+### 5.2 Valores de p por integração numérica
+
+O Power Fx não tem funções de distribuição (nem a função Gama). Os valores de p calculam-se com **integração
+numérica** em Power Fx puro, com `Sequence` (nós) e `Sum` (soma pesada). Detalhes e precisão medida em
+`docs/precisao-valores-p.md` (erro máximo 2,3×10⁻⁷; nenhum valor difere do scipy na 4.ª casa decimal).
+
+**Ideia matemática.** Para a distribuição F(d₁, d₂), fazendo x = d₁F/(d₁F + d₂) obtém-se uma Beta(d₁/2, d₂/2) e,
+com x = sen²θ,
+
+  P(F > f) = ∫ de θ₀ a π/2 de sen^(d₁−1)θ · cos^(d₂−1)θ dθ  ÷  ∫ de 0 a π/2 do mesmo integrando,
+  com θ₀ = atan(√(d₁ f / d₂)).
+
+O integrando é limitado (os expoentes são ≥ 0), por isso a regra de Gauss-Legendre é muito precisa. As constantes
+(funções Beta/Gama) cancelam-se na razão. Para o qui-quadrado, com u = v²:
+
+  P(χ² > x) = ∫ de √x a ∞ de v^(k−1) e^(−v²/2) dv  ÷  ∫ de 0 a ∞ do mesmo integrando.
+
+Para o t de Student usa-se T² ~ F(1, ν): o p bilateral é P(F(1, ν) > t²); os unilaterais são metade (ou 1 menos
+metade), conforme o sinal de t.
+
+**Nós e pesos de Gauss-Legendre** (100 subintervalos × 3 nós; u em ]0, 1[; os pesos somam 1):
+
+```powerfx
+ForAll(Sequence(300; 0) As _i; With({_s: RoundDown(_i.Value / 3; 0); _m: Mod(_i.Value; 3)}; {u: (_s + 0,5 + (_m - 1) * 0,3872983346207417) / 100; w: If(_m = 1; 8 / 9; 5 / 9) / 200}))
+```
+
+**Valor de p da distribuição F** (`_f`, `_d1`, `_d2`):
+
+```powerfx
+With({_f: _estatisticaF; _d1: _gl1; _d2: _gl2};
+    If(_f <= 0; 1;
+    With({_t0: Atan(Sqrt(_d1 * _f / _d2)); _sg: 1 / Sqrt(Max(_d1 + _d2 - 2; 1));
+          _ts: If(_d2 > 1; Atan(Sqrt(Max(_d1 - 1; 0) / (_d2 - 1))); Pi() / 2)};
+    With({_lo: Max(0; _ts - 10 * _sg); _hi: Min(Pi() / 2; _ts + 10 * _sg)};
+        If(_t0 >= _hi; 0;
+            With({_nd: ForAll(Sequence(300; 0) As _i; With({_s: RoundDown(_i.Value / 3; 0); _m: Mod(_i.Value; 3)}; {u: (_s + 0,5 + (_m - 1) * 0,3872983346207417) / 100; w: If(_m = 1; 8 / 9; 5 / 9) / 200}))};
+        With({_Ltot: ForAll(_nd; With({t: _lo + u * (_hi - _lo)}; {L: (_d1 - 1) * Ln(Sin(t)) + (_d2 - 1) * Ln(Cos(t)); w: w * (_hi - _lo)}));
+              _Lcau: ForAll(_nd; With({t: Max(_t0; _lo) + u * (_hi - Max(_t0; _lo))}; {L: (_d1 - 1) * Ln(Sin(t)) + (_d2 - 1) * Ln(Cos(t)); w: w * (_hi - Max(_t0; _lo))}))};
+            With({_M: Max(_Ltot; L)};
+                Min(1; Sum(_Lcau; Exp(L - _M) * w) / Sum(_Ltot; Exp(L - _M) * w))))))))))
+```
+
+**Valor de p do qui-quadrado**:
+
+```powerfx
+With({_x: _estatisticaQui2; _k: _gl};
+    If(_x <= 0; 1;
+    With({_v0: Sqrt(_x); _vs: Sqrt(Max(_k - 1; 0))};
+    With({_lo: Max(0; _vs - 10); _hi: _vs + 10};
+        If(_v0 >= _hi; 0;
+            With({_nd: ForAll(Sequence(300; 0) As _i; With({_s: RoundDown(_i.Value / 3; 0); _m: Mod(_i.Value; 3)}; {u: (_s + 0,5 + (_m - 1) * 0,3872983346207417) / 100; w: If(_m = 1; 8 / 9; 5 / 9) / 200}))};
+        With({_Ltot: ForAll(_nd; With({t: _lo + u * (_hi - _lo)}; {L: (_k - 1) * Ln(t) - t * t / 2; w: w * (_hi - _lo)}));
+              _Lcau: ForAll(_nd; With({t: Max(_v0; _lo) + u * (_hi - Max(_v0; _lo))}; {L: (_k - 1) * Ln(t) - t * t / 2; w: w * (_hi - Max(_v0; _lo))}))};
+            With({_M: Max(_Ltot; L)};
+                Min(1; Sum(_Lcau; Exp(L - _M) * w) / Sum(_Ltot; Exp(L - _M) * w))))))))))
+```
+
+**Valor de p do teste t** segundo a hipótese alternativa (1 bilateral, 2 à esquerda, 3 à direita):
+
+```powerfx
+With({_tt: _t; _p2: With({_f: Power((_t); 2); _d1: 1; _d2: _gl};
+    If(_f <= 0; 1;
+    With({_t0: Atan(Sqrt(_d1 * _f / _d2)); _sg: 1 / Sqrt(Max(_d1 + _d2 - 2; 1));
+          _ts: If(_d2 > 1; Atan(Sqrt(Max(_d1 - 1; 0) / (_d2 - 1))); Pi() / 2)};
+    With({_lo: Max(0; _ts - 10 * _sg); _hi: Min(Pi() / 2; _ts + 10 * _sg)};
+        If(_t0 >= _hi; 0;
+            With({_nd: ForAll(Sequence(300; 0) As _i; With({_s: RoundDown(_i.Value / 3; 0); _m: Mod(_i.Value; 3)}; {u: (_s + 0,5 + (_m - 1) * 0,3872983346207417) / 100; w: If(_m = 1; 8 / 9; 5 / 9) / 200}))};
+        With({_Ltot: ForAll(_nd; With({t: _lo + u * (_hi - _lo)}; {L: (_d1 - 1) * Ln(Sin(t)) + (_d2 - 1) * Ln(Cos(t)); w: w * (_hi - _lo)}));
+              _Lcau: ForAll(_nd; With({t: Max(_t0; _lo) + u * (_hi - Max(_t0; _lo))}; {L: (_d1 - 1) * Ln(Sin(t)) + (_d2 - 1) * Ln(Cos(t)); w: w * (_hi - Max(_t0; _lo))}))};
+            With({_M: Max(_Ltot; L)};
+                Min(1; Sum(_Lcau; Exp(L - _M) * w) / Sum(_Ltot; Exp(L - _M) * w))))))))))}; Switch(_alt; 1; _p2; 2; If(_tt < 0; _p2 / 2; 1 - _p2 / 2); If(_tt > 0; _p2 / 2; 1 - _p2 / 2)))
+```
+
+### 5.3 Testes t
+
+| Teste | Estatística | Graus de liberdade |
+|---|---|---|
+| Uma amostra (H₀: μ = μ₀) | t = (x̄ − μ₀) / (s / √n) | n − 1 |
+| Duas amostras independentes, variâncias iguais (H₀: μ₁ − μ₂ = Δ₀) | t = (x̄₁ − x̄₂ − Δ₀) / (sₚ √(1/n₁ + 1/n₂)), sₚ² = [(n₁ − 1)s₁² + (n₂ − 1)s₂²] / (n₁ + n₂ − 2) | n₁ + n₂ − 2 |
+| Duas amostras independentes, Welch (variâncias diferentes) | t = (x̄₁ − x̄₂ − Δ₀) / √(s₁²/n₁ + s₂²/n₂) | (s₁²/n₁ + s₂²/n₂)² / [(s₁²/n₁)²/(n₁ − 1) + (s₂²/n₂)²/(n₂ − 1)] |
+| Emparelhadas (H₀: μ_D = Δ₀, D = X − Y) | t = (d̄ − Δ₀) / (s_D / √n) | n − 1 (n = n.º de pares completos) |
+
+As duas amostras independentes podem vir de **uma variável numérica + uma variável de grupo** (escolhem-se os dois
+grupos) ou de **duas colunas numéricas**. Fórmula completa (registo com todos os resultados):
+
+```powerfx
+With(
+    // Opções escolhidas no ecrã
+    {_tipo: Switch(drpTtTipo.Selected.Value; "Uma amostra"; 1; "Duas amostras independentes (variâncias iguais)"; 2; "Duas amostras independentes (Welch, variâncias diferentes)"; 3; "Amostras emparelhadas"; 4; 1);
+     _fmt: If(drpTtFormato.Selected.Value = "Duas colunas numéricas"; 2; 1);
+     _alt: Switch(drpTtAlternativa.Selected.Value; "Unilateral à esquerda (<)"; 2; "Unilateral à direita (>)"; 3; 1); _alfa: Value(Substitute(drpTtAlfa.Selected.Value; ","; "."); "en-US");
+     _d0: Coalesce(IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtTtMu0.Text); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank()); 0);
+     _k1: Switch(drpTtVar.Selected.Value; varNomes.N1; 1; varNomes.N2; 2; varNomes.N3; 3; 1); _k2: Switch(drpTtVar2.Selected.Value; varNomes.N1; 1; varNomes.N2; 2; varNomes.N3; 3; 1); _kg: Switch(drpTtGrupoVar.Selected.Value; varNomes.C2; 2; 1);
+     _gA: drpTtGrupoA.Selected.Value; _gB: drpTtGrupoB.Selected.Value};
+    With(
+        // Amostra A (ou diferenças, no teste emparelhado) e amostra B
+        {_A: Switch(_tipo; 1; Filter(ForAll(colDados As _d; {x: Switch(_k1; 1; _d.N1; 2; _d.N2; _d.N3)}); !IsBlank(x)); 4; Filter(ForAll(colDados As _d; With({_a: Switch(_k1; 1; _d.N1; 2; _d.N2; _d.N3); _b: Switch(_k2; 1; _d.N1; 2; _d.N2; _d.N3)}; {x: If(IsBlank(_a) || IsBlank(_b); Blank(); _a - _b)})); !IsBlank(x));
+                If(_fmt = 1; Filter(ForAll(colDados As _d; {x: Switch(_k1; 1; _d.N1; 2; _d.N2; _d.N3); g: Switch(_kg; 1; _d.C1; _d.C2)}); !IsBlank(x) && g = _gA); Filter(ForAll(colDados As _d; {x: Switch(_k1; 1; _d.N1; 2; _d.N2; _d.N3)}); !IsBlank(x))));
+         _B: If(_tipo = 2 || _tipo = 3;
+                If(_fmt = 1; Filter(ForAll(colDados As _d; {x: Switch(_k1; 1; _d.N1; 2; _d.N2; _d.N3); g: Switch(_kg; 1; _d.C1; _d.C2)}); !IsBlank(x) && g = _gB); Filter(ForAll(colDados As _d; {x: Switch(_k2; 1; _d.N1; 2; _d.N2; _d.N3)}); !IsBlank(x))); FirstN(Table({x: 0}); 0))};
+    With({_n1: CountRows(_A); _n2: CountRows(_B)};
+    With({_m1: If(_n1 > 0; Average(_A; x)); _m2: If(_n2 > 0; Average(_B; x))};
+    With(
+        // Variâncias amostrais (divisor n − 1)
+        {_v1: If(_n1 >= 2; Sum(_A; Power(x - _m1; 2)) / (_n1 - 1));
+         _v2: If(_n2 >= 2; Sum(_B; Power(x - _m2; 2)) / (_n2 - 1))};
+    With(
+        // Erro padrão e graus de liberdade de cada teste
+        {_ep: Switch(_tipo;
+                1; If(_n1 >= 2; Sqrt(_v1 / _n1));
+                4; If(_n1 >= 2; Sqrt(_v1 / _n1));
+                2; If(_n1 >= 2 && _n2 >= 2;
+                      Sqrt(((_n1 - 1) * _v1 + (_n2 - 1) * _v2) / (_n1 + _n2 - 2) * (1 / _n1 + 1 / _n2)));
+                If(_n1 >= 2 && _n2 >= 2; Sqrt(_v1 / _n1 + _v2 / _n2)));
+         _gl: Switch(_tipo;
+                1; If(_n1 >= 2; _n1 - 1);
+                4; If(_n1 >= 2; _n1 - 1);
+                2; If(_n1 >= 2 && _n2 >= 2; _n1 + _n2 - 2);
+                // Welch–Satterthwaite
+                If(_n1 >= 2 && _n2 >= 2 && _v1 + _v2 > 0;
+                   Power(_v1 / _n1 + _v2 / _n2; 2) /
+                   (Power(_v1 / _n1; 2) / (_n1 - 1) + Power(_v2 / _n2; 2) / (_n2 - 1))))};
+    With(
+        {_t: If(!IsBlank(_ep) && _ep > 0;
+                (If(_tipo = 2 || _tipo = 3; _m1 - _m2; _m1) - _d0) / _ep)};
+    With(
+        {_p: If(!IsBlank(_t) && _gl > 0; With({_tt: _t; _p2: With({_f: Power((_t); 2); _d1: 1; _d2: _gl};
+            If(_f <= 0; 1;
+            With({_t0: Atan(Sqrt(_d1 * _f / _d2)); _sg: 1 / Sqrt(Max(_d1 + _d2 - 2; 1));
+                  _ts: If(_d2 > 1; Atan(Sqrt(Max(_d1 - 1; 0) / (_d2 - 1))); Pi() / 2)};
+            With({_lo: Max(0; _ts - 10 * _sg); _hi: Min(Pi() / 2; _ts + 10 * _sg)};
+                If(_t0 >= _hi; 0;
+                    With({_nd: ForAll(Sequence(300; 0) As _i; With({_s: RoundDown(_i.Value / 3; 0); _m: Mod(_i.Value; 3)}; {u: (_s + 0,5 + (_m - 1) * 0,3872983346207417) / 100; w: If(_m = 1; 8 / 9; 5 / 9) / 200}))};
+                With({_Ltot: ForAll(_nd; With({t: _lo + u * (_hi - _lo)}; {L: (_d1 - 1) * Ln(Sin(t)) + (_d2 - 1) * Ln(Cos(t)); w: w * (_hi - _lo)}));
+                      _Lcau: ForAll(_nd; With({t: Max(_t0; _lo) + u * (_hi - Max(_t0; _lo))}; {L: (_d1 - 1) * Ln(Sin(t)) + (_d2 - 1) * Ln(Cos(t)); w: w * (_hi - Max(_t0; _lo))}))};
+                    With({_M: Max(_Ltot; L)};
+                        Min(1; Sum(_Lcau; Exp(L - _M) * w) / Sum(_Ltot; Exp(L - _M) * w))))))))))}; Switch(_alt; 1; _p2; 2; If(_tt < 0; _p2 / 2; 1 - _p2 / 2); If(_tt > 0; _p2 / 2; 1 - _p2 / 2))))};
+    {
+        tipo: _tipo; alt: _alt; alfa: _alfa; d0: _d0;
+        n1: _n1; n2: _n2; m1: _m1; m2: _m2; v1: _v1; v2: _v2;
+        s1: If(!IsBlank(_v1); Sqrt(_v1)); s2: If(!IsBlank(_v2); Sqrt(_v2));
+        sp: If(_tipo = 2 && _n1 >= 2 && _n2 >= 2; Sqrt(((_n1 - 1) * _v1 + (_n2 - 1) * _v2) / (_n1 + _n2 - 2)));
+        ep: _ep; t: _t; gl: _gl; p: _p;
+        motivo: If(_n1 < 2 || ((_tipo = 2 || _tipo = 3) && _n2 < 2);
+                   "cada amostra precisa de pelo menos 2 observações.";
+                   "o erro padrão é zero (todos os valores iguais: variância nula), por isso t não está definido.")
+    }
+    )))))))
+)
+```
+
+### 5.4 ANOVA a um fator
+
+Com k grupos, nᵢ observações e média x̄ᵢ no grupo i, N = Σnᵢ e x̄ a média global:
+
+| Fonte | SQ | gl | QM | F |
+|---|---|---|---|---|
+| Entre grupos | SQE = Σ nᵢ (x̄ᵢ − x̄)² | k − 1 | QME = SQE / (k − 1) | F = QME / QMD |
+| Dentro dos grupos | SQD = Σᵢ Σⱼ (xᵢⱼ − x̄ᵢ)² | N − k | QMD = SQD / (N − k) | |
+| Total | SQT = SQE + SQD | N − 1 | | |
+
+p = P(F(k − 1, N − k) ≥ F). A app mostra também η² = SQE / SQT.
+
+```powerfx
+With(
+    {_fmt: If(drpAnoFormato.Selected.Value = "Colunas numéricas como grupos"; 2; 1);
+     _k: Switch(drpAnoVar.Selected.Value; varNomes.N1; 1; varNomes.N2; 2; varNomes.N3; 3; 1); _kg: Switch(drpAnoFator.Selected.Value; varNomes.C2; 2; 1); _alfa: Value(Substitute(drpAnoAlfa.Selected.Value; ","; "."); "en-US")};
+    With(
+        // Resumo de cada grupo: n, média, soma e soma dos quadrados dos desvios em relação à média do grupo
+        {_g: If(_fmt = 1; ForAll(Sort(Filter(Distinct(colDados; Switch(_kg; 1; C1; C2)); !IsBlank(Value)); Value) As _G; With({_v: Filter(ForAll(colDados As _d; {x: Switch(_k; 1; _d.N1; 2; _d.N2; _d.N3); g: Switch(_kg; 1; _d.C1; _d.C2)}); !IsBlank(x) && g = _G.Value)}; With({_n: CountRows(_v)}; With({_m: If(_n > 0; Average(_v; x))}; {Grupo: _G.Value; n: _n; media: _m; soma: Sum(_v; x); sq: Sum(_v; Power(x - _m; 2))})))); Filter(ForAll(Sequence(3) As _j; With({_v: Filter(ForAll(colDados As _d; {x: Switch(_j.Value; 1; _d.N1; 2; _d.N2; _d.N3)}); !IsBlank(x))}; With({_n: CountRows(_v)}; With({_m: If(_n > 0; Average(_v; x))}; {Grupo: Switch(_j.Value; 1; varNomes.N1; 2; varNomes.N2; varNomes.N3); n: _n; media: _m; soma: Sum(_v; x); sq: Sum(_v; Power(x - _m; 2))})))); n > 0))};
+    With({_N: Sum(_g; n); _kk: CountRows(_g)};
+    With({_mg: If(_N > 0; Sum(_g; soma) / _N)};
+    With(
+        // SQ entre grupos (fator) e SQ dentro dos grupos (residual)
+        {_SQE: Sum(_g; n * Power(media - _mg; 2)); _SQD: Sum(_g; sq)};
+    With(
+        {_QME: If(_kk >= 2; _SQE / (_kk - 1)); _QMD: If(_N > _kk; _SQD / (_N - _kk))};
+    With(
+        {_F: If(_kk >= 2 && _N > _kk && _SQD > 0; _QME / _QMD)};
+    {
+        Grupos: _g; k: _kk; N: _N; mediaGlobal: _mg; alfa: _alfa;
+        SQE: _SQE; SQD: _SQD; SQT: _SQE + _SQD;
+        glE: _kk - 1; glD: _N - _kk; glT: _N - 1;
+        QME: _QME; QMD: _QMD; F: _F;
+        p: If(!IsBlank(_F); With({_f: _F; _d1: _kk - 1; _d2: _N - _kk};
+                If(_f <= 0; 1;
+                With({_t0: Atan(Sqrt(_d1 * _f / _d2)); _sg: 1 / Sqrt(Max(_d1 + _d2 - 2; 1));
+                      _ts: If(_d2 > 1; Atan(Sqrt(Max(_d1 - 1; 0) / (_d2 - 1))); Pi() / 2)};
+                With({_lo: Max(0; _ts - 10 * _sg); _hi: Min(Pi() / 2; _ts + 10 * _sg)};
+                    If(_t0 >= _hi; 0;
+                        With({_nd: ForAll(Sequence(300; 0) As _i; With({_s: RoundDown(_i.Value / 3; 0); _m: Mod(_i.Value; 3)}; {u: (_s + 0,5 + (_m - 1) * 0,3872983346207417) / 100; w: If(_m = 1; 8 / 9; 5 / 9) / 200}))};
+                    With({_Ltot: ForAll(_nd; With({t: _lo + u * (_hi - _lo)}; {L: (_d1 - 1) * Ln(Sin(t)) + (_d2 - 1) * Ln(Cos(t)); w: w * (_hi - _lo)}));
+                          _Lcau: ForAll(_nd; With({t: Max(_t0; _lo) + u * (_hi - Max(_t0; _lo))}; {L: (_d1 - 1) * Ln(Sin(t)) + (_d2 - 1) * Ln(Cos(t)); w: w * (_hi - Max(_t0; _lo))}))};
+                        With({_M: Max(_Ltot; L)};
+                            Min(1; Sum(_Lcau; Exp(L - _M) * w) / Sum(_Ltot; Exp(L - _M) * w)))))))))));
+        eta2: If(_SQE + _SQD > 0; _SQE / (_SQE + _SQD));
+        motivo: If(_kk < 2; "são precisos pelo menos 2 grupos com dados.";
+                   _N <= _kk; "é preciso que pelo menos um grupo tenha mais do que uma observação (N > k).";
+                   "a variabilidade dentro dos grupos é nula (SQ dentro = 0), por isso F não está definido.")
+    }
+    ))))))
+)
+```
+
+### 5.5 Qui-quadrado
+
+* **Aderência**: k categorias com frequências observadas Oᵢ e proporções esperadas pᵢ (iguais ou indicadas pelo
+  aluno; são normalizadas para somar 1). Eᵢ = n·pᵢ, χ² = Σ (Oᵢ − Eᵢ)² / Eᵢ, gl = k − 1.
+* **Independência**: tabela r × c, Eᵢⱼ = Rᵢ·Cⱼ / N (totais de linha e coluna), χ² = Σ (Oᵢⱼ − Eᵢⱼ)² / Eᵢⱼ,
+  gl = (r − 1)(c − 1). Não se aplica a correção de continuidade de Yates.
+* **Regra de Cochran** (aviso): no máximo 20 % das células com E < 5 e nenhuma com E < 1.
+
+As frequências podem vir das variáveis da tabela de dados (as variáveis numéricas são tratadas como categorias)
+ou de uma **tabela colada do Excel**. Na tabela colada, a 1.ª linha é cabeçalho se tiver texto a partir da
+2.ª coluna e a 1.ª coluna tem os nomes das linhas se tiver texto:
+
+```powerfx
+With({_lin: With(
+        // Retira os retornos de carro (Char(13)) do Windows e parte o texto em linhas
+        {_linhas: Split(Substitute(txtQuiTabela.Text; Char(13); ""); Char(10))};
+        Filter(
+            ForAll(Sequence(CountRows(_linhas)) As _i;
+                With(
+                    // Parte cada linha nas tabulações (colunas do Excel) e limpa os espaços
+                    {_cel: ForAll(Split(Index(_linhas; _i.Value).Value; Char(9)) As _c;
+                        {Texto: Trim(Substitute(_c.Value; UniChar(160); " "))})};
+                    {Linha: _i.Value; Celulas: _cel; NCel: CountRows(Filter(_cel; Texto <> ""))}
+                )
+            );
+            // Ignora linhas vazias (ou só com tabulações/espaços)
+            NCel > 0
+        )
+    )};
+    With({_m: CountRows(_lin); _kc: Coalesce(Max(_lin; CountRows(Celulas)); 0)};
+    With({_cab: _m >= 2 && CountRows(Filter(Sequence(Max(_kc - 1; 0); 2) As _j;
+                With({_t: If(_j.Value <= CountRows(First(_lin).Celulas); Index(First(_lin).Celulas; _j.Value).Texto; "")}; _t <> "" && IsBlank(IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank()))))) > 0};
+    With({_corpo: If(_cab; LastN(_lin; _m - 1); _lin)};
+    With({_rot: CountRows(Filter(_corpo As _r; With({_t: If(1 <= CountRows(_r.Celulas); Index(_r.Celulas; 1).Texto; "")}; _t <> "" && IsBlank(IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank()))))) > 0};
+    With({_c0: If(_rot; 1; 0)};
+    With({_nc: Max(_kc - _c0; 0); _nr: CountRows(_corpo)};
+    {
+        Linhas: ForAll(Sequence(_nr) As _i; {nome: If(_rot; If(1 <= CountRows(Index(_corpo; _i.Value).Celulas); Index(Index(_corpo; _i.Value).Celulas; 1).Texto; ""); "Linha " & _i.Value)});
+        Colunas: ForAll(Sequence(_nc) As _j; {nome: If(_cab; If(_j.Value + _c0 <= CountRows(First(_lin).Celulas); Index(First(_lin).Celulas; _j.Value + _c0).Texto; ""); "Coluna " & _j.Value)});
+        Celulas: ForAll(Sequence(_nr * _nc; 0) As _q;
+            With({_i: RoundDown(_q.Value / _nc; 0) + 1; _j: Mod(_q.Value; _nc) + 1};
+                With({_t: If(_j + _c0 <= CountRows(Index(_corpo; _i).Celulas); Index(Index(_corpo; _i).Celulas; _j + _c0).Texto; "")};
+                    {i: _i; j: _j; t: _t; O: With({_o: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank())}; If(IsBlank(_o) || _o < 0; 0; _o));
+                     invalido: _t <> "" && (IsBlank(IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank())) || IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank()) < 0)})));
+        TemRotulos: _rot
+    }
+    ))))))
+)
+```
+
+Proporções esperadas escritas pelo aluno (separadas por `;`, tabulação ou mudança de linha):
+
+```powerfx
+Filter(ForAll(Split(Substitute(Substitute(Substitute(txtQuiProporcoes.Text; Char(13); ""); Char(9); Char(10)); ";"; Char(10)); Char(10)) As _s; {p: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_s.Value); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank())}); !IsBlank(p))
+```
+
+Fórmula completa do teste:
+
+```powerfx
+With(
+    {_tipo: If(drpQuiTipo.Selected.Value = "Independência (tabela de contingência)"; 2; 1);
+     _orig: If(drpQuiOrigem.Selected.Value = "Tabela colada do Excel"; 2; 1);
+     _k1: Switch(drpQuiVar1.Selected.Value; varNomes.N1; 1; varNomes.N2; 2; varNomes.N3; 3; varNomes.C1; 4; varNomes.C2; 5; 1); _k2: Switch(drpQuiVar2.Selected.Value; varNomes.N1; 1; varNomes.N2; 2; varNomes.N3; 3; varNomes.C1; 4; varNomes.C2; 5; 1);
+     _alfa: Value(Substitute(drpQuiAlfa.Selected.Value; ","; "."); "en-US")};
+    With(
+        // Tabela observada: nomes das linhas e colunas e células {i, j, O} (na aderência há só 1 coluna)
+        {_T: If(_orig = 2; With({_lin: With(
+                    // Retira os retornos de carro (Char(13)) do Windows e parte o texto em linhas
+                    {_linhas: Split(Substitute(txtQuiTabela.Text; Char(13); ""); Char(10))};
+                    Filter(
+                        ForAll(Sequence(CountRows(_linhas)) As _i;
+                            With(
+                                // Parte cada linha nas tabulações (colunas do Excel) e limpa os espaços
+                                {_cel: ForAll(Split(Index(_linhas; _i.Value).Value; Char(9)) As _c;
+                                    {Texto: Trim(Substitute(_c.Value; UniChar(160); " "))})};
+                                {Linha: _i.Value; Celulas: _cel; NCel: CountRows(Filter(_cel; Texto <> ""))}
+                            )
+                        );
+                        // Ignora linhas vazias (ou só com tabulações/espaços)
+                        NCel > 0
+                    )
+                )};
+                With({_m: CountRows(_lin); _kc: Coalesce(Max(_lin; CountRows(Celulas)); 0)};
+                With({_cab: _m >= 2 && CountRows(Filter(Sequence(Max(_kc - 1; 0); 2) As _j;
+                            With({_t: If(_j.Value <= CountRows(First(_lin).Celulas); Index(First(_lin).Celulas; _j.Value).Texto; "")}; _t <> "" && IsBlank(IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank()))))) > 0};
+                With({_corpo: If(_cab; LastN(_lin; _m - 1); _lin)};
+                With({_rot: CountRows(Filter(_corpo As _r; With({_t: If(1 <= CountRows(_r.Celulas); Index(_r.Celulas; 1).Texto; "")}; _t <> "" && IsBlank(IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank()))))) > 0};
+                With({_c0: If(_rot; 1; 0)};
+                With({_nc: Max(_kc - _c0; 0); _nr: CountRows(_corpo)};
+                {
+                    Linhas: ForAll(Sequence(_nr) As _i; {nome: If(_rot; If(1 <= CountRows(Index(_corpo; _i.Value).Celulas); Index(Index(_corpo; _i.Value).Celulas; 1).Texto; ""); "Linha " & _i.Value)});
+                    Colunas: ForAll(Sequence(_nc) As _j; {nome: If(_cab; If(_j.Value + _c0 <= CountRows(First(_lin).Celulas); Index(First(_lin).Celulas; _j.Value + _c0).Texto; ""); "Coluna " & _j.Value)});
+                    Celulas: ForAll(Sequence(_nr * _nc; 0) As _q;
+                        With({_i: RoundDown(_q.Value / _nc; 0) + 1; _j: Mod(_q.Value; _nc) + 1};
+                            With({_t: If(_j + _c0 <= CountRows(Index(_corpo; _i).Celulas); Index(Index(_corpo; _i).Celulas; _j + _c0).Texto; "")};
+                                {i: _i; j: _j; t: _t; O: With({_o: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank())}; If(IsBlank(_o) || _o < 0; 0; _o));
+                                 invalido: _t <> "" && (IsBlank(IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank())) || IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank()) < 0)})));
+                    TemRotulos: _rot
+                }
+                ))))))
+            );
+            With({_pr: Filter(ForAll(colDados As _d; With({_A: With({_val: Switch(_k1; 1; _d.N1; 2; _d.N2; 3; _d.N3; Blank())}; {cat: If(_k1 <= 3; If(IsBlank(_val); ""; With({_v: _val}; If(IsBlank(_v); ""; If(_v = Int(_v); Text(_v; "[$-en-US]0"; "pt-PT"); Text(_v; "[$-en-US]0.##########"; "pt-PT"))))); Switch(_k1; 4; _d.C1; _d.C2)); ord: If(_k1 <= 3; _val; 0)}); _B: With({_val: Switch(_k2; 1; _d.N1; 2; _d.N2; 3; _d.N3; Blank())}; {cat: If(_k2 <= 3; If(IsBlank(_val); ""; With({_v: _val}; If(IsBlank(_v); ""; If(_v = Int(_v); Text(_v; "[$-en-US]0"; "pt-PT"); Text(_v; "[$-en-US]0.##########"; "pt-PT"))))); Switch(_k2; 4; _d.C1; _d.C2)); ord: If(_k2 <= 3; _val; 0)})};
+                        {a: _A.cat; oa: _A.ord; b: If(_tipo = 2; _B.cat; "Total"); ob: If(_tipo = 2; _B.ord; 0)}));
+                        a <> "" && b <> "")};
+                With({_L: With({_ls: ForAll(Distinct(_pr; a) As _c; {nome: _c.Value; o: LookUp(_pr; a = _c.Value).oa})}; If(_k1 <= 3; Sort(_ls; o); Sort(_ls; nome))); _C: With({_ls: ForAll(Distinct(_pr; b) As _c; {nome: _c.Value; o: LookUp(_pr; b = _c.Value).ob})}; If(If(_tipo = 2; _k2; 4) <= 3; Sort(_ls; o); Sort(_ls; nome)))};
+                    {Linhas: _L; Colunas: _C;
+                     Celulas: ForAll(Sequence(CountRows(_L) * CountRows(_C); 0) As _q;
+                        With({_i: RoundDown(_q.Value / CountRows(_C); 0) + 1; _j: Mod(_q.Value; CountRows(_C)) + 1};
+                            {i: _i; j: _j; t: "";
+                             O: CountIf(_pr; a = Index(_L; _i).nome && b = Index(_C; _j).nome); invalido: false}));
+                     TemRotulos: true})))};
+    With(
+        // Aderência: frequências observadas = última coluna; se a tabela colada não tiver nomes de texto
+        // e tiver 2 ou mais colunas, a 1.ª coluna dá os nomes das categorias (ex.: faces de um dado 1 a 6)
+        {_cel: If(_tipo = 1; ForAll(Filter(_T.Celulas; j = CountRows(_T.Colunas)) As _x;
+                                    {i: _x.i; j: 1; O: _x.O});
+                   ForAll(_T.Celulas As _x; {i: _x.i; j: _x.j; O: _x.O}));
+         _Lin: If(_tipo = 1 && !_T.TemRotulos && CountRows(_T.Colunas) >= 2;
+                  ForAll(Filter(_T.Celulas; j = 1) As _x; {nome: _x.t}); _T.Linhas);
+         _nr: CountRows(_T.Linhas); _nc: If(_tipo = 1; 1; CountRows(_T.Colunas))};
+    With({_N: Sum(_cel; O);
+          _Ri: ForAll(Sequence(_nr) As _r; {i: _r.Value; R: Sum(Filter(_cel; i = _r.Value); O)});
+          _Cj: ForAll(Sequence(_nc) As _c; {j: _c.Value; C: Sum(Filter(_cel; j = _c.Value); O)});
+          _pind: Filter(ForAll(Split(Substitute(Substitute(Substitute(txtQuiProporcoes.Text; Char(13); ""); Char(9); Char(10)); ";"; Char(10)); Char(10)) As _s; {p: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_s.Value); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank())}); !IsBlank(p));
+          _esp: If(drpQuiEsperadas.Selected.Value = "Proporções indicadas"; 2; 1)};
+    With(
+        // Frequências esperadas: n·pᵢ (aderência) ou Rᵢ·Cⱼ/N (independência)
+        {_E: ForAll(_cel As _o;
+            {i: _o.i; j: _o.j; O: _o.O;
+             E: If(_tipo = 1;
+                   If(_esp = 1; _N / _nr;
+                      If(CountRows(_pind) = _nr && Sum(_pind; p) > 0; _N * Index(_pind; _o.i).p / Sum(_pind; p)));
+                   LookUp(_Ri; i = _o.i).R * LookUp(_Cj; j = _o.j).C / _N)})};
+    With(
+        {_ok: _N > 0 && _nr >= 2 && (_tipo = 1 || _nc >= 2) && CountRows(Filter(_E; IsBlank(E) || E <= 0)) = 0};
+    With(
+        {_q2: If(_ok; Sum(_E; Power(O - E; 2) / E));
+         _gl: If(_tipo = 1; _nr - 1; (_nr - 1) * (_nc - 1))};
+    {
+        tipo: _tipo; alfa: _alfa; Linhas: _Lin; Colunas: _T.Colunas; Celulas: _E;
+        nr: _nr; nc: _nc; N: _N; Ri: _Ri; Cj: _Cj;
+        qui2: _q2; gl: _gl;
+        p: If(!IsBlank(_q2); With({_x: _q2; _k: _gl};
+                If(_x <= 0; 1;
+                With({_v0: Sqrt(_x); _vs: Sqrt(Max(_k - 1; 0))};
+                With({_lo: Max(0; _vs - 10); _hi: _vs + 10};
+                    If(_v0 >= _hi; 0;
+                        With({_nd: ForAll(Sequence(300; 0) As _i; With({_s: RoundDown(_i.Value / 3; 0); _m: Mod(_i.Value; 3)}; {u: (_s + 0,5 + (_m - 1) * 0,3872983346207417) / 100; w: If(_m = 1; 8 / 9; 5 / 9) / 200}))};
+                    With({_Ltot: ForAll(_nd; With({t: _lo + u * (_hi - _lo)}; {L: (_k - 1) * Ln(t) - t * t / 2; w: w * (_hi - _lo)}));
+                          _Lcau: ForAll(_nd; With({t: Max(_v0; _lo) + u * (_hi - Max(_v0; _lo))}; {L: (_k - 1) * Ln(t) - t * t / 2; w: w * (_hi - Max(_v0; _lo))}))};
+                        With({_M: Max(_Ltot; L)};
+                            Min(1; Sum(_Lcau; Exp(L - _M) * w) / Sum(_Ltot; Exp(L - _M) * w)))))))))));
+        baixas: CountRows(Filter(_E; E < 5)); muitoBaixas: CountRows(Filter(_E; E < 1));
+        invalidos: CountRows(Filter(_T.Celulas; invalido));
+        proporcoes: If(_tipo = 1; If(_esp = 1; ForAll(Sequence(_nr) As _r; {p: 1 / _nr});
+                        ForAll(_pind As _x; {p: _x.p / Sum(_pind; p)})));
+        motivo: If(_N = 0; "não há observações.";
+                   _nr < 2; "são precisas pelo menos 2 categorias (linhas).";
+                   _tipo = 2 && _nc < 2; "são precisas pelo menos 2 colunas na tabela de contingência.";
+                   _tipo = 1 && _esp = 2 && CountRows(_pind) <> _nr;
+                       "indique tantas proporções esperadas quantas as categorias (" & _nr & "), pela ordem da tabela.";
+                   "há frequências esperadas nulas (uma linha ou coluna sem observações ou uma proporção igual a 0).")
+    }
+    ))))))
+)
+```
+
+### 5.6 Teste de significância do coeficiente de correlação (ecrã `scrRegressao`)
+
+H₀: ρ = 0 contra H₁: ρ ≠ 0, com t = r √(n − 2) / √(1 − r²) e n − 2 graus de liberdade (precisa de n ≥ 3).

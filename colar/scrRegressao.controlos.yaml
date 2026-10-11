@@ -287,7 +287,23 @@
                     a: If(!IsBlank(_b), _my - _b * _mx),
                     minX: Min(_p, x), maxX: Max(_p, x), minY: Min(_p, y), maxY: Max(_p, y),
                     x0: _x0,
-                    previsao: If(!IsBlank(_b) && !IsBlank(_x0), _my - _b * _mx + _b * _x0)
+                    previsao: If(!IsBlank(_b) && !IsBlank(_x0), _my - _b * _mx + _b * _x0),
+                    // Teste H0: ρ = 0  —  t = r √(n − 2) / √(1 − r²), com n − 2 graus de liberdade
+                    glR: If(_n >= 3 && !IsBlank(_r), _n - 2),
+                    tR: If(_n >= 3 && !IsBlank(_r) && _r * _r < 1, _r * Sqrt((_n - 2) / (1 - _r * _r))),
+                    pR: If(_n >= 3 && !IsBlank(_r),
+                           If(_r * _r >= 1, 0,
+                              With({_f: Power(_r * Sqrt((_n - 2) / (1 - _r * _r)), 2), _d1: 1, _d2: _n - 2},
+                                  If(_f <= 0, 1,
+                                  With({_t0: Atan(Sqrt(_d1 * _f / _d2)), _sg: 1 / Sqrt(Max(_d1 + _d2 - 2, 1)),
+                                        _ts: If(_d2 > 1, Atan(Sqrt(Max(_d1 - 1, 0) / (_d2 - 1))), Pi() / 2)},
+                                  With({_lo: Max(0, _ts - 10 * _sg), _hi: Min(Pi() / 2, _ts + 10 * _sg)},
+                                      If(_t0 >= _hi, 0,
+                                          With({_nd: ForAll(Sequence(300, 0) As _i, With({_s: RoundDown(_i.Value / 3, 0), _m: Mod(_i.Value, 3)}, {u: (_s + 0.5 + (_m - 1) * 0.3872983346207417) / 100, w: If(_m = 1, 8 / 9, 5 / 9) / 200}))},
+                                      With({_Ltot: ForAll(_nd, With({t: _lo + u * (_hi - _lo)}, {L: (_d1 - 1) * Ln(Sin(t)) + (_d2 - 1) * Ln(Cos(t)), w: w * (_hi - _lo)})),
+                                            _Lcau: ForAll(_nd, With({t: Max(_t0, _lo) + u * (_hi - Max(_t0, _lo))}, {L: (_d1 - 1) * Ln(Sin(t)) + (_d2 - 1) * Ln(Cos(t)), w: w * (_hi - Max(_t0, _lo))}))},
+                                          With({_M: Max(_Ltot, L)},
+                                              Min(1, Sum(_Lcau, Exp(L - _M) * w) / Sum(_Ltot, Exp(L - _M) * w))))))))))))
                 }
                 ))))
             )},
@@ -312,6 +328,9 @@
             "<tr><td style='padding:4px 8px'>Correlação (indicativo)<br><span style='color:#5a626a;font-size:12px'>|r| < 0,3 fraca · < 0,7 moderada</span></td><td style='padding:4px 8px;text-align:right;white-space:nowrap'>" & If(IsBlank(_R.r), "não definida",
                 With({_ar: Abs(_R.r)}, If(_ar < 0.3, "fraca", _ar < 0.7, "moderada", "forte")) & " e " &
                 If(_R.r > 0, "positiva", _R.r < 0, "negativa", "nula")) & "</td></tr>" &
+            "<tr style='background:#f3f6fa'><td style='padding:4px 8px'>Teste H₀: ρ = 0 (estatística t)<br><span style='color:#5a626a;font-size:12px'>t = r √(n − 2) / √(1 − r²)</span></td><td style='padding:4px 8px;text-align:right;white-space:nowrap'>" & With({_v: _R.tR}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td></tr>" &
+            "<tr><td style='padding:4px 8px'>Graus de liberdade<br><span style='color:#5a626a;font-size:12px'>gl = n − 2</span></td><td style='padding:4px 8px;text-align:right;white-space:nowrap'>" & With({_v: _R.glR}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 0.5, 0, _v), "[$-en-US]#,##0", "pt-PT"))) & "</td></tr>" &
+            "<tr style='background:#f3f6fa'><td style='padding:4px 8px'>Valor de p (bilateral)<br><span style='color:#5a626a;font-size:12px'>p = P(|T| ≥ |t|)</span></td><td style='padding:4px 8px;text-align:right;white-space:nowrap'>" & With({_pp: _R.pR}, If(IsBlank(_pp), "n.d.", _pp < 0.0001, "< 0,0001", With({_v: _pp}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))))) & "</td></tr>" &
             "</table>" &
             "<h4 style='margin:14px 0 4px 0;color:#1f4e79'>Previsão</h4>" &
             If(IsBlank(_R.x0), "<p>Escreva um valor de x para obter a previsão ŷ.</p>",
@@ -363,7 +382,23 @@
                 a: If(!IsBlank(_b), _my - _b * _mx),
                 minX: Min(_p, x), maxX: Max(_p, x), minY: Min(_p, y), maxY: Max(_p, y),
                 x0: _x0,
-                previsao: If(!IsBlank(_b) && !IsBlank(_x0), _my - _b * _mx + _b * _x0)
+                previsao: If(!IsBlank(_b) && !IsBlank(_x0), _my - _b * _mx + _b * _x0),
+                // Teste H0: ρ = 0  —  t = r √(n − 2) / √(1 − r²), com n − 2 graus de liberdade
+                glR: If(_n >= 3 && !IsBlank(_r), _n - 2),
+                tR: If(_n >= 3 && !IsBlank(_r) && _r * _r < 1, _r * Sqrt((_n - 2) / (1 - _r * _r))),
+                pR: If(_n >= 3 && !IsBlank(_r),
+                       If(_r * _r >= 1, 0,
+                          With({_f: Power(_r * Sqrt((_n - 2) / (1 - _r * _r)), 2), _d1: 1, _d2: _n - 2},
+                              If(_f <= 0, 1,
+                              With({_t0: Atan(Sqrt(_d1 * _f / _d2)), _sg: 1 / Sqrt(Max(_d1 + _d2 - 2, 1)),
+                                    _ts: If(_d2 > 1, Atan(Sqrt(Max(_d1 - 1, 0) / (_d2 - 1))), Pi() / 2)},
+                              With({_lo: Max(0, _ts - 10 * _sg), _hi: Min(Pi() / 2, _ts + 10 * _sg)},
+                                  If(_t0 >= _hi, 0,
+                                      With({_nd: ForAll(Sequence(300, 0) As _i, With({_s: RoundDown(_i.Value / 3, 0), _m: Mod(_i.Value, 3)}, {u: (_s + 0.5 + (_m - 1) * 0.3872983346207417) / 100, w: If(_m = 1, 8 / 9, 5 / 9) / 200}))},
+                                  With({_Ltot: ForAll(_nd, With({t: _lo + u * (_hi - _lo)}, {L: (_d1 - 1) * Ln(Sin(t)) + (_d2 - 1) * Ln(Cos(t)), w: w * (_hi - _lo)})),
+                                        _Lcau: ForAll(_nd, With({t: Max(_t0, _lo) + u * (_hi - Max(_t0, _lo))}, {L: (_d1 - 1) * Ln(Sin(t)) + (_d2 - 1) * Ln(Cos(t)), w: w * (_hi - Max(_t0, _lo))}))},
+                                      With({_M: Max(_Ltot, L)},
+                                          Min(1, Sum(_Lcau, Exp(L - _M) * w) / Sum(_Ltot, Exp(L - _M) * w))))))))))))
             }
             ))))
         ), _P: Filter(ForAll(colDados As _d, {x: Switch(Switch(drpRegX.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, 1), 1, _d.N1, 2, _d.N2, _d.N3), y: Switch(Switch(drpRegY.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, 1), 1, _d.N1, 2, _d.N2, _d.N3)}), !IsBlank(x) && !IsBlank(y))},

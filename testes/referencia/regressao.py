@@ -9,7 +9,7 @@ def regressao(xs, ys, x0=None):
     r = {"n": n}
     if n == 0:
         return {**r, **{k: None for k in ["mediaX", "mediaY", "Sxx", "Syy", "Sxy", "sx", "sy", "cov", "r", "r2",
-                                          "b", "a", "previsao"]}}
+                                          "b", "a", "previsao", "glR", "pR", "tR"]}}
     x = np.array([a for a, _ in p], float)
     y = np.array([b for _, b in p], float)
     mx, my = x.mean(), y.mean()
@@ -28,4 +28,11 @@ def regressao(xs, ys, x0=None):
         r["r2"] = r["r"] ** 2
     else:
         r["r"] = r["r2"] = None
+    # teste de H0: ρ = 0 (pearsonr devolve o valor de p bilateral)
+    if n >= 3 and r["r"] is not None:
+        r["glR"] = n - 2
+        r["pR"] = float(stats.pearsonr(x, y).pvalue)
+        r["tR"] = r["r"] * np.sqrt((n - 2) / (1 - r["r"] ** 2)) if r["r"] ** 2 < 1 else None
+    else:
+        r["glR"] = r["pR"] = r["tR"] = None
     return r

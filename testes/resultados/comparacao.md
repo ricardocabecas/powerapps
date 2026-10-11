@@ -2,11 +2,11 @@
 
 Gerado em 11/10/2026 por `testes/executar_testes.py`. As fórmulas foram executadas com o interpretador open source **Microsoft.PowerFx.Interpreter 1.8.1** (.NET 8), com números em vírgula flutuante (como nas canvas apps).
 
-**Total: 3958/3958 verificações sem diferenças.**
+**Total: 5148/5148 verificações sem diferenças.**
 
 ## Sintaxe de todas as fórmulas dos ecrãs
 
-1872 fórmulas analisadas em formato invariante (ficheiros .pa.yaml) e convertidas para pt-PT (barra de fórmulas): **3744/3744 sem erros de sintaxe**.
+2444 fórmulas analisadas em formato invariante (ficheiros .pa.yaml) e convertidas para pt-PT (barra de fórmulas): **4888/4888 sem erros de sintaxe**.
 
 
 ## Fase 1 — Entrada de dados
@@ -183,46 +183,92 @@ Gerado em 11/10/2026 por `testes/executar_testes.py`. As fórmulas foram executa
 
 | Caso | Resultado | Detalhe |
 |---|---|---|
-| regressão «exemplo_altura_peso» | ✅ | n=20, r=0.9946312973208253, b=1.2346365658849703, a=-144.83416608920822, ŷ(x0)=68.14064152594915 |
+| regressão «exemplo_altura_peso» | ✅ | n=20, r=0.9946312973208253, b=1.2346365658849703, a=-144.83416608920822, ŷ(x0)=68.14064152594915, p(ρ=0)=3.4511670810845736e-19 (scipy 3.4511670811081557e-19) |
 | tabela HTML «exemplo_altura_peso» | ✅ | ok |
 | dispersão «exemplo_altura_peso» | ✅ | SVG válido, 20 pontos, com reta |
-| regressão «exemplo_altura_nota» | ✅ | n=20, r=-0.9133869564529047, b=-0.27794594988876326, a=60.547941208650926, ŷ(x0)=18.856048725336436 |
+| regressão «exemplo_altura_nota» | ✅ | n=20, r=-0.9133869564529047, b=-0.27794594988876326, a=60.547941208650926, ŷ(x0)=18.856048725336436, p(ρ=0)=1.8961535146080336e-08 (scipy 1.8961535146153764e-08) |
 | tabela HTML «exemplo_altura_nota» | ✅ | ok |
 | dispersão «exemplo_altura_nota» | ✅ | SVG válido, 20 pontos, com reta |
-| regressão «reta_perfeita_positiva» | ✅ | n=5, r=1, b=2, a=1, ŷ(x0)=6 |
+| regressão «reta_perfeita_positiva» | ✅ | n=5, r=1, b=2, a=1, ŷ(x0)=6, p(ρ=0)=0 (scipy 0.0) |
 | tabela HTML «reta_perfeita_positiva» | ✅ | ok |
 | dispersão «reta_perfeita_positiva» | ✅ | SVG válido, 5 pontos, com reta |
-| regressão «reta_perfeita_negativa» | ✅ | n=4, r=-1, b=-2.5, a=10, ŷ(x0)=-15 |
+| regressão «reta_perfeita_negativa» | ✅ | n=4, r=-1, b=-2.5, a=10, ŷ(x0)=-15, p(ρ=0)=0 (scipy 0.0) |
 | tabela HTML «reta_perfeita_negativa» | ✅ | ok |
 | dispersão «reta_perfeita_negativa» | ✅ | SVG válido, 4 pontos, com reta |
-| regressão «y_constante» | ✅ | n=4, r=None, b=0, a=5, ŷ(x0)=5 |
+| regressão «y_constante» | ✅ | n=4, r=None, b=0, a=5, ŷ(x0)=5, p(ρ=0)=None (scipy None) |
 | tabela HTML «y_constante» | ✅ | ok |
 | dispersão «y_constante» | ✅ | SVG válido, 4 pontos, com reta |
-| regressão «x_constante» | ✅ | n=3, r=None, b=None, a=None, ŷ(x0)=None |
+| regressão «x_constante» | ✅ | n=3, r=None, b=None, a=None, ŷ(x0)=None, p(ρ=0)=None (scipy None) |
 | tabela HTML «x_constante» | ✅ | ok |
 | dispersão «x_constante» | ✅ | SVG válido, 3 pontos |
-| regressão «n1» | ✅ | n=1, r=None, b=None, a=None, ŷ(x0)=None |
+| regressão «n1» | ✅ | n=1, r=None, b=None, a=None, ŷ(x0)=None, p(ρ=0)=None (scipy None) |
 | tabela HTML «n1» | ✅ | ok |
 | dispersão «n1» | ✅ | SVG válido, 1 pontos |
-| regressão «n2» | ✅ | n=2, r=-1, b=-0.5, a=2.5, ŷ(x0)=1.5 |
+| regressão «n2» | ✅ | n=2, r=-1, b=-0.5, a=2.5, ŷ(x0)=1.5, p(ρ=0)=None (scipy None) |
 | tabela HTML «n2» | ✅ | ok |
 | dispersão «n2» | ✅ | SVG válido, 2 pontos, com reta |
-| regressão «com_faltas» | ✅ | n=4, r=0.9862673700913519, b=0.7928571428571427, a=1.1535714285714285, ŷ(x0)=None |
+| regressão «com_faltas» | ✅ | n=4, r=0.9862673700913519, b=0.7928571428571427, a=1.1535714285714285, ŷ(x0)=None, p(ρ=0)=0.013732629908648078 (scipy 0.013732629908647986) |
 | tabela HTML «com_faltas» | ✅ | ok |
 | dispersão «com_faltas» | ✅ | SVG válido, 4 pontos, com reta |
-| regressão «sem_correlacao» | ✅ | n=5, r=0, b=0, a=2.6, ŷ(x0)=2.6 |
+| regressão «sem_correlacao» | ✅ | n=5, r=0, b=0, a=2.6, ŷ(x0)=2.6, p(ρ=0)=1 (scipy 1.0) |
 | tabela HTML «sem_correlacao» | ✅ | ok |
 | dispersão «sem_correlacao» | ✅ | SVG válido, 5 pontos, com reta |
-| regressão «decimais_negativos» | ✅ | n=5, r=-0.8672854478323896, b=-0.6807714635876927, a=-0.5836902534993229, ŷ(x0)=0.09708121008836978 |
+| regressão «decimais_negativos» | ✅ | n=5, r=-0.8672854478323896, b=-0.6807714635876927, a=-0.5836902534993229, ŷ(x0)=0.09708121008836978, p(ρ=0)=0.056868470776834865 (scipy 0.056868470776834684) |
 | tabela HTML «decimais_negativos» | ✅ | ok |
 | dispersão «decimais_negativos» | ✅ | SVG válido, 5 pontos, com reta |
 
 ## Fase 5 — Inferência
 
-**34/34 casos de acordo com a referência.**
+**80/80 casos de acordo com a referência.**
 
 | Caso | Resultado | Detalhe |
 |---|---|---|
+| qui-quadrado «ader_sexo_iguais» | ✅ | χ²=0, gl=1, p=1 (scipy 1.0), células com E<5: 0 |
+| relatório qui-quadrado «ader_sexo_iguais» | ✅ | ok |
+| qui-quadrado «ader_turma_iguais» | ✅ | χ²=0.09999999999999999, gl=2, p=0.95122942449563 (scipy 0.951229424500714), células com E<5: 0 |
+| relatório qui-quadrado «ader_turma_iguais» | ✅ | ok |
+| qui-quadrado «ader_turma_indicadas» | ✅ | χ²=1.9000000000000001, gl=2, p=0.3867410234458508 (scipy 0.38674102345450123), células com E<5: 0 |
+| relatório qui-quadrado «ader_turma_indicadas» | ✅ | ok |
+| qui-quadrado «ader_nota_numerica_pesos» | ✅ | χ²=2.5208333333333335, gl=9, p=0.9803179534746087 (scipy 0.980317953485687), células com E<5: 10 |
+| relatório qui-quadrado «ader_nota_numerica_pesos» | ✅ | ok |
+| qui-quadrado «ader_colada_dado» | ✅ | χ²=4.2, gl=5, p=0.5209949534257625 (scipy 0.5209949534314051), células com E<5: 0 |
+| relatório qui-quadrado «ader_colada_dado» | ✅ | ok |
+| qui-quadrado «ader_colada_percentagens» | ✅ | χ²=2, gl=2, p=0.36787944116331894 (scipy 0.36787944117144245), células com E<5: 0 |
+| relatório qui-quadrado «ader_colada_percentagens» | ✅ | ok |
+| qui-quadrado «ader_esperadas_baixas» | ✅ | χ²=6.199999999999999, gl=2, p=0.0450492023935935 (scipy 0.04504920239355781), células com E<5: 3 |
+| relatório qui-quadrado «ader_esperadas_baixas» | ✅ | ok |
+| qui-quadrado «ader_proporcoes_em_falta» | ✅ | teste não calculado: indique tantas proporções esperadas quantas as categorias (3), pela ordem da tabela. |
+| relatório qui-quadrado «ader_proporcoes_em_falta» | ✅ | ok |
+| qui-quadrado «indep_sexo_turma» | ✅ | χ²=0.2857142857142857, gl=2, p=0.8668778997406118 (scipy 0.8668778997501817), células com E<5: 6 |
+| relatório qui-quadrado «indep_sexo_turma» | ✅ | ok |
+| qui-quadrado «indep_colada_2x2» | ✅ | χ²=11.42857142857143, gl=1, p=0.000723232716418553 (scipy 0.0007232327164301923), células com E<5: 0 |
+| relatório qui-quadrado «indep_colada_2x2» | ✅ | ok |
+| qui-quadrado «indep_colada_sem_nomes_3x3» | ✅ | χ²=10.06955879810639, gl=4, p=0.039272132877815724 (scipy 0.03927213287544329), células com E<5: 0 |
+| relatório qui-quadrado «indep_colada_sem_nomes_3x3» | ✅ | ok |
+| qui-quadrado «indep_colada_esperadas_baixas» | ✅ | χ²=3.555555555555556, gl=2, p=0.16901331540381886 (scipy 0.16901331540606604), células com E<5: 5 |
+| relatório qui-quadrado «indep_colada_esperadas_baixas» | ✅ | ok |
+| qui-quadrado «indep_colada_linha_vazia» | ✅ | teste não calculado: há frequências esperadas nulas (uma linha ou coluna sem observações ou uma proporção igual a 0). |
+| relatório qui-quadrado «indep_colada_linha_vazia» | ✅ | ok |
+| qui-quadrado «indep_colada_invalidos» | ✅ | χ²=5, gl=1, p=0.02534731867762744 (scipy 0.025347318677468325), células com E<5: 3 |
+| relatório qui-quadrado «indep_colada_invalidos» | ✅ | ok |
+| ANOVA «altura_por_turma» | ✅ | F=0.27128891198766825, gl=(2, 17), p=0.7656350924930889 (scipy 0.7656350924935016) |
+| relatório ANOVA «altura_por_turma» | ✅ | ok |
+| ANOVA «nota_por_turma» | ✅ | F=0.17722573233773714, gl=(2, 17), p=0.8391184244256376 (scipy 0.8391184244260104) |
+| relatório ANOVA «nota_por_turma» | ✅ | ok |
+| ANOVA «tres_grupos_desiguais» | ✅ | F=36.822222222222216, gl=(2, 6), p=0.000427550372854951 (scipy 0.00042755037285496377) |
+| relatório ANOVA «tres_grupos_desiguais» | ✅ | ok |
+| ANOVA «dois_grupos_igual_t» | ✅ | F=42.94615954556684, gl=(1, 18), p=3.702650750247683e-06 (scipy 3.702650750255917e-06) |
+| relatório ANOVA «dois_grupos_igual_t» | ✅ | ok |
+| ANOVA «grupo_com_n1» | ✅ | F=27, gl=(1, 2), p=0.03509871864598464 (scipy 0.03509871864598465) |
+| relatório ANOVA «grupo_com_n1» | ✅ | ok |
+| ANOVA «variancia_dentro_nula» | ✅ | F=None, gl=(1, 2), p=None (scipy None) |
+| relatório ANOVA «variancia_dentro_nula» | ✅ | ok |
+| ANOVA «um_so_grupo» | ✅ | F=None, gl=(0, 2), p=None (scipy None) |
+| relatório ANOVA «um_so_grupo» | ✅ | ok |
+| ANOVA «colunas_como_grupos» | ✅ | F=18.58008658008658, gl=(2, 8), p=0.0009847762225222532 (scipy 0.0009847762225222944) |
+| relatório ANOVA «colunas_como_grupos» | ✅ | ok |
+| ANOVA «colunas_com_vazia» | ✅ | F=10, gl=(1, 4), p=0.034109423167409586 (scipy 0.03410942316740961) |
+| relatório ANOVA «colunas_com_vazia» | ✅ | ok |
 | teste t «1amostra_altura_170_bilateral» | ✅ | t=-0.28956340830869276, gl=19, p=0.775286438213695 (scipy 0.7752864382137891) |
 | relatório t «1amostra_altura_170_bilateral» | ✅ | ok |
 | teste t «1amostra_altura_165_direita» | ✅ | t=2.3428312126793687, gl=19, p=0.01508741001969021 (scipy 0.01508741001968566) |

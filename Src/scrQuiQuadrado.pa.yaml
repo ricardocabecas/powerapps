@@ -1,0 +1,569 @@
+Screens:
+  scrQuiQuadrado:
+    Properties:
+      Fill: =RGBA(244, 246, 249, 1)
+    Children:
+      - retCabQui:
+          Control: Rectangle
+          Properties:
+            Fill: =RGBA(31, 78, 121, 1)
+            X: =0
+            Y: =0
+            Width: =1366
+            Height: =64
+      - lblCabQui:
+          Control: Label
+          Properties:
+            Text: ="Estatística · " & "Testes do qui-quadrado"
+            X: =16
+            Y: =0
+            Width: =420
+            Height: =64
+            Font: =Font.'Segoe UI'
+            Size: =18
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+      - btnNavQuiDad:
+          Control: Classic/Button
+          Properties:
+            Text: ="Dados"
+            OnSelect: =Navigate(scrDados, ScreenTransition.None)
+            X: =446
+            Y: =14
+            Width: =112
+            Height: =36
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Fill: =RGBA(31, 78, 121, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            HoverFill: =RGBA(23, 58, 91, 1)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderThickness: =1
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+      - btnNavQuiDes:
+          Control: Classic/Button
+          Properties:
+            Text: ="Descritiva"
+            OnSelect: =Navigate(scrDescritiva, ScreenTransition.None)
+            X: =564
+            Y: =14
+            Width: =112
+            Height: =36
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Fill: =RGBA(31, 78, 121, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            HoverFill: =RGBA(23, 58, 91, 1)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderThickness: =1
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+      - btnNavQuiFre:
+          Control: Classic/Button
+          Properties:
+            Text: ="Frequências"
+            OnSelect: =Navigate(scrFrequencias, ScreenTransition.None)
+            X: =682
+            Y: =14
+            Width: =120
+            Height: =36
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Fill: =RGBA(31, 78, 121, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            HoverFill: =RGBA(23, 58, 91, 1)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderThickness: =1
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+      - btnNavQuiReg:
+          Control: Classic/Button
+          Properties:
+            Text: ="Regressão"
+            OnSelect: =Navigate(scrRegressao, ScreenTransition.None)
+            X: =808
+            Y: =14
+            Width: =112
+            Height: =36
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Fill: =RGBA(31, 78, 121, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            HoverFill: =RGBA(23, 58, 91, 1)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderThickness: =1
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+      - btnNavQuiTt:
+          Control: Classic/Button
+          Properties:
+            Text: ="Testes t"
+            OnSelect: =Navigate(scrTestesT, ScreenTransition.None)
+            X: =926
+            Y: =14
+            Width: =112
+            Height: =36
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Fill: =RGBA(31, 78, 121, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            HoverFill: =RGBA(23, 58, 91, 1)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderThickness: =1
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+      - btnNavQuiAno:
+          Control: Classic/Button
+          Properties:
+            Text: ="ANOVA"
+            OnSelect: =Navigate(scrAnova, ScreenTransition.None)
+            X: =1044
+            Y: =14
+            Width: =112
+            Height: =36
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Fill: =RGBA(31, 78, 121, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            HoverFill: =RGBA(23, 58, 91, 1)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderThickness: =1
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+      - btnNavQuiQui:
+          Control: Classic/Button
+          Properties:
+            Text: ="Qui-quadrado"
+            OnSelect: =Navigate(scrQuiQuadrado, ScreenTransition.None)
+            X: =1162
+            Y: =14
+            Width: =124
+            Height: =36
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Fill: =RGBA(255, 255, 255, 1)
+            Color: =RGBA(31, 78, 121, 1)
+            HoverFill: =RGBA(255, 255, 255, 1)
+            HoverColor: =RGBA(31, 78, 121, 1)
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderThickness: =1
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+            FontWeight: =FontWeight.Semibold
+      - retQuiPainel:
+          Control: Rectangle
+          Properties:
+            Fill: =RGBA(255, 255, 255, 1)
+            X: =12
+            Y: =72
+            Width: =338
+            Height: =684
+            BorderColor: =RGBA(206, 212, 218, 1)
+            BorderThickness: =1
+      - lblQuiTipo:
+          Control: Label
+          Properties:
+            Text: ="Teste"
+            X: =24
+            Y: =78
+            Width: =314
+            Height: =22
+            Font: =Font.'Segoe UI'
+            Size: =10
+            Color: =RGBA(33, 37, 41, 1)
+            FontWeight: =FontWeight.Semibold
+            Visible: =true
+      - drpQuiTipo:
+          Control: Classic/DropDown
+          Properties:
+            Items: =["Aderência (bondade do ajuste)", "Independência (tabela de contingência)"]
+            X: =24
+            Y: =100
+            Width: =314
+            Height: =32
+            Font: =Font.'Segoe UI'
+            Size: =12
+            Default: ="Aderência (bondade do ajuste)"
+            Visible: =true
+      - lblQuiOrigem:
+          Control: Label
+          Properties:
+            Text: ="Origem das frequências"
+            X: =24
+            Y: =138
+            Width: =314
+            Height: =22
+            Font: =Font.'Segoe UI'
+            Size: =10
+            Color: =RGBA(33, 37, 41, 1)
+            FontWeight: =FontWeight.Semibold
+            Visible: =true
+      - drpQuiOrigem:
+          Control: Classic/DropDown
+          Properties:
+            Items: =["Variáveis da tabela de dados", "Tabela colada do Excel"]
+            X: =24
+            Y: =160
+            Width: =314
+            Height: =32
+            Font: =Font.'Segoe UI'
+            Size: =12
+            Default: ="Variáveis da tabela de dados"
+            Visible: =true
+      - lblQuiVar1:
+          Control: Label
+          Properties:
+            Text: ="Variável (linhas da tabela)"
+            X: =24
+            Y: =198
+            Width: =314
+            Height: =22
+            Font: =Font.'Segoe UI'
+            Size: =10
+            Color: =RGBA(33, 37, 41, 1)
+            FontWeight: =FontWeight.Semibold
+            Visible: =drpQuiOrigem.Selected.Value = "Variáveis da tabela de dados"
+      - drpQuiVar1:
+          Control: Classic/DropDown
+          Properties:
+            Items: =[varNomes.N1, varNomes.N2, varNomes.N3, varNomes.C1, varNomes.C2]
+            X: =24
+            Y: =220
+            Width: =314
+            Height: =32
+            Font: =Font.'Segoe UI'
+            Size: =12
+            Default: =varNomes.C1
+            Visible: =drpQuiOrigem.Selected.Value = "Variáveis da tabela de dados"
+      - lblQuiVar2:
+          Control: Label
+          Properties:
+            Text: ="Variável das colunas"
+            X: =24
+            Y: =258
+            Width: =314
+            Height: =22
+            Font: =Font.'Segoe UI'
+            Size: =10
+            Color: =RGBA(33, 37, 41, 1)
+            FontWeight: =FontWeight.Semibold
+            Visible: =drpQuiOrigem.Selected.Value = "Variáveis da tabela de dados" && drpQuiTipo.Selected.Value = "Independência (tabela de contingência)"
+      - drpQuiVar2:
+          Control: Classic/DropDown
+          Properties:
+            Items: =[varNomes.N1, varNomes.N2, varNomes.N3, varNomes.C1, varNomes.C2]
+            X: =24
+            Y: =280
+            Width: =314
+            Height: =32
+            Font: =Font.'Segoe UI'
+            Size: =12
+            Default: =varNomes.C2
+            Visible: =drpQuiOrigem.Selected.Value = "Variáveis da tabela de dados" && drpQuiTipo.Selected.Value = "Independência (tabela de contingência)"
+      - lblQuiTabela:
+          Control: Label
+          Properties:
+            Text: ="Tabela de frequências (cole do Excel)"
+            X: =24
+            Y: =198
+            Width: =314
+            Height: =22
+            Font: =Font.'Segoe UI'
+            Size: =10
+            Color: =RGBA(33, 37, 41, 1)
+            FontWeight: =FontWeight.Semibold
+            Visible: =drpQuiOrigem.Selected.Value = "Tabela colada do Excel"
+      - txtQuiTabela:
+          Control: Classic/TextInput
+          Properties:
+            Default: =""
+            X: =24
+            Y: =220
+            Width: =314
+            Height: =92
+            Font: =Font.'Segoe UI'
+            Size: =10
+            BorderColor: =RGBA(206, 212, 218, 1)
+            HintText: ="Cole a tabela (com ou sem nomes)"
+            Mode: =TextMode.MultiLine
+            Visible: =drpQuiOrigem.Selected.Value = "Tabela colada do Excel"
+      - lblQuiEsperadas:
+          Control: Label
+          Properties:
+            Text: ="Frequências esperadas (aderência)"
+            X: =24
+            Y: =318
+            Width: =314
+            Height: =22
+            Font: =Font.'Segoe UI'
+            Size: =10
+            Color: =RGBA(33, 37, 41, 1)
+            FontWeight: =FontWeight.Semibold
+            Visible: =drpQuiTipo.Selected.Value = "Aderência (bondade do ajuste)"
+      - drpQuiEsperadas:
+          Control: Classic/DropDown
+          Properties:
+            Items: =["Proporções iguais", "Proporções indicadas"]
+            X: =24
+            Y: =340
+            Width: =314
+            Height: =32
+            Font: =Font.'Segoe UI'
+            Size: =12
+            Default: ="Proporções iguais"
+            Visible: =drpQuiTipo.Selected.Value = "Aderência (bondade do ajuste)"
+      - lblQuiProporcoes:
+          Control: Label
+          Properties:
+            Text: ="Proporções esperadas, pela ordem das categorias"
+            X: =24
+            Y: =378
+            Width: =314
+            Height: =22
+            Font: =Font.'Segoe UI'
+            Size: =10
+            Color: =RGBA(33, 37, 41, 1)
+            FontWeight: =FontWeight.Semibold
+            Visible: =drpQuiTipo.Selected.Value = "Aderência (bondade do ajuste)" && drpQuiEsperadas.Selected.Value = "Proporções indicadas"
+      - txtQuiProporcoes:
+          Control: Classic/TextInput
+          Properties:
+            Default: =""
+            X: =24
+            Y: =400
+            Width: =314
+            Height: =60
+            Font: =Font.'Segoe UI'
+            Size: =10
+            BorderColor: =RGBA(206, 212, 218, 1)
+            HintText: |-
+              ="ex.: 0,25; 0,5; 0,25 (ou uma por linha)"
+            Mode: =TextMode.MultiLine
+            Visible: =drpQuiTipo.Selected.Value = "Aderência (bondade do ajuste)" && drpQuiEsperadas.Selected.Value = "Proporções indicadas"
+      - lblQuiAlfa:
+          Control: Label
+          Properties:
+            Text: ="Nível de significância α"
+            X: =24
+            Y: =466
+            Width: =314
+            Height: =22
+            Font: =Font.'Segoe UI'
+            Size: =10
+            Color: =RGBA(33, 37, 41, 1)
+            FontWeight: =FontWeight.Semibold
+            Visible: =true
+      - drpQuiAlfa:
+          Control: Classic/DropDown
+          Properties:
+            Items: =["0,10", "0,05", "0,01", "0,001"]
+            X: =24
+            Y: =488
+            Width: =314
+            Height: =32
+            Font: =Font.'Segoe UI'
+            Size: =12
+            Default: ="0,05"
+            Visible: =true
+      - lblQuiNotas:
+          Control: Label
+          Properties:
+            Text: |-
+              ="As variáveis numéricas são tratadas como categorias (um valor = uma categoria). Na tabela colada, a 1.ª linha e a 1.ª coluna podem ter os nomes das categorias. Na aderência usa-se a 1.ª coluna de números. As proporções esperadas podem ser proporções, percentagens ou pesos: são normalizadas para somar 1."
+            X: =24
+            Y: =530
+            Width: =314
+            Height: =218
+            Font: =Font.'Segoe UI'
+            Size: =9
+            Color: =RGBA(90, 98, 106, 1)
+            VerticalAlign: =VerticalAlign.Top
+      - htmQuiResultado:
+          Control: HtmlViewer
+          Properties:
+            HtmlText: |-
+              =With({_R: With(
+                      {_tipo: If(drpQuiTipo.Selected.Value = "Independência (tabela de contingência)", 2, 1),
+                       _orig: If(drpQuiOrigem.Selected.Value = "Tabela colada do Excel", 2, 1),
+                       _k1: Switch(drpQuiVar1.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, varNomes.C1, 4, varNomes.C2, 5, 1), _k2: Switch(drpQuiVar2.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, varNomes.C1, 4, varNomes.C2, 5, 1),
+                       _alfa: Value(Substitute(drpQuiAlfa.Selected.Value, ",", "."), "en-US")},
+                      With(
+                          // Tabela observada: nomes das linhas e colunas e células {i, j, O} (na aderência há só 1 coluna)
+                          {_T: If(_orig = 2, With({_lin: With(
+                                      // Retira os retornos de carro (Char(13)) do Windows e parte o texto em linhas
+                                      {_linhas: Split(Substitute(txtQuiTabela.Text, Char(13), ""), Char(10))},
+                                      Filter(
+                                          ForAll(Sequence(CountRows(_linhas)) As _i,
+                                              With(
+                                                  // Parte cada linha nas tabulações (colunas do Excel) e limpa os espaços
+                                                  {_cel: ForAll(Split(Index(_linhas, _i.Value).Value, Char(9)) As _c,
+                                                      {Texto: Trim(Substitute(_c.Value, UniChar(160), " "))})},
+                                                  {Linha: _i.Value, Celulas: _cel, NCel: CountRows(Filter(_cel, Texto <> ""))}
+                                              )
+                                          ),
+                                          // Ignora linhas vazias (ou só com tabulações/espaços)
+                                          NCel > 0
+                                      )
+                                  )},
+                                  With({_m: CountRows(_lin), _kc: Coalesce(Max(_lin, CountRows(Celulas)), 0)},
+                                  With({_cab: _m >= 2 && CountRows(Filter(Sequence(Max(_kc - 1, 0), 2) As _j,
+                                              With({_t: If(_j.Value <= CountRows(First(_lin).Celulas), Index(First(_lin).Celulas, _j.Value).Texto, "")}, _t <> "" && IsBlank(IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()))))) > 0},
+                                  With({_corpo: If(_cab, LastN(_lin, _m - 1), _lin)},
+                                  With({_rot: CountRows(Filter(_corpo As _r, With({_t: If(1 <= CountRows(_r.Celulas), Index(_r.Celulas, 1).Texto, "")}, _t <> "" && IsBlank(IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()))))) > 0},
+                                  With({_c0: If(_rot, 1, 0)},
+                                  With({_nc: Max(_kc - _c0, 0), _nr: CountRows(_corpo)},
+                                  {
+                                      Linhas: ForAll(Sequence(_nr) As _i, {nome: If(_rot, If(1 <= CountRows(Index(_corpo, _i.Value).Celulas), Index(Index(_corpo, _i.Value).Celulas, 1).Texto, ""), "Linha " & _i.Value)}),
+                                      Colunas: ForAll(Sequence(_nc) As _j, {nome: If(_cab, If(_j.Value + _c0 <= CountRows(First(_lin).Celulas), Index(First(_lin).Celulas, _j.Value + _c0).Texto, ""), "Coluna " & _j.Value)}),
+                                      Celulas: ForAll(Sequence(_nr * _nc, 0) As _q,
+                                          With({_i: RoundDown(_q.Value / _nc, 0) + 1, _j: Mod(_q.Value, _nc) + 1},
+                                              With({_t: If(_j + _c0 <= CountRows(Index(_corpo, _i).Celulas), Index(Index(_corpo, _i).Celulas, _j + _c0).Texto, "")},
+                                                  {i: _i, j: _j, t: _t, O: With({_o: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())}, If(IsBlank(_o) || _o < 0, 0, _o)),
+                                                   invalido: _t <> "" && (IsBlank(IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())) || IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()) < 0)}))),
+                                      TemRotulos: _rot
+                                  }
+                                  ))))))
+                              ),
+                              With({_pr: Filter(ForAll(colDados As _d, With({_A: With({_val: Switch(_k1, 1, _d.N1, 2, _d.N2, 3, _d.N3, Blank())}, {cat: If(_k1 <= 3, If(IsBlank(_val), "", With({_v: _val}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT"))))), Switch(_k1, 4, _d.C1, _d.C2)), ord: If(_k1 <= 3, _val, 0)}), _B: With({_val: Switch(_k2, 1, _d.N1, 2, _d.N2, 3, _d.N3, Blank())}, {cat: If(_k2 <= 3, If(IsBlank(_val), "", With({_v: _val}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT"))))), Switch(_k2, 4, _d.C1, _d.C2)), ord: If(_k2 <= 3, _val, 0)})},
+                                          {a: _A.cat, oa: _A.ord, b: If(_tipo = 2, _B.cat, "Total"), ob: If(_tipo = 2, _B.ord, 0)})),
+                                          a <> "" && b <> "")},
+                                  With({_L: With({_ls: ForAll(Distinct(_pr, a) As _c, {nome: _c.Value, o: LookUp(_pr, a = _c.Value).oa})}, If(_k1 <= 3, Sort(_ls, o), Sort(_ls, nome))), _C: With({_ls: ForAll(Distinct(_pr, b) As _c, {nome: _c.Value, o: LookUp(_pr, b = _c.Value).ob})}, If(If(_tipo = 2, _k2, 4) <= 3, Sort(_ls, o), Sort(_ls, nome)))},
+                                      {Linhas: _L, Colunas: _C,
+                                       Celulas: ForAll(Sequence(CountRows(_L) * CountRows(_C), 0) As _q,
+                                          With({_i: RoundDown(_q.Value / CountRows(_C), 0) + 1, _j: Mod(_q.Value, CountRows(_C)) + 1},
+                                              {i: _i, j: _j, t: "",
+                                               O: CountIf(_pr, a = Index(_L, _i).nome && b = Index(_C, _j).nome), invalido: false})),
+                                       TemRotulos: true})))},
+                      With(
+                          // Aderência: frequências observadas = última coluna; se a tabela colada não tiver nomes de texto
+                          // e tiver 2 ou mais colunas, a 1.ª coluna dá os nomes das categorias (ex.: faces de um dado 1 a 6)
+                          {_cel: If(_tipo = 1, ForAll(Filter(_T.Celulas, j = CountRows(_T.Colunas)) As _x,
+                                                      {i: _x.i, j: 1, O: _x.O}),
+                                     ForAll(_T.Celulas As _x, {i: _x.i, j: _x.j, O: _x.O})),
+                           _Lin: If(_tipo = 1 && !_T.TemRotulos && CountRows(_T.Colunas) >= 2,
+                                    ForAll(Filter(_T.Celulas, j = 1) As _x, {nome: _x.t}), _T.Linhas),
+                           _nr: CountRows(_T.Linhas), _nc: If(_tipo = 1, 1, CountRows(_T.Colunas))},
+                      With({_N: Sum(_cel, O),
+                            _Ri: ForAll(Sequence(_nr) As _r, {i: _r.Value, R: Sum(Filter(_cel, i = _r.Value), O)}),
+                            _Cj: ForAll(Sequence(_nc) As _c, {j: _c.Value, C: Sum(Filter(_cel, j = _c.Value), O)}),
+                            _pind: Filter(ForAll(Split(Substitute(Substitute(Substitute(txtQuiProporcoes.Text, Char(13), ""), Char(9), Char(10)), ";", Char(10)), Char(10)) As _s, {p: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_s.Value), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())}), !IsBlank(p)),
+                            _esp: If(drpQuiEsperadas.Selected.Value = "Proporções indicadas", 2, 1)},
+                      With(
+                          // Frequências esperadas: n·pᵢ (aderência) ou Rᵢ·Cⱼ/N (independência)
+                          {_E: ForAll(_cel As _o,
+                              {i: _o.i, j: _o.j, O: _o.O,
+                               E: If(_tipo = 1,
+                                     If(_esp = 1, _N / _nr,
+                                        If(CountRows(_pind) = _nr && Sum(_pind, p) > 0, _N * Index(_pind, _o.i).p / Sum(_pind, p))),
+                                     LookUp(_Ri, i = _o.i).R * LookUp(_Cj, j = _o.j).C / _N)})},
+                      With(
+                          {_ok: _N > 0 && _nr >= 2 && (_tipo = 1 || _nc >= 2) && CountRows(Filter(_E, IsBlank(E) || E <= 0)) = 0},
+                      With(
+                          {_q2: If(_ok, Sum(_E, Power(O - E, 2) / E)),
+                           _gl: If(_tipo = 1, _nr - 1, (_nr - 1) * (_nc - 1))},
+                      {
+                          tipo: _tipo, alfa: _alfa, Linhas: _Lin, Colunas: _T.Colunas, Celulas: _E,
+                          nr: _nr, nc: _nc, N: _N, Ri: _Ri, Cj: _Cj,
+                          qui2: _q2, gl: _gl,
+                          p: If(!IsBlank(_q2), With({_x: _q2, _k: _gl},
+                                  If(_x <= 0, 1,
+                                  With({_v0: Sqrt(_x), _vs: Sqrt(Max(_k - 1, 0))},
+                                  With({_lo: Max(0, _vs - 10), _hi: _vs + 10},
+                                      If(_v0 >= _hi, 0,
+                                          With({_nd: ForAll(Sequence(300, 0) As _i, With({_s: RoundDown(_i.Value / 3, 0), _m: Mod(_i.Value, 3)}, {u: (_s + 0.5 + (_m - 1) * 0.3872983346207417) / 100, w: If(_m = 1, 8 / 9, 5 / 9) / 200}))},
+                                      With({_Ltot: ForAll(_nd, With({t: _lo + u * (_hi - _lo)}, {L: (_k - 1) * Ln(t) - t * t / 2, w: w * (_hi - _lo)})),
+                                            _Lcau: ForAll(_nd, With({t: Max(_v0, _lo) + u * (_hi - Max(_v0, _lo))}, {L: (_k - 1) * Ln(t) - t * t / 2, w: w * (_hi - Max(_v0, _lo))}))},
+                                          With({_M: Max(_Ltot, L)},
+                                              Min(1, Sum(_Lcau, Exp(L - _M) * w) / Sum(_Ltot, Exp(L - _M) * w))))))))))),
+                          baixas: CountRows(Filter(_E, E < 5)), muitoBaixas: CountRows(Filter(_E, E < 1)),
+                          invalidos: CountRows(Filter(_T.Celulas, invalido)),
+                          proporcoes: If(_tipo = 1, If(_esp = 1, ForAll(Sequence(_nr) As _r, {p: 1 / _nr}),
+                                          ForAll(_pind As _x, {p: _x.p / Sum(_pind, p)}))),
+                          motivo: If(_N = 0, "não há observações.",
+                                     _nr < 2, "são precisas pelo menos 2 categorias (linhas).",
+                                     _tipo = 2 && _nc < 2, "são precisas pelo menos 2 colunas na tabela de contingência.",
+                                     _tipo = 1 && _esp = 2 && CountRows(_pind) <> _nr,
+                                         "indique tantas proporções esperadas quantas as categorias (" & _nr & "), pela ordem da tabela.",
+                                     "há frequências esperadas nulas (uma linha ou coluna sem observações ou uma proporção igual a 0).")
+                      }
+                      ))))))
+                  )},
+                  "<div style='font-family:Segoe UI,Arial;font-size:13px;color:#212529;line-height:1.45'>" &
+                  If(_R.tipo = 1,
+                      "<h4 style='margin:12px 0 4px 0;color:#1f4e79'>Frequências observadas e esperadas</h4>" &
+                      "<table style='border-collapse:collapse;margin:4px 0 10px 0'><tr style='background:#1f4e79;color:#ffffff'><th style='padding:5px 8px;text-align:left'>Categoria</th><th style='padding:5px 8px;text-align:right'>Observada (Oᵢ)</th><th style='padding:5px 8px;text-align:right'>Proporção esperada (pᵢ)</th><th style='padding:5px 8px;text-align:right'>Esperada (Eᵢ = n·pᵢ)</th><th style='padding:5px 8px;text-align:right'>(Oᵢ − Eᵢ)² / Eᵢ</th></tr>" & Concat(Sequence(_R.nr) As _r, With({_e: LookUp(_R.Celulas, i = _r.Value)}, "<tr>" & "<td style='padding:4px 8px;text-align:left;border-bottom:1px solid #e1e5ea'>" & Substitute(Substitute(Substitute(Index(_R.Linhas, _r.Value).nome, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: _e.O}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 0.5, 0, _v), "[$-en-US]#,##0", "pt-PT"))) & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: If(_r.Value <= CountRows(_R.proporcoes), Index(_R.proporcoes, _r.Value).p)}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: _e.E}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>" & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: If(_e.E > 0, Power(_e.O - _e.E, 2) / _e.E)}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>" & "</tr>")) & "</table>" &
+                      "n = " & With({_v: _R.N}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 0.5, 0, _v), "[$-en-US]#,##0", "pt-PT"))),
+                      "<h4 style='margin:12px 0 4px 0;color:#1f4e79'>Frequências observadas (Oᵢⱼ)</h4>" & "<table style='border-collapse:collapse;margin:4px 0 10px 0'><tr style='background:#1f4e79;color:#ffffff'><th style='padding:5px 8px'></th>" &
+                      Concat(Sequence(_R.nc) As _c, "<th style='padding:5px 8px;text-align:right'>" & Substitute(Substitute(Substitute(Index(_R.Colunas, _c.Value).nome, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & "</th>") & "<th style='padding:5px 8px;text-align:right'>" & "Total</th></tr>" &
+                      Concat(Sequence(_R.nr) As _r, "<tr>" & "<td style='padding:4px 8px;text-align:left;border-bottom:1px solid #e1e5ea'>" & Substitute(Substitute(Substitute(Index(_R.Linhas, _r.Value).nome, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & "</td>" &
+                          Concat(Sequence(_R.nc) As _c, "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: LookUp(_R.Celulas, i = _r.Value && j = _c.Value).O}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 0.5, 0, _v), "[$-en-US]#,##0", "pt-PT"))) & "</td>") & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: LookUp(_R.Ri, i = _r.Value).R}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 0.5, 0, _v), "[$-en-US]#,##0", "pt-PT"))) & "</td>" & "</tr>") &
+                      "<tr style='font-weight:600'>" & "<td style='padding:4px 8px;text-align:left;border-bottom:1px solid #e1e5ea'>" & "Total" & "</td>" &
+                      Concat(Sequence(_R.nc) As _c, "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: LookUp(_R.Cj, j = _c.Value).C}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 0.5, 0, _v), "[$-en-US]#,##0", "pt-PT"))) & "</td>") & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: _R.N}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 0.5, 0, _v), "[$-en-US]#,##0", "pt-PT"))) & "</td>" & "</tr></table>" &
+                      "<h4 style='margin:12px 0 4px 0;color:#1f4e79'>Frequências esperadas sob H₀ (Eᵢⱼ = Rᵢ · Cⱼ / N)</h4>" & "<table style='border-collapse:collapse;margin:4px 0 10px 0'><tr style='background:#1f4e79;color:#ffffff'><th style='padding:5px 8px'></th>" &
+                      Concat(Sequence(_R.nc) As _c, "<th style='padding:5px 8px;text-align:right'>" & Substitute(Substitute(Substitute(Index(_R.Colunas, _c.Value).nome, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & "</th>") & "<th style='padding:5px 8px;text-align:right'>" & "Total</th></tr>" &
+                      Concat(Sequence(_R.nr) As _r, "<tr>" & "<td style='padding:4px 8px;text-align:left;border-bottom:1px solid #e1e5ea'>" & Substitute(Substitute(Substitute(Index(_R.Linhas, _r.Value).nome, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & "</td>" &
+                          Concat(Sequence(_R.nc) As _c, "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: LookUp(_R.Celulas, i = _r.Value && j = _c.Value).E}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>") & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: LookUp(_R.Ri, i = _r.Value).R}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 0.5, 0, _v), "[$-en-US]#,##0", "pt-PT"))) & "</td>" & "</tr>") &
+                      "<tr style='font-weight:600'>" & "<td style='padding:4px 8px;text-align:left;border-bottom:1px solid #e1e5ea'>" & "Total" & "</td>" &
+                      Concat(Sequence(_R.nc) As _c, "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: LookUp(_R.Cj, j = _c.Value).C}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 0.5, 0, _v), "[$-en-US]#,##0", "pt-PT"))) & "</td>") & "<td style='padding:4px 8px;text-align:right;border-bottom:1px solid #e1e5ea'>" & With({_v: _R.N}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 0.5, 0, _v), "[$-en-US]#,##0", "pt-PT"))) & "</td>" & "</tr></table>") &
+                  If(_R.invalidos > 0, "<p style='color:#b00020'>⚠ " & _R.invalidos & " célula(s) da tabela colada não são números ≥ 0 e foram contadas como 0.</p>", "") &
+                  "<h4 style='margin:12px 0 4px 0;color:#1f4e79'>Hipóteses</h4>" &
+                  If(_R.tipo = 1,
+                      "H₀: as proporções populacionais são as esperadas (p₁, …, p<sub>k</sub> da tabela)<br>H₁: pelo menos uma proporção é diferente da esperada",
+                      "H₀: as duas variáveis são independentes<br>H₁: as duas variáveis não são independentes (estão associadas)") &
+                  "<h4 style='margin:12px 0 4px 0;color:#1f4e79'>Estatística de teste</h4>" &
+                  "χ² = Σ (O − E)² / E = <b>" & With({_v: _R.qui2}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</b>" &
+                  "<h4 style='margin:12px 0 4px 0;color:#1f4e79'>Graus de liberdade</h4>" &
+                  If(_R.tipo = 1, "gl = k − 1 = ", "gl = (linhas − 1)(colunas − 1) = ") & "<b>" & With({_v: _R.gl}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 0.5, 0, _v), "[$-en-US]#,##0", "pt-PT"))) & "</b>" &
+                  "<h4 style='margin:12px 0 4px 0;color:#1f4e79'>Valor de p</h4>" &
+                  "p = P(χ² ≥ χ²<sub>obs</sub>)<b>" & With({_pp: _R.p}, If(IsBlank(_pp), " = n.d.", _pp < 0.0001, " < 0,0001", " = " & With({_v: _pp}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))))) & "</b>" &
+                  "<h4 style='margin:12px 0 4px 0;color:#1f4e79'>Decisão e conclusão</h4>" &
+                  If(IsBlank(_R.p),
+                      "<div style='border-left:4px solid #b00020;padding:6px 10px;background:#fdecee'>Não é possível calcular o teste: " & _R.motivo & "</div>",
+                      If(_R.p <= _R.alfa,
+                          "<div style='border-left:4px solid #107c10;padding:6px 10px;background:#e8f5e8'><b>Decisão: rejeita-se H₀</b> (p" & With({_pp: _R.p}, If(IsBlank(_pp), " = n.d.", _pp < 0.0001, " < 0,0001", " = " & With({_v: _pp}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))))) & " ≤ α = " & With({_r: Round(_R.alfa, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & ").<br>" &
+                          "Conclusão: ao nível de significância de " & With({_r: Round(_R.alfa * 100, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & " %" & ", há evidência estatística de que " & If(_R.tipo = 1, If(drpQuiOrigem.Selected.Value = "Tabela colada do Excel", "as frequências da tabela colada não seguem as proporções esperadas", "a distribuição de " & Substitute(Substitute(Substitute(drpQuiVar1.Selected.Value, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & " não segue as proporções esperadas"), "existe associação entre " & If(drpQuiOrigem.Selected.Value = "Tabela colada do Excel", "as linhas e as colunas da tabela", Substitute(Substitute(Substitute(drpQuiVar1.Selected.Value, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & " e " & Substitute(Substitute(Substitute(drpQuiVar2.Selected.Value, "&", "&amp;"), "<", "&lt;"), ">", "&gt;")) & " (não são independentes)") & ".</div>",
+                          "<div style='border-left:4px solid #1f4e79;padding:6px 10px;background:#eef3f9'><b>Decisão: não se rejeita H₀</b> (p" & With({_pp: _R.p}, If(IsBlank(_pp), " = n.d.", _pp < 0.0001, " < 0,0001", " = " & With({_v: _pp}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))))) & " > α = " & With({_r: Round(_R.alfa, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & ").<br>" &
+                          "Conclusão: ao nível de significância de " & With({_r: Round(_R.alfa * 100, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & " %" & ", não há evidência estatística suficiente de que " & If(_R.tipo = 1, If(drpQuiOrigem.Selected.Value = "Tabela colada do Excel", "as frequências da tabela colada não seguem as proporções esperadas", "a distribuição de " & Substitute(Substitute(Substitute(drpQuiVar1.Selected.Value, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & " não segue as proporções esperadas"), "existe associação entre " & If(drpQuiOrigem.Selected.Value = "Tabela colada do Excel", "as linhas e as colunas da tabela", Substitute(Substitute(Substitute(drpQuiVar1.Selected.Value, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & " e " & Substitute(Substitute(Substitute(drpQuiVar2.Selected.Value, "&", "&amp;"), "<", "&lt;"), ">", "&gt;")) & " (não são independentes)") & ".</div>")) &
+                  If(_R.baixas > 0,
+                      "<p style='color:#b00020'>⚠ " & _R.baixas & " de " & CountRows(_R.Celulas) & " células (" &
+                      With({_v: _R.baixas / CountRows(_R.Celulas) * 100}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 0.05, 0, _v), "[$-en-US]#,##0.0", "pt-PT"))) & " %) têm frequência esperada inferior a 5" &
+                      If(_R.muitoBaixas > 0, " e " & _R.muitoBaixas & " inferior a 1", "") &
+                      ". Regra de Cochran: no máximo 20 % das células com E &lt; 5 e nenhuma com E &lt; 1. " &
+                      If(_R.baixas / CountRows(_R.Celulas) > 0.2 || _R.muitoBaixas > 0,
+                          "A regra não é cumprida: a aproximação pelo qui-quadrado pode não ser fiável; considere agrupar categorias" &
+                          If(_R.tipo = 2 && _R.nr = 2 && _R.nc = 2, " ou usar o teste exato de Fisher", "") & ".",
+                          "A regra é cumprida.") & "</p>", "") &
+                  "</div>"
+              )
+            X: =366
+            Y: =72
+            Width: =984
+            Height: =684
+            Font: =Font.'Segoe UI'
+            Size: =12
+            Color: =RGBA(33, 37, 41, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            PaddingTop: =6
+            PaddingLeft: =10
+            PaddingRight: =10

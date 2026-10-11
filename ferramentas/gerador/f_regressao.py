@@ -2,6 +2,7 @@
 from .f_comum import num, fmt, indice_num
 from .f_frequencias import fmt_curto
 from . import f_graficos as G
+from . import f_inferencia as FI
 
 
 def pares(kx, ky):
@@ -34,7 +35,13 @@ def resultados(drp_x="drpRegX", drp_y="drpRegY", txt_x0="txtRegX0"):
         a: If(!IsBlank(_b), _my - _b * _mx),
         minX: Min(_p, x), maxX: Max(_p, x), minY: Min(_p, y), maxY: Max(_p, y),
         x0: _x0,
-        previsao: If(!IsBlank(_b) && !IsBlank(_x0), _my - _b * _mx + _b * _x0)
+        previsao: If(!IsBlank(_b) && !IsBlank(_x0), _my - _b * _mx + _b * _x0),
+        // Teste H0: ρ = 0  —  t = r √(n − 2) / √(1 − r²), com n − 2 graus de liberdade
+        glR: If(_n >= 3 && !IsBlank(_r), _n - 2),
+        tR: If(_n >= 3 && !IsBlank(_r) && _r * _r < 1, _r * Sqrt((_n - 2) / (1 - _r * _r))),
+        pR: If(_n >= 3 && !IsBlank(_r),
+               If(_r * _r >= 1, 0,
+                  {FI.p_t_bilateral("_r * Sqrt((_n - 2) / (1 - _r * _r))", "_n - 2").replace(chr(10), chr(10) + "                  ")}))
     }}
     ))))
 )"""
@@ -69,6 +76,9 @@ def html(R_expr=None):
         ("Ordenada na origem", "a = ȳ − b·x̄", fmt("_R.a")),
         ("Equação da reta", "", equacao()),
         ("Correlação (indicativo)", "|r| < 0,3 fraca · < 0,7 moderada", interpretacao()),
+        ("Teste H₀: ρ = 0 (estatística t)", "t = r √(n − 2) / √(1 − r²)", fmt("_R.tR")),
+        ("Graus de liberdade", "gl = n − 2", fmt("_R.glR", 0)),
+        ("Valor de p (bilateral)", "p = P(|T| ≥ |t|)", FI.fmt_p("_R.pR")),
     ]
     corpo = " &\n    ".join(
         f'"<tr{" style=" + chr(39) + "background:#f3f6fa" + chr(39) if i % 2 else ""}>'

@@ -46,9 +46,14 @@ def verificar(res):
             out.append((f"regressão «{nome}»", False, r.get("erro")))
         else:
             v = r["valor"]
-            difs = [f"{c}: Power Fx={v.get(c)} ref={ref[c]}" for c in CAMPOS if not iguais(v.get(c), ref[c], 1e-9)]
+            difs = [f"{c}: Power Fx={v.get(c)} ref={ref[c]}" for c in CAMPOS + ["glR", "tR"]
+                    if not iguais(v.get(c), ref[c], 1e-9)]
+            # valor de p do teste de ρ = 0 (integração numérica): tolerância absoluta 1e-6
+            if (v.get("pR") is None) != (ref["pR"] is None) or (ref["pR"] is not None and abs(v["pR"] - ref["pR"]) > 1e-6):
+                difs.append(f"pR: Power Fx={v.get('pR')} ref={ref['pR']}")
             out.append((f"regressão «{nome}»", not difs,
-                        f"n={v['n']}, r={v.get('r')}, b={v.get('b')}, a={v.get('a')}, ŷ(x0)={v.get('previsao')}"
+                        f"n={v['n']}, r={v.get('r')}, b={v.get('b')}, a={v.get('a')}, ŷ(x0)={v.get('previsao')}, "
+                        f"p(ρ=0)={v.get('pR')} (scipy {ref['pR']})"
                         if not difs else "; ".join(difs)))
         h = res[f"f4.html.{nome}"]
         out.append((f"tabela HTML «{nome}»", h["ok"] and "<table" in (h.get("valor") or ""), h.get("erro", "ok")))

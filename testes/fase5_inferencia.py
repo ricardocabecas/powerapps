@@ -37,8 +37,53 @@ def ctx_t(caso):
             {"nome": "drpTtAlfa", "expr": controlo_lista("0,05")}]
 
 
+def ctx_anova(caso):
+    nome, fmt_, n1, fator, n2, n3 = caso
+    return [{"nome": "varNomes", "expr": pfx_valor(NOMES_EXEMPLO)},
+            {"nome": "colDados", "expr": pfx_valor(_col(n1, n2, None, fator, n3))},
+            {"nome": "drpAnoFormato", "expr": controlo_lista(F.FORMATOS_ANOVA[fmt_ - 1])},
+            {"nome": "drpAnoVar", "expr": controlo_lista(NOMES_EXEMPLO["N1"])},
+            {"nome": "drpAnoFator", "expr": controlo_lista(NOMES_EXEMPLO["C2"])},
+            {"nome": "drpAnoAlfa", "expr": controlo_lista("0,05")}]
+
+
+def _ref_anova(caso):
+    nome, fmt_, n1, fator, n2, n3 = caso
+    if fmt_ == 1:
+        niveis = sorted(set(g for g, x in zip(fator, n1) if g))
+        grupos = [[x for x, g in zip(n1, fator) if g == nv and x is not None] for nv in niveis]
+    else:
+        grupos = [[x for x in col if x is not None] for col in (n1, n2, n3) if col]
+    return R.anova(grupos)
+
+
+def ctx_qui(caso):
+    nome, tipo, orig, k1, k2, _, texto, esp, props, _ref = caso
+    nomes = ["N1", "N2", "N3", "C1", "C2"]
+    return [{"nome": "varNomes", "expr": pfx_valor(NOMES_EXEMPLO)},
+            {"nome": "colDados", "expr": pfx_valor(_col([r[1] for r in D.DADOS_EXEMPLO], None,
+                                                        [r[4] for r in D.DADOS_EXEMPLO], [r[5] for r in D.DADOS_EXEMPLO],
+                                                        [r[3] for r in D.DADOS_EXEMPLO]))},
+            {"nome": "drpQuiTipo", "expr": controlo_lista(F.TIPOS_QUI[tipo - 1])},
+            {"nome": "drpQuiOrigem", "expr": controlo_lista(F.ORIGENS_QUI[orig - 1])},
+            {"nome": "drpQuiVar1", "expr": controlo_lista(NOMES_EXEMPLO[nomes[k1 - 1]])},
+            {"nome": "drpQuiVar2", "expr": controlo_lista(NOMES_EXEMPLO[nomes[k2 - 1]])},
+            {"nome": "txtQuiTabela", "expr": controlo_texto(texto)},
+            {"nome": "drpQuiEsperadas", "expr": controlo_lista(F.ESPERADAS_QUI[esp - 1])},
+            {"nome": "txtQuiProporcoes", "expr": controlo_texto(props)},
+            {"nome": "drpQuiAlfa", "expr": controlo_lista("0,05")}]
+
+
 def tarefas():
     t = []
+    for caso in D.QUI:
+        vs = ctx_qui(caso)
+        t.append({"id": f"f5.qui.{caso[0]}", "vars": vs, "expr": F.qui_quadrado()})
+        t.append({"id": f"f5.quihtml.{caso[0]}", "vars": vs, "expr": F.html_qui()})
+    for caso in D.ANOVA:
+        vs = ctx_anova(caso)
+        t.append({"id": f"f5.anova.{caso[0]}", "vars": vs, "expr": F.anova()})
+        t.append({"id": f"f5.anovahtml.{caso[0]}", "vars": vs, "expr": F.html_anova()})
     for caso in D.TESTES_T:
         vs = ctx_t(caso)
         t.append({"id": f"f5.t.{caso[0]}", "vars": vs, "expr": F.teste_t()})
@@ -58,6 +103,74 @@ def _ref_t(caso):
 
 def verificar(res):
     out = []
+    for caso in D.QUI:
+        nome, tipo = caso[0], caso[1]
+        r = res[f"f5.qui.{nome}"]
+        if not r["ok"]:
+            out.append((f"qui-quadrado «{nome}»", False, r.get("erro")))
+        else:
+            v = r["valor"]
+            refdef = caso[9]
+            difs = []
+            if refdef is None:
+                # caso sem teste possível: o valor de p tem de ficar vazio, com motivo
+                if v.get("p") is not None:
+                    difs.append(f"esperava-se p vazio, Power Fx p={v.get('p')}")
+                det = "teste não calculado: " + str(v.get("motivo"))
+            else:
+                obs, props = refdef
+                if caso[2] == 1:
+                    # origem = variáveis: contagens calculadas a partir dos dados de exemplo (não escritas à mão)
+                    from collections import Counter
+                    col = {1: 1, 2: 2, 3: 3, 4: 4, 5: 5}
+                    vals = lambda k: [r[col[k]] for r in D.DADOS_EXEMPLO]  # noqa: E731
+                    a = vals(caso[3])
+                    if tipo == 1:
+                        cnt = Counter(a)
+                        obs = [cnt[x] for x in sorted(cnt)]
+                    else:
+                        b = vals(caso[4])
+                        la, lb = sorted(set(a)), sorted(set(b))
+                        cnt = Counter(zip(a, b))
+                        obs = [[cnt[(x, y)] for y in lb] for x in la]
+                ref = R.qui_aderencia(obs, props) if tipo == 1 else R.qui_independencia(obs)
+                esp_pfx = [c["E"] for c in sorted(v["Celulas"], key=lambda c: (c["i"], c["j"]))]
+                esp_ref = ref["esperadas"] if tipo == 1 else [x for linha in ref["esperadas"] for x in linha]
+                obs_pfx = [c["O"] for c in sorted(v["Celulas"], key=lambda c: (c["i"], c["j"]))]
+                obs_ref = obs if tipo == 1 else [x for linha in obs for x in linha]
+                if not iguais(obs_pfx, [float(x) for x in obs_ref]):
+                    difs.append(f"observadas: Power Fx={obs_pfx} ref={obs_ref}")
+                if not iguais(esp_pfx, esp_ref, 1e-9):
+                    difs.append(f"esperadas: Power Fx={esp_pfx} ref={esp_ref}")
+                for c in ["qui2", "gl", "baixas"]:
+                    if not iguais(v.get(c), ref[c], 1e-9):
+                        difs.append(f"{c}: Power Fx={v.get(c)} ref={ref[c]}")
+                if v.get("p") is None or abs(v["p"] - ref["p"]) > 1e-6:
+                    difs.append(f"p: Power Fx={v.get('p')} ref={ref['p']}")
+                det = (f"χ²={v.get('qui2')}, gl={v.get('gl')}, p={v.get('p')} (scipy {ref['p']}), "
+                       f"células com E<5: {v.get('baixas')}")
+            out.append((f"qui-quadrado «{nome}»", not difs, det if not difs else "; ".join(difs)))
+        h = res[f"f5.quihtml.{nome}"]
+        out.append((f"relatório qui-quadrado «{nome}»", h["ok"] and "Hipóteses" in (h.get("valor") or ""),
+                    h.get("erro") or "ok"))
+    for caso in D.ANOVA:
+        r = res[f"f5.anova.{caso[0]}"]
+        ref = _ref_anova(caso)
+        if not r["ok"]:
+            out.append((f"ANOVA «{caso[0]}»", False, r.get("erro")))
+        else:
+            v = r["valor"]
+            difs = [f"{c}: Power Fx={v.get(c)} ref={ref[c]}"
+                    for c in ["k", "N", "SQE", "SQD", "SQT", "glE", "glD", "glT", "QME", "QMD", "F"]
+                    if not iguais(v.get(c), ref[c], 1e-9)]
+            if (v.get("p") is None) != (ref["p"] is None) or (ref["p"] is not None and abs(v["p"] - ref["p"]) > 1e-6):
+                difs.append(f"p: Power Fx={v.get('p')} ref={ref['p']}")
+            out.append((f"ANOVA «{caso[0]}»", not difs,
+                        f"F={v.get('F')}, gl=({v.get('glE')}, {v.get('glD')}), p={v.get('p')} (scipy {ref['p']})"
+                        if not difs else "; ".join(difs)))
+        h = res[f"f5.anovahtml.{caso[0]}"]
+        out.append((f"relatório ANOVA «{caso[0]}»", h["ok"] and "Tabela da ANOVA" in (h.get("valor") or ""),
+                    h.get("erro") or "ok"))
     for caso in D.TESTES_T:
         r = res[f"f5.t.{caso[0]}"]
         ref = _ref_t(caso)
