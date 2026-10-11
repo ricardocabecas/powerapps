@@ -27,7 +27,8 @@ def esc(t):
 
 def passo_bonito(r):
     """Passo 'redondo' (1, 2 ou 5 × 10^m) próximo de r (> 0)."""
-    return (f"With({{_e: Power(10, RoundDown(Log({r}, 10) + 1E-9, 0))}}, "
+    # Int arredonda para baixo (também nos negativos: Int(-0,7) = -1), ao contrário de RoundDown
+    return (f"With({{_e: Power(10, Int(Log({r}, 10) + 1E-9))}}, "
             f"With({{_f: {r} / _e}}, If(_f <= 1, 1, _f <= 2, 2, _f <= 5, 5, 10) * _e))")
 
 

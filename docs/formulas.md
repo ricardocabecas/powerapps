@@ -500,7 +500,7 @@ SVG é construído com `Concat` (uma barra por linha da tabela). Duas precauçõ
 O eixo vertical usa um passo «redondo» (1, 2 ou 5 × 10ᵐ):
 
 ```powerfx
-With({_e: Power(10; RoundDown(Log(_mx / 5; 10) + 1E-9; 0))}; With({_f: _mx / 5 / _e}; If(_f <= 1; 1; _f <= 2; 2; _f <= 5; 5; 10) * _e))
+With({_e: Power(10; Int(Log(_mx / 5; 10) + 1E-9))}; With({_f: _mx / 5 / _e}; If(_f <= 1; 1; _f <= 2; 2; _f <= 5; 5; 10) * _e))
 ```
 
 * **Histograma** (dados em classes): retângulos contíguos com largura igual à amplitude da classe e altura
@@ -511,7 +511,7 @@ Fórmula do histograma:
 
 ```powerfx
 "data:image/svg+xml;utf8," & EncodeUrl(With({_lin: _F.Linhas; _k: CountRows(_F.Linhas)};
-    With({_mx: Max(Max(_lin; ni); 1)}; With({_passo: Max(1; With({_e: Power(10; RoundDown(Log(_mx / 5; 10) + 1E-9; 0))}; With({_f: _mx / 5 / _e}; If(_f <= 1; 1; _f <= 2; 2; _f <= 5; 5; 10) * _e)))}; With({_ymax: _passo * RoundUp(_mx * 1,08 / _passo - 1E-9; 0)}; 
+    With({_mx: Max(Max(_lin; ni); 1)}; With({_passo: Max(1; With({_e: Power(10; Int(Log(_mx / 5; 10) + 1E-9))}; With({_f: _mx / 5 / _e}; If(_f <= 1; 1; _f <= 2; 2; _f <= 5; 5; 10) * _e)))}; With({_ymax: _passo * RoundUp(_mx * 1,08 / _passo - 1E-9; 0)}; 
     With({_bw: 550 / Max(_k; 1); _salto: RoundUp(_k / 10; 0)};
     "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 400' font-family='Segoe UI, Arial, sans-serif'>" &
     "<rect x='0' y='0' width='640' height='400' fill='white'/>" &
@@ -536,3 +536,79 @@ Fórmula do histograma:
     "</svg>"
     ))))))
 ```
+
+## 4. Correlação e regressão linear simples (ecrã `scrRegressao`)
+
+### 4.1 Pares de valores
+
+Só entram as observações com **x e y preenchidos** (eliminação por pares):
+
+```powerfx
+Filter(ForAll(colDados As _d; {x: Switch(_kx; 1; _d.N1; 2; _d.N2; _d.N3); y: Switch(_ky; 1; _d.N1; 2; _d.N2; _d.N3)}); !IsBlank(x) && !IsBlank(y))
+```
+
+### 4.2 Fórmulas
+
+Com x̄ e ȳ as médias dos n pares:
+
+| Medida | Fórmula |
+|---|---|
+| Somas de quadrados e de produtos | Sxx = Σ(xᵢ − x̄)², Syy = Σ(yᵢ − ȳ)², Sxy = Σ(xᵢ − x̄)(yᵢ − ȳ) |
+| Covariância amostral | sₓᵧ = Sxy / (n − 1) |
+| Coeficiente de correlação de Pearson | r = Sxy / √(Sxx · Syy), com −1 ≤ r ≤ 1 |
+| Coeficiente de determinação | R² = r² (proporção da variabilidade de y explicada pela reta) |
+| Declive da reta dos mínimos quadrados | b = Sxy / Sxx |
+| Ordenada na origem | a = ȳ − b · x̄ |
+| Equação e previsão | ŷ = a + b · x |
+
+Casos não definidos (a app mostra `n.d.` e uma explicação): n < 2; todos os x iguais (Sxx = 0: não há reta);
+todos os y iguais (Syy = 0: a reta é horizontal, b = 0, mas r não está definido).
+
+As somas calculam-se **a partir dos desvios em relação à média** (método de duas passagens), que é
+numericamente mais estável do que a fórmula Σxᵢyᵢ − n·x̄·ȳ quando os valores são grandes.
+
+```powerfx
+With(
+    {_p: Filter(ForAll(colDados As _d; {x: Switch(Switch(drpRegX.Selected.Value; varNomes.N1; 1; varNomes.N2; 2; varNomes.N3; 3; 1); 1; _d.N1; 2; _d.N2; _d.N3); y: Switch(Switch(drpRegY.Selected.Value; varNomes.N1; 1; varNomes.N2; 2; varNomes.N3; 3; 1); 1; _d.N1; 2; _d.N2; _d.N3)}); !IsBlank(x) && !IsBlank(y)); _x0: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtRegX0.Text); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank())};
+    With({_n: CountRows(_p)};
+    With({_mx: Average(_p; x); _my: Average(_p; y)};
+    With(
+        // Somas de quadrados e de produtos dos desvios em relação às médias
+        {_Sxx: Sum(_p; Power(x - _mx; 2)); _Syy: Sum(_p; Power(y - _my; 2)); _Sxy: Sum(_p; (x - _mx) * (y - _my))};
+    With(
+        {_b: If(_n >= 2 && _Sxx > 0; _Sxy / _Sxx);
+         _r: If(_n >= 2 && _Sxx > 0 && _Syy > 0; _Sxy / Sqrt(_Sxx * _Syy))};
+    {
+        n: _n; mediaX: _mx; mediaY: _my;
+        Sxx: If(_n > 0; _Sxx); Syy: If(_n > 0; _Syy); Sxy: If(_n > 0; _Sxy);
+        sx: If(_n >= 2; Sqrt(_Sxx / (_n - 1))); sy: If(_n >= 2; Sqrt(_Syy / (_n - 1)));
+        // Covariância amostral
+        cov: If(_n >= 2; _Sxy / (_n - 1));
+        r: _r;
+        r2: If(!IsBlank(_r); _r * _r);
+        // Reta dos mínimos quadrados: ŷ = a + b·x
+        b: _b;
+        a: If(!IsBlank(_b); _my - _b * _mx);
+        minX: Min(_p; x); maxX: Max(_p; x); minY: Min(_p; y); maxY: Max(_p; y);
+        x0: _x0;
+        previsao: If(!IsBlank(_b) && !IsBlank(_x0); _my - _b * _mx + _b * _x0)
+    }
+    ))))
+)
+```
+
+A previsão avisa quando há **extrapolação** (x fora do intervalo dos x observados).
+
+### 4.3 Diagrama de dispersão com a reta
+
+Os eixos usam passos «redondos» e uma margem de 4 %. Atenção a um pormenor do Power Fx: `RoundDown` e
+`RoundUp` arredondam **em direção a zero** (`RoundDown(-2,5; 0)` = −2), por isso para o «chão» de um número
+negativo usa-se `Int` (`Int(-2,5)` = −3) e para o «teto» `-Int(-x)`:
+
+```powerfx
+// início e fim do eixo dos x, múltiplos do passo _xp
+{_x0: _xp * Int((_minX - 0,04 * _xd) / _xp + 1E-9);
+ _x1: -_xp * Int(-(_maxX + 0,04 * _xd) / _xp + 1E-9)}
+```
+
+A reta é desenhada de um lado ao outro do gráfico e recortada à área dos dados com um `clipPath` SVG.

@@ -1,6 +1,6 @@
 {
- "total": 2725,
- "ok": 2725,
+ "total": 3220,
+ "ok": 3220,
  "sintaxe_falhas": [],
  "fases": {
   "Fase 1 — Entrada de dados": [
@@ -742,6 +742,173 @@
     "caso": "resumo «discreta_decimais»",
     "ok": true,
     "detalhe": "n = 4   ·   3 valores distintos"
+   }
+  ],
+  "Fase 4 — Correlação e regressão": [
+   {
+    "caso": "regressão «exemplo_altura_peso»",
+    "ok": true,
+    "detalhe": "n=20, r=0.9946312973208253, b=1.2346365658849703, a=-144.83416608920822, ŷ(x0)=68.14064152594915"
+   },
+   {
+    "caso": "tabela HTML «exemplo_altura_peso»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "dispersão «exemplo_altura_peso»",
+    "ok": true,
+    "detalhe": "SVG válido, 20 pontos, com reta"
+   },
+   {
+    "caso": "regressão «exemplo_altura_nota»",
+    "ok": true,
+    "detalhe": "n=20, r=-0.9133869564529047, b=-0.27794594988876326, a=60.547941208650926, ŷ(x0)=18.856048725336436"
+   },
+   {
+    "caso": "tabela HTML «exemplo_altura_nota»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "dispersão «exemplo_altura_nota»",
+    "ok": true,
+    "detalhe": "SVG válido, 20 pontos, com reta"
+   },
+   {
+    "caso": "regressão «reta_perfeita_positiva»",
+    "ok": true,
+    "detalhe": "n=5, r=1, b=2, a=1, ŷ(x0)=6"
+   },
+   {
+    "caso": "tabela HTML «reta_perfeita_positiva»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "dispersão «reta_perfeita_positiva»",
+    "ok": true,
+    "detalhe": "SVG válido, 5 pontos, com reta"
+   },
+   {
+    "caso": "regressão «reta_perfeita_negativa»",
+    "ok": true,
+    "detalhe": "n=4, r=-1, b=-2.5, a=10, ŷ(x0)=-15"
+   },
+   {
+    "caso": "tabela HTML «reta_perfeita_negativa»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "dispersão «reta_perfeita_negativa»",
+    "ok": true,
+    "detalhe": "SVG válido, 4 pontos, com reta"
+   },
+   {
+    "caso": "regressão «y_constante»",
+    "ok": true,
+    "detalhe": "n=4, r=None, b=0, a=5, ŷ(x0)=5"
+   },
+   {
+    "caso": "tabela HTML «y_constante»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "dispersão «y_constante»",
+    "ok": true,
+    "detalhe": "SVG válido, 4 pontos, com reta"
+   },
+   {
+    "caso": "regressão «x_constante»",
+    "ok": true,
+    "detalhe": "n=3, r=None, b=None, a=None, ŷ(x0)=None"
+   },
+   {
+    "caso": "tabela HTML «x_constante»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "dispersão «x_constante»",
+    "ok": true,
+    "detalhe": "SVG válido, 3 pontos"
+   },
+   {
+    "caso": "regressão «n1»",
+    "ok": true,
+    "detalhe": "n=1, r=None, b=None, a=None, ŷ(x0)=None"
+   },
+   {
+    "caso": "tabela HTML «n1»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "dispersão «n1»",
+    "ok": true,
+    "detalhe": "SVG válido, 1 pontos"
+   },
+   {
+    "caso": "regressão «n2»",
+    "ok": true,
+    "detalhe": "n=2, r=-1, b=-0.5, a=2.5, ŷ(x0)=1.5"
+   },
+   {
+    "caso": "tabela HTML «n2»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "dispersão «n2»",
+    "ok": true,
+    "detalhe": "SVG válido, 2 pontos, com reta"
+   },
+   {
+    "caso": "regressão «com_faltas»",
+    "ok": true,
+    "detalhe": "n=4, r=0.9862673700913519, b=0.7928571428571427, a=1.1535714285714285, ŷ(x0)=None"
+   },
+   {
+    "caso": "tabela HTML «com_faltas»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "dispersão «com_faltas»",
+    "ok": true,
+    "detalhe": "SVG válido, 4 pontos, com reta"
+   },
+   {
+    "caso": "regressão «sem_correlacao»",
+    "ok": true,
+    "detalhe": "n=5, r=0, b=0, a=2.6, ŷ(x0)=2.6"
+   },
+   {
+    "caso": "tabela HTML «sem_correlacao»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "dispersão «sem_correlacao»",
+    "ok": true,
+    "detalhe": "SVG válido, 5 pontos, com reta"
+   },
+   {
+    "caso": "regressão «decimais_negativos»",
+    "ok": true,
+    "detalhe": "n=5, r=-0.8672854478323896, b=-0.6807714635876927, a=-0.5836902534993229, ŷ(x0)=0.09708121008836978"
+   },
+   {
+    "caso": "tabela HTML «decimais_negativos»",
+    "ok": true,
+    "detalhe": "ok"
+   },
+   {
+    "caso": "dispersão «decimais_negativos»",
+    "ok": true,
+    "detalhe": "SVG válido, 5 pontos, com reta"
    }
   ]
  }

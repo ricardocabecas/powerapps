@@ -750,7 +750,7 @@ Screens:
               )},
                   If(_F.Tipo = 2,
                       "data:image/svg+xml;utf8," & EncodeUrl(With({_lin: _F.Linhas, _k: CountRows(_F.Linhas)},
-                  With({_mx: Max(Max(_lin, ni), 1)}, With({_passo: Max(1, With({_e: Power(10, RoundDown(Log(_mx / 5, 10) + 1E-9, 0))}, With({_f: _mx / 5 / _e}, If(_f <= 1, 1, _f <= 2, 2, _f <= 5, 5, 10) * _e)))}, With({_ymax: _passo * RoundUp(_mx * 1.08 / _passo - 1E-9, 0)},
+                  With({_mx: Max(Max(_lin, ni), 1)}, With({_passo: Max(1, With({_e: Power(10, Int(Log(_mx / 5, 10) + 1E-9))}, With({_f: _mx / 5 / _e}, If(_f <= 1, 1, _f <= 2, 2, _f <= 5, 5, 10) * _e)))}, With({_ymax: _passo * RoundUp(_mx * 1.08 / _passo - 1E-9, 0)},
                   With({_bw: 550 / Max(_k, 1), _salto: RoundUp(_k / 10, 0)},
                   "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 400' font-family='Segoe UI, Arial, sans-serif'>" &
                   "<rect x='0' y='0' width='640' height='400' fill='white'/>" &
@@ -775,7 +775,7 @@ Screens:
                   "</svg>"
                   )))))),
                       "data:image/svg+xml;utf8," & EncodeUrl(With({_lin: _F.Linhas, _k: CountRows(_F.Linhas)},
-                  With({_mx: Max(Max(_lin, ni), 1)}, With({_passo: Max(1, With({_e: Power(10, RoundDown(Log(_mx / 5, 10) + 1E-9, 0))}, With({_f: _mx / 5 / _e}, If(_f <= 1, 1, _f <= 2, 2, _f <= 5, 5, 10) * _e)))}, With({_ymax: _passo * RoundUp(_mx * 1.08 / _passo - 1E-9, 0)},
+                  With({_mx: Max(Max(_lin, ni), 1)}, With({_passo: Max(1, With({_e: Power(10, Int(Log(_mx / 5, 10) + 1E-9))}, With({_f: _mx / 5 / _e}, If(_f <= 1, 1, _f <= 2, 2, _f <= 5, 5, 10) * _e)))}, With({_ymax: _passo * RoundUp(_mx * 1.08 / _passo - 1E-9, 0)},
                   With({_slot: 550 / Max(_k, 1), _salto: RoundUp(_k / 12, 0)},
                   "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 400' font-family='Segoe UI, Arial, sans-serif'>" &
                   "<rect x='0' y='0' width='640' height='400' fill='white'/>" &

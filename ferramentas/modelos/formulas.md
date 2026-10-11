@@ -243,3 +243,45 @@ O eixo vertical usa um passo «redondo» (1, 2 ou 5 × 10ᵐ):
 Fórmula do histograma:
 
 {{pt: F_graficos.histograma("_F", "_titulo", "_rotulo")}}
+
+## 4. Correlação e regressão linear simples (ecrã `scrRegressao`)
+
+### 4.1 Pares de valores
+
+Só entram as observações com **x e y preenchidos** (eliminação por pares):
+
+{{pt: F_regressao.pares("_kx", "_ky")}}
+
+### 4.2 Fórmulas
+
+Com x̄ e ȳ as médias dos n pares:
+
+| Medida | Fórmula |
+|---|---|
+| Somas de quadrados e de produtos | Sxx = Σ(xᵢ − x̄)², Syy = Σ(yᵢ − ȳ)², Sxy = Σ(xᵢ − x̄)(yᵢ − ȳ) |
+| Covariância amostral | sₓᵧ = Sxy / (n − 1) |
+| Coeficiente de correlação de Pearson | r = Sxy / √(Sxx · Syy), com −1 ≤ r ≤ 1 |
+| Coeficiente de determinação | R² = r² (proporção da variabilidade de y explicada pela reta) |
+| Declive da reta dos mínimos quadrados | b = Sxy / Sxx |
+| Ordenada na origem | a = ȳ − b · x̄ |
+| Equação e previsão | ŷ = a + b · x |
+
+Casos não definidos (a app mostra `n.d.` e uma explicação): n < 2; todos os x iguais (Sxx = 0: não há reta);
+todos os y iguais (Syy = 0: a reta é horizontal, b = 0, mas r não está definido).
+
+As somas calculam-se **a partir dos desvios em relação à média** (método de duas passagens), que é
+numericamente mais estável do que a fórmula Σxᵢyᵢ − n·x̄·ȳ quando os valores são grandes.
+
+{{pt: F_regressao.resultados()}}
+
+A previsão avisa quando há **extrapolação** (x fora do intervalo dos x observados).
+
+### 4.3 Diagrama de dispersão com a reta
+
+Os eixos usam passos «redondos» e uma margem de 4 %. Atenção a um pormenor do Power Fx: `RoundDown` e
+`RoundUp` arredondam **em direção a zero** (`RoundDown(-2,5; 0)` = −2), por isso para o «chão» de um número
+negativo usa-se `Int` (`Int(-2,5)` = −3) e para o «teto» `-Int(-x)`:
+
+{{pt: "// início e fim do eixo dos x, múltiplos do passo _xp\n{_x0: _xp * Int((_minX - 0.04 * _xd) / _xp + 1E-9),\n _x1: -_xp * Int(-(_maxX + 0.04 * _xd) / _xp + 1E-9)}"}}
+
+A reta é desenhada de um lado ao outro do gráfico e recortada à área dos dados com um `clipPath` SVG.

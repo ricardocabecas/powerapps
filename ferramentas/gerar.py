@@ -20,9 +20,9 @@ RAIZ = os.path.dirname(AQUI)
 sys.path.insert(0, AQUI)
 
 from gerador.yaml_pa import ecra_yaml, controlos_yaml, todas_formulas, todos_controlos  # noqa: E402
-from gerador import ecra_dados, ecra_descritiva, ecra_frequencias  # noqa: E402
+from gerador import ecra_dados, ecra_descritiva, ecra_frequencias, ecra_regressao  # noqa: E402
 
-MODULOS = [ecra_dados, ecra_descritiva, ecra_frequencias]
+MODULOS = [ecra_dados, ecra_descritiva, ecra_frequencias, ecra_regressao]
 
 
 def ecras():

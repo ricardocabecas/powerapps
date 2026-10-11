@@ -68,3 +68,18 @@ FREQUENCIAS = [
     ("um_valor", 1, [2.5], 2, None, None, None),
     ("discreta_decimais", 1, [1.5, 2.25, 1.5, None, 3], 1, None, None, None),
 ]
+
+# Regressão: nome -> (x, y, x0 como texto)
+REGRESSAO = {
+    "exemplo_altura_peso": ([r[1] for r in DADOS_EXEMPLO], [r[2] for r in DADOS_EXEMPLO], "172,5"),
+    "exemplo_altura_nota": ([r[1] for r in DADOS_EXEMPLO], [r[3] for r in DADOS_EXEMPLO], "150"),
+    "reta_perfeita_positiva": ([1, 2, 3, 4, 5], [3, 5, 7, 9, 11], "2.5"),
+    "reta_perfeita_negativa": ([0, 1, 2, 3], [10, 7.5, 5, 2.5], "10"),
+    "y_constante": ([1, 2, 3, 4], [5, 5, 5, 5], "2"),
+    "x_constante": ([2, 2, 2], [1, 2, 3], "2"),
+    "n1": ([1], [2], "1"),
+    "n2": ([1, 3], [2, 1], "2"),
+    "com_faltas": ([1, 2, None, 4, 5, 6], [2.1, None, 3.3, 3.9, 5.2, 6.1], ""),
+    "sem_correlacao": ([1, 2, 3, 4, 5], [2, 4, 1, 4, 2], "3"),
+    "decimais_negativos": ([-1.5, -0.25, 0.5, 2.75, 3.1], [0.2, -1.1, 0.4, -2.6, -2.95], "-1"),
+}

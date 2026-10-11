@@ -1,0 +1,411 @@
+Screens:
+  scrRegressao:
+    Properties:
+      Fill: =RGBA(244, 246, 249, 1)
+    Children:
+      - retCabReg:
+          Control: Rectangle
+          Properties:
+            Fill: =RGBA(31, 78, 121, 1)
+            X: =0
+            Y: =0
+            Width: =1366
+            Height: =64
+      - lblCabReg:
+          Control: Label
+          Properties:
+            Text: ="Estatística · " & "Correlação e regressão"
+            X: =16
+            Y: =0
+            Width: =420
+            Height: =64
+            Font: =Font.'Segoe UI'
+            Size: =18
+            Color: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+      - btnNavRegDad:
+          Control: Classic/Button
+          Properties:
+            Text: ="Dados"
+            OnSelect: =Navigate(scrDados, ScreenTransition.None)
+            X: =446
+            Y: =14
+            Width: =112
+            Height: =36
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Fill: =RGBA(31, 78, 121, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            HoverFill: =RGBA(23, 58, 91, 1)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderThickness: =1
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+      - btnNavRegDes:
+          Control: Classic/Button
+          Properties:
+            Text: ="Descritiva"
+            OnSelect: =Navigate(scrDescritiva, ScreenTransition.None)
+            X: =564
+            Y: =14
+            Width: =112
+            Height: =36
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Fill: =RGBA(31, 78, 121, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            HoverFill: =RGBA(23, 58, 91, 1)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderThickness: =1
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+      - btnNavRegFre:
+          Control: Classic/Button
+          Properties:
+            Text: ="Frequências"
+            OnSelect: =Navigate(scrFrequencias, ScreenTransition.None)
+            X: =682
+            Y: =14
+            Width: =120
+            Height: =36
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Fill: =RGBA(31, 78, 121, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            HoverFill: =RGBA(23, 58, 91, 1)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderThickness: =1
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+      - btnNavRegReg:
+          Control: Classic/Button
+          Properties:
+            Text: ="Regressão"
+            OnSelect: =Navigate(scrRegressao, ScreenTransition.None)
+            X: =808
+            Y: =14
+            Width: =112
+            Height: =36
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Fill: =RGBA(255, 255, 255, 1)
+            Color: =RGBA(31, 78, 121, 1)
+            HoverFill: =RGBA(255, 255, 255, 1)
+            HoverColor: =RGBA(31, 78, 121, 1)
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderThickness: =1
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+            FontWeight: =FontWeight.Semibold
+      - btnNavRegTt:
+          Control: Classic/Button
+          Properties:
+            Text: ="Testes t"
+            OnSelect: =Navigate(scrTestesT, ScreenTransition.None)
+            X: =926
+            Y: =14
+            Width: =112
+            Height: =36
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Fill: =RGBA(31, 78, 121, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            HoverFill: =RGBA(23, 58, 91, 1)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderThickness: =1
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+      - btnNavRegAno:
+          Control: Classic/Button
+          Properties:
+            Text: ="ANOVA"
+            OnSelect: =Navigate(scrAnova, ScreenTransition.None)
+            X: =1044
+            Y: =14
+            Width: =112
+            Height: =36
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Fill: =RGBA(31, 78, 121, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            HoverFill: =RGBA(23, 58, 91, 1)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderThickness: =1
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+      - btnNavRegQui:
+          Control: Classic/Button
+          Properties:
+            Text: ="Qui-quadrado"
+            OnSelect: =Navigate(scrQuiQuadrado, ScreenTransition.None)
+            X: =1162
+            Y: =14
+            Width: =124
+            Height: =36
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Fill: =RGBA(31, 78, 121, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            HoverFill: =RGBA(23, 58, 91, 1)
+            HoverColor: =RGBA(255, 255, 255, 1)
+            BorderColor: =RGBA(255, 255, 255, 1)
+            BorderThickness: =1
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+      - retRegPainel:
+          Control: Rectangle
+          Properties:
+            Fill: =RGBA(255, 255, 255, 1)
+            X: =12
+            Y: =72
+            Width: =308
+            Height: =684
+            BorderColor: =RGBA(206, 212, 218, 1)
+            BorderThickness: =1
+      - lblRegX:
+          Control: Label
+          Properties:
+            Text: ="Variável explicativa (x)"
+            X: =24
+            Y: =80
+            Width: =284
+            Height: =26
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Color: =RGBA(33, 37, 41, 1)
+            FontWeight: =FontWeight.Semibold
+      - drpRegX:
+          Control: Classic/DropDown
+          Properties:
+            Items: =[varNomes.N1, varNomes.N2, varNomes.N3]
+            X: =24
+            Y: =108
+            Width: =284
+            Height: =36
+            Font: =Font.'Segoe UI'
+            Size: =12
+            Default: =varNomes.N1
+      - lblRegY:
+          Control: Label
+          Properties:
+            Text: ="Variável resposta (y)"
+            X: =24
+            Y: =154
+            Width: =284
+            Height: =26
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Color: =RGBA(33, 37, 41, 1)
+            FontWeight: =FontWeight.Semibold
+      - drpRegY:
+          Control: Classic/DropDown
+          Properties:
+            Items: =[varNomes.N1, varNomes.N2, varNomes.N3]
+            X: =24
+            Y: =182
+            Width: =284
+            Height: =36
+            Font: =Font.'Segoe UI'
+            Size: =12
+            Default: =varNomes.N2
+      - lblRegX0:
+          Control: Label
+          Properties:
+            Text: |-
+              ="Previsão: valor de x"
+            X: =24
+            Y: =228
+            Width: =284
+            Height: =26
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Color: =RGBA(33, 37, 41, 1)
+            FontWeight: =FontWeight.Semibold
+      - txtRegX0:
+          Control: Classic/TextInput
+          Properties:
+            Default: =""
+            X: =24
+            Y: =256
+            Width: =284
+            Height: =36
+            Font: =Font.'Segoe UI'
+            Size: =12
+            BorderColor: =RGBA(206, 212, 218, 1)
+            HintText: |-
+              ="ex.: 172,5"
+      - lblRegNotas:
+          Control: Label
+          Properties:
+            Text: ="Notas" & Char(10) & Char(10) & "• Só entram os pares com x e y preenchidos." & Char(10) & Char(10) & "• r mede a intensidade da relação LINEAR (−1 ≤ r ≤ 1); r = 0 não exclui outras relações." & Char(10) & Char(10) & "• R² é a proporção da variabilidade de y explicada pela reta." & Char(10) & Char(10) & "• A reta dos mínimos quadrados minimiza Σ(yᵢ − ŷᵢ)². Previsões fora do intervalo dos x observados (extrapolação) são pouco fiáveis." & Char(10) & Char(10) & "• Correlação não implica causalidade."
+            X: =24
+            Y: =304
+            Width: =284
+            Height: =440
+            Font: =Font.'Segoe UI'
+            Size: =10
+            Color: =RGBA(90, 98, 106, 1)
+            VerticalAlign: =VerticalAlign.Top
+      - htmRegressao:
+          Control: HtmlViewer
+          Properties:
+            HtmlText: |-
+              =With({_R: With(
+                      {_p: Filter(ForAll(colDados As _d, {x: Switch(Switch(drpRegX.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, 1), 1, _d.N1, 2, _d.N2, _d.N3), y: Switch(Switch(drpRegY.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, 1), 1, _d.N1, 2, _d.N2, _d.N3)}), !IsBlank(x) && !IsBlank(y)), _x0: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtRegX0.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())},
+                      With({_n: CountRows(_p)},
+                      With({_mx: Average(_p, x), _my: Average(_p, y)},
+                      With(
+                          // Somas de quadrados e de produtos dos desvios em relação às médias
+                          {_Sxx: Sum(_p, Power(x - _mx, 2)), _Syy: Sum(_p, Power(y - _my, 2)), _Sxy: Sum(_p, (x - _mx) * (y - _my))},
+                      With(
+                          {_b: If(_n >= 2 && _Sxx > 0, _Sxy / _Sxx),
+                           _r: If(_n >= 2 && _Sxx > 0 && _Syy > 0, _Sxy / Sqrt(_Sxx * _Syy))},
+                      {
+                          n: _n, mediaX: _mx, mediaY: _my,
+                          Sxx: If(_n > 0, _Sxx), Syy: If(_n > 0, _Syy), Sxy: If(_n > 0, _Sxy),
+                          sx: If(_n >= 2, Sqrt(_Sxx / (_n - 1))), sy: If(_n >= 2, Sqrt(_Syy / (_n - 1))),
+                          // Covariância amostral
+                          cov: If(_n >= 2, _Sxy / (_n - 1)),
+                          r: _r,
+                          r2: If(!IsBlank(_r), _r * _r),
+                          // Reta dos mínimos quadrados: ŷ = a + b·x
+                          b: _b,
+                          a: If(!IsBlank(_b), _my - _b * _mx),
+                          minX: Min(_p, x), maxX: Max(_p, x), minY: Min(_p, y), maxY: Max(_p, y),
+                          x0: _x0,
+                          previsao: If(!IsBlank(_b) && !IsBlank(_x0), _my - _b * _mx + _b * _x0)
+                      }
+                      ))))
+                  )},
+                  "<div style='font-family:Segoe UI,Arial;font-size:13px;color:#212529'>" &
+                  "<table style='border-collapse:collapse;width:100%'>" &
+                  "<tr style='background:#1f4e79;color:#ffffff'><th style='text-align:left;padding:6px 8px'>Medida e fórmula</th>" &
+                  "<th style='text-align:right;padding:6px 8px'>Valor</th></tr>" &
+                  "<tr><td style='padding:4px 8px'>N.º de pares (x, y)<br><span style='color:#5a626a;font-size:12px'>n</span></td><td style='padding:4px 8px;text-align:right;white-space:nowrap'>" & With({_v: _R.n}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 0.5, 0, _v), "[$-en-US]#,##0", "pt-PT"))) & "</td></tr>" &
+                  "<tr style='background:#f3f6fa'><td style='padding:4px 8px'>Média de x<br><span style='color:#5a626a;font-size:12px'>x̄</span></td><td style='padding:4px 8px;text-align:right;white-space:nowrap'>" & With({_v: _R.mediaX}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td></tr>" &
+                  "<tr><td style='padding:4px 8px'>Média de y<br><span style='color:#5a626a;font-size:12px'>ȳ</span></td><td style='padding:4px 8px;text-align:right;white-space:nowrap'>" & With({_v: _R.mediaY}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td></tr>" &
+                  "<tr style='background:#f3f6fa'><td style='padding:4px 8px'>Desvio padrão amostral de x<br><span style='color:#5a626a;font-size:12px'>s<sub>x</sub></span></td><td style='padding:4px 8px;text-align:right;white-space:nowrap'>" & With({_v: _R.sx}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td></tr>" &
+                  "<tr><td style='padding:4px 8px'>Desvio padrão amostral de y<br><span style='color:#5a626a;font-size:12px'>s<sub>y</sub></span></td><td style='padding:4px 8px;text-align:right;white-space:nowrap'>" & With({_v: _R.sy}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td></tr>" &
+                  "<tr style='background:#f3f6fa'><td style='padding:4px 8px'>Soma dos quadrados de x<br><span style='color:#5a626a;font-size:12px'>Sxx = Σ(xᵢ − x̄)²</span></td><td style='padding:4px 8px;text-align:right;white-space:nowrap'>" & With({_v: _R.Sxx}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td></tr>" &
+                  "<tr><td style='padding:4px 8px'>Soma dos quadrados de y<br><span style='color:#5a626a;font-size:12px'>Syy = Σ(yᵢ − ȳ)²</span></td><td style='padding:4px 8px;text-align:right;white-space:nowrap'>" & With({_v: _R.Syy}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td></tr>" &
+                  "<tr style='background:#f3f6fa'><td style='padding:4px 8px'>Soma dos produtos<br><span style='color:#5a626a;font-size:12px'>Sxy = Σ(xᵢ − x̄)(yᵢ − ȳ)</span></td><td style='padding:4px 8px;text-align:right;white-space:nowrap'>" & With({_v: _R.Sxy}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td></tr>" &
+                  "<tr><td style='padding:4px 8px'>Covariância amostral<br><span style='color:#5a626a;font-size:12px'>s<sub>xy</sub> = Sxy / (n − 1)</span></td><td style='padding:4px 8px;text-align:right;white-space:nowrap'>" & With({_v: _R.cov}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td></tr>" &
+                  "<tr style='background:#f3f6fa'><td style='padding:4px 8px'>Coeficiente de correlação de Pearson<br><span style='color:#5a626a;font-size:12px'>r = Sxy / √(Sxx·Syy)</span></td><td style='padding:4px 8px;text-align:right;white-space:nowrap'>" & With({_v: _R.r}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td></tr>" &
+                  "<tr><td style='padding:4px 8px'>Coeficiente de determinação<br><span style='color:#5a626a;font-size:12px'>R² = r²</span></td><td style='padding:4px 8px;text-align:right;white-space:nowrap'>" & With({_v: _R.r2}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td></tr>" &
+                  "<tr style='background:#f3f6fa'><td style='padding:4px 8px'>Declive<br><span style='color:#5a626a;font-size:12px'>b = Sxy / Sxx</span></td><td style='padding:4px 8px;text-align:right;white-space:nowrap'>" & With({_v: _R.b}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td></tr>" &
+                  "<tr><td style='padding:4px 8px'>Ordenada na origem<br><span style='color:#5a626a;font-size:12px'>a = ȳ − b·x̄</span></td><td style='padding:4px 8px;text-align:right;white-space:nowrap'>" & With({_v: _R.a}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td></tr>" &
+                  "<tr style='background:#f3f6fa'><td style='padding:4px 8px'>Equação da reta</td><td style='padding:4px 8px;text-align:right;white-space:nowrap'>" & If(IsBlank(_R.b), "não definida", "ŷ = " & With({_v: _R.a}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & If(_R.b < 0, " − ", " + ") & With({_v: Abs(_R.b)}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & " · x") & "</td></tr>" &
+                  "<tr><td style='padding:4px 8px'>Correlação (indicativo)<br><span style='color:#5a626a;font-size:12px'>|r| < 0,3 fraca · < 0,7 moderada</span></td><td style='padding:4px 8px;text-align:right;white-space:nowrap'>" & If(IsBlank(_R.r), "não definida",
+                      With({_ar: Abs(_R.r)}, If(_ar < 0.3, "fraca", _ar < 0.7, "moderada", "forte")) & " e " &
+                      If(_R.r > 0, "positiva", _R.r < 0, "negativa", "nula")) & "</td></tr>" &
+                  "</table>" &
+                  "<h4 style='margin:14px 0 4px 0;color:#1f4e79'>Previsão</h4>" &
+                  If(IsBlank(_R.x0), "<p>Escreva um valor de x para obter a previsão ŷ.</p>",
+                      IsBlank(_R.previsao), "<p>Não é possível prever: a reta não está definida.</p>",
+                      "<p style='font-size:15px'>Para x = " & With({_r: Round(_R.x0, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & ": <b>ŷ = " & With({_v: _R.previsao}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</b></p>" &
+                      If(_R.x0 < _R.minX || _R.x0 > _R.maxX,
+                          "<p style='color:#b00020'>⚠ Extrapolação: x está fora do intervalo observado [" & With({_r: Round(_R.minX, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) &
+                          " ; " & With({_r: Round(_R.maxX, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & "]; a previsão é pouco fiável.</p>", "")) &
+                  If(_R.n < 2, "<p style='color:#b00020'>São precisos pelo menos 2 pares de valores.</p>",
+                      IsBlank(_R.b), "<p style='color:#b00020'>Todos os valores de x são iguais (Sxx = 0): a reta e r não estão definidos.</p>",
+                      IsBlank(_R.r), "<p style='color:#b00020'>Todos os valores de y são iguais (Syy = 0): r não está definido.</p>", "") &
+                  "</div>"
+              )
+            X: =332
+            Y: =72
+            Width: =430
+            Height: =684
+            Font: =Font.'Segoe UI'
+            Size: =12
+            Color: =RGBA(33, 37, 41, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            PaddingTop: =8
+            PaddingLeft: =8
+            PaddingRight: =8
+      - imgRegDispersao:
+          Control: Image
+          Properties:
+            Image: |-
+              =With({_R: With(
+                  {_p: Filter(ForAll(colDados As _d, {x: Switch(Switch(drpRegX.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, 1), 1, _d.N1, 2, _d.N2, _d.N3), y: Switch(Switch(drpRegY.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, 1), 1, _d.N1, 2, _d.N2, _d.N3)}), !IsBlank(x) && !IsBlank(y)), _x0: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtRegX0.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())},
+                  With({_n: CountRows(_p)},
+                  With({_mx: Average(_p, x), _my: Average(_p, y)},
+                  With(
+                      // Somas de quadrados e de produtos dos desvios em relação às médias
+                      {_Sxx: Sum(_p, Power(x - _mx, 2)), _Syy: Sum(_p, Power(y - _my, 2)), _Sxy: Sum(_p, (x - _mx) * (y - _my))},
+                  With(
+                      {_b: If(_n >= 2 && _Sxx > 0, _Sxy / _Sxx),
+                       _r: If(_n >= 2 && _Sxx > 0 && _Syy > 0, _Sxy / Sqrt(_Sxx * _Syy))},
+                  {
+                      n: _n, mediaX: _mx, mediaY: _my,
+                      Sxx: If(_n > 0, _Sxx), Syy: If(_n > 0, _Syy), Sxy: If(_n > 0, _Sxy),
+                      sx: If(_n >= 2, Sqrt(_Sxx / (_n - 1))), sy: If(_n >= 2, Sqrt(_Syy / (_n - 1))),
+                      // Covariância amostral
+                      cov: If(_n >= 2, _Sxy / (_n - 1)),
+                      r: _r,
+                      r2: If(!IsBlank(_r), _r * _r),
+                      // Reta dos mínimos quadrados: ŷ = a + b·x
+                      b: _b,
+                      a: If(!IsBlank(_b), _my - _b * _mx),
+                      minX: Min(_p, x), maxX: Max(_p, x), minY: Min(_p, y), maxY: Max(_p, y),
+                      x0: _x0,
+                      previsao: If(!IsBlank(_b) && !IsBlank(_x0), _my - _b * _mx + _b * _x0)
+                  }
+                  ))))
+              ), _P: Filter(ForAll(colDados As _d, {x: Switch(Switch(drpRegX.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, 1), 1, _d.N1, 2, _d.N2, _d.N3), y: Switch(Switch(drpRegY.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, 1), 1, _d.N1, 2, _d.N2, _d.N3)}), !IsBlank(x) && !IsBlank(y))},
+                  "data:image/svg+xml;utf8," & EncodeUrl(If(_R.n = 0, "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 400'><text x='320' y='200' text-anchor='middle' font-family='Segoe UI, Arial' font-size='14'>Sem pares de valores</text></svg>",
+                  With({_xd: If(_R.maxX > _R.minX, _R.maxX - _R.minX, Max(Abs(_R.maxX), 1))}, With({_xp: With({_e: Power(10, Int(Log(_xd / 5, 10) + 1E-9))}, With({_f: _xd / 5 / _e}, If(_f <= 1, 1, _f <= 2, 2, _f <= 5, 5, 10) * _e))}, With({_x0: _xp * Int((_R.minX - 0.04 * _xd) / _xp + 1E-9), _x1: -_xp * Int(-(_R.maxX + 0.04 * _xd) / _xp + 1E-9)},
+                  With({_yd: If(_R.maxY > _R.minY, _R.maxY - _R.minY, Max(Abs(_R.maxY), 1))}, With({_yp: With({_e: Power(10, Int(Log(_yd / 5, 10) + 1E-9))}, With({_f: _yd / 5 / _e}, If(_f <= 1, 1, _f <= 2, 2, _f <= 5, 5, 10) * _e))}, With({_y0: _yp * Int((_R.minY - 0.04 * _yd) / _yp + 1E-9), _y1: -_yp * Int(-(_R.maxY + 0.04 * _yd) / _yp + 1E-9)},
+                  "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 400' font-family='Segoe UI, Arial, sans-serif'>" &
+                  "<rect x='0' y='0' width='640' height='400' fill='white'/>" &
+                  "<text x='320' y='22' text-anchor='middle' font-size='15' font-weight='600' fill='rgb(33,37,41)'>" & Substitute(Substitute(Substitute("Dispersão — " & drpRegY.Selected.Value & " vs " & drpRegX.Selected.Value, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & "</text>" &
+                  "<defs><clipPath id='area'><rect x='70' y='40' width='550' height='290'/></clipPath></defs>" &
+                  // Grelha e marcas dos eixos
+                  Concat(Sequence(Round((_x1 - _x0) / _xp, 0) + 1, 0) As _t, With({_v: _x0 + _t.Value * _xp},
+                      "<line x1='" & Text(Round(70 + ((_v) - _x0) / (_x1 - _x0) * 550, 2), "[$-en-US]0.00", "en-US") & "' y1='" & Text(Round(40, 2), "[$-en-US]0.00", "en-US") & "' x2='" & Text(Round(70 + ((_v) - _x0) / (_x1 - _x0) * 550, 2), "[$-en-US]0.00", "en-US") & "' y2='" & Text(Round(330, 2), "[$-en-US]0.00", "en-US") & "' stroke='rgb(225,229,234)'/>" &
+                      "<text x='" & Text(Round(70 + ((_v) - _x0) / (_x1 - _x0) * 550, 2), "[$-en-US]0.00", "en-US") & "' y='" & Text(Round(346, 2), "[$-en-US]0.00", "en-US") & "' text-anchor='middle' font-size='10' fill='rgb(90,98,106)'>" & With({_r: Round(_v, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & "</text>")) &
+                  Concat(Sequence(Round((_y1 - _y0) / _yp, 0) + 1, 0) As _t, With({_v: _y0 + _t.Value * _yp},
+                      "<line x1='" & Text(Round(70, 2), "[$-en-US]0.00", "en-US") & "' y1='" & Text(Round(330 - ((_v) - _y0) / (_y1 - _y0) * 290, 2), "[$-en-US]0.00", "en-US") & "' x2='" & Text(Round(620, 2), "[$-en-US]0.00", "en-US") & "' y2='" & Text(Round(330 - ((_v) - _y0) / (_y1 - _y0) * 290, 2), "[$-en-US]0.00", "en-US") & "' stroke='rgb(225,229,234)'/>" &
+                      "<text x='" & Text(Round(62, 2), "[$-en-US]0.00", "en-US") & "' y='" & Text(Round(330 - ((_v) - _y0) / (_y1 - _y0) * 290 + 4, 2), "[$-en-US]0.00", "en-US") & "' text-anchor='end' font-size='10' fill='rgb(90,98,106)'>" & With({_r: Round(_v, 4)}, If(_r = Int(_r), Text(_r, "[$-en-US]0", "pt-PT"), Text(_r, "[$-en-US]0.####", "pt-PT"))) & "</text>")) &
+                  "<rect x='70' y='40' width='550' height='290' fill='none' stroke='rgb(90,98,106)'/>" &
+                  // Pontos observados
+                  Concat(_P, "<circle cx='" & Text(Round(70 + ((x) - _x0) / (_x1 - _x0) * 550, 2), "[$-en-US]0.00", "en-US") & "' cy='" & Text(Round(330 - ((y) - _y0) / (_y1 - _y0) * 290, 2), "[$-en-US]0.00", "en-US") &
+                      "' r='4.5' fill='rgb(46,117,182)' fill-opacity='0.75' stroke='rgb(31,78,121)'/>") &
+                  // Reta de regressão ŷ = a + b·x desenhada de um lado ao outro e recortada à área do gráfico
+                  If(IsBlank(_R.b), "",
+                      "<line clip-path='url(#area)' x1='70' x2='620' y1='" & Text(Round(330 - ((_R.a + _R.b * _x0) - _y0) / (_y1 - _y0) * 290, 2), "[$-en-US]0.00", "en-US") &
+                      "' y2='" & Text(Round(330 - ((_R.a + _R.b * _x1) - _y0) / (_y1 - _y0) * 290, 2), "[$-en-US]0.00", "en-US") & "' stroke='rgb(192,0,0)' stroke-width='2'/>" &
+                      "<text x='614' y='58' text-anchor='end' font-size='12' fill='rgb(192,0,0)'>" &
+                      Substitute(Substitute(Substitute(If(IsBlank(_R.b), "não definida", "ŷ = " & With({_v: _R.a}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & If(_R.b < 0, " − ", " + ") & With({_v: Abs(_R.b)}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & " · x"), "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & If(IsBlank(_R.r), "", "   (r = " & With({_v: _R.r}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & ")") & "</text>") &
+                  "<text x='345' y='370' text-anchor='middle' font-size='12' fill='rgb(90,98,106)'>" & Substitute(Substitute(Substitute(drpRegX.Selected.Value, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & "</text>" &
+                  "<text transform='translate(18,185) rotate(-90)' text-anchor='middle' font-size='12' fill='rgb(90,98,106)'>" & Substitute(Substitute(Substitute(drpRegY.Selected.Value, "&", "&amp;"), "<", "&lt;"), ">", "&gt;") & "</text>" &
+                  "</svg>"
+                  ))))))
+              )))
+            X: =778
+            Y: =72
+            Width: =572
+            Height: =358
+            ImagePosition: =ImagePosition.Fit
+            Fill: =RGBA(255, 255, 255, 1)
+            BorderColor: =RGBA(206, 212, 218, 1)
+            BorderThickness: =1

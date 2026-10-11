@@ -2,11 +2,11 @@
 
 Gerado em 11/10/2026 por `testes/executar_testes.py`. As fórmulas foram executadas com o interpretador open source **Microsoft.PowerFx.Interpreter 1.8.1** (.NET 8), com números em vírgula flutuante (como nas canvas apps).
 
-**Total: 2725/2725 verificações sem diferenças.**
+**Total: 3220/3220 verificações sem diferenças.**
 
 ## Sintaxe de todas as fórmulas dos ecrãs
 
-1289 fórmulas analisadas em formato invariante (ficheiros .pa.yaml) e convertidas para pt-PT (barra de fórmulas): **2578/2578 sem erros de sintaxe**.
+1520 fórmulas analisadas em formato invariante (ficheiros .pa.yaml) e convertidas para pt-PT (barra de fórmulas): **3040/3040 sem erros de sintaxe**.
 
 
 ## Fase 1 — Entrada de dados
@@ -176,4 +176,44 @@ Gerado em 11/10/2026 por `testes/executar_testes.py`. As fórmulas foram executa
 | tabela «discreta_decimais» | ✅ | 1,5: 2 \| 2,25: 1 \| 3: 1 |
 | gráfico «discreta_decimais» | ✅ | SVG válido, 2090 caracteres, 3 barras |
 | resumo «discreta_decimais» | ✅ | n = 4   ·   3 valores distintos |
+
+## Fase 4 — Correlação e regressão
+
+**33/33 casos de acordo com a referência.**
+
+| Caso | Resultado | Detalhe |
+|---|---|---|
+| regressão «exemplo_altura_peso» | ✅ | n=20, r=0.9946312973208253, b=1.2346365658849703, a=-144.83416608920822, ŷ(x0)=68.14064152594915 |
+| tabela HTML «exemplo_altura_peso» | ✅ | ok |
+| dispersão «exemplo_altura_peso» | ✅ | SVG válido, 20 pontos, com reta |
+| regressão «exemplo_altura_nota» | ✅ | n=20, r=-0.9133869564529047, b=-0.27794594988876326, a=60.547941208650926, ŷ(x0)=18.856048725336436 |
+| tabela HTML «exemplo_altura_nota» | ✅ | ok |
+| dispersão «exemplo_altura_nota» | ✅ | SVG válido, 20 pontos, com reta |
+| regressão «reta_perfeita_positiva» | ✅ | n=5, r=1, b=2, a=1, ŷ(x0)=6 |
+| tabela HTML «reta_perfeita_positiva» | ✅ | ok |
+| dispersão «reta_perfeita_positiva» | ✅ | SVG válido, 5 pontos, com reta |
+| regressão «reta_perfeita_negativa» | ✅ | n=4, r=-1, b=-2.5, a=10, ŷ(x0)=-15 |
+| tabela HTML «reta_perfeita_negativa» | ✅ | ok |
+| dispersão «reta_perfeita_negativa» | ✅ | SVG válido, 4 pontos, com reta |
+| regressão «y_constante» | ✅ | n=4, r=None, b=0, a=5, ŷ(x0)=5 |
+| tabela HTML «y_constante» | ✅ | ok |
+| dispersão «y_constante» | ✅ | SVG válido, 4 pontos, com reta |
+| regressão «x_constante» | ✅ | n=3, r=None, b=None, a=None, ŷ(x0)=None |
+| tabela HTML «x_constante» | ✅ | ok |
+| dispersão «x_constante» | ✅ | SVG válido, 3 pontos |
+| regressão «n1» | ✅ | n=1, r=None, b=None, a=None, ŷ(x0)=None |
+| tabela HTML «n1» | ✅ | ok |
+| dispersão «n1» | ✅ | SVG válido, 1 pontos |
+| regressão «n2» | ✅ | n=2, r=-1, b=-0.5, a=2.5, ŷ(x0)=1.5 |
+| tabela HTML «n2» | ✅ | ok |
+| dispersão «n2» | ✅ | SVG válido, 2 pontos, com reta |
+| regressão «com_faltas» | ✅ | n=4, r=0.9862673700913519, b=0.7928571428571427, a=1.1535714285714285, ŷ(x0)=None |
+| tabela HTML «com_faltas» | ✅ | ok |
+| dispersão «com_faltas» | ✅ | SVG válido, 4 pontos, com reta |
+| regressão «sem_correlacao» | ✅ | n=5, r=0, b=0, a=2.6, ŷ(x0)=2.6 |
+| tabela HTML «sem_correlacao» | ✅ | ok |
+| dispersão «sem_correlacao» | ✅ | SVG válido, 5 pontos, com reta |
+| regressão «decimais_negativos» | ✅ | n=5, r=-0.8672854478323896, b=-0.6807714635876927, a=-0.5836902534993229, ŷ(x0)=0.09708121008836978 |
+| tabela HTML «decimais_negativos» | ✅ | ok |
+| dispersão «decimais_negativos» | ✅ | SVG válido, 5 pontos, com reta |
 

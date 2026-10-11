@@ -4,7 +4,7 @@ App de estatística para estudantes do ensino superior, feita só com **Power Fx
 (sem componentes de código PCF, sem Power Automate, sem conectores premium). Interface em português de
 Portugal, números com vírgula decimal, aceita dados com vírgula ou ponto decimal.
 
-> **Estado:** em construção por fases. Fases 1 (entrada de dados), 2 (estatística descritiva) e 3 (frequências e gráficos) concluídas.
+> **Estado:** em construção por fases. Fases 1 (entrada de dados), 2 (estatística descritiva), 3 (frequências e gráficos) e 4 (correlação e regressão) concluídas.
 
 ## Conteúdo do repositório
 
@@ -29,7 +29,7 @@ Portugal, números com vírgula decimal, aceita dados com vírgula ou ponto deci
    Deve aparecer o ecrã `scrDados`. Apague o `Screen1` vazio e, se necessário, arraste `scrDados` para o topo
    (o primeiro ecrã é o ecrã inicial).
 5. **Restantes ecrãs, por esta ordem** (cada um depende de `colDados` e `varNomes`, criados pelo ecrã de dados):
-   `Src/scrDescritiva.pa.yaml`, `Src/scrFrequencias.pa.yaml`. Para cada ficheiro: copie todo o conteúdo e cole na vista de árvore (Ctrl+V).
+   `Src/scrDescritiva.pa.yaml`, `Src/scrFrequencias.pa.yaml`, `Src/scrRegressao.pa.yaml`. Para cada ficheiro: copie todo o conteúdo e cole na vista de árvore (Ctrl+V).
 6. Os botões da barra de navegação referem ecrãs que ainda não existem; ficam com erro até colar os ecrãs
    seguintes. Isso é esperado.
 
