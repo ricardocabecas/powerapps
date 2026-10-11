@@ -29,3 +29,21 @@ NUMEROS = ["1,5", "1.5", " 2 ", "-3,25", "1 234,5", "1 000", "abc", "", "  ", "
 
 # Valores para a formatação pt-PT (4 casas)
 FORMATOS = [0, 1, -1, 3.14159265, 1234.5, -0.00004, 0.00005, 1234567.891, 1e-10, -2.5, 100]
+
+# Estatística descritiva: (valores de N1, grupos C1 ou None)
+DESCRITIVA = {
+    "exemplo_altura": ([r[1] for r in DADOS_EXEMPLO], [r[4] for r in DADOS_EXEMPLO]),
+    "exemplo_nota": ([r[3] for r in DADOS_EXEMPLO], [r[5] for r in DADOS_EXEMPLO]),
+    "n1": ([7.5], None),
+    "n2": ([3, 8], None),
+    "n3": ([5, 1, 3], None),
+    "repetidos": ([2, 2, 2, 3, 3, 4, 4, 4, 5], None),
+    "todos_iguais_freq": ([1, 1, 2, 2, 3, 3], None),
+    "variancia_nula": ([4, 4, 4, 4], None),
+    "media_zero": ([-2, -1, 0, 1, 2], None),
+    "com_faltas": ([1.5, None, 3, 5.25, None, 8, 2], ["A", "A", None, "B", "B", "B", None]),
+    "negativos_decimais": ([-1.5, 2.25, 0, -3.75, 10.125, 0.001], None),
+    "grandes": ([1000000.5, 2000000.25, 1500000, 1250000.75], None),
+    "vazio": ([None, None], None),
+    "grupos_desiguais": ([10, 12, 11, 20, 22, 5], ["x", "x", "x", "y", "y", "z"]),
+}

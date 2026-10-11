@@ -273,3 +273,107 @@ Notify(
 O texto de diagnóstico (`lblDiagnostico`) usa o mesmo registo para mostrar, **antes de importar**, quantas
 linhas e colunas foram detetadas, se a 1.ª linha é cabeçalho e quais os valores inválidos (com o n.º da linha
 no texto colado, para os encontrar no Excel).
+
+## 2. Estatística descritiva (ecrã `scrDescritiva`)
+
+### 2.1 Escolha da variável e dos grupos
+
+As listas pendentes mostram os nomes dados pelos alunos (`[varNomes.N1; varNomes.N2; varNomes.N3]`). O nome
+escolhido é convertido no índice da variável (1, 2 ou 3) com `Switch`:
+
+```powerfx
+Switch(drpDesVar.Selected.Value; varNomes.N1; 1; varNomes.N2; 2; varNomes.N3; 3; 1)
+```
+
+Os valores da variável (e, se se pedir agrupamento, o grupo de cada observação) obtêm-se de `colDados`,
+ignorando as células vazias:
+
+```powerfx
+Filter(ForAll(colDados As _d; {x: Switch(_k; 1; _d.N1; 2; _d.N2; _d.N3); g: Switch(_kg; 1; _d.C1; _d.C2)}); !IsBlank(x))
+```
+
+### 2.2 Medidas
+
+Seja x₍₁₎ ≤ x₍₂₎ ≤ … ≤ x₍ₙ₎ a amostra ordenada.
+
+| Medida | Definição |
+|---|---|
+| Média | x̄ = (x₁ + … + xₙ) / n |
+| Mediana | x₍₍ₙ₊₁₎/₂₎ se n é ímpar; média de x₍ₙ/₂₎ e x₍ₙ/₂₊₁₎ se n é par |
+| Moda | valor(es) com maior frequência; «amodal» se todos têm a mesma frequência |
+| Amplitude total | x₍ₙ₎ − x₍₁₎ |
+| Amplitude interquartil | AIQ = Q₃ − Q₁ |
+| Variância amostral | s² = Σ(xᵢ − x̄)² / (n − 1) — estimador da variância da população; precisa de n ≥ 2 |
+| Variância populacional | σ² = Σ(xᵢ − x̄)² / n — quando os dados são a população toda |
+| Desvio padrão | raiz quadrada da variância respetiva |
+| Coeficiente de variação | CV = s / \|x̄\| × 100 % (com o desvio padrão amostral; não definido se x̄ = 0) |
+
+**Quartis — três métodos** (a app deixa escolher; a mediana é igual nos três):
+
+1. **Excel QUARTIL.INC** (também o método por omissão do R e do numpy): posição h = (n − 1)·p + 1.
+2. **Excel QUARTIL.EXC / SPSS / Minitab**: posição h = (n + 1)·p, limitada ao intervalo [1, n].
+3. **Mediana de cada metade**: Q₁ é a mediana das ⌊n/2⌋ menores observações e Q₃ a das ⌊n/2⌋ maiores
+   (quando n é ímpar, o valor central não entra em nenhuma das metades).
+
+Nos métodos 1 e 2, se h não for inteiro interpola-se linearmente: Q = x₍⌊h⌋₎ + (h − ⌊h⌋)·(x₍⌊h⌋₊₁₎ − x₍⌊h⌋₎).
+
+*Exemplo* (n = 9: 2, 2, 2, 3, 3, 4, 4, 4, 5): método 1 → h = 3, Q₁ = 2; método 2 → h = 2,5, Q₁ = 2;
+método 3 → metade inferior 2, 2, 2, 3 → Q₁ = 2. Para Q₃: método 1 → h = 7, Q₃ = 4; método 2 → h = 7,5,
+Q₃ = 4; método 3 → metade superior 4, 4, 4, 5 → Q₃ = 4.
+
+Em Power Fx, o 1.º quartil pelo método escolhido (`_s` é a amostra ordenada, `_n` a sua dimensão):
+
+```powerfx
+Switch(_metodo; 1; With({_h: (_n - 1) * 0,25 + 1}; With({_b: RoundDown(_h; 0)}; Index(_s; _b).x + (_h - _b) * (Index(_s; Min(_b + 1; _n)).x - Index(_s; _b).x))); 2; With({_h: Min(Max((_n + 1) * 0,25; 1); _n)}; With({_b: RoundDown(_h; 0)}; Index(_s; _b).x + (_h - _b) * (Index(_s; Min(_b + 1; _n)).x - Index(_s; _b).x))); With({_m: RoundDown(_n / 2; 0)}; If(_m = 0; First(_s).x; If(Mod(_m; 2) = 1; Index(_s; 0 + (_m + 1) / 2).x; (Index(_s; 0 + _m / 2).x + Index(_s; 0 + _m / 2 + 1).x) / 2))))
+```
+
+### 2.3 Fórmula completa
+
+Todas as medidas são calculadas num só registo. `With` encadeados guardam os resultados intermédios
+(amostra ordenada, n, soma, média, soma dos quadrados dos desvios, frequências):
+
+```powerfx
+With(
+    // Amostra ordenada por ordem crescente e dimensão
+    {_s: Sort(_valores; x)};
+    With({_n: CountRows(_s); _metodo: _metodo};
+    With({_soma: Sum(_s; x); _min: First(_s).x; _max: Last(_s).x};
+    With({_media: If(_n > 0; _soma / _n)};
+    With(
+        // Soma dos quadrados dos desvios em relação à média e frequência de cada valor (para a moda)
+        {_sq: Sum(_s; Power(x - _media; 2));
+         _freq: ForAll(Distinct(_s; x) As _d; {v: _d.Value; f: CountIf(_s; x = _d.Value)})};
+    With({_fmax: Max(_freq; f); _modas: Filter(_freq; f = Max(_freq; f))};
+    {
+        n: _n;
+        soma: If(_n > 0; _soma);
+        media: _media;
+        // Mediana: valor central (n ímpar) ou média dos dois centrais (n par)
+        mediana: If(_n > 0; If(Mod(_n; 2) = 1; Index(_s; 0 + (_n + 1) / 2).x; (Index(_s; 0 + _n / 2).x + Index(_s; 0 + _n / 2 + 1).x) / 2));
+        moda: If(_n = 0; "n.d.";
+            If(_n > 1 && CountRows(_modas) = CountRows(_freq);
+                "não existe (amodal)";
+                Concat(FirstN(_modas; 5); With({_v: v}; If(IsBlank(_v); ""; If(_v = Int(_v); Text(_v; "[$-en-US]0"; "pt-PT"); Text(_v; "[$-en-US]0.##########"; "pt-PT")))); "; ") &
+                If(CountRows(_modas) > 5; "; …"; "") &
+                If(CountRows(_modas) = 2; " (bimodal)"; CountRows(_modas) > 2; " (multimodal)"; "") &
+                " — freq. " & _fmax));
+        minimo: _min;
+        maximo: _max;
+        amplitude: If(_n > 0; _max - _min);
+        q1: If(_n > 0; Switch(_metodo; 1; With({_h: (_n - 1) * 0,25 + 1}; With({_b: RoundDown(_h; 0)}; Index(_s; _b).x + (_h - _b) * (Index(_s; Min(_b + 1; _n)).x - Index(_s; _b).x))); 2; With({_h: Min(Max((_n + 1) * 0,25; 1); _n)}; With({_b: RoundDown(_h; 0)}; Index(_s; _b).x + (_h - _b) * (Index(_s; Min(_b + 1; _n)).x - Index(_s; _b).x))); With({_m: RoundDown(_n / 2; 0)}; If(_m = 0; First(_s).x; If(Mod(_m; 2) = 1; Index(_s; 0 + (_m + 1) / 2).x; (Index(_s; 0 + _m / 2).x + Index(_s; 0 + _m / 2 + 1).x) / 2)))));
+        q3: If(_n > 0; Switch(_metodo; 1; With({_h: (_n - 1) * 0,75 + 1}; With({_b: RoundDown(_h; 0)}; Index(_s; _b).x + (_h - _b) * (Index(_s; Min(_b + 1; _n)).x - Index(_s; _b).x))); 2; With({_h: Min(Max((_n + 1) * 0,75; 1); _n)}; With({_b: RoundDown(_h; 0)}; Index(_s; _b).x + (_h - _b) * (Index(_s; Min(_b + 1; _n)).x - Index(_s; _b).x))); With({_m: RoundDown(_n / 2; 0)}; If(_m = 0; First(_s).x; If(Mod(_m; 2) = 1; Index(_s; (_n - _m) + (_m + 1) / 2).x; (Index(_s; (_n - _m) + _m / 2).x + Index(_s; (_n - _m) + _m / 2 + 1).x) / 2)))));
+        // Variância amostral (divisor n − 1) e populacional (divisor n)
+        varA: If(_n >= 2; _sq / (_n - 1));
+        varP: If(_n >= 1; _sq / _n);
+        dpA: If(_n >= 2; Sqrt(_sq / (_n - 1)));
+        dpP: If(_n >= 1; Sqrt(_sq / _n));
+        // Coeficiente de variação (com o desvio padrão amostral), em %
+        cv: If(_n >= 2 && _media <> 0; Sqrt(_sq / (_n - 1)) / Abs(_media) * 100)
+    }
+    )))))
+)
+```
+
+A tabela `htmDescritiva` (controlo *Texto HTML*) aplica esta fórmula a todos os dados («Total») e, se for
+escolhida uma variável de agrupamento, a cada grupo (`ForAll` sobre os valores distintos do grupo), e mostra
+uma coluna por grupo.

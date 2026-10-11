@@ -1,6 +1,6 @@
 {
- "total": 1347,
- "ok": 1347,
+ "total": 1843,
+ "ok": 1843,
  "sintaxe_falhas": [],
  "fases": {
   "Fase 1 — Entrada de dados": [
@@ -278,6 +278,288 @@
     "caso": "formatação 100",
     "ok": true,
     "detalhe": "Power Fx=«100,0000» esperado=«100,0000»"
+   }
+  ],
+  "Fase 2 — Estatística descritiva": [
+   {
+    "caso": "exemplo_altura (quartis 1) por grupo",
+    "ok": true,
+    "detalhe": "n=20, média=169.45, Q1=162.75, Q3=175.5, s²=72.15526315789472, moda=não existe (amodal)"
+   },
+   {
+    "caso": "exemplo_altura (quartis 2) por grupo",
+    "ok": true,
+    "detalhe": "n=20, média=169.45, Q1=162.25, Q3=176.5, s²=72.15526315789472, moda=não existe (amodal)"
+   },
+   {
+    "caso": "exemplo_altura (quartis 3) por grupo",
+    "ok": true,
+    "detalhe": "n=20, média=169.45, Q1=162.5, Q3=176, s²=72.15526315789472, moda=não existe (amodal)"
+   },
+   {
+    "caso": "exemplo_altura: tabela HTML",
+    "ok": true,
+    "detalhe": "6149 caracteres"
+   },
+   {
+    "caso": "exemplo_nota (quartis 1) por grupo",
+    "ok": true,
+    "detalhe": "n=20, média=13.45, Q1=11.75, Q3=15.25, s²=6.681578947368422, moda=12; 14 (bimodal) — freq. 3"
+   },
+   {
+    "caso": "exemplo_nota (quartis 2) por grupo",
+    "ok": true,
+    "detalhe": "n=20, média=13.45, Q1=11.25, Q3=15.75, s²=6.681578947368422, moda=12; 14 (bimodal) — freq. 3"
+   },
+   {
+    "caso": "exemplo_nota (quartis 3) por grupo",
+    "ok": true,
+    "detalhe": "n=20, média=13.45, Q1=11.5, Q3=15.5, s²=6.681578947368422, moda=12; 14 (bimodal) — freq. 3"
+   },
+   {
+    "caso": "exemplo_nota: tabela HTML",
+    "ok": true,
+    "detalhe": "7082 caracteres"
+   },
+   {
+    "caso": "n1 (quartis 1)",
+    "ok": true,
+    "detalhe": "n=1, média=7.5, Q1=7.5, Q3=7.5, s²=None, moda=7,5 — freq. 1"
+   },
+   {
+    "caso": "n1 (quartis 2)",
+    "ok": true,
+    "detalhe": "n=1, média=7.5, Q1=7.5, Q3=7.5, s²=None, moda=7,5 — freq. 1"
+   },
+   {
+    "caso": "n1 (quartis 3)",
+    "ok": true,
+    "detalhe": "n=1, média=7.5, Q1=7.5, Q3=7.5, s²=None, moda=7,5 — freq. 1"
+   },
+   {
+    "caso": "n1: tabela HTML",
+    "ok": true,
+    "detalhe": "4166 caracteres"
+   },
+   {
+    "caso": "n2 (quartis 1)",
+    "ok": true,
+    "detalhe": "n=2, média=5.5, Q1=4.25, Q3=6.75, s²=12.5, moda=não existe (amodal)"
+   },
+   {
+    "caso": "n2 (quartis 2)",
+    "ok": true,
+    "detalhe": "n=2, média=5.5, Q1=3, Q3=8, s²=12.5, moda=não existe (amodal)"
+   },
+   {
+    "caso": "n2 (quartis 3)",
+    "ok": true,
+    "detalhe": "n=2, média=5.5, Q1=3, Q3=8, s²=12.5, moda=não existe (amodal)"
+   },
+   {
+    "caso": "n2: tabela HTML",
+    "ok": true,
+    "detalhe": "4181 caracteres"
+   },
+   {
+    "caso": "n3 (quartis 1)",
+    "ok": true,
+    "detalhe": "n=3, média=3, Q1=2, Q3=4, s²=4, moda=não existe (amodal)"
+   },
+   {
+    "caso": "n3 (quartis 2)",
+    "ok": true,
+    "detalhe": "n=3, média=3, Q1=1, Q3=5, s²=4, moda=não existe (amodal)"
+   },
+   {
+    "caso": "n3 (quartis 3)",
+    "ok": true,
+    "detalhe": "n=3, média=3, Q1=1, Q3=5, s²=4, moda=não existe (amodal)"
+   },
+   {
+    "caso": "n3: tabela HTML",
+    "ok": true,
+    "detalhe": "4179 caracteres"
+   },
+   {
+    "caso": "repetidos (quartis 1)",
+    "ok": true,
+    "detalhe": "n=9, média=3.2222222222222223, Q1=2, Q3=4, s²=1.1944444444444446, moda=2; 4 (bimodal) — freq. 3"
+   },
+   {
+    "caso": "repetidos (quartis 2)",
+    "ok": true,
+    "detalhe": "n=9, média=3.2222222222222223, Q1=2, Q3=4, s²=1.1944444444444446, moda=2; 4 (bimodal) — freq. 3"
+   },
+   {
+    "caso": "repetidos (quartis 3)",
+    "ok": true,
+    "detalhe": "n=9, média=3.2222222222222223, Q1=2, Q3=4, s²=1.1944444444444446, moda=2; 4 (bimodal) — freq. 3"
+   },
+   {
+    "caso": "repetidos: tabela HTML",
+    "ok": true,
+    "detalhe": "4185 caracteres"
+   },
+   {
+    "caso": "todos_iguais_freq (quartis 1)",
+    "ok": true,
+    "detalhe": "n=6, média=2, Q1=1.25, Q3=2.75, s²=0.8, moda=não existe (amodal)"
+   },
+   {
+    "caso": "todos_iguais_freq (quartis 2)",
+    "ok": true,
+    "detalhe": "n=6, média=2, Q1=1, Q3=3, s²=0.8, moda=não existe (amodal)"
+   },
+   {
+    "caso": "todos_iguais_freq (quartis 3)",
+    "ok": true,
+    "detalhe": "n=6, média=2, Q1=1, Q3=3, s²=0.8, moda=não existe (amodal)"
+   },
+   {
+    "caso": "todos_iguais_freq: tabela HTML",
+    "ok": true,
+    "detalhe": "4180 caracteres"
+   },
+   {
+    "caso": "variancia_nula (quartis 1)",
+    "ok": true,
+    "detalhe": "n=4, média=4, Q1=4, Q3=4, s²=0, moda=não existe (amodal)"
+   },
+   {
+    "caso": "variancia_nula (quartis 2)",
+    "ok": true,
+    "detalhe": "n=4, média=4, Q1=4, Q3=4, s²=0, moda=não existe (amodal)"
+   },
+   {
+    "caso": "variancia_nula (quartis 3)",
+    "ok": true,
+    "detalhe": "n=4, média=4, Q1=4, Q3=4, s²=0, moda=não existe (amodal)"
+   },
+   {
+    "caso": "variancia_nula: tabela HTML",
+    "ok": true,
+    "detalhe": "4179 caracteres"
+   },
+   {
+    "caso": "media_zero (quartis 1)",
+    "ok": true,
+    "detalhe": "n=5, média=0, Q1=-1, Q3=1, s²=2.5, moda=não existe (amodal)"
+   },
+   {
+    "caso": "media_zero (quartis 2)",
+    "ok": true,
+    "detalhe": "n=5, média=0, Q1=-1.5, Q3=1.5, s²=2.5, moda=não existe (amodal)"
+   },
+   {
+    "caso": "media_zero (quartis 3)",
+    "ok": true,
+    "detalhe": "n=5, média=0, Q1=-1.5, Q3=1.5, s²=2.5, moda=não existe (amodal)"
+   },
+   {
+    "caso": "media_zero: tabela HTML",
+    "ok": true,
+    "detalhe": "4178 caracteres"
+   },
+   {
+    "caso": "com_faltas (quartis 1) por grupo",
+    "ok": true,
+    "detalhe": "n=5, média=3.95, Q1=2, Q3=5.25, s²=7.2, moda=não existe (amodal)"
+   },
+   {
+    "caso": "com_faltas (quartis 2) por grupo",
+    "ok": true,
+    "detalhe": "n=5, média=3.95, Q1=1.75, Q3=6.625, s²=7.2, moda=não existe (amodal)"
+   },
+   {
+    "caso": "com_faltas (quartis 3) por grupo",
+    "ok": true,
+    "detalhe": "n=5, média=3.95, Q1=1.75, Q3=6.625, s²=7.2, moda=não existe (amodal)"
+   },
+   {
+    "caso": "com_faltas: tabela HTML",
+    "ok": true,
+    "detalhe": "6080 caracteres"
+   },
+   {
+    "caso": "negativos_decimais (quartis 1)",
+    "ok": true,
+    "detalhe": "n=6, média=1.1876666666666666, Q1=-1.125, Q3=1.6877499999999999, s²=23.085462666666665, moda=não existe (amodal)"
+   },
+   {
+    "caso": "negativos_decimais (quartis 2)",
+    "ok": true,
+    "detalhe": "n=6, média=1.1876666666666666, Q1=-2.0625, Q3=4.21875, s²=23.085462666666665, moda=não existe (amodal)"
+   },
+   {
+    "caso": "negativos_decimais (quartis 3)",
+    "ok": true,
+    "detalhe": "n=6, média=1.1876666666666666, Q1=-1.5, Q3=2.25, s²=23.085462666666665, moda=não existe (amodal)"
+   },
+   {
+    "caso": "negativos_decimais: tabela HTML",
+    "ok": true,
+    "detalhe": "4186 caracteres"
+   },
+   {
+    "caso": "grandes (quartis 1)",
+    "ok": true,
+    "detalhe": "n=4, média=1437500.375, Q1=1187500.6875, Q3=1625000.0625, s²=182291520833.4375, moda=não existe (amodal)"
+   },
+   {
+    "caso": "grandes (quartis 2)",
+    "ok": true,
+    "detalhe": "n=4, média=1437500.375, Q1=1062500.5625, Q3=1875000.1875, s²=182291520833.4375, moda=não existe (amodal)"
+   },
+   {
+    "caso": "grandes (quartis 3)",
+    "ok": true,
+    "detalhe": "n=4, média=1437500.375, Q1=1125000.625, Q3=1750000.125, s²=182291520833.4375, moda=não existe (amodal)"
+   },
+   {
+    "caso": "grandes: tabela HTML",
+    "ok": true,
+    "detalhe": "4287 caracteres"
+   },
+   {
+    "caso": "vazio (quartis 1)",
+    "ok": true,
+    "detalhe": "n=0, média=None, Q1=None, Q3=None, s²=None, moda=n.d."
+   },
+   {
+    "caso": "vazio (quartis 2)",
+    "ok": true,
+    "detalhe": "n=0, média=None, Q1=None, Q3=None, s²=None, moda=n.d."
+   },
+   {
+    "caso": "vazio (quartis 3)",
+    "ok": true,
+    "detalhe": "n=0, média=None, Q1=None, Q3=None, s²=None, moda=n.d."
+   },
+   {
+    "caso": "vazio: tabela HTML",
+    "ok": true,
+    "detalhe": "4215 caracteres"
+   },
+   {
+    "caso": "grupos_desiguais (quartis 1) por grupo",
+    "ok": true,
+    "detalhe": "n=6, média=13.333333333333334, Q1=10.25, Q3=18, s²=41.46666666666666, moda=não existe (amodal)"
+   },
+   {
+    "caso": "grupos_desiguais (quartis 2) por grupo",
+    "ok": true,
+    "detalhe": "n=6, média=13.333333333333334, Q1=8.75, Q3=20.5, s²=41.46666666666666, moda=não existe (amodal)"
+   },
+   {
+    "caso": "grupos_desiguais (quartis 3) por grupo",
+    "ok": true,
+    "detalhe": "n=6, média=13.333333333333334, Q1=10, Q3=20, s²=41.46666666666666, moda=não existe (amodal)"
+   },
+   {
+    "caso": "grupos_desiguais: tabela HTML",
+    "ok": true,
+    "detalhe": "7053 caracteres"
    }
   ]
  }

@@ -1,0 +1,393 @@
+- retCabDes:
+    Control: Rectangle
+    Properties:
+      Fill: =RGBA(31, 78, 121, 1)
+      X: =0
+      Y: =0
+      Width: =1366
+      Height: =64
+- lblCabDes:
+    Control: Label
+    Properties:
+      Text: ="Estatística · " & "Estatística descritiva"
+      X: =16
+      Y: =0
+      Width: =420
+      Height: =64
+      Font: =Font.'Segoe UI'
+      Size: =18
+      Color: =RGBA(255, 255, 255, 1)
+      FontWeight: =FontWeight.Semibold
+- btnNavDesDad:
+    Control: Classic/Button
+    Properties:
+      Text: ="Dados"
+      OnSelect: =Navigate(scrDados, ScreenTransition.None)
+      X: =446
+      Y: =14
+      Width: =112
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavDesDes:
+    Control: Classic/Button
+    Properties:
+      Text: ="Descritiva"
+      OnSelect: =Navigate(scrDescritiva, ScreenTransition.None)
+      X: =564
+      Y: =14
+      Width: =112
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(255, 255, 255, 1)
+      Color: =RGBA(31, 78, 121, 1)
+      HoverFill: =RGBA(255, 255, 255, 1)
+      HoverColor: =RGBA(31, 78, 121, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+      FontWeight: =FontWeight.Semibold
+- btnNavDesFre:
+    Control: Classic/Button
+    Properties:
+      Text: ="Frequências"
+      OnSelect: =Navigate(scrFrequencias, ScreenTransition.None)
+      X: =682
+      Y: =14
+      Width: =120
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavDesReg:
+    Control: Classic/Button
+    Properties:
+      Text: ="Regressão"
+      OnSelect: =Navigate(scrRegressao, ScreenTransition.None)
+      X: =808
+      Y: =14
+      Width: =112
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavDesTt:
+    Control: Classic/Button
+    Properties:
+      Text: ="Testes t"
+      OnSelect: =Navigate(scrTestesT, ScreenTransition.None)
+      X: =926
+      Y: =14
+      Width: =112
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavDesAno:
+    Control: Classic/Button
+    Properties:
+      Text: ="ANOVA"
+      OnSelect: =Navigate(scrAnova, ScreenTransition.None)
+      X: =1044
+      Y: =14
+      Width: =112
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavDesQui:
+    Control: Classic/Button
+    Properties:
+      Text: ="Qui-quadrado"
+      OnSelect: =Navigate(scrQuiQuadrado, ScreenTransition.None)
+      X: =1162
+      Y: =14
+      Width: =124
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- retDesPainel:
+    Control: Rectangle
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      X: =12
+      Y: =72
+      Width: =338
+      Height: =684
+      BorderColor: =RGBA(206, 212, 218, 1)
+      BorderThickness: =1
+- lblDesVar:
+    Control: Label
+    Properties:
+      Text: ="Variável numérica"
+      X: =24
+      Y: =80
+      Width: =314
+      Height: =26
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(33, 37, 41, 1)
+      FontWeight: =FontWeight.Semibold
+- drpDesVar:
+    Control: Classic/DropDown
+    Properties:
+      Items: =[varNomes.N1, varNomes.N2, varNomes.N3]
+      X: =24
+      Y: =108
+      Width: =314
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =12
+- lblDesGrupo:
+    Control: Label
+    Properties:
+      Text: ="Agrupar por (opcional)"
+      X: =24
+      Y: =154
+      Width: =314
+      Height: =26
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(33, 37, 41, 1)
+      FontWeight: =FontWeight.Semibold
+- drpDesGrupo:
+    Control: Classic/DropDown
+    Properties:
+      Items: =["(sem grupos)", varNomes.C1, varNomes.C2]
+      X: =24
+      Y: =182
+      Width: =314
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =12
+      Default: ="(sem grupos)"
+- lblDesQuartis:
+    Control: Label
+    Properties:
+      Text: ="Método de cálculo dos quartis"
+      X: =24
+      Y: =228
+      Width: =314
+      Height: =26
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(33, 37, 41, 1)
+      FontWeight: =FontWeight.Semibold
+- drpDesQuartis:
+    Control: Classic/DropDown
+    Properties:
+      Items: =["Excel QUARTIL.INC — (n−1)p+1", "Excel QUARTIL.EXC / SPSS — (n+1)p", "Mediana de cada metade"]
+      X: =24
+      Y: =256
+      Width: =314
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =12
+      Default: ="Excel QUARTIL.INC — (n−1)p+1"
+- lblDesAjuda:
+    Control: Label
+    Properties:
+      Text: |-
+        ="Notas" & Char(10) & Char(10) & "• Amostral (divisor n − 1): estima a variância da população a partir de uma amostra. É a que se usa na inferência." & Char(10) & Char(10) & "• Populacional (divisor n): quando os dados são a população inteira." & Char(10) & Char(10) & "• Quartis: há várias definições. QUARTIL.INC usa a posição (n − 1)p + 1; QUARTIL.EXC e o SPSS usam (n + 1)p; muitos manuais usam a mediana de cada metade (sem o valor central quando n é ímpar). A mediana é igual nos três métodos." & Char(10) & Char(10) & "• CV = s / |x̄| × 100 (com o desvio padrão amostral)."
+      X: =24
+      Y: =304
+      Width: =314
+      Height: =440
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =RGBA(90, 98, 106, 1)
+      VerticalAlign: =VerticalAlign.Top
+- htmDescritiva:
+    Control: HtmlViewer
+    Properties:
+      HtmlText: |-
+        =With({_cols: With(
+                {_k: Switch(drpDesVar.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, 1), _kg: Switch(drpDesGrupo.Selected.Value, varNomes.C1, 1, varNomes.C2, 2, 0)},
+                With({_dados: Filter(ForAll(colDados As _d, {x: Switch(_k, 1, _d.N1, 2, _d.N2, _d.N3), g: Switch(If(_kg = 0, 1, _kg), 1, _d.C1, _d.C2)}), !IsBlank(x))},
+                    Table(
+                        // Coluna com todos os dados
+                        Patch(With(
+                            // Amostra ordenada por ordem crescente e dimensão
+                            {_s: Sort(ForAll(_dados, {x: x}), x)},
+                            With({_n: CountRows(_s), _metodo: Switch(drpDesQuartis.Selected.Value, "Excel QUARTIL.INC — (n−1)p+1", 1, "Excel QUARTIL.EXC / SPSS — (n+1)p", 2, "Mediana de cada metade", 3, 1)},
+                            With({_soma: Sum(_s, x), _min: First(_s).x, _max: Last(_s).x},
+                            With({_media: If(_n > 0, _soma / _n)},
+                            With(
+                                // Soma dos quadrados dos desvios em relação à média e frequência de cada valor (para a moda)
+                                {_sq: Sum(_s, Power(x - _media, 2)),
+                                 _freq: ForAll(Distinct(_s, x) As _d, {v: _d.Value, f: CountIf(_s, x = _d.Value)})},
+                            With({_fmax: Max(_freq, f), _modas: Filter(_freq, f = Max(_freq, f))},
+                            {
+                                n: _n,
+                                soma: If(_n > 0, _soma),
+                                media: _media,
+                                // Mediana: valor central (n ímpar) ou média dos dois centrais (n par)
+                                mediana: If(_n > 0, If(Mod(_n, 2) = 1, Index(_s, 0 + (_n + 1) / 2).x, (Index(_s, 0 + _n / 2).x + Index(_s, 0 + _n / 2 + 1).x) / 2)),
+                                moda: If(_n = 0, "n.d.",
+                                    If(_n > 1 && CountRows(_modas) = CountRows(_freq),
+                                        "não existe (amodal)",
+                                        Concat(FirstN(_modas, 5), With({_v: v}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT")))), "; ") &
+                                        If(CountRows(_modas) > 5, "; …", "") &
+                                        If(CountRows(_modas) = 2, " (bimodal)", CountRows(_modas) > 2, " (multimodal)", "") &
+                                        " — freq. " & _fmax)),
+                                minimo: _min,
+                                maximo: _max,
+                                amplitude: If(_n > 0, _max - _min),
+                                q1: If(_n > 0, Switch(_metodo, 1, With({_h: (_n - 1) * 0.25 + 1}, With({_b: RoundDown(_h, 0)}, Index(_s, _b).x + (_h - _b) * (Index(_s, Min(_b + 1, _n)).x - Index(_s, _b).x))), 2, With({_h: Min(Max((_n + 1) * 0.25, 1), _n)}, With({_b: RoundDown(_h, 0)}, Index(_s, _b).x + (_h - _b) * (Index(_s, Min(_b + 1, _n)).x - Index(_s, _b).x))), With({_m: RoundDown(_n / 2, 0)}, If(_m = 0, First(_s).x, If(Mod(_m, 2) = 1, Index(_s, 0 + (_m + 1) / 2).x, (Index(_s, 0 + _m / 2).x + Index(_s, 0 + _m / 2 + 1).x) / 2))))),
+                                q3: If(_n > 0, Switch(_metodo, 1, With({_h: (_n - 1) * 0.75 + 1}, With({_b: RoundDown(_h, 0)}, Index(_s, _b).x + (_h - _b) * (Index(_s, Min(_b + 1, _n)).x - Index(_s, _b).x))), 2, With({_h: Min(Max((_n + 1) * 0.75, 1), _n)}, With({_b: RoundDown(_h, 0)}, Index(_s, _b).x + (_h - _b) * (Index(_s, Min(_b + 1, _n)).x - Index(_s, _b).x))), With({_m: RoundDown(_n / 2, 0)}, If(_m = 0, First(_s).x, If(Mod(_m, 2) = 1, Index(_s, (_n - _m) + (_m + 1) / 2).x, (Index(_s, (_n - _m) + _m / 2).x + Index(_s, (_n - _m) + _m / 2 + 1).x) / 2))))),
+                                // Variância amostral (divisor n − 1) e populacional (divisor n)
+                                varA: If(_n >= 2, _sq / (_n - 1)),
+                                varP: If(_n >= 1, _sq / _n),
+                                dpA: If(_n >= 2, Sqrt(_sq / (_n - 1))),
+                                dpP: If(_n >= 1, Sqrt(_sq / _n)),
+                                // Coeficiente de variação (com o desvio padrão amostral), em %
+                                cv: If(_n >= 2 && _media <> 0, Sqrt(_sq / (_n - 1)) / Abs(_media) * 100)
+                            }
+                            )))))
+                        ),
+                            {Grupo: "Total"}),
+                        // Uma coluna por grupo (valores distintos não vazios da variável categórica)
+                        // (sem agrupamento a lista de grupos fica vazia)
+                        ForAll(If(_kg = 0, Filter(Distinct(_dados, g), false),
+                                  Sort(Filter(Distinct(_dados, g), !IsBlank(Value)), Value)) As _G,
+                            Patch(With(
+                                // Amostra ordenada por ordem crescente e dimensão
+                                {_s: Sort(ForAll(Filter(_dados, g = _G.Value), {x: x}), x)},
+                                With({_n: CountRows(_s), _metodo: Switch(drpDesQuartis.Selected.Value, "Excel QUARTIL.INC — (n−1)p+1", 1, "Excel QUARTIL.EXC / SPSS — (n+1)p", 2, "Mediana de cada metade", 3, 1)},
+                                With({_soma: Sum(_s, x), _min: First(_s).x, _max: Last(_s).x},
+                                With({_media: If(_n > 0, _soma / _n)},
+                                With(
+                                    // Soma dos quadrados dos desvios em relação à média e frequência de cada valor (para a moda)
+                                    {_sq: Sum(_s, Power(x - _media, 2)),
+                                     _freq: ForAll(Distinct(_s, x) As _d, {v: _d.Value, f: CountIf(_s, x = _d.Value)})},
+                                With({_fmax: Max(_freq, f), _modas: Filter(_freq, f = Max(_freq, f))},
+                                {
+                                    n: _n,
+                                    soma: If(_n > 0, _soma),
+                                    media: _media,
+                                    // Mediana: valor central (n ímpar) ou média dos dois centrais (n par)
+                                    mediana: If(_n > 0, If(Mod(_n, 2) = 1, Index(_s, 0 + (_n + 1) / 2).x, (Index(_s, 0 + _n / 2).x + Index(_s, 0 + _n / 2 + 1).x) / 2)),
+                                    moda: If(_n = 0, "n.d.",
+                                        If(_n > 1 && CountRows(_modas) = CountRows(_freq),
+                                            "não existe (amodal)",
+                                            Concat(FirstN(_modas, 5), With({_v: v}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT")))), "; ") &
+                                            If(CountRows(_modas) > 5, "; …", "") &
+                                            If(CountRows(_modas) = 2, " (bimodal)", CountRows(_modas) > 2, " (multimodal)", "") &
+                                            " — freq. " & _fmax)),
+                                    minimo: _min,
+                                    maximo: _max,
+                                    amplitude: If(_n > 0, _max - _min),
+                                    q1: If(_n > 0, Switch(_metodo, 1, With({_h: (_n - 1) * 0.25 + 1}, With({_b: RoundDown(_h, 0)}, Index(_s, _b).x + (_h - _b) * (Index(_s, Min(_b + 1, _n)).x - Index(_s, _b).x))), 2, With({_h: Min(Max((_n + 1) * 0.25, 1), _n)}, With({_b: RoundDown(_h, 0)}, Index(_s, _b).x + (_h - _b) * (Index(_s, Min(_b + 1, _n)).x - Index(_s, _b).x))), With({_m: RoundDown(_n / 2, 0)}, If(_m = 0, First(_s).x, If(Mod(_m, 2) = 1, Index(_s, 0 + (_m + 1) / 2).x, (Index(_s, 0 + _m / 2).x + Index(_s, 0 + _m / 2 + 1).x) / 2))))),
+                                    q3: If(_n > 0, Switch(_metodo, 1, With({_h: (_n - 1) * 0.75 + 1}, With({_b: RoundDown(_h, 0)}, Index(_s, _b).x + (_h - _b) * (Index(_s, Min(_b + 1, _n)).x - Index(_s, _b).x))), 2, With({_h: Min(Max((_n + 1) * 0.75, 1), _n)}, With({_b: RoundDown(_h, 0)}, Index(_s, _b).x + (_h - _b) * (Index(_s, Min(_b + 1, _n)).x - Index(_s, _b).x))), With({_m: RoundDown(_n / 2, 0)}, If(_m = 0, First(_s).x, If(Mod(_m, 2) = 1, Index(_s, (_n - _m) + (_m + 1) / 2).x, (Index(_s, (_n - _m) + _m / 2).x + Index(_s, (_n - _m) + _m / 2 + 1).x) / 2))))),
+                                    // Variância amostral (divisor n − 1) e populacional (divisor n)
+                                    varA: If(_n >= 2, _sq / (_n - 1)),
+                                    varP: If(_n >= 1, _sq / _n),
+                                    dpA: If(_n >= 2, Sqrt(_sq / (_n - 1))),
+                                    dpP: If(_n >= 1, Sqrt(_sq / _n)),
+                                    // Coeficiente de variação (com o desvio padrão amostral), em %
+                                    cv: If(_n >= 2 && _media <> 0, Sqrt(_sq / (_n - 1)) / Abs(_media) * 100)
+                                }
+                                )))))
+                            ),
+                                {Grupo: _G.Value}))
+                    )
+                )
+            )},
+            "<div style='font-family:Segoe UI,Arial;font-size:13px;color:#212529'>" &
+            "<table style='border-collapse:collapse;width:100%'>" &
+            "<tr style='background:#1f4e79;color:#ffffff'><th style='text-align:left;padding:6px 8px'>Medida</th>" &
+            "<th style='text-align:left;padding:6px 8px'>Símbolo / fórmula</th>" &
+            Concat(_cols, "<th style='text-align:right;padding:6px 8px'>" & EncodeHTML(Grupo) & "</th>") & "</tr>" &
+                "<tr><td style='padding:4px 8px;white-space:nowrap'>Dimensão da amostra</td><td style='padding:4px 8px;color:#5a626a;white-space:nowrap'>n</td>" & Concat(_cols As _c, "<td style='padding:4px 8px;text-align:right'>" & With({_v: _c.n}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 0.5, 0, _v), "[$-en-US]#,##0", "pt-PT"))) & "</td>") & "</tr>" &
+                "<tr style='background:#f3f6fa'><td style='padding:4px 8px;white-space:nowrap'>Soma</td><td style='padding:4px 8px;color:#5a626a;white-space:nowrap'>Σ xᵢ</td>" & Concat(_cols As _c, "<td style='padding:4px 8px;text-align:right'>" & With({_v: _c.soma}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>") & "</tr>" &
+                "<tr><td style='padding:4px 8px;white-space:nowrap'>Média</td><td style='padding:4px 8px;color:#5a626a;white-space:nowrap'>x̄ = Σ xᵢ / n</td>" & Concat(_cols As _c, "<td style='padding:4px 8px;text-align:right'>" & With({_v: _c.media}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>") & "</tr>" &
+                "<tr style='background:#f3f6fa'><td style='padding:4px 8px;white-space:nowrap'>Mediana</td><td style='padding:4px 8px;color:#5a626a;white-space:nowrap'>Me = Q₂</td>" & Concat(_cols As _c, "<td style='padding:4px 8px;text-align:right'>" & With({_v: _c.mediana}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>") & "</tr>" &
+                "<tr><td style='padding:4px 8px;white-space:nowrap'>Moda</td><td style='padding:4px 8px;color:#5a626a;white-space:nowrap'>Mo</td>" & Concat(_cols As _c, "<td style='padding:4px 8px;text-align:right'>" & _c.moda & "</td>") & "</tr>" &
+                "<tr style='background:#f3f6fa'><td style='padding:4px 8px;white-space:nowrap'>Mínimo</td><td style='padding:4px 8px;color:#5a626a;white-space:nowrap'>x₍₁₎</td>" & Concat(_cols As _c, "<td style='padding:4px 8px;text-align:right'>" & With({_v: _c.minimo}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>") & "</tr>" &
+                "<tr><td style='padding:4px 8px;white-space:nowrap'>Máximo</td><td style='padding:4px 8px;color:#5a626a;white-space:nowrap'>x₍ₙ₎</td>" & Concat(_cols As _c, "<td style='padding:4px 8px;text-align:right'>" & With({_v: _c.maximo}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>") & "</tr>" &
+                "<tr style='background:#f3f6fa'><td style='padding:4px 8px;white-space:nowrap'>Amplitude total</td><td style='padding:4px 8px;color:#5a626a;white-space:nowrap'>máx − mín</td>" & Concat(_cols As _c, "<td style='padding:4px 8px;text-align:right'>" & With({_v: _c.amplitude}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>") & "</tr>" &
+                "<tr><td style='padding:4px 8px;white-space:nowrap'>1.º quartil</td><td style='padding:4px 8px;color:#5a626a;white-space:nowrap'>Q₁</td>" & Concat(_cols As _c, "<td style='padding:4px 8px;text-align:right'>" & With({_v: _c.q1}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>") & "</tr>" &
+                "<tr style='background:#f3f6fa'><td style='padding:4px 8px;white-space:nowrap'>3.º quartil</td><td style='padding:4px 8px;color:#5a626a;white-space:nowrap'>Q₃</td>" & Concat(_cols As _c, "<td style='padding:4px 8px;text-align:right'>" & With({_v: _c.q3}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>") & "</tr>" &
+                "<tr><td style='padding:4px 8px;white-space:nowrap'>Amplitude interquartil</td><td style='padding:4px 8px;color:#5a626a;white-space:nowrap'>AIQ = Q₃ − Q₁</td>" & Concat(_cols As _c, "<td style='padding:4px 8px;text-align:right'>" & With({_v: If(!IsBlank(_c.q1), _c.q3 - _c.q1)}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>") & "</tr>" &
+                "<tr style='background:#f3f6fa'><td style='padding:4px 8px;white-space:nowrap'>Variância amostral</td><td style='padding:4px 8px;color:#5a626a;white-space:nowrap'>s² = Σ(xᵢ − x̄)² / (n − 1)</td>" & Concat(_cols As _c, "<td style='padding:4px 8px;text-align:right'>" & With({_v: _c.varA}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>") & "</tr>" &
+                "<tr><td style='padding:4px 8px;white-space:nowrap'>Desvio padrão amostral</td><td style='padding:4px 8px;color:#5a626a;white-space:nowrap'>s = √s²</td>" & Concat(_cols As _c, "<td style='padding:4px 8px;text-align:right'>" & With({_v: _c.dpA}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>") & "</tr>" &
+                "<tr style='background:#f3f6fa'><td style='padding:4px 8px;white-space:nowrap'>Variância populacional</td><td style='padding:4px 8px;color:#5a626a;white-space:nowrap'>σ² = Σ(xᵢ − x̄)² / n</td>" & Concat(_cols As _c, "<td style='padding:4px 8px;text-align:right'>" & With({_v: _c.varP}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>") & "</tr>" &
+                "<tr><td style='padding:4px 8px;white-space:nowrap'>Desvio padrão populacional</td><td style='padding:4px 8px;color:#5a626a;white-space:nowrap'>σ = √σ²</td>" & Concat(_cols As _c, "<td style='padding:4px 8px;text-align:right'>" & With({_v: _c.dpP}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 5e-05, 0, _v), "[$-en-US]#,##0.0000", "pt-PT"))) & "</td>") & "</tr>" &
+                "<tr style='background:#f3f6fa'><td style='padding:4px 8px;white-space:nowrap'>Coeficiente de variação</td><td style='padding:4px 8px;color:#5a626a;white-space:nowrap'>CV = s / |x̄| × 100</td>" & Concat(_cols As _c, "<td style='padding:4px 8px;text-align:right'>" & With({_v: _c.cv}, If(IsBlank(_v), "n.d.", Text(If(Abs(_v) < 0.005, 0, _v), "[$-en-US]#,##0.00", "pt-PT"))) & If(IsBlank(_c.cv), "", " %") & "</td>") & "</tr>" &
+            "</table>" &
+            If(First(_cols).n = 0, "<p style='color:#b00020'>Não há valores numéricos para a variável escolhida.</p>", "") &
+            "<p style='color:#5a626a;font-size:12px'>n.d. = não definido (por exemplo, a variância amostral precisa de n ≥ 2 " &
+            "e o CV não se calcula quando a média é 0). Moda: «amodal» quando todos os valores têm a mesma frequência " &
+            "(por exemplo, todos diferentes). Valores em branco na tabela de dados são ignorados.</p></div>"
+        )
+      X: =366
+      Y: =72
+      Width: =984
+      Height: =684
+      Font: =Font.'Segoe UI'
+      Size: =12
+      Color: =RGBA(33, 37, 41, 1)
+      Fill: =RGBA(255, 255, 255, 1)
+      PaddingTop: =8
+      PaddingLeft: =8
+      PaddingRight: =8

@@ -14,6 +14,8 @@
 //   * o interpretador não aceita o marcador de idioma "[$-en-US]" nos formatos de Text;
 //     é removido antes da avaliação (no interpretador o formato já é lido em invariante).
 //   * os números são tratados como Float (vírgula flutuante binária), como nas canvas apps.
+//   * o limite de profundidade de chamadas do interpretador (MaxCallDepth) é aumentado para 1000;
+//     as fórmulas que montam HTML/SVG encadeiam muitas operações (o Studio não documenta um limite deste tipo).
 using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Nodes;
@@ -32,7 +34,7 @@ foreach (var tarefa in entrada)
     var res = new JsonObject { ["id"] = id };
     try
     {
-        var config = new PowerFxConfig(Features.PowerFxV1);
+        var config = new PowerFxConfig(Features.PowerFxV1) { MaxCallDepth = 1000 };
         config.EnableSetFunction();
         config.SymbolTable.EnableMutationFunctions();
         var motor = new RecalcEngine(config);

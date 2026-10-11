@@ -130,3 +130,61 @@ O botão *Importar (substituir dados)* usa esse registo assim:
 O texto de diagnóstico (`lblDiagnostico`) usa o mesmo registo para mostrar, **antes de importar**, quantas
 linhas e colunas foram detetadas, se a 1.ª linha é cabeçalho e quais os valores inválidos (com o n.º da linha
 no texto colado, para os encontrar no Excel).
+
+## 2. Estatística descritiva (ecrã `scrDescritiva`)
+
+### 2.1 Escolha da variável e dos grupos
+
+As listas pendentes mostram os nomes dados pelos alunos (`[varNomes.N1; varNomes.N2; varNomes.N3]`). O nome
+escolhido é convertido no índice da variável (1, 2 ou 3) com `Switch`:
+
+{{pt: F_comum.indice_num("drpDesVar")}}
+
+Os valores da variável (e, se se pedir agrupamento, o grupo de cada observação) obtêm-se de `colDados`,
+ignorando as células vazias:
+
+{{pt: F_descritiva.vetor_com_grupo("_k", "_kg")}}
+
+### 2.2 Medidas
+
+Seja x₍₁₎ ≤ x₍₂₎ ≤ … ≤ x₍ₙ₎ a amostra ordenada.
+
+| Medida | Definição |
+|---|---|
+| Média | x̄ = (x₁ + … + xₙ) / n |
+| Mediana | x₍₍ₙ₊₁₎/₂₎ se n é ímpar; média de x₍ₙ/₂₎ e x₍ₙ/₂₊₁₎ se n é par |
+| Moda | valor(es) com maior frequência; «amodal» se todos têm a mesma frequência |
+| Amplitude total | x₍ₙ₎ − x₍₁₎ |
+| Amplitude interquartil | AIQ = Q₃ − Q₁ |
+| Variância amostral | s² = Σ(xᵢ − x̄)² / (n − 1) — estimador da variância da população; precisa de n ≥ 2 |
+| Variância populacional | σ² = Σ(xᵢ − x̄)² / n — quando os dados são a população toda |
+| Desvio padrão | raiz quadrada da variância respetiva |
+| Coeficiente de variação | CV = s / \|x̄\| × 100 % (com o desvio padrão amostral; não definido se x̄ = 0) |
+
+**Quartis — três métodos** (a app deixa escolher; a mediana é igual nos três):
+
+1. **Excel QUARTIL.INC** (também o método por omissão do R e do numpy): posição h = (n − 1)·p + 1.
+2. **Excel QUARTIL.EXC / SPSS / Minitab**: posição h = (n + 1)·p, limitada ao intervalo [1, n].
+3. **Mediana de cada metade**: Q₁ é a mediana das ⌊n/2⌋ menores observações e Q₃ a das ⌊n/2⌋ maiores
+   (quando n é ímpar, o valor central não entra em nenhuma das metades).
+
+Nos métodos 1 e 2, se h não for inteiro interpola-se linearmente: Q = x₍⌊h⌋₎ + (h − ⌊h⌋)·(x₍⌊h⌋₊₁₎ − x₍⌊h⌋₎).
+
+*Exemplo* (n = 9: 2, 2, 2, 3, 3, 4, 4, 4, 5): método 1 → h = 3, Q₁ = 2; método 2 → h = 2,5, Q₁ = 2;
+método 3 → metade inferior 2, 2, 2, 3 → Q₁ = 2. Para Q₃: método 1 → h = 7, Q₃ = 4; método 2 → h = 7,5,
+Q₃ = 4; método 3 → metade superior 4, 4, 4, 5 → Q₃ = 4.
+
+Em Power Fx, o 1.º quartil pelo método escolhido (`_s` é a amostra ordenada, `_n` a sua dimensão):
+
+{{pt: F_descritiva.quartil(1)}}
+
+### 2.3 Fórmula completa
+
+Todas as medidas são calculadas num só registo. `With` encadeados guardam os resultados intermédios
+(amostra ordenada, n, soma, média, soma dos quadrados dos desvios, frequências):
+
+{{pt: F_descritiva.resultados("_valores", "_metodo")}}
+
+A tabela `htmDescritiva` (controlo *Texto HTML*) aplica esta fórmula a todos os dados («Total») e, se for
+escolhida uma variável de agrupamento, a cada grupo (`ForAll` sobre os valores distintos do grupo), e mostra
+uma coluna por grupo.

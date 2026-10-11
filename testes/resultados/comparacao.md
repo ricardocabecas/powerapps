@@ -2,11 +2,11 @@
 
 Gerado em 11/10/2026 por `testes/executar_testes.py`. As fórmulas foram executadas com o interpretador open source **Microsoft.PowerFx.Interpreter 1.8.1** (.NET 8), com números em vírgula flutuante (como nas canvas apps).
 
-**Total: 1347/1347 verificações sem diferenças.**
+**Total: 1843/1843 verificações sem diferenças.**
 
 ## Sintaxe de todas as fórmulas dos ecrãs
 
-646 fórmulas analisadas em formato invariante (ficheiros .pa.yaml) e convertidas para pt-PT (barra de fórmulas): **1292/1292 sem erros de sintaxe**.
+866 fórmulas analisadas em formato invariante (ficheiros .pa.yaml) e convertidas para pt-PT (barra de fórmulas): **1732/1732 sem erros de sintaxe**.
 
 
 ## Fase 1 — Entrada de dados
@@ -70,4 +70,67 @@ Gerado em 11/10/2026 por `testes/executar_testes.py`. As fórmulas foram executa
 | formatação 1e-10 | ✅ | Power Fx=«0,0000» esperado=«0,0000» |
 | formatação -2.5 | ✅ | Power Fx=«-2,5000» esperado=«-2,5000» |
 | formatação 100 | ✅ | Power Fx=«100,0000» esperado=«100,0000» |
+
+## Fase 2 — Estatística descritiva
+
+**56/56 casos de acordo com a referência.**
+
+| Caso | Resultado | Detalhe |
+|---|---|---|
+| exemplo_altura (quartis 1) por grupo | ✅ | n=20, média=169.45, Q1=162.75, Q3=175.5, s²=72.15526315789472, moda=não existe (amodal) |
+| exemplo_altura (quartis 2) por grupo | ✅ | n=20, média=169.45, Q1=162.25, Q3=176.5, s²=72.15526315789472, moda=não existe (amodal) |
+| exemplo_altura (quartis 3) por grupo | ✅ | n=20, média=169.45, Q1=162.5, Q3=176, s²=72.15526315789472, moda=não existe (amodal) |
+| exemplo_altura: tabela HTML | ✅ | 6149 caracteres |
+| exemplo_nota (quartis 1) por grupo | ✅ | n=20, média=13.45, Q1=11.75, Q3=15.25, s²=6.681578947368422, moda=12; 14 (bimodal) — freq. 3 |
+| exemplo_nota (quartis 2) por grupo | ✅ | n=20, média=13.45, Q1=11.25, Q3=15.75, s²=6.681578947368422, moda=12; 14 (bimodal) — freq. 3 |
+| exemplo_nota (quartis 3) por grupo | ✅ | n=20, média=13.45, Q1=11.5, Q3=15.5, s²=6.681578947368422, moda=12; 14 (bimodal) — freq. 3 |
+| exemplo_nota: tabela HTML | ✅ | 7082 caracteres |
+| n1 (quartis 1) | ✅ | n=1, média=7.5, Q1=7.5, Q3=7.5, s²=None, moda=7,5 — freq. 1 |
+| n1 (quartis 2) | ✅ | n=1, média=7.5, Q1=7.5, Q3=7.5, s²=None, moda=7,5 — freq. 1 |
+| n1 (quartis 3) | ✅ | n=1, média=7.5, Q1=7.5, Q3=7.5, s²=None, moda=7,5 — freq. 1 |
+| n1: tabela HTML | ✅ | 4166 caracteres |
+| n2 (quartis 1) | ✅ | n=2, média=5.5, Q1=4.25, Q3=6.75, s²=12.5, moda=não existe (amodal) |
+| n2 (quartis 2) | ✅ | n=2, média=5.5, Q1=3, Q3=8, s²=12.5, moda=não existe (amodal) |
+| n2 (quartis 3) | ✅ | n=2, média=5.5, Q1=3, Q3=8, s²=12.5, moda=não existe (amodal) |
+| n2: tabela HTML | ✅ | 4181 caracteres |
+| n3 (quartis 1) | ✅ | n=3, média=3, Q1=2, Q3=4, s²=4, moda=não existe (amodal) |
+| n3 (quartis 2) | ✅ | n=3, média=3, Q1=1, Q3=5, s²=4, moda=não existe (amodal) |
+| n3 (quartis 3) | ✅ | n=3, média=3, Q1=1, Q3=5, s²=4, moda=não existe (amodal) |
+| n3: tabela HTML | ✅ | 4179 caracteres |
+| repetidos (quartis 1) | ✅ | n=9, média=3.2222222222222223, Q1=2, Q3=4, s²=1.1944444444444446, moda=2; 4 (bimodal) — freq. 3 |
+| repetidos (quartis 2) | ✅ | n=9, média=3.2222222222222223, Q1=2, Q3=4, s²=1.1944444444444446, moda=2; 4 (bimodal) — freq. 3 |
+| repetidos (quartis 3) | ✅ | n=9, média=3.2222222222222223, Q1=2, Q3=4, s²=1.1944444444444446, moda=2; 4 (bimodal) — freq. 3 |
+| repetidos: tabela HTML | ✅ | 4185 caracteres |
+| todos_iguais_freq (quartis 1) | ✅ | n=6, média=2, Q1=1.25, Q3=2.75, s²=0.8, moda=não existe (amodal) |
+| todos_iguais_freq (quartis 2) | ✅ | n=6, média=2, Q1=1, Q3=3, s²=0.8, moda=não existe (amodal) |
+| todos_iguais_freq (quartis 3) | ✅ | n=6, média=2, Q1=1, Q3=3, s²=0.8, moda=não existe (amodal) |
+| todos_iguais_freq: tabela HTML | ✅ | 4180 caracteres |
+| variancia_nula (quartis 1) | ✅ | n=4, média=4, Q1=4, Q3=4, s²=0, moda=não existe (amodal) |
+| variancia_nula (quartis 2) | ✅ | n=4, média=4, Q1=4, Q3=4, s²=0, moda=não existe (amodal) |
+| variancia_nula (quartis 3) | ✅ | n=4, média=4, Q1=4, Q3=4, s²=0, moda=não existe (amodal) |
+| variancia_nula: tabela HTML | ✅ | 4179 caracteres |
+| media_zero (quartis 1) | ✅ | n=5, média=0, Q1=-1, Q3=1, s²=2.5, moda=não existe (amodal) |
+| media_zero (quartis 2) | ✅ | n=5, média=0, Q1=-1.5, Q3=1.5, s²=2.5, moda=não existe (amodal) |
+| media_zero (quartis 3) | ✅ | n=5, média=0, Q1=-1.5, Q3=1.5, s²=2.5, moda=não existe (amodal) |
+| media_zero: tabela HTML | ✅ | 4178 caracteres |
+| com_faltas (quartis 1) por grupo | ✅ | n=5, média=3.95, Q1=2, Q3=5.25, s²=7.2, moda=não existe (amodal) |
+| com_faltas (quartis 2) por grupo | ✅ | n=5, média=3.95, Q1=1.75, Q3=6.625, s²=7.2, moda=não existe (amodal) |
+| com_faltas (quartis 3) por grupo | ✅ | n=5, média=3.95, Q1=1.75, Q3=6.625, s²=7.2, moda=não existe (amodal) |
+| com_faltas: tabela HTML | ✅ | 6080 caracteres |
+| negativos_decimais (quartis 1) | ✅ | n=6, média=1.1876666666666666, Q1=-1.125, Q3=1.6877499999999999, s²=23.085462666666665, moda=não existe (amodal) |
+| negativos_decimais (quartis 2) | ✅ | n=6, média=1.1876666666666666, Q1=-2.0625, Q3=4.21875, s²=23.085462666666665, moda=não existe (amodal) |
+| negativos_decimais (quartis 3) | ✅ | n=6, média=1.1876666666666666, Q1=-1.5, Q3=2.25, s²=23.085462666666665, moda=não existe (amodal) |
+| negativos_decimais: tabela HTML | ✅ | 4186 caracteres |
+| grandes (quartis 1) | ✅ | n=4, média=1437500.375, Q1=1187500.6875, Q3=1625000.0625, s²=182291520833.4375, moda=não existe (amodal) |
+| grandes (quartis 2) | ✅ | n=4, média=1437500.375, Q1=1062500.5625, Q3=1875000.1875, s²=182291520833.4375, moda=não existe (amodal) |
+| grandes (quartis 3) | ✅ | n=4, média=1437500.375, Q1=1125000.625, Q3=1750000.125, s²=182291520833.4375, moda=não existe (amodal) |
+| grandes: tabela HTML | ✅ | 4287 caracteres |
+| vazio (quartis 1) | ✅ | n=0, média=None, Q1=None, Q3=None, s²=None, moda=n.d. |
+| vazio (quartis 2) | ✅ | n=0, média=None, Q1=None, Q3=None, s²=None, moda=n.d. |
+| vazio (quartis 3) | ✅ | n=0, média=None, Q1=None, Q3=None, s²=None, moda=n.d. |
+| vazio: tabela HTML | ✅ | 4215 caracteres |
+| grupos_desiguais (quartis 1) por grupo | ✅ | n=6, média=13.333333333333334, Q1=10.25, Q3=18, s²=41.46666666666666, moda=não existe (amodal) |
+| grupos_desiguais (quartis 2) por grupo | ✅ | n=6, média=13.333333333333334, Q1=8.75, Q3=20.5, s²=41.46666666666666, moda=não existe (amodal) |
+| grupos_desiguais (quartis 3) por grupo | ✅ | n=6, média=13.333333333333334, Q1=10, Q3=20, s²=41.46666666666666, moda=não existe (amodal) |
+| grupos_desiguais: tabela HTML | ✅ | 7053 caracteres |
 
