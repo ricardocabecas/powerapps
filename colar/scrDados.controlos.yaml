@@ -1,0 +1,1070 @@
+- retCabDad:
+    Control: Rectangle
+    Properties:
+      Fill: =RGBA(31, 78, 121, 1)
+      X: =0
+      Y: =0
+      Width: =1366
+      Height: =64
+- lblCabDad:
+    Control: Label
+    Properties:
+      Text: ="Estatística · " & "Entrada de dados"
+      X: =16
+      Y: =0
+      Width: =420
+      Height: =64
+      Font: =Font.'Segoe UI'
+      Size: =18
+      Color: =RGBA(255, 255, 255, 1)
+      FontWeight: =FontWeight.Semibold
+- btnNavDadDad:
+    Control: Classic/Button
+    Properties:
+      Text: ="Dados"
+      OnSelect: =Navigate(scrDados, ScreenTransition.None)
+      X: =446
+      Y: =14
+      Width: =112
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(255, 255, 255, 1)
+      Color: =RGBA(31, 78, 121, 1)
+      HoverFill: =RGBA(255, 255, 255, 1)
+      HoverColor: =RGBA(31, 78, 121, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+      FontWeight: =FontWeight.Semibold
+- btnNavDadDes:
+    Control: Classic/Button
+    Properties:
+      Text: ="Descritiva"
+      OnSelect: =Navigate(scrDescritiva, ScreenTransition.None)
+      X: =564
+      Y: =14
+      Width: =112
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavDadFre:
+    Control: Classic/Button
+    Properties:
+      Text: ="Frequências"
+      OnSelect: =Navigate(scrFrequencias, ScreenTransition.None)
+      X: =682
+      Y: =14
+      Width: =120
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavDadReg:
+    Control: Classic/Button
+    Properties:
+      Text: ="Regressão"
+      OnSelect: =Navigate(scrRegressao, ScreenTransition.None)
+      X: =808
+      Y: =14
+      Width: =112
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavDadTt:
+    Control: Classic/Button
+    Properties:
+      Text: ="Testes t"
+      OnSelect: =Navigate(scrTestesT, ScreenTransition.None)
+      X: =926
+      Y: =14
+      Width: =112
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavDadAno:
+    Control: Classic/Button
+    Properties:
+      Text: ="ANOVA"
+      OnSelect: =Navigate(scrAnova, ScreenTransition.None)
+      X: =1044
+      Y: =14
+      Width: =112
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- btnNavDadQui:
+    Control: Classic/Button
+    Properties:
+      Text: ="Qui-quadrado"
+      OnSelect: =Navigate(scrQuiQuadrado, ScreenTransition.None)
+      X: =1162
+      Y: =14
+      Width: =124
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      HoverColor: =RGBA(255, 255, 255, 1)
+      BorderColor: =RGBA(255, 255, 255, 1)
+      BorderThickness: =1
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+- lblDadosTitulo:
+    Control: Label
+    Properties:
+      Text: ="Tabela de dados"
+      X: =16
+      Y: =72
+      Width: =300
+      Height: =30
+      Font: =Font.'Segoe UI'
+      Size: =14
+      Color: =RGBA(33, 37, 41, 1)
+      FontWeight: =FontWeight.Semibold
+- lblDadosResumo:
+    Control: Label
+    Properties:
+      Text: |-
+        ="Linhas: " & CountRows(colDados) & "   ·   Células numéricas vazias: " & (CountRows(Filter(colDados, IsBlank(N1))) + CountRows(Filter(colDados, IsBlank(N2))) + CountRows(Filter(colDados, IsBlank(N3))))
+      X: =330
+      Y: =72
+      Width: =380
+      Height: =30
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(90, 98, 106, 1)
+      Align: =Align.Right
+- lblDadosColN:
+    Control: Label
+    Properties:
+      Text: ="N.º"
+      X: =16
+      Y: =106
+      Width: =44
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(33, 37, 41, 1)
+      FontWeight: =FontWeight.Semibold
+      Align: =Align.Center
+- txtNomeN1:
+    Control: Classic/TextInput
+    Properties:
+      Default: =varNomes.N1
+      X: =64
+      Y: =106
+      Width: =112
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =11
+      BorderColor: =RGBA(206, 212, 218, 1)
+      HintText: ="Nome da variável"
+      OnChange: |-
+        =// Muda o nome da variável (um nome vazio repõe o nome por omissão)
+        Set(varNomes, Patch(varNomes, {N1: If(Len(Trim(Self.Text)) = 0, "Variável 1", Trim(Self.Text))}))
+      FontWeight: =FontWeight.Semibold
+      Fill: =RGBA(222, 235, 247, 1)
+- lblTipoN1:
+    Control: Label
+    Properties:
+      Text: ="numérica"
+      X: =64
+      Y: =140
+      Width: =112
+      Height: =22
+      Font: =Font.'Segoe UI'
+      Size: =9
+      Color: =RGBA(90, 98, 106, 1)
+      Align: =Align.Center
+- txtNomeN2:
+    Control: Classic/TextInput
+    Properties:
+      Default: =varNomes.N2
+      X: =180
+      Y: =106
+      Width: =112
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =11
+      BorderColor: =RGBA(206, 212, 218, 1)
+      HintText: ="Nome da variável"
+      OnChange: |-
+        =// Muda o nome da variável (um nome vazio repõe o nome por omissão)
+        Set(varNomes, Patch(varNomes, {N2: If(Len(Trim(Self.Text)) = 0, "Variável 2", Trim(Self.Text))}))
+      FontWeight: =FontWeight.Semibold
+      Fill: =RGBA(222, 235, 247, 1)
+- lblTipoN2:
+    Control: Label
+    Properties:
+      Text: ="numérica"
+      X: =180
+      Y: =140
+      Width: =112
+      Height: =22
+      Font: =Font.'Segoe UI'
+      Size: =9
+      Color: =RGBA(90, 98, 106, 1)
+      Align: =Align.Center
+- txtNomeN3:
+    Control: Classic/TextInput
+    Properties:
+      Default: =varNomes.N3
+      X: =296
+      Y: =106
+      Width: =112
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =11
+      BorderColor: =RGBA(206, 212, 218, 1)
+      HintText: ="Nome da variável"
+      OnChange: |-
+        =// Muda o nome da variável (um nome vazio repõe o nome por omissão)
+        Set(varNomes, Patch(varNomes, {N3: If(Len(Trim(Self.Text)) = 0, "Variável 3", Trim(Self.Text))}))
+      FontWeight: =FontWeight.Semibold
+      Fill: =RGBA(222, 235, 247, 1)
+- lblTipoN3:
+    Control: Label
+    Properties:
+      Text: ="numérica"
+      X: =296
+      Y: =140
+      Width: =112
+      Height: =22
+      Font: =Font.'Segoe UI'
+      Size: =9
+      Color: =RGBA(90, 98, 106, 1)
+      Align: =Align.Center
+- txtNomeC1:
+    Control: Classic/TextInput
+    Properties:
+      Default: =varNomes.C1
+      X: =412
+      Y: =106
+      Width: =112
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =11
+      BorderColor: =RGBA(206, 212, 218, 1)
+      HintText: ="Nome da variável"
+      OnChange: |-
+        =// Muda o nome da variável (um nome vazio repõe o nome por omissão)
+        Set(varNomes, Patch(varNomes, {C1: If(Len(Trim(Self.Text)) = 0, "Grupo 1", Trim(Self.Text))}))
+      FontWeight: =FontWeight.Semibold
+      Fill: =RGBA(222, 235, 247, 1)
+- lblTipoC1:
+    Control: Label
+    Properties:
+      Text: ="categórica (grupo)"
+      X: =412
+      Y: =140
+      Width: =112
+      Height: =22
+      Font: =Font.'Segoe UI'
+      Size: =9
+      Color: =RGBA(90, 98, 106, 1)
+      Align: =Align.Center
+- txtNomeC2:
+    Control: Classic/TextInput
+    Properties:
+      Default: =varNomes.C2
+      X: =528
+      Y: =106
+      Width: =112
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =11
+      BorderColor: =RGBA(206, 212, 218, 1)
+      HintText: ="Nome da variável"
+      OnChange: |-
+        =// Muda o nome da variável (um nome vazio repõe o nome por omissão)
+        Set(varNomes, Patch(varNomes, {C2: If(Len(Trim(Self.Text)) = 0, "Grupo 2", Trim(Self.Text))}))
+      FontWeight: =FontWeight.Semibold
+      Fill: =RGBA(222, 235, 247, 1)
+- lblTipoC2:
+    Control: Label
+    Properties:
+      Text: ="categórica (grupo)"
+      X: =528
+      Y: =140
+      Width: =112
+      Height: =22
+      Font: =Font.'Segoe UI'
+      Size: =9
+      Color: =RGBA(90, 98, 106, 1)
+      Align: =Align.Center
+- galDados:
+    Control: Gallery
+    Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver5.0
+    Properties:
+      Items: =colDados
+      X: =16
+      Y: =166
+      Width: =700
+      Height: =500
+      TemplateSize: =40
+      TemplatePadding: =0
+      ShowScrollbar: =true
+      BorderColor: =RGBA(206, 212, 218, 1)
+      BorderThickness: =1
+      Fill: =RGBA(255, 255, 255, 1)
+      TemplateFill: =If(Mod(ThisItem.Id, 2) = 0, RGBA(248, 249, 250, 1), RGBA(255, 255, 255, 1))
+    Children:
+      - lblGalId:
+          Control: Label
+          Properties:
+            Text: =ThisItem.Id
+            X: =0
+            Y: =4
+            Width: =44
+            Height: =32
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Color: =RGBA(90, 98, 106, 1)
+            Align: =Align.Center
+      - txtGalN1:
+          Control: Classic/TextInput
+          Properties:
+            Default: |-
+              =With({_v: ThisItem.N1}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT"))))
+            OnChange: |-
+              =// Converte o texto (vírgula ou ponto decimal) e grava na coleção
+              Patch(colDados, LookUp(colDados, Id = ThisItem.Id), {N1: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())});
+              If((Len(Trim(Self.Text)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))),
+                  Notify("«" & Self.Text & "» não é um número válido: a célula ficou vazia.", NotificationType.Warning))
+            X: =48
+            Y: =4
+            Width: =112
+            Height: =32
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Align: =Align.Right
+            BorderColor: =If((Len(Trim(Self.Text)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), RGBA(176, 0, 32, 1), RGBA(206, 212, 218, 1))
+            HintText: ="vazio"
+      - txtGalN2:
+          Control: Classic/TextInput
+          Properties:
+            Default: |-
+              =With({_v: ThisItem.N2}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT"))))
+            OnChange: |-
+              =// Converte o texto (vírgula ou ponto decimal) e grava na coleção
+              Patch(colDados, LookUp(colDados, Id = ThisItem.Id), {N2: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())});
+              If((Len(Trim(Self.Text)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))),
+                  Notify("«" & Self.Text & "» não é um número válido: a célula ficou vazia.", NotificationType.Warning))
+            X: =164
+            Y: =4
+            Width: =112
+            Height: =32
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Align: =Align.Right
+            BorderColor: =If((Len(Trim(Self.Text)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), RGBA(176, 0, 32, 1), RGBA(206, 212, 218, 1))
+            HintText: ="vazio"
+      - txtGalN3:
+          Control: Classic/TextInput
+          Properties:
+            Default: |-
+              =With({_v: ThisItem.N3}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT"))))
+            OnChange: |-
+              =// Converte o texto (vírgula ou ponto decimal) e grava na coleção
+              Patch(colDados, LookUp(colDados, Id = ThisItem.Id), {N3: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())});
+              If((Len(Trim(Self.Text)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))),
+                  Notify("«" & Self.Text & "» não é um número válido: a célula ficou vazia.", NotificationType.Warning))
+            X: =280
+            Y: =4
+            Width: =112
+            Height: =32
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Align: =Align.Right
+            BorderColor: =If((Len(Trim(Self.Text)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), RGBA(176, 0, 32, 1), RGBA(206, 212, 218, 1))
+            HintText: ="vazio"
+      - txtGalC1:
+          Control: Classic/TextInput
+          Properties:
+            Default: =ThisItem.C1
+            OnChange: |-
+              =Patch(colDados, LookUp(colDados, Id = ThisItem.Id), {C1: Trim(Self.Text)})
+            X: =396
+            Y: =4
+            Width: =112
+            Height: =32
+            Font: =Font.'Segoe UI'
+            Size: =11
+            BorderColor: =RGBA(206, 212, 218, 1)
+            HintText: ="vazio"
+      - txtGalC2:
+          Control: Classic/TextInput
+          Properties:
+            Default: =ThisItem.C2
+            OnChange: |-
+              =Patch(colDados, LookUp(colDados, Id = ThisItem.Id), {C2: Trim(Self.Text)})
+            X: =512
+            Y: =4
+            Width: =112
+            Height: =32
+            Font: =Font.'Segoe UI'
+            Size: =11
+            BorderColor: =RGBA(206, 212, 218, 1)
+            HintText: ="vazio"
+      - btnGalApagar:
+          Control: Classic/Button
+          Properties:
+            Text: ="✕"
+            OnSelect: |-
+              =// Apaga a linha e volta a numerar 1..n
+              RemoveIf(colDados, Id = ThisItem.Id);
+              ClearCollect(colTemp, ForAll(Sequence(CountRows(colDados)) As _i, Patch(Index(colDados, _i.Value), {Id: _i.Value})));
+              ClearCollect(colDados, colTemp);
+              Clear(colTemp)
+            X: =628
+            Y: =6
+            Width: =32
+            Height: =28
+            Font: =Font.'Segoe UI'
+            Size: =11
+            Fill: =RGBA(255, 255, 255, 1)
+            Color: =RGBA(176, 0, 32, 1)
+            BorderColor: =RGBA(206, 212, 218, 1)
+            BorderThickness: =1
+            HoverFill: =RGBA(253, 236, 238, 1)
+            HoverColor: =RGBA(176, 0, 32, 1)
+            Tooltip: ="Apagar esta linha"
+- btnAdicionarLinha:
+    Control: Classic/Button
+    Properties:
+      Text: ="+ Adicionar linha"
+      OnSelect: |-
+        =// Nova linha vazia no fim da tabela
+        Collect(colDados, {Id: Coalesce(Max(colDados, Id), 0) + 1, N1: Blank(), N2: Blank(), N3: Blank(), C1: "", C2: ""})
+      X: =16
+      Y: =676
+      Width: =170
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =12
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      BorderColor: =RGBA(31, 78, 121, 1)
+- btnDadosExemplo:
+    Control: Classic/Button
+    Properties:
+      Text: ="Repor dados de exemplo"
+      OnSelect: |-
+        =Set(varNomes, {N1: "Altura (cm)", N2: "Peso (kg)", N3: "Nota (0-20)", C1: "Sexo", C2: "Turma"});
+        ClearCollect(colDados, Table(
+            {Id: 1, N1: 165, N2: 58.5, N3: 14, C1: "F", C2: "A"},
+            {Id: 2, N1: 178, N2: 72, N3: 12, C1: "M", C2: "A"},
+            {Id: 3, N1: 160, N2: 52.3, N3: 16, C1: "F", C2: "B"},
+            {Id: 4, N1: 182, N2: 80.1, N3: 11, C1: "M", C2: "B"},
+            {Id: 5, N1: 170, N2: 65.4, N3: 13, C1: "M", C2: "C"},
+            {Id: 6, N1: 158, N2: 49.8, N3: 17, C1: "F", C2: "A"},
+            {Id: 7, N1: 175, N2: 70.2, N3: 10, C1: "M", C2: "C"},
+            {Id: 8, N1: 168, N2: 61, N3: 15, C1: "F", C2: "B"},
+            {Id: 9, N1: 185, N2: 85.6, N3: 9, C1: "M", C2: "A"},
+            {Id: 10, N1: 162, N2: 55.1, N3: 18, C1: "F", C2: "C"},
+            {Id: 11, N1: 172, N2: 68.3, N3: 12, C1: "M", C2: "B"},
+            {Id: 12, N1: 166, N2: 60.2, N3: 14, C1: "F", C2: "A"},
+            {Id: 13, N1: 180, N2: 77.5, N3: 11, C1: "M", C2: "C"},
+            {Id: 14, N1: 155, N2: 48, N3: 16, C1: "F", C2: "B"},
+            {Id: 15, N1: 174, N2: 69.9, N3: 13, C1: "M", C2: "A"},
+            {Id: 16, N1: 163, N2: 57.4, N3: 15, C1: "F", C2: "C"},
+            {Id: 17, N1: 177, N2: 74.8, N3: 10, C1: "M", C2: "B"},
+            {Id: 18, N1: 169, N2: 63.1, N3: 14, C1: "F", C2: "C"},
+            {Id: 19, N1: 171, N2: 66.7, N3: 12, C1: "M", C2: "A"},
+            {Id: 20, N1: 159, N2: 51.6, N3: 17, C1: "F", C2: "B"}
+        ));
+        Set(varConfirmarApagar, false)
+      X: =196
+      Y: =676
+      Width: =200
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =12
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+      Fill: =RGBA(255, 255, 255, 1)
+      Color: =RGBA(31, 78, 121, 1)
+      HoverFill: =RGBA(222, 235, 247, 1)
+      HoverColor: =RGBA(31, 78, 121, 1)
+      BorderColor: =RGBA(31, 78, 121, 1)
+      BorderThickness: =1
+- btnApagarTudo:
+    Control: Classic/Button
+    Properties:
+      Text: =If(varConfirmarApagar, "Clique de novo para confirmar", "Apagar todos os dados")
+      OnSelect: |-
+        =// Pede confirmação: o 1.º clique arma, o 2.º apaga
+        If(varConfirmarApagar,
+            Clear(colDados);
+            Set(varConfirmarApagar, false),
+            Set(varConfirmarApagar, true)
+        )
+      X: =406
+      Y: =676
+      Width: =250
+      Height: =36
+      Font: =Font.'Segoe UI'
+      Size: =12
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+      Fill: =RGBA(255, 255, 255, 1)
+      Color: =RGBA(176, 0, 32, 1)
+      HoverFill: =RGBA(253, 236, 238, 1)
+      HoverColor: =RGBA(176, 0, 32, 1)
+      BorderColor: =RGBA(176, 0, 32, 1)
+      BorderThickness: =1
+- lblAvisoNomes:
+    Control: Label
+    Properties:
+      Text: |-
+        =If(CountRows(Distinct([varNomes.N1, varNomes.N2, varNomes.N3, varNomes.C1, varNomes.C2], Value)) < 5, "⚠ Há variáveis com o mesmo nome. Dê nomes diferentes para as poder escolher nos outros ecrãs.", "Dica: clique no cabeçalho de uma coluna para mudar o nome da variável. Pode usar vírgula ou ponto decimal.")
+      X: =16
+      Y: =718
+      Width: =700
+      Height: =40
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =If(CountRows(Distinct([varNomes.N1, varNomes.N2, varNomes.N3, varNomes.C1, varNomes.C2], Value)) < 5, RGBA(176, 0, 32, 1), RGBA(90, 98, 106, 1))
+- retPainelColar:
+    Control: Rectangle
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      X: =724
+      Y: =72
+      Width: =634
+      Height: =688
+      BorderColor: =RGBA(206, 212, 218, 1)
+      BorderThickness: =1
+- lblColarTitulo:
+    Control: Label
+    Properties:
+      Text: ="Colar dados do Excel"
+      X: =732
+      Y: =78
+      Width: =400
+      Height: =30
+      Font: =Font.'Segoe UI'
+      Size: =14
+      Color: =RGBA(33, 37, 41, 1)
+      FontWeight: =FontWeight.Semibold
+- lblColarAjuda:
+    Control: Label
+    Properties:
+      Text: ="Selecione uma ou várias colunas no Excel, copie (Ctrl+C) e cole aqui (Ctrl+V). A 1.ª linha pode ter os nomes das variáveis. Aceita vírgula ou ponto decimal."
+      X: =732
+      Y: =106
+      Width: =618
+      Height: =44
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =RGBA(90, 98, 106, 1)
+- txtColar:
+    Control: Classic/TextInput
+    Properties:
+      Default: =""
+      X: =732
+      Y: =152
+      Width: =618
+      Height: =160
+      Font: =Font.'Segoe UI'
+      Size: =10
+      BorderColor: =RGBA(206, 212, 218, 1)
+      HintText: ="Cole aqui os dados (Ctrl+V)"
+      Mode: =TextMode.MultiLine
+- lblCabecalho:
+    Control: Label
+    Properties:
+      Text: ="A 1.ª linha é cabeçalho?"
+      X: =732
+      Y: =320
+      Width: =170
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(33, 37, 41, 1)
+- drpCabecalho:
+    Control: Classic/DropDown
+    Properties:
+      Items: =["Automático", "Sim", "Não"]
+      X: =904
+      Y: =320
+      Width: =130
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =12
+      Default: ="Automático"
+- btnAnalisar:
+    Control: Classic/Button
+    Properties:
+      Text: ="Analisar"
+      OnSelect: |-
+        =// Parte o texto em linhas e colunas e caracteriza cada coluna
+        ClearCollect(colColagem, With(
+            // Retira os retornos de carro (Char(13)) do Windows e parte o texto em linhas
+            {_linhas: Split(Substitute(txtColar.Text, Char(13), ""), Char(10))},
+            Filter(
+                ForAll(Sequence(CountRows(_linhas)) As _i,
+                    With(
+                        // Parte cada linha nas tabulações (colunas do Excel) e limpa os espaços
+                        {_cel: ForAll(Split(Index(_linhas, _i.Value).Value, Char(9)) As _c,
+                            {Texto: Trim(Substitute(_c.Value, UniChar(160), " "))})},
+                        {Linha: _i.Value, Celulas: _cel, NCel: CountRows(Filter(_cel, Texto <> ""))}
+                    )
+                ),
+                // Ignora linhas vazias (ou só com tabulações/espaços)
+                NCel > 0
+            )
+        ));
+        ClearCollect(colColunas, With(
+            {_m: CountRows(colColagem), _k: Coalesce(Max(colColagem, CountRows(Celulas)), 0)},
+            With(
+                {_corpo: If(_m >= 2, LastN(colColagem, _m - 1), colColagem), _topo: First(colColagem)},
+                ForAll(Sequence(_k) As _j,
+                    With(
+                        {_txt: ForAll(_corpo As _r,
+                            {T: If(_j.Value <= CountRows(_r.Celulas), Index(_r.Celulas, _j.Value).Texto, "")}),
+                         _t1: If(_j.Value <= CountRows(_topo.Celulas), Index(_topo.Celulas, _j.Value).Texto, "")},
+                        With(
+                            {_nv: CountRows(Filter(_txt, T <> "")),
+                             _nn: CountRows(Filter(_txt, T <> "" && !IsBlank(IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(T), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()))))},
+                            {Col: _j.Value, Topo: _t1, TopoNumerico: !IsBlank(IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t1), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())),
+                             NNaoVazias: _nv, NNumeros: _nn, Numerica: _nn > 0 && _nn * 2 >= _nv,
+                             Rotulo: _j.Value & " · " & Left(_t1, 18)}
+                        )
+                    )
+                )
+            )
+        ))
+      X: =1046
+      Y: =320
+      Width: =140
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =12
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      BorderColor: =RGBA(31, 78, 121, 1)
+- btnLimparColagem:
+    Control: Classic/Button
+    Properties:
+      Text: ="Limpar"
+      OnSelect: |-
+        =Reset(txtColar);
+        Clear(colColagem);
+        Clear(colColunas)
+      X: =1196
+      Y: =320
+      Width: =154
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =12
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+      Fill: =RGBA(255, 255, 255, 1)
+      Color: =RGBA(31, 78, 121, 1)
+      HoverFill: =RGBA(222, 235, 247, 1)
+      HoverColor: =RGBA(31, 78, 121, 1)
+      BorderColor: =RGBA(31, 78, 121, 1)
+      BorderThickness: =1
+- lblDiagnostico:
+    Control: Label
+    Properties:
+      Text: |-
+        =If(CountRows(colColagem) = 0,
+            "Cole os dados na caixa acima e carregue em «Analisar».",
+            With({_R: With(
+                // Opções escolhidas: cabeçalho e coluna de origem de cada variável
+                {_cab: Switch(drpCabecalho.Selected.Value, "Sim", true, "Não", false, CountRows(colColagem) >= 2 && CountRows(Filter(colColunas, Numerica && Topo <> "" && !TopoNumerico)) > 0),
+                  _jN1: IfError(Value(First(Split(drpMapN1.Selected.Value, " ")).Value, "en-US"), 0),
+                  _jN2: IfError(Value(First(Split(drpMapN2.Selected.Value, " ")).Value, "en-US"), 0),
+                  _jN3: IfError(Value(First(Split(drpMapN3.Selected.Value, " ")).Value, "en-US"), 0),
+                  _jC1: IfError(Value(First(Split(drpMapC1.Selected.Value, " ")).Value, "en-US"), 0),
+                  _jC2: IfError(Value(First(Split(drpMapC2.Selected.Value, " ")).Value, "en-US"), 0)},
+                With(
+                    {_corpo: If(_cab, LastN(colColagem, CountRows(colColagem) - 1), colColagem),
+                      // Se houver cabeçalho, os nomes das variáveis vêm da 1.ª linha
+                      _nomes: With({_c1: First(colColagem)}, {N1: If(_cab && _jN1 > 0, If(_jN1 >= 1 && _jN1 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jN1).Texto, ""), varNomes.N1), N2: If(_cab && _jN2 > 0, If(_jN2 >= 1 && _jN2 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jN2).Texto, ""), varNomes.N2), N3: If(_cab && _jN3 > 0, If(_jN3 >= 1 && _jN3 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jN3).Texto, ""), varNomes.N3), C1: If(_cab && _jC1 > 0, If(_jC1 >= 1 && _jC1 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jC1).Texto, ""), varNomes.C1), C2: If(_cab && _jC2 > 0, If(_jC2 >= 1 && _jC2 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jC2).Texto, ""), varNomes.C2)})},
+                    With(
+                        {_reg: ForAll(Sequence(CountRows(_corpo)) As _i,
+                            With({_r: Index(_corpo, _i.Value)},
+                                With({_tN1: If(_jN1 >= 1 && _jN1 <= CountRows(_r.Celulas), Index(_r.Celulas, _jN1).Texto, ""), _tN2: If(_jN2 >= 1 && _jN2 <= CountRows(_r.Celulas), Index(_r.Celulas, _jN2).Texto, ""), _tN3: If(_jN3 >= 1 && _jN3 <= CountRows(_r.Celulas), Index(_r.Celulas, _jN3).Texto, ""), _tC1: If(_jC1 >= 1 && _jC1 <= CountRows(_r.Celulas), Index(_r.Celulas, _jC1).Texto, ""), _tC2: If(_jC2 >= 1 && _jC2 <= CountRows(_r.Celulas), Index(_r.Celulas, _jC2).Texto, "")},
+                                    {Id: 0 + _i.Value, N1: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN1), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), N2: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN2), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), N3: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN3), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), C1: _tC1, C2: _tC2,
+                                     Linha: _r.Linha, _IN1: (Len(Trim(_tN1)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN1), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), _IN2: (Len(Trim(_tN2)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN2), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), _IN3: (Len(Trim(_tN3)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN3), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), _TN1: _tN1, _TN2: _tN2, _TN3: _tN3}
+                                )
+                            )
+                        )},
+                        {
+                            // Registos prontos a juntar a colDados
+                            Linhas: ForAll(_reg, {Id: Id, N1: N1, N2: N2, N3: N3, C1: C1, C2: C2}),
+                            // Valores não numéricos em colunas numéricas (ficam em branco)
+                            Invalidos: Sort(Table(
+                        ForAll(Filter(_reg, _IN1) As _x, {Linha: _x.Linha, Variavel: _nomes.N1, Texto: _x._TN1}),
+                        ForAll(Filter(_reg, _IN2) As _x, {Linha: _x.Linha, Variavel: _nomes.N2, Texto: _x._TN2}),
+                        ForAll(Filter(_reg, _IN3) As _x, {Linha: _x.Linha, Variavel: _nomes.N3, Texto: _x._TN3})
+                            ), Linha),
+                            Cabecalho: _cab,
+                            Nomes: _nomes
+                        }
+                    )
+                )
+            )},
+                "Linhas com dados: " & CountRows(_R.Linhas) & "  ·  Colunas: " & CountRows(colColunas) &
+                With({_vazias: Last(colColagem).Linha - First(colColagem).Linha + 1 - CountRows(colColagem)},
+                    If(_vazias > 0, "  ·  Linhas vazias ignoradas: " & _vazias, "")) & Char(10) &
+                "Primeira linha: " & If(_R.Cabecalho, "cabeçalho (nomes: " & Concat(colColunas, Topo, "; ") & ")", "dados") &
+                Char(10) &
+                If(CountRows(_R.Invalidos) = 0,
+                    "✔ Todos os valores das variáveis numéricas são válidos.",
+                    "⚠ " & CountRows(_R.Invalidos) & " valor(es) inválido(s) — ficarão em branco:" & Char(10) &
+                    Concat(FirstN(_R.Invalidos, 6), "   linha " & Linha & ", " & Variavel & ": «" & Texto & "»", Char(10)) &
+                    If(CountRows(_R.Invalidos) > 6, Char(10) & "   … e mais " & (CountRows(_R.Invalidos) - 6), "")
+                )
+            )
+        )
+      X: =732
+      Y: =362
+      Width: =618
+      Height: =150
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =If(CountRows(colColagem) > 0 && Find("⚠", Self.Text) > 0, RGBA(176, 0, 32, 1), RGBA(33, 37, 41, 1))
+      VerticalAlign: =VerticalAlign.Top
+      Fill: =RGBA(248, 249, 250, 1)
+      PaddingLeft: =8
+      PaddingTop: =6
+- lblMapaTitulo:
+    Control: Label
+    Properties:
+      Text: ="Coluna de origem de cada variável (— = nenhuma)"
+      X: =732
+      Y: =518
+      Width: =618
+      Height: =26
+      Font: =Font.'Segoe UI'
+      Size: =11
+      Color: =RGBA(33, 37, 41, 1)
+      FontWeight: =FontWeight.Semibold
+- lblMapaN1:
+    Control: Label
+    Properties:
+      Text: =varNomes.N1
+      X: =732
+      Y: =548
+      Width: =140
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =RGBA(33, 37, 41, 1)
+- drpMapN1:
+    Control: Classic/DropDown
+    Properties:
+      Items: |-
+        =Table({Value: "—"}, ForAll(colColunas, {Value: Rotulo}))
+      X: =874
+      Y: =548
+      Width: =156
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =12
+      Default: |-
+        =With({_f: Filter(colColunas, Numerica)}, If(CountRows(_f) >= 1, Index(_f, 1).Rotulo, "—"))
+- lblMapaN2:
+    Control: Label
+    Properties:
+      Text: =varNomes.N2
+      X: =732
+      Y: =588
+      Width: =140
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =RGBA(33, 37, 41, 1)
+- drpMapN2:
+    Control: Classic/DropDown
+    Properties:
+      Items: |-
+        =Table({Value: "—"}, ForAll(colColunas, {Value: Rotulo}))
+      X: =874
+      Y: =588
+      Width: =156
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =12
+      Default: |-
+        =With({_f: Filter(colColunas, Numerica)}, If(CountRows(_f) >= 2, Index(_f, 2).Rotulo, "—"))
+- lblMapaN3:
+    Control: Label
+    Properties:
+      Text: =varNomes.N3
+      X: =732
+      Y: =628
+      Width: =140
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =RGBA(33, 37, 41, 1)
+- drpMapN3:
+    Control: Classic/DropDown
+    Properties:
+      Items: |-
+        =Table({Value: "—"}, ForAll(colColunas, {Value: Rotulo}))
+      X: =874
+      Y: =628
+      Width: =156
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =12
+      Default: |-
+        =With({_f: Filter(colColunas, Numerica)}, If(CountRows(_f) >= 3, Index(_f, 3).Rotulo, "—"))
+- lblMapaC1:
+    Control: Label
+    Properties:
+      Text: =varNomes.C1
+      X: =1044
+      Y: =548
+      Width: =140
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =RGBA(33, 37, 41, 1)
+- drpMapC1:
+    Control: Classic/DropDown
+    Properties:
+      Items: |-
+        =Table({Value: "—"}, ForAll(colColunas, {Value: Rotulo}))
+      X: =1186
+      Y: =548
+      Width: =156
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =12
+      Default: |-
+        =With({_f: Filter(colColunas, !Numerica && NNaoVazias > 0)}, If(CountRows(_f) >= 1, Index(_f, 1).Rotulo, "—"))
+- lblMapaC2:
+    Control: Label
+    Properties:
+      Text: =varNomes.C2
+      X: =1044
+      Y: =588
+      Width: =140
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =10
+      Color: =RGBA(33, 37, 41, 1)
+- drpMapC2:
+    Control: Classic/DropDown
+    Properties:
+      Items: |-
+        =Table({Value: "—"}, ForAll(colColunas, {Value: Rotulo}))
+      X: =1186
+      Y: =588
+      Width: =156
+      Height: =34
+      Font: =Font.'Segoe UI'
+      Size: =12
+      Default: |-
+        =With({_f: Filter(colColunas, !Numerica && NNaoVazias > 0)}, If(CountRows(_f) >= 2, Index(_f, 2).Rotulo, "—"))
+- btnImportarSubstituir:
+    Control: Classic/Button
+    Properties:
+      Text: ="Importar (substituir dados)"
+      OnSelect: |-
+        =// Substitui todos os dados pelos dados colados
+        Set(varImportacao, With(
+            // Opções escolhidas: cabeçalho e coluna de origem de cada variável
+            {_cab: Switch(drpCabecalho.Selected.Value, "Sim", true, "Não", false, CountRows(colColagem) >= 2 && CountRows(Filter(colColunas, Numerica && Topo <> "" && !TopoNumerico)) > 0),
+              _jN1: IfError(Value(First(Split(drpMapN1.Selected.Value, " ")).Value, "en-US"), 0),
+              _jN2: IfError(Value(First(Split(drpMapN2.Selected.Value, " ")).Value, "en-US"), 0),
+              _jN3: IfError(Value(First(Split(drpMapN3.Selected.Value, " ")).Value, "en-US"), 0),
+              _jC1: IfError(Value(First(Split(drpMapC1.Selected.Value, " ")).Value, "en-US"), 0),
+              _jC2: IfError(Value(First(Split(drpMapC2.Selected.Value, " ")).Value, "en-US"), 0)},
+            With(
+                {_corpo: If(_cab, LastN(colColagem, CountRows(colColagem) - 1), colColagem),
+                  // Se houver cabeçalho, os nomes das variáveis vêm da 1.ª linha
+                  _nomes: With({_c1: First(colColagem)}, {N1: If(_cab && _jN1 > 0, If(_jN1 >= 1 && _jN1 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jN1).Texto, ""), varNomes.N1), N2: If(_cab && _jN2 > 0, If(_jN2 >= 1 && _jN2 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jN2).Texto, ""), varNomes.N2), N3: If(_cab && _jN3 > 0, If(_jN3 >= 1 && _jN3 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jN3).Texto, ""), varNomes.N3), C1: If(_cab && _jC1 > 0, If(_jC1 >= 1 && _jC1 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jC1).Texto, ""), varNomes.C1), C2: If(_cab && _jC2 > 0, If(_jC2 >= 1 && _jC2 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jC2).Texto, ""), varNomes.C2)})},
+                With(
+                    {_reg: ForAll(Sequence(CountRows(_corpo)) As _i,
+                        With({_r: Index(_corpo, _i.Value)},
+                            With({_tN1: If(_jN1 >= 1 && _jN1 <= CountRows(_r.Celulas), Index(_r.Celulas, _jN1).Texto, ""), _tN2: If(_jN2 >= 1 && _jN2 <= CountRows(_r.Celulas), Index(_r.Celulas, _jN2).Texto, ""), _tN3: If(_jN3 >= 1 && _jN3 <= CountRows(_r.Celulas), Index(_r.Celulas, _jN3).Texto, ""), _tC1: If(_jC1 >= 1 && _jC1 <= CountRows(_r.Celulas), Index(_r.Celulas, _jC1).Texto, ""), _tC2: If(_jC2 >= 1 && _jC2 <= CountRows(_r.Celulas), Index(_r.Celulas, _jC2).Texto, "")},
+                                {Id: 0 + _i.Value, N1: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN1), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), N2: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN2), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), N3: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN3), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), C1: _tC1, C2: _tC2,
+                                 Linha: _r.Linha, _IN1: (Len(Trim(_tN1)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN1), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), _IN2: (Len(Trim(_tN2)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN2), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), _IN3: (Len(Trim(_tN3)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN3), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), _TN1: _tN1, _TN2: _tN2, _TN3: _tN3}
+                            )
+                        )
+                    )},
+                    {
+                        // Registos prontos a juntar a colDados
+                        Linhas: ForAll(_reg, {Id: Id, N1: N1, N2: N2, N3: N3, C1: C1, C2: C2}),
+                        // Valores não numéricos em colunas numéricas (ficam em branco)
+                        Invalidos: Sort(Table(
+                    ForAll(Filter(_reg, _IN1) As _x, {Linha: _x.Linha, Variavel: _nomes.N1, Texto: _x._TN1}),
+                    ForAll(Filter(_reg, _IN2) As _x, {Linha: _x.Linha, Variavel: _nomes.N2, Texto: _x._TN2}),
+                    ForAll(Filter(_reg, _IN3) As _x, {Linha: _x.Linha, Variavel: _nomes.N3, Texto: _x._TN3})
+                        ), Linha),
+                        Cabecalho: _cab,
+                        Nomes: _nomes
+                    }
+                )
+            )
+        ));
+        ClearCollect(colDados, varImportacao.Linhas);
+        If(varImportacao.Cabecalho, Set(varNomes, varImportacao.Nomes));
+        Notify(
+            "Importadas " & CountRows(varImportacao.Linhas) & " linhas." &
+            If(CountRows(varImportacao.Invalidos) > 0,
+                " Atenção: " & CountRows(varImportacao.Invalidos) & " valor(es) inválido(s) ficaram em branco.", ""),
+            If(CountRows(varImportacao.Invalidos) > 0, NotificationType.Warning, NotificationType.Success)
+        )
+      X: =732
+      Y: =676
+      Width: =300
+      Height: =40
+      Font: =Font.'Segoe UI'
+      Size: =12
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+      Fill: =RGBA(31, 78, 121, 1)
+      Color: =RGBA(255, 255, 255, 1)
+      HoverFill: =RGBA(23, 58, 91, 1)
+      BorderColor: =RGBA(31, 78, 121, 1)
+      DisplayMode: =If(CountRows(colColagem) > 0, DisplayMode.Edit, DisplayMode.Disabled)
+- btnImportarAcrescentar:
+    Control: Classic/Button
+    Properties:
+      Text: ="Importar (acrescentar)"
+      OnSelect: |-
+        =// Acrescenta os dados colados no fim da tabela (os nomes das variáveis mantêm-se)
+        Set(varImportacao, With(
+            // Opções escolhidas: cabeçalho e coluna de origem de cada variável
+            {_cab: Switch(drpCabecalho.Selected.Value, "Sim", true, "Não", false, CountRows(colColagem) >= 2 && CountRows(Filter(colColunas, Numerica && Topo <> "" && !TopoNumerico)) > 0),
+              _jN1: IfError(Value(First(Split(drpMapN1.Selected.Value, " ")).Value, "en-US"), 0),
+              _jN2: IfError(Value(First(Split(drpMapN2.Selected.Value, " ")).Value, "en-US"), 0),
+              _jN3: IfError(Value(First(Split(drpMapN3.Selected.Value, " ")).Value, "en-US"), 0),
+              _jC1: IfError(Value(First(Split(drpMapC1.Selected.Value, " ")).Value, "en-US"), 0),
+              _jC2: IfError(Value(First(Split(drpMapC2.Selected.Value, " ")).Value, "en-US"), 0)},
+            With(
+                {_corpo: If(_cab, LastN(colColagem, CountRows(colColagem) - 1), colColagem),
+                  // Se houver cabeçalho, os nomes das variáveis vêm da 1.ª linha
+                  _nomes: With({_c1: First(colColagem)}, {N1: If(_cab && _jN1 > 0, If(_jN1 >= 1 && _jN1 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jN1).Texto, ""), varNomes.N1), N2: If(_cab && _jN2 > 0, If(_jN2 >= 1 && _jN2 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jN2).Texto, ""), varNomes.N2), N3: If(_cab && _jN3 > 0, If(_jN3 >= 1 && _jN3 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jN3).Texto, ""), varNomes.N3), C1: If(_cab && _jC1 > 0, If(_jC1 >= 1 && _jC1 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jC1).Texto, ""), varNomes.C1), C2: If(_cab && _jC2 > 0, If(_jC2 >= 1 && _jC2 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jC2).Texto, ""), varNomes.C2)})},
+                With(
+                    {_reg: ForAll(Sequence(CountRows(_corpo)) As _i,
+                        With({_r: Index(_corpo, _i.Value)},
+                            With({_tN1: If(_jN1 >= 1 && _jN1 <= CountRows(_r.Celulas), Index(_r.Celulas, _jN1).Texto, ""), _tN2: If(_jN2 >= 1 && _jN2 <= CountRows(_r.Celulas), Index(_r.Celulas, _jN2).Texto, ""), _tN3: If(_jN3 >= 1 && _jN3 <= CountRows(_r.Celulas), Index(_r.Celulas, _jN3).Texto, ""), _tC1: If(_jC1 >= 1 && _jC1 <= CountRows(_r.Celulas), Index(_r.Celulas, _jC1).Texto, ""), _tC2: If(_jC2 >= 1 && _jC2 <= CountRows(_r.Celulas), Index(_r.Celulas, _jC2).Texto, "")},
+                                {Id: Coalesce(Max(colDados, Id), 0) + _i.Value, N1: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN1), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), N2: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN2), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), N3: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN3), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), C1: _tC1, C2: _tC2,
+                                 Linha: _r.Linha, _IN1: (Len(Trim(_tN1)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN1), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), _IN2: (Len(Trim(_tN2)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN2), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), _IN3: (Len(Trim(_tN3)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN3), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), _TN1: _tN1, _TN2: _tN2, _TN3: _tN3}
+                            )
+                        )
+                    )},
+                    {
+                        // Registos prontos a juntar a colDados
+                        Linhas: ForAll(_reg, {Id: Id, N1: N1, N2: N2, N3: N3, C1: C1, C2: C2}),
+                        // Valores não numéricos em colunas numéricas (ficam em branco)
+                        Invalidos: Sort(Table(
+                    ForAll(Filter(_reg, _IN1) As _x, {Linha: _x.Linha, Variavel: _nomes.N1, Texto: _x._TN1}),
+                    ForAll(Filter(_reg, _IN2) As _x, {Linha: _x.Linha, Variavel: _nomes.N2, Texto: _x._TN2}),
+                    ForAll(Filter(_reg, _IN3) As _x, {Linha: _x.Linha, Variavel: _nomes.N3, Texto: _x._TN3})
+                        ), Linha),
+                        Cabecalho: _cab,
+                        Nomes: _nomes
+                    }
+                )
+            )
+        ));
+        Collect(colDados, varImportacao.Linhas);
+        Notify(
+            "Acrescentadas " & CountRows(varImportacao.Linhas) & " linhas." &
+            If(CountRows(varImportacao.Invalidos) > 0,
+                " Atenção: " & CountRows(varImportacao.Invalidos) & " valor(es) inválido(s) ficaram em branco.", ""),
+            If(CountRows(varImportacao.Invalidos) > 0, NotificationType.Warning, NotificationType.Success)
+        )
+      X: =1044
+      Y: =676
+      Width: =306
+      Height: =40
+      Font: =Font.'Segoe UI'
+      Size: =12
+      RadiusTopLeft: =4
+      RadiusTopRight: =4
+      RadiusBottomLeft: =4
+      RadiusBottomRight: =4
+      Fill: =RGBA(255, 255, 255, 1)
+      Color: =RGBA(31, 78, 121, 1)
+      HoverFill: =RGBA(222, 235, 247, 1)
+      HoverColor: =RGBA(31, 78, 121, 1)
+      BorderColor: =RGBA(31, 78, 121, 1)
+      BorderThickness: =1
+      DisplayMode: =If(CountRows(colColagem) > 0, DisplayMode.Edit, DisplayMode.Disabled)

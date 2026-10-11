@@ -1,0 +1,284 @@
+{
+ "total": 1347,
+ "ok": 1347,
+ "sintaxe_falhas": [],
+ "fases": {
+  "Fase 1 — Entrada de dados": [
+   {
+    "caso": "colagem «virgula_com_cabecalho» (Automático)",
+    "ok": true,
+    "detalhe": "3 linhas, cabeçalho=True, 0 inválidos, mapa={'N1': 1, 'N2': 2, 'N3': 0, 'C1': 3, 'C2': 0}"
+   },
+   {
+    "caso": "diagnóstico «virgula_com_cabecalho» (Automático)",
+    "ok": true,
+    "detalhe": "Linhas com dados: 3  ·  Colunas: 3 ⏎ Primeira linha: cabeçalho (nomes: Altura; Peso; Sexo) ⏎ ✔ Todos os valores das variáveis numéricas são válidos."
+   },
+   {
+    "caso": "colagem «virgula_com_cabecalho» (Sim)",
+    "ok": true,
+    "detalhe": "3 linhas, cabeçalho=True, 0 inválidos, mapa={'N1': 1, 'N2': 2, 'N3': 0, 'C1': 3, 'C2': 0}"
+   },
+   {
+    "caso": "diagnóstico «virgula_com_cabecalho» (Sim)",
+    "ok": true,
+    "detalhe": "Linhas com dados: 3  ·  Colunas: 3 ⏎ Primeira linha: cabeçalho (nomes: Altura; Peso; Sexo) ⏎ ✔ Todos os valores das variáveis numéricas são válidos."
+   },
+   {
+    "caso": "colagem «virgula_com_cabecalho» (Não)",
+    "ok": true,
+    "detalhe": "4 linhas, cabeçalho=False, 2 inválidos, mapa={'N1': 1, 'N2': 2, 'N3': 0, 'C1': 3, 'C2': 0}"
+   },
+   {
+    "caso": "diagnóstico «virgula_com_cabecalho» (Não)",
+    "ok": true,
+    "detalhe": "Linhas com dados: 4  ·  Colunas: 3 ⏎ Primeira linha: dados ⏎ ⚠ 2 valor(es) inválido(s) — ficarão em branco: ⏎    linha 1, Altura (cm): «Altura» ⏎    linha 1, Peso (kg): «Peso»"
+   },
+   {
+    "caso": "colagem «ponto_sem_cabecalho» (Automático)",
+    "ok": true,
+    "detalhe": "3 linhas, cabeçalho=False, 0 inválidos, mapa={'N1': 1, 'N2': 2, 'N3': 0, 'C1': 0, 'C2': 0}"
+   },
+   {
+    "caso": "diagnóstico «ponto_sem_cabecalho» (Automático)",
+    "ok": true,
+    "detalhe": "Linhas com dados: 3  ·  Colunas: 2 ⏎ Primeira linha: dados ⏎ ✔ Todos os valores das variáveis numéricas são válidos."
+   },
+   {
+    "caso": "colagem «uma_coluna» (Automático)",
+    "ok": true,
+    "detalhe": "3 linhas, cabeçalho=True, 0 inválidos, mapa={'N1': 1, 'N2': 0, 'N3': 0, 'C1': 0, 'C2': 0}"
+   },
+   {
+    "caso": "diagnóstico «uma_coluna» (Automático)",
+    "ok": true,
+    "detalhe": "Linhas com dados: 3  ·  Colunas: 1 ⏎ Primeira linha: cabeçalho (nomes: Notas) ⏎ ✔ Todos os valores das variáveis numéricas são válidos."
+   },
+   {
+    "caso": "colagem «linhas_vazias_e_espacos» (Automático)",
+    "ok": true,
+    "detalhe": "3 linhas, cabeçalho=True, 0 inválidos, mapa={'N1': 1, 'N2': 0, 'N3': 0, 'C1': 2, 'C2': 0}"
+   },
+   {
+    "caso": "diagnóstico «linhas_vazias_e_espacos» (Automático)",
+    "ok": true,
+    "detalhe": "Linhas com dados: 3  ·  Colunas: 2  ·  Linhas vazias ignoradas: 3 ⏎ Primeira linha: cabeçalho (nomes: Valor; Grupo) ⏎ ✔ Todos os valores das variáveis numéricas são válidos."
+   },
+   {
+    "caso": "colagem «invalidos» (Automático)",
+    "ok": true,
+    "detalhe": "5 linhas, cabeçalho=True, 2 inválidos, mapa={'N1': 1, 'N2': 2, 'N3': 0, 'C1': 0, 'C2': 0}"
+   },
+   {
+    "caso": "diagnóstico «invalidos» (Automático)",
+    "ok": true,
+    "detalhe": "Linhas com dados: 5  ·  Colunas: 2 ⏎ Primeira linha: cabeçalho (nomes: X; Y) ⏎ ⚠ 2 valor(es) inválido(s) — ficarão em branco: ⏎    linha 3, X: «abc» ⏎    linha 4, Y: «1,2,3»"
+   },
+   {
+    "caso": "colagem «milhares_espaco» (Automático)",
+    "ok": true,
+    "detalhe": "3 linhas, cabeçalho=True, 0 inválidos, mapa={'N1': 1, 'N2': 0, 'N3': 0, 'C1': 0, 'C2': 0}"
+   },
+   {
+    "caso": "diagnóstico «milhares_espaco» (Automático)",
+    "ok": true,
+    "detalhe": "Linhas com dados: 3  ·  Colunas: 1 ⏎ Primeira linha: cabeçalho (nomes: Rendimento) ⏎ ✔ Todos os valores das variáveis numéricas são válidos."
+   },
+   {
+    "caso": "colagem «grupo_primeiro» (Automático)",
+    "ok": true,
+    "detalhe": "3 linhas, cabeçalho=True, 0 inválidos, mapa={'N1': 2, 'N2': 0, 'N3': 0, 'C1': 1, 'C2': 0}"
+   },
+   {
+    "caso": "diagnóstico «grupo_primeiro» (Automático)",
+    "ok": true,
+    "detalhe": "Linhas com dados: 3  ·  Colunas: 2 ⏎ Primeira linha: cabeçalho (nomes: Turma; Nota) ⏎ ✔ Todos os valores das variáveis numéricas são válidos."
+   },
+   {
+    "caso": "colagem «so_categorica» (Automático)",
+    "ok": true,
+    "detalhe": "4 linhas, cabeçalho=False, 0 inválidos, mapa={'N1': 0, 'N2': 0, 'N3': 0, 'C1': 1, 'C2': 0}"
+   },
+   {
+    "caso": "diagnóstico «so_categorica» (Automático)",
+    "ok": true,
+    "detalhe": "Linhas com dados: 4  ·  Colunas: 1 ⏎ Primeira linha: dados ⏎ ✔ Todos os valores das variáveis numéricas são válidos."
+   },
+   {
+    "caso": "colagem «linha_unica» (Automático)",
+    "ok": true,
+    "detalhe": "1 linhas, cabeçalho=False, 0 inválidos, mapa={'N1': 1, 'N2': 2, 'N3': 0, 'C1': 0, 'C2': 0}"
+   },
+   {
+    "caso": "diagnóstico «linha_unica» (Automático)",
+    "ok": true,
+    "detalhe": "Linhas com dados: 1  ·  Colunas: 2 ⏎ Primeira linha: dados ⏎ ✔ Todos os valores das variáveis numéricas são válidos."
+   },
+   {
+    "caso": "colagem «cinco_colunas» (Automático)",
+    "ok": true,
+    "detalhe": "2 linhas, cabeçalho=True, 0 inválidos, mapa={'N1': 1, 'N2': 2, 'N3': 3, 'C1': 4, 'C2': 5}"
+   },
+   {
+    "caso": "diagnóstico «cinco_colunas» (Automático)",
+    "ok": true,
+    "detalhe": "Linhas com dados: 2  ·  Colunas: 5 ⏎ Primeira linha: cabeçalho (nomes: a; b; c; g1; g2) ⏎ ✔ Todos os valores das variáveis numéricas são válidos."
+   },
+   {
+    "caso": "colagem «cientifica_e_percentagem» (Automático)",
+    "ok": true,
+    "detalhe": "4 linhas, cabeçalho=True, 0 inválidos, mapa={'N1': 1, 'N2': 0, 'N3': 0, 'C1': 0, 'C2': 0}"
+   },
+   {
+    "caso": "diagnóstico «cientifica_e_percentagem» (Automático)",
+    "ok": true,
+    "detalhe": "Linhas com dados: 4  ·  Colunas: 1 ⏎ Primeira linha: cabeçalho (nomes: v) ⏎ ✔ Todos os valores das variáveis numéricas são válidos."
+   },
+   {
+    "caso": "número «1,5»",
+    "ok": true,
+    "detalhe": "Power Fx=1.5 inválido=False | referência=1.5 inválido=False"
+   },
+   {
+    "caso": "número «1.5»",
+    "ok": true,
+    "detalhe": "Power Fx=1.5 inválido=False | referência=1.5 inválido=False"
+   },
+   {
+    "caso": "número « 2 »",
+    "ok": true,
+    "detalhe": "Power Fx=2 inválido=False | referência=2.0 inválido=False"
+   },
+   {
+    "caso": "número «-3,25»",
+    "ok": true,
+    "detalhe": "Power Fx=-3.25 inválido=False | referência=-3.25 inválido=False"
+   },
+   {
+    "caso": "número «1 234,5»",
+    "ok": true,
+    "detalhe": "Power Fx=1234.5 inválido=False | referência=1234.5 inválido=False"
+   },
+   {
+    "caso": "número «1 000»",
+    "ok": true,
+    "detalhe": "Power Fx=1000 inválido=False | referência=1000.0 inválido=False"
+   },
+   {
+    "caso": "número «abc»",
+    "ok": true,
+    "detalhe": "Power Fx=None inválido=True | referência=None inválido=True"
+   },
+   {
+    "caso": "número «»",
+    "ok": true,
+    "detalhe": "Power Fx=None inválido=False | referência=None inválido=False"
+   },
+   {
+    "caso": "número «  »",
+    "ok": true,
+    "detalhe": "Power Fx=None inválido=False | referência=None inválido=False"
+   },
+   {
+    "caso": "número «1.2.3»",
+    "ok": true,
+    "detalhe": "Power Fx=None inválido=True | referência=None inválido=True"
+   },
+   {
+    "caso": "número «1,2,3»",
+    "ok": true,
+    "detalhe": "Power Fx=None inválido=True | referência=None inválido=True"
+   },
+   {
+    "caso": "número «5%»",
+    "ok": true,
+    "detalhe": "Power Fx=0.05 inválido=False | referência=0.05 inválido=False"
+   },
+   {
+    "caso": "número «1e3»",
+    "ok": true,
+    "detalhe": "Power Fx=1000 inválido=False | referência=1000.0 inválido=False"
+   },
+   {
+    "caso": "número «+4»",
+    "ok": true,
+    "detalhe": "Power Fx=4 inválido=False | referência=4.0 inválido=False"
+   },
+   {
+    "caso": "número «0,0001»",
+    "ok": true,
+    "detalhe": "Power Fx=0.0001 inválido=False | referência=0.0001 inválido=False"
+   },
+   {
+    "caso": "número «-0»",
+    "ok": true,
+    "detalhe": "Power Fx=0 inválido=False | referência=-0.0 inválido=False"
+   },
+   {
+    "caso": "número «12,»",
+    "ok": true,
+    "detalhe": "Power Fx=12 inválido=False | referência=12.0 inválido=False"
+   },
+   {
+    "caso": "número «,5»",
+    "ok": true,
+    "detalhe": "Power Fx=0.5 inválido=False | referência=0.5 inválido=False"
+   },
+   {
+    "caso": "formatação 0",
+    "ok": true,
+    "detalhe": "Power Fx=«0,0000» esperado=«0,0000»"
+   },
+   {
+    "caso": "formatação 1",
+    "ok": true,
+    "detalhe": "Power Fx=«1,0000» esperado=«1,0000»"
+   },
+   {
+    "caso": "formatação -1",
+    "ok": true,
+    "detalhe": "Power Fx=«-1,0000» esperado=«-1,0000»"
+   },
+   {
+    "caso": "formatação 3.14159265",
+    "ok": true,
+    "detalhe": "Power Fx=«3,1416» esperado=«3,1416»"
+   },
+   {
+    "caso": "formatação 1234.5",
+    "ok": true,
+    "detalhe": "Power Fx=«1 234,5000» esperado=«1 234,5000»"
+   },
+   {
+    "caso": "formatação -4e-05",
+    "ok": true,
+    "detalhe": "Power Fx=«0,0000» esperado=«0,0000»"
+   },
+   {
+    "caso": "formatação 5e-05",
+    "ok": true,
+    "detalhe": "Power Fx=«0,0001» esperado=«0,0001»"
+   },
+   {
+    "caso": "formatação 1234567.891",
+    "ok": true,
+    "detalhe": "Power Fx=«1 234 567,8910» esperado=«1 234 567,8910»"
+   },
+   {
+    "caso": "formatação 1e-10",
+    "ok": true,
+    "detalhe": "Power Fx=«0,0000» esperado=«0,0000»"
+   },
+   {
+    "caso": "formatação -2.5",
+    "ok": true,
+    "detalhe": "Power Fx=«-2,5000» esperado=«-2,5000»"
+   },
+   {
+    "caso": "formatação 100",
+    "ok": true,
+    "detalhe": "Power Fx=«100,0000» esperado=«100,0000»"
+   }
+  ]
+ }
+}
