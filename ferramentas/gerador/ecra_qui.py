@@ -2,7 +2,7 @@
 from .yaml_pa import Ecra
 from .comum import (cabecalho, props_ecra, etiqueta, lista, caixa_texto, retangulo, html,
                     COR_SUAVE, COR_PAINEL, COR_LINHA)
-from .f_comum import itens_todas
+from .f_comum import itens_todas, default_categorica
 from . import f_inferencia as F
 
 NOME = "scrQuiQuadrado"
@@ -33,8 +33,8 @@ def construir():
     campo("QuiOrigem", "Origem das frequências", lista("drpQuiOrigem", itens(F.ORIGENS_QUI), f'"{F.ORIGENS_QUI[0]}"',
                                                        0, 0, 0, 0))
     y_var = y
-    campo("QuiVar1", "Variável (linhas da tabela)", lista("drpQuiVar1", itens_todas(), "varNomes.C1", 0, 0, 0, 0), vars_)
-    campo("QuiVar2", "Variável das colunas", lista("drpQuiVar2", itens_todas(), "varNomes.C2", 0, 0, 0, 0),
+    campo("QuiVar1", "Variável (linhas da tabela)", lista("drpQuiVar1", itens_todas(), default_categorica(1), 0, 0, 0, 0), vars_)
+    campo("QuiVar2", "Variável das colunas", lista("drpQuiVar2", itens_todas(), default_categorica(2), 0, 0, 0, 0),
           f"{vars_} && {indep}")
     # a caixa da tabela colada ocupa o lugar das listas de variáveis
     y = y_var
@@ -50,7 +50,7 @@ def construir():
     campo("QuiAlfa", "Nível de significância α",
           lista("drpQuiAlfa", "[" + ", ".join(f'"{a}"' for a in F.ALFAS) + "]", '"0,05"', 0, 0, 0, 0))
     c.append(etiqueta("lblQuiNotas",
-                      '"As variáveis numéricas são tratadas como categorias (um valor = uma categoria). '
+                      '"Pode escolher qualquer variável: as numéricas são tratadas como categorias (um valor = uma categoria). '
                       'Na tabela colada, a 1.ª linha e a 1.ª coluna podem ter os nomes das categorias. '
                       'Na aderência usa-se a 1.ª coluna de números. As proporções esperadas podem ser '
                       'proporções, percentagens ou pesos: são normalizadas para somar 1."',

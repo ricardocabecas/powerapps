@@ -7,35 +7,41 @@ Screens:
         If(!varIniciado,
             Set(varIniciado, true);
             // Nomes das variáveis (podem ser alterados no cabeçalho da tabela)
-            Set(varNomes, {N1: "Altura (cm)", N2: "Peso (kg)", N3: "Nota (0-20)", C1: "Sexo", C2: "Turma"});
-            // Coleção com os dados: N1-N3 numéricas, C1-C2 categóricas (grupo)
+            Set(varNomes, {V1: "Altura (cm)", V2: "Peso (kg)", V3: "Nota (0-20)", V4: "Sexo", V5: "Turma", V6: "Variável 6"});
+            // Coleção com os dados: para cada variável k, Tk = texto escrito e Xk = número (ou vazio)
             ClearCollect(colDados, Table(
-                {Id: 1, N1: 165, N2: 58.5, N3: 14, C1: "F", C2: "A"},
-                {Id: 2, N1: 178, N2: 72, N3: 12, C1: "M", C2: "A"},
-                {Id: 3, N1: 160, N2: 52.3, N3: 16, C1: "F", C2: "B"},
-                {Id: 4, N1: 182, N2: 80.1, N3: 11, C1: "M", C2: "B"},
-                {Id: 5, N1: 170, N2: 65.4, N3: 13, C1: "M", C2: "C"},
-                {Id: 6, N1: 158, N2: 49.8, N3: 17, C1: "F", C2: "A"},
-                {Id: 7, N1: 175, N2: 70.2, N3: 10, C1: "M", C2: "C"},
-                {Id: 8, N1: 168, N2: 61, N3: 15, C1: "F", C2: "B"},
-                {Id: 9, N1: 185, N2: 85.6, N3: 9, C1: "M", C2: "A"},
-                {Id: 10, N1: 162, N2: 55.1, N3: 18, C1: "F", C2: "C"},
-                {Id: 11, N1: 172, N2: 68.3, N3: 12, C1: "M", C2: "B"},
-                {Id: 12, N1: 166, N2: 60.2, N3: 14, C1: "F", C2: "A"},
-                {Id: 13, N1: 180, N2: 77.5, N3: 11, C1: "M", C2: "C"},
-                {Id: 14, N1: 155, N2: 48, N3: 16, C1: "F", C2: "B"},
-                {Id: 15, N1: 174, N2: 69.9, N3: 13, C1: "M", C2: "A"},
-                {Id: 16, N1: 163, N2: 57.4, N3: 15, C1: "F", C2: "C"},
-                {Id: 17, N1: 177, N2: 74.8, N3: 10, C1: "M", C2: "B"},
-                {Id: 18, N1: 169, N2: 63.1, N3: 14, C1: "F", C2: "C"},
-                {Id: 19, N1: 171, N2: 66.7, N3: 12, C1: "M", C2: "A"},
-                {Id: 20, N1: 159, N2: 51.6, N3: 17, C1: "F", C2: "B"}
+                {Id: 1, T1: "165", X1: 165, T2: "58,5", X2: 58.5, T3: "14", X3: 14, T4: "F", X4: Blank(), T5: "A", X5: Blank(), T6: "", X6: Blank()},
+                {Id: 2, T1: "178", X1: 178, T2: "72", X2: 72, T3: "12", X3: 12, T4: "M", X4: Blank(), T5: "A", X5: Blank(), T6: "", X6: Blank()},
+                {Id: 3, T1: "160", X1: 160, T2: "52,3", X2: 52.3, T3: "16", X3: 16, T4: "F", X4: Blank(), T5: "B", X5: Blank(), T6: "", X6: Blank()},
+                {Id: 4, T1: "182", X1: 182, T2: "80,1", X2: 80.1, T3: "11", X3: 11, T4: "M", X4: Blank(), T5: "B", X5: Blank(), T6: "", X6: Blank()},
+                {Id: 5, T1: "170", X1: 170, T2: "65,4", X2: 65.4, T3: "13", X3: 13, T4: "M", X4: Blank(), T5: "C", X5: Blank(), T6: "", X6: Blank()},
+                {Id: 6, T1: "158", X1: 158, T2: "49,8", X2: 49.8, T3: "17", X3: 17, T4: "F", X4: Blank(), T5: "A", X5: Blank(), T6: "", X6: Blank()},
+                {Id: 7, T1: "175", X1: 175, T2: "70,2", X2: 70.2, T3: "10", X3: 10, T4: "M", X4: Blank(), T5: "C", X5: Blank(), T6: "", X6: Blank()},
+                {Id: 8, T1: "168", X1: 168, T2: "61", X2: 61, T3: "15", X3: 15, T4: "F", X4: Blank(), T5: "B", X5: Blank(), T6: "", X6: Blank()},
+                {Id: 9, T1: "185", X1: 185, T2: "85,6", X2: 85.6, T3: "9", X3: 9, T4: "M", X4: Blank(), T5: "A", X5: Blank(), T6: "", X6: Blank()},
+                {Id: 10, T1: "162", X1: 162, T2: "55,1", X2: 55.1, T3: "18", X3: 18, T4: "F", X4: Blank(), T5: "C", X5: Blank(), T6: "", X6: Blank()},
+                {Id: 11, T1: "172", X1: 172, T2: "68,3", X2: 68.3, T3: "12", X3: 12, T4: "M", X4: Blank(), T5: "B", X5: Blank(), T6: "", X6: Blank()},
+                {Id: 12, T1: "166", X1: 166, T2: "60,2", X2: 60.2, T3: "14", X3: 14, T4: "F", X4: Blank(), T5: "A", X5: Blank(), T6: "", X6: Blank()},
+                {Id: 13, T1: "180", X1: 180, T2: "77,5", X2: 77.5, T3: "11", X3: 11, T4: "M", X4: Blank(), T5: "C", X5: Blank(), T6: "", X6: Blank()},
+                {Id: 14, T1: "155", X1: 155, T2: "48", X2: 48, T3: "16", X3: 16, T4: "F", X4: Blank(), T5: "B", X5: Blank(), T6: "", X6: Blank()},
+                {Id: 15, T1: "174", X1: 174, T2: "69,9", X2: 69.9, T3: "13", X3: 13, T4: "M", X4: Blank(), T5: "A", X5: Blank(), T6: "", X6: Blank()},
+                {Id: 16, T1: "163", X1: 163, T2: "57,4", X2: 57.4, T3: "15", X3: 15, T4: "F", X4: Blank(), T5: "C", X5: Blank(), T6: "", X6: Blank()},
+                {Id: 17, T1: "177", X1: 177, T2: "74,8", X2: 74.8, T3: "10", X3: 10, T4: "M", X4: Blank(), T5: "B", X5: Blank(), T6: "", X6: Blank()},
+                {Id: 18, T1: "169", X1: 169, T2: "63,1", X2: 63.1, T3: "14", X3: 14, T4: "F", X4: Blank(), T5: "C", X5: Blank(), T6: "", X6: Blank()},
+                {Id: 19, T1: "171", X1: 171, T2: "66,7", X2: 66.7, T3: "12", X3: 12, T4: "M", X4: Blank(), T5: "A", X5: Blank(), T6: "", X6: Blank()},
+                {Id: 20, T1: "159", X1: 159, T2: "51,6", X2: 51.6, T3: "17", X3: 17, T4: "F", X4: Blank(), T5: "B", X5: Blank(), T6: "", X6: Blank()}
             ));
             // Coleções auxiliares da colagem (ficam vazias até carregar em Analisar)
             ClearCollect(colColagem, {Linha: 0, Celulas: Table({Texto: ""}), NCel: 0});
             Clear(colColagem);
             ClearCollect(colColunas, {Col: 0, Topo: "", TopoNumerico: false, NNaoVazias: 0, NNumeros: 0, Numerica: false, Rotulo: ""});
-            Clear(colColunas)
+            Clear(colColunas);
+            // Tipo de cada variável (numérica/categórica), detetado a partir dos dados
+            Set(varVariaveis, ForAll(Sequence(6) As _k,
+                With({_nv: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.T1, 2, ThisRecord.T2, 3, ThisRecord.T3, 4, ThisRecord.T4, 5, ThisRecord.T5, 6, ThisRecord.T6, "")))),
+                      _nn: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.X1, 2, ThisRecord.X2, 3, ThisRecord.X3, 4, ThisRecord.X4, 5, ThisRecord.X5, 6, ThisRecord.X6, Blank()))))},
+                    {k: _k.Value, nome: Switch(_k.Value, 1, varNomes.V1, 2, varNomes.V2, 3, varNomes.V3, 4, varNomes.V4, 5, varNomes.V5, 6, varNomes.V6, ""), n: _nv, nNum: _nn,
+                     numerica: _nn > 0 && _nn * 2 >= _nv, nInv: If(_nn > 0 && _nn * 2 >= _nv, _nv - _nn, 0)})))
         )
     Children:
       - retCabIni:
@@ -265,7 +271,7 @@ Screens:
           Control: Label
           Properties:
             Text: |-
-              ="Dados atuais: " & CountRows(colDados) & " linhas   ·   Variáveis numéricas: " & varNomes.N1 & ", " & varNomes.N2 & ", " & varNomes.N3 & "   ·   Variáveis de grupo: " & varNomes.C1 & ", " & varNomes.C2
+              ="Dados atuais: " & CountRows(colDados) & " linhas   ·   Variáveis numéricas: " & Coalesce(Concat(Filter(varVariaveis, numerica), nome, ", "), "nenhuma") & "   ·   Categóricas: " & Coalesce(Concat(Filter(varVariaveis, !numerica && n > 0), nome, ", "), "nenhuma")
             X: =56
             Y: =188
             Width: =1254

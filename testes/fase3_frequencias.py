@@ -10,26 +10,21 @@ from gerador.f_comum import NOMES_EXEMPLO  # noqa: E402
 from motor import pfx_valor, controlo_lista, controlo_texto, iguais  # noqa: E402
 from referencia import frequencias as R  # noqa: E402
 import dados_teste as D  # noqa: E402
+from modelo import vars_dados, nome as nome_var  # noqa: E402
 
 NOME = "Fase 3 — Frequências e gráficos"
-VARS = ["N1", "N2", "N3", "C1", "C2"]
-
-
 def contexto(kv, valores, tipo, k, a, h):
-    regs = []
-    for i, v in enumerate(valores):
-        r = {"Id": i + 1, "N1": None, "N2": None, "N3": None, "C1": "", "C2": ""}
-        r[VARS[kv - 1]] = v if v is not None else (None if kv <= 3 else "")
-        regs.append(r)
+    cols = [None] * 5
+    cols[kv - 1] = valores
+
     def txt(x):
         return "" if x is None else str(x).replace(".", ",")
-    return [{"nome": "varNomes", "expr": pfx_valor(NOMES_EXEMPLO)},
-            {"nome": "colDados", "expr": pfx_valor(regs)},
-            {"nome": "drpFreVar", "expr": controlo_lista(NOMES_EXEMPLO[VARS[kv - 1]])},
-            {"nome": "drpFreTipo", "expr": controlo_lista(F.TIPOS[tipo - 1])},
-            {"nome": "txtFreK", "expr": controlo_texto(txt(k))},
-            {"nome": "txtFreInicio", "expr": controlo_texto(txt(a))},
-            {"nome": "txtFreAmplitude", "expr": controlo_texto(txt(h))}]
+    return vars_dados(cols) + [
+        {"nome": "drpFreVar", "expr": controlo_lista(nome_var(kv))},
+        {"nome": "drpFreTipo", "expr": controlo_lista(F.TIPOS[tipo - 1])},
+        {"nome": "txtFreK", "expr": controlo_texto(txt(k))},
+        {"nome": "txtFreInicio", "expr": controlo_texto(txt(a))},
+        {"nome": "txtFreAmplitude", "expr": controlo_texto(txt(h))}]
 
 
 def grafico():

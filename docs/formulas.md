@@ -31,15 +31,46 @@ decimal.
 
 ### Modelo de dados
 
-A coleção `colDados` tem uma linha por observação (unidade estatística) e as colunas:
+A coleção `colDados` tem uma linha por observação (unidade estatística). Há **6 variáveis genéricas**
+(V1 a V6); para cada variável k guardam-se dois campos:
 
 | Campo | Tipo | Significado |
 |---|---|---|
 | `Id` | número | n.º da linha (1, 2, 3…) |
-| `N1`, `N2`, `N3` | número | três variáveis numéricas (em branco = valor em falta) |
-| `C1`, `C2` | texto | duas variáveis categóricas (de grupo) |
+| `T1` … `T6` | texto | o valor tal como foi escrito ou colado |
+| `X1` … `X6` | número | o mesmo valor convertido em número (vazio se o texto não for um número) |
 
-Os nomes que os alunos dão às variáveis ficam no registo `varNomes` (`varNomes.N1`, …, `varNomes.C2`).
+Os nomes que os alunos dão às variáveis ficam no registo `varNomes` (`varNomes.V1`, …, `varNomes.V6`).
+
+**O tipo de cada variável é detetado a partir dos dados**: é *numérica* se pelo menos metade das células
+preenchidas forem números; senão é *categórica*. A tabela `varVariaveis` (uma linha por variável, com o nome,
+o n.º de células preenchidas, o n.º de números, o tipo e o n.º de textos não numéricos) é recalculada sempre que
+os dados ou os nomes mudam:
+
+```powerfx
+ForAll(Sequence(6) As _k;
+    With({_nv: CountRows(Filter(colDados; !IsBlank(Switch(_k.Value; 1; ThisRecord.T1; 2; ThisRecord.T2; 3; ThisRecord.T3; 4; ThisRecord.T4; 5; ThisRecord.T5; 6; ThisRecord.T6; ""))));
+          _nn: CountRows(Filter(colDados; !IsBlank(Switch(_k.Value; 1; ThisRecord.X1; 2; ThisRecord.X2; 3; ThisRecord.X3; 4; ThisRecord.X4; 5; ThisRecord.X5; 6; ThisRecord.X6; Blank()))))};
+        {k: _k.Value; nome: Switch(_k.Value; 1; varNomes.V1; 2; varNomes.V2; 3; varNomes.V3; 4; varNomes.V4; 5; varNomes.V5; 6; varNomes.V6; ""); n: _nv; nNum: _nn;
+         numerica: _nn > 0 && _nn * 2 >= _nv; nInv: If(_nn > 0 && _nn * 2 >= _nv; _nv - _nn; 0)}))
+```
+
+Daí resultam as listas pendentes dos ecrãs de análise:
+
+* variáveis numéricas (descritiva, regressão, testes t, ANOVA): `ForAll(Filter(varVariaveis; numerica) As _v; {Value: _v.nome})`
+* variáveis de grupo / categorias (qualquer variável com dados; uma variável numérica discreta, como uma idade em
+  anos, também pode formar grupos): `ForAll(Filter(varVariaveis; n > 0) As _v; {Value: _v.nome})`
+
+O nome escolhido numa lista converte-se no índice da variável com `LookUp`, e o valor de cada linha obtém-se
+com `Switch`:
+
+```powerfx
+Coalesce(LookUp(varVariaveis; nome = drpDesVar.Selected.Value).k; 0)
+```
+
+```powerfx
+Switch(_k; 1; _d.X1; 2; _d.X2; 3; _d.X3; 4; _d.X4; 5; _d.X5; 6; _d.X6; Blank())
+```
 
 ### Conversão de texto em número (vírgula ou ponto decimal)
 
@@ -81,59 +112,71 @@ conhecer o tipo das colunas.
 If(!varIniciado;
     Set(varIniciado; true);;
     // Nomes das variáveis (podem ser alterados no cabeçalho da tabela)
-    Set(varNomes; {N1: "Altura (cm)"; N2: "Peso (kg)"; N3: "Nota (0-20)"; C1: "Sexo"; C2: "Turma"});;
-    // Coleção com os dados: N1-N3 numéricas, C1-C2 categóricas (grupo)
+    Set(varNomes; {V1: "Altura (cm)"; V2: "Peso (kg)"; V3: "Nota (0-20)"; V4: "Sexo"; V5: "Turma"; V6: "Variável 6"});;
+    // Coleção com os dados: para cada variável k, Tk = texto escrito e Xk = número (ou vazio)
     ClearCollect(colDados; Table(
-        {Id: 1; N1: 165; N2: 58,5; N3: 14; C1: "F"; C2: "A"};
-        {Id: 2; N1: 178; N2: 72; N3: 12; C1: "M"; C2: "A"};
-        {Id: 3; N1: 160; N2: 52,3; N3: 16; C1: "F"; C2: "B"};
-        {Id: 4; N1: 182; N2: 80,1; N3: 11; C1: "M"; C2: "B"};
-        {Id: 5; N1: 170; N2: 65,4; N3: 13; C1: "M"; C2: "C"};
-        {Id: 6; N1: 158; N2: 49,8; N3: 17; C1: "F"; C2: "A"};
-        {Id: 7; N1: 175; N2: 70,2; N3: 10; C1: "M"; C2: "C"};
-        {Id: 8; N1: 168; N2: 61; N3: 15; C1: "F"; C2: "B"};
-        {Id: 9; N1: 185; N2: 85,6; N3: 9; C1: "M"; C2: "A"};
-        {Id: 10; N1: 162; N2: 55,1; N3: 18; C1: "F"; C2: "C"};
-        {Id: 11; N1: 172; N2: 68,3; N3: 12; C1: "M"; C2: "B"};
-        {Id: 12; N1: 166; N2: 60,2; N3: 14; C1: "F"; C2: "A"};
-        {Id: 13; N1: 180; N2: 77,5; N3: 11; C1: "M"; C2: "C"};
-        {Id: 14; N1: 155; N2: 48; N3: 16; C1: "F"; C2: "B"};
-        {Id: 15; N1: 174; N2: 69,9; N3: 13; C1: "M"; C2: "A"};
-        {Id: 16; N1: 163; N2: 57,4; N3: 15; C1: "F"; C2: "C"};
-        {Id: 17; N1: 177; N2: 74,8; N3: 10; C1: "M"; C2: "B"};
-        {Id: 18; N1: 169; N2: 63,1; N3: 14; C1: "F"; C2: "C"};
-        {Id: 19; N1: 171; N2: 66,7; N3: 12; C1: "M"; C2: "A"};
-        {Id: 20; N1: 159; N2: 51,6; N3: 17; C1: "F"; C2: "B"}
+        {Id: 1; T1: "165"; X1: 165; T2: "58,5"; X2: 58,5; T3: "14"; X3: 14; T4: "F"; X4: Blank(); T5: "A"; X5: Blank(); T6: ""; X6: Blank()};
+        {Id: 2; T1: "178"; X1: 178; T2: "72"; X2: 72; T3: "12"; X3: 12; T4: "M"; X4: Blank(); T5: "A"; X5: Blank(); T6: ""; X6: Blank()};
+        {Id: 3; T1: "160"; X1: 160; T2: "52,3"; X2: 52,3; T3: "16"; X3: 16; T4: "F"; X4: Blank(); T5: "B"; X5: Blank(); T6: ""; X6: Blank()};
+        {Id: 4; T1: "182"; X1: 182; T2: "80,1"; X2: 80,1; T3: "11"; X3: 11; T4: "M"; X4: Blank(); T5: "B"; X5: Blank(); T6: ""; X6: Blank()};
+        {Id: 5; T1: "170"; X1: 170; T2: "65,4"; X2: 65,4; T3: "13"; X3: 13; T4: "M"; X4: Blank(); T5: "C"; X5: Blank(); T6: ""; X6: Blank()};
+        {Id: 6; T1: "158"; X1: 158; T2: "49,8"; X2: 49,8; T3: "17"; X3: 17; T4: "F"; X4: Blank(); T5: "A"; X5: Blank(); T6: ""; X6: Blank()};
+        {Id: 7; T1: "175"; X1: 175; T2: "70,2"; X2: 70,2; T3: "10"; X3: 10; T4: "M"; X4: Blank(); T5: "C"; X5: Blank(); T6: ""; X6: Blank()};
+        {Id: 8; T1: "168"; X1: 168; T2: "61"; X2: 61; T3: "15"; X3: 15; T4: "F"; X4: Blank(); T5: "B"; X5: Blank(); T6: ""; X6: Blank()};
+        {Id: 9; T1: "185"; X1: 185; T2: "85,6"; X2: 85,6; T3: "9"; X3: 9; T4: "M"; X4: Blank(); T5: "A"; X5: Blank(); T6: ""; X6: Blank()};
+        {Id: 10; T1: "162"; X1: 162; T2: "55,1"; X2: 55,1; T3: "18"; X3: 18; T4: "F"; X4: Blank(); T5: "C"; X5: Blank(); T6: ""; X6: Blank()};
+        {Id: 11; T1: "172"; X1: 172; T2: "68,3"; X2: 68,3; T3: "12"; X3: 12; T4: "M"; X4: Blank(); T5: "B"; X5: Blank(); T6: ""; X6: Blank()};
+        {Id: 12; T1: "166"; X1: 166; T2: "60,2"; X2: 60,2; T3: "14"; X3: 14; T4: "F"; X4: Blank(); T5: "A"; X5: Blank(); T6: ""; X6: Blank()};
+        {Id: 13; T1: "180"; X1: 180; T2: "77,5"; X2: 77,5; T3: "11"; X3: 11; T4: "M"; X4: Blank(); T5: "C"; X5: Blank(); T6: ""; X6: Blank()};
+        {Id: 14; T1: "155"; X1: 155; T2: "48"; X2: 48; T3: "16"; X3: 16; T4: "F"; X4: Blank(); T5: "B"; X5: Blank(); T6: ""; X6: Blank()};
+        {Id: 15; T1: "174"; X1: 174; T2: "69,9"; X2: 69,9; T3: "13"; X3: 13; T4: "M"; X4: Blank(); T5: "A"; X5: Blank(); T6: ""; X6: Blank()};
+        {Id: 16; T1: "163"; X1: 163; T2: "57,4"; X2: 57,4; T3: "15"; X3: 15; T4: "F"; X4: Blank(); T5: "C"; X5: Blank(); T6: ""; X6: Blank()};
+        {Id: 17; T1: "177"; X1: 177; T2: "74,8"; X2: 74,8; T3: "10"; X3: 10; T4: "M"; X4: Blank(); T5: "B"; X5: Blank(); T6: ""; X6: Blank()};
+        {Id: 18; T1: "169"; X1: 169; T2: "63,1"; X2: 63,1; T3: "14"; X3: 14; T4: "F"; X4: Blank(); T5: "C"; X5: Blank(); T6: ""; X6: Blank()};
+        {Id: 19; T1: "171"; X1: 171; T2: "66,7"; X2: 66,7; T3: "12"; X3: 12; T4: "M"; X4: Blank(); T5: "A"; X5: Blank(); T6: ""; X6: Blank()};
+        {Id: 20; T1: "159"; X1: 159; T2: "51,6"; X2: 51,6; T3: "17"; X3: 17; T4: "F"; X4: Blank(); T5: "B"; X5: Blank(); T6: ""; X6: Blank()}
     ));;
     // Coleções auxiliares da colagem (ficam vazias até carregar em Analisar)
     ClearCollect(colColagem; {Linha: 0; Celulas: Table({Texto: ""}); NCel: 0});;
     Clear(colColagem);;
     ClearCollect(colColunas; {Col: 0; Topo: ""; TopoNumerico: false; NNaoVazias: 0; NNumeros: 0; Numerica: false; Rotulo: ""});;
-    Clear(colColunas)
+    Clear(colColunas);;
+    // Tipo de cada variável (numérica/categórica), detetado a partir dos dados
+    Set(varVariaveis; ForAll(Sequence(6) As _k;
+        With({_nv: CountRows(Filter(colDados; !IsBlank(Switch(_k.Value; 1; ThisRecord.T1; 2; ThisRecord.T2; 3; ThisRecord.T3; 4; ThisRecord.T4; 5; ThisRecord.T5; 6; ThisRecord.T6; ""))));
+              _nn: CountRows(Filter(colDados; !IsBlank(Switch(_k.Value; 1; ThisRecord.X1; 2; ThisRecord.X2; 3; ThisRecord.X3; 4; ThisRecord.X4; 5; ThisRecord.X5; 6; ThisRecord.X6; Blank()))))};
+            {k: _k.Value; nome: Switch(_k.Value; 1; varNomes.V1; 2; varNomes.V2; 3; varNomes.V3; 4; varNomes.V4; 5; varNomes.V5; 6; varNomes.V6; ""); n: _nv; nNum: _nn;
+             numerica: _nn > 0 && _nn * 2 >= _nv; nInv: If(_nn > 0 && _nn * 2 >= _nv; _nv - _nn; 0)})))
 )
 ```
 
 ### 1.2 Galeria editável
 
-A galeria `galDados` tem `Items = colDados`. Cada célula numérica é uma caixa de texto:
+A galeria `galDados` tem `Items = colDados` e uma caixa de texto por variável:
 
-* `Default` mostra o número com vírgula decimal e só as casas necessárias:
-
-```powerfx
-With({_v: ThisItem.N1}; If(IsBlank(_v); ""; If(_v = Int(_v); Text(_v; "[$-en-US]0"; "pt-PT"); Text(_v; "[$-en-US]0.##########"; "pt-PT"))))
-```
-
-* `OnChange` converte o que o aluno escreveu e grava com `Patch` na linha certa (procurada pelo `Id`); se o
-  texto não for um número aparece um aviso:
+* `Default`: numa variável numérica mostra o número com vírgula decimal e só as casas necessárias; numa variável
+  categórica mostra o texto escrito:
 
 ```powerfx
-// Converte o texto (vírgula ou ponto decimal) e grava na coleção
-Patch(colDados; LookUp(colDados; Id = ThisItem.Id); {N1: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank())});;
-If((Len(Trim(Self.Text)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US")));
-    Notify("«" & Self.Text & "» não é um número válido: a célula ficou vazia."; NotificationType.Warning))
+If(LookUp(varVariaveis; k = 1).numerica && !IsBlank(ThisItem.X1); With({_v: ThisItem.X1}; If(IsBlank(_v); ""; If(_v = Int(_v); Text(_v; "[$-en-US]0"; "pt-PT"); Text(_v; "[$-en-US]0.##########"; "pt-PT")))); ThisItem.T1)
 ```
 
-* `BorderColor` fica vermelho enquanto o texto for inválido.
+* `OnChange` grava o texto e o número com `Patch` na linha certa (procurada pelo `Id`), volta a detetar os tipos
+  e avisa se, numa variável numérica, o texto não for um número:
+
+```powerfx
+// Guarda o texto (T1) e o número (X1; vírgula ou ponto decimal) e atualiza os tipos
+Patch(colDados; LookUp(colDados; Id = ThisItem.Id); {T1: Trim(Self.Text); X1: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank())});;
+Set(varVariaveis; ForAll(Sequence(6) As _k;
+    With({_nv: CountRows(Filter(colDados; !IsBlank(Switch(_k.Value; 1; ThisRecord.T1; 2; ThisRecord.T2; 3; ThisRecord.T3; 4; ThisRecord.T4; 5; ThisRecord.T5; 6; ThisRecord.T6; ""))));
+          _nn: CountRows(Filter(colDados; !IsBlank(Switch(_k.Value; 1; ThisRecord.X1; 2; ThisRecord.X2; 3; ThisRecord.X3; 4; ThisRecord.X4; 5; ThisRecord.X5; 6; ThisRecord.X6; Blank()))))};
+        {k: _k.Value; nome: Switch(_k.Value; 1; varNomes.V1; 2; varNomes.V2; 3; varNomes.V3; 4; varNomes.V4; 5; varNomes.V5; 6; varNomes.V6; ""); n: _nv; nNum: _nn;
+         numerica: _nn > 0 && _nn * 2 >= _nv; nInv: If(_nn > 0 && _nn * 2 >= _nv; _nv - _nn; 0)})));;
+If(Coalesce(LookUp(varVariaveis; k = 1).numerica; false) && (Len(Trim(Self.Text)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US")));
+    Notify("«" & Self.Text & "» não é um número: nesta variável numérica conta como valor em falta."; NotificationType.Warning))
+```
+
+* `BorderColor` fica vermelho numa variável numérica enquanto o texto não for um número.
 
 O botão ✕ apaga a linha e volta a numerar as linhas de 1 a n (através de uma coleção temporária, porque não se
 pode alterar uma coleção dentro de um `ForAll` que a percorre):
@@ -205,52 +248,42 @@ texto não numérico na 1.ª linha:
 Switch(drpCabecalho.Selected.Value; "Sim"; true; "Não"; false; CountRows(colColagem) >= 2 && CountRows(Filter(colColunas; Numerica && Topo <> "" && !TopoNumerico)) > 0)
 ```
 
-**Passo 4 — escolher a coluna de origem de cada variável.** As listas `drpMapN1`…`drpMapC2` mostram
-`n.º · 1.ª célula`; por omissão as colunas numéricas vão para `N1`, `N2`, `N3` e as de texto para `C1`, `C2`.
-Exemplo para `N1`:
-
-```powerfx
-With({_f: Filter(colColunas; Numerica)}; If(CountRows(_f) >= 1; Index(_f; 1).Rotulo; "—"))
-```
-
-**Passo 5 — importar.** Constrói-se um registo com as linhas prontas para `colDados`, a lista de valores
-inválidos (que ficam em branco) e os nomes vindos do cabeçalho:
+**Passo 4 — importar.** A 1.ª coluna colada vai para a variável 1, a 2.ª para a variável 2, e assim por diante
+(até 6 colunas). Constrói-se um registo com as linhas prontas para `colDados` (texto e número de cada célula),
+a lista de textos não numéricos em colunas numéricas (que contam como valores em falta) e os nomes das variáveis
+(da 1.ª linha, se for cabeçalho):
 
 ```powerfx
 With(
-    // Opções escolhidas: cabeçalho e coluna de origem de cada variável
+    // A 1.ª linha é cabeçalho? E que colunas são numéricas (pelo menos metade das células são números)?
     {_cab: Switch(drpCabecalho.Selected.Value; "Sim"; true; "Não"; false; CountRows(colColagem) >= 2 && CountRows(Filter(colColunas; Numerica && Topo <> "" && !TopoNumerico)) > 0);
-      _jN1: IfError(Value(First(Split(drpMapN1.Selected.Value; " ")).Value; "en-US"); 0);
-      _jN2: IfError(Value(First(Split(drpMapN2.Selected.Value; " ")).Value; "en-US"); 0);
-      _jN3: IfError(Value(First(Split(drpMapN3.Selected.Value; " ")).Value; "en-US"); 0);
-      _jC1: IfError(Value(First(Split(drpMapC1.Selected.Value; " ")).Value; "en-US"); 0);
-      _jC2: IfError(Value(First(Split(drpMapC2.Selected.Value; " ")).Value; "en-US"); 0)};
+      _num1: Coalesce(LookUp(colColunas; Col = 1).Numerica; false);
+          _num2: Coalesce(LookUp(colColunas; Col = 2).Numerica; false);
+          _num3: Coalesce(LookUp(colColunas; Col = 3).Numerica; false);
+          _num4: Coalesce(LookUp(colColunas; Col = 4).Numerica; false);
+          _num5: Coalesce(LookUp(colColunas; Col = 5).Numerica; false);
+          _num6: Coalesce(LookUp(colColunas; Col = 6).Numerica; false)};
     With(
         {_corpo: If(_cab; LastN(colColagem; CountRows(colColagem) - 1); colColagem);
-          // Se houver cabeçalho, os nomes das variáveis vêm da 1.ª linha
-          _nomes: With({_c1: First(colColagem)}; {N1: If(_cab && _jN1 > 0; If(_jN1 >= 1 && _jN1 <= CountRows(_c1.Celulas); Index(_c1.Celulas; _jN1).Texto; ""); varNomes.N1); N2: If(_cab && _jN2 > 0; If(_jN2 >= 1 && _jN2 <= CountRows(_c1.Celulas); Index(_c1.Celulas; _jN2).Texto; ""); varNomes.N2); N3: If(_cab && _jN3 > 0; If(_jN3 >= 1 && _jN3 <= CountRows(_c1.Celulas); Index(_c1.Celulas; _jN3).Texto; ""); varNomes.N3); C1: If(_cab && _jC1 > 0; If(_jC1 >= 1 && _jC1 <= CountRows(_c1.Celulas); Index(_c1.Celulas; _jC1).Texto; ""); varNomes.C1); C2: If(_cab && _jC2 > 0; If(_jC2 >= 1 && _jC2 <= CountRows(_c1.Celulas); Index(_c1.Celulas; _jC2).Texto; ""); varNomes.C2)})};
-        With(
-            {_reg: ForAll(Sequence(CountRows(_corpo)) As _i;
+          _nomes: With({_c1: First(colColagem)}; {V1: With({_h: If(_cab; If(1 <= CountRows(_c1.Celulas); Index(_c1.Celulas; 1).Texto; ""); "")}; If(_h <> ""; _h; "Variável 1")); V2: With({_h: If(_cab; If(2 <= CountRows(_c1.Celulas); Index(_c1.Celulas; 2).Texto; ""); "")}; If(_h <> ""; _h; "Variável 2")); V3: With({_h: If(_cab; If(3 <= CountRows(_c1.Celulas); Index(_c1.Celulas; 3).Texto; ""); "")}; If(_h <> ""; _h; "Variável 3")); V4: With({_h: If(_cab; If(4 <= CountRows(_c1.Celulas); Index(_c1.Celulas; 4).Texto; ""); "")}; If(_h <> ""; _h; "Variável 4")); V5: With({_h: If(_cab; If(5 <= CountRows(_c1.Celulas); Index(_c1.Celulas; 5).Texto; ""); "")}; If(_h <> ""; _h; "Variável 5")); V6: With({_h: If(_cab; If(6 <= CountRows(_c1.Celulas); Index(_c1.Celulas; 6).Texto; ""); "")}; If(_h <> ""; _h; "Variável 6"))})};
+        {
+            // Registos prontos a juntar a colDados: a coluna j vai para a variável Vj
+            Linhas: ForAll(Sequence(CountRows(_corpo)) As _i;
                 With({_r: Index(_corpo; _i.Value)};
-                    With({_tN1: If(_jN1 >= 1 && _jN1 <= CountRows(_r.Celulas); Index(_r.Celulas; _jN1).Texto; ""); _tN2: If(_jN2 >= 1 && _jN2 <= CountRows(_r.Celulas); Index(_r.Celulas; _jN2).Texto; ""); _tN3: If(_jN3 >= 1 && _jN3 <= CountRows(_r.Celulas); Index(_r.Celulas; _jN3).Texto; ""); _tC1: If(_jC1 >= 1 && _jC1 <= CountRows(_r.Celulas); Index(_r.Celulas; _jC1).Texto; ""); _tC2: If(_jC2 >= 1 && _jC2 <= CountRows(_r.Celulas); Index(_r.Celulas; _jC2).Texto; "")};
-                        {Id: 0 + _i.Value; N1: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN1); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank()); N2: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN2); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank()); N3: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN3); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank()); C1: _tC1; C2: _tC2;
-                         Linha: _r.Linha; _IN1: (Len(Trim(_tN1)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN1); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"))); _IN2: (Len(Trim(_tN2)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN2); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"))); _IN3: (Len(Trim(_tN3)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN3); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"))); _TN1: _tN1; _TN2: _tN2; _TN3: _tN3}
-                    )
-                )
-            )};
-            {
-                // Registos prontos a juntar a colDados
-                Linhas: ForAll(_reg; {Id: Id; N1: N1; N2: N2; N3: N3; C1: C1; C2: C2});
-                // Valores não numéricos em colunas numéricas (ficam em branco)
-                Invalidos: Sort(Table(
-            ForAll(Filter(_reg; _IN1) As _x; {Linha: _x.Linha; Variavel: _nomes.N1; Texto: _x._TN1});
-            ForAll(Filter(_reg; _IN2) As _x; {Linha: _x.Linha; Variavel: _nomes.N2; Texto: _x._TN2});
-            ForAll(Filter(_reg; _IN3) As _x; {Linha: _x.Linha; Variavel: _nomes.N3; Texto: _x._TN3})
-                ); Linha);
-                Cabecalho: _cab;
-                Nomes: _nomes
-            }
-        )
+                    With({_t1: If(1 <= CountRows(_r.Celulas); Index(_r.Celulas; 1).Texto; ""); _t2: If(2 <= CountRows(_r.Celulas); Index(_r.Celulas; 2).Texto; ""); _t3: If(3 <= CountRows(_r.Celulas); Index(_r.Celulas; 3).Texto; ""); _t4: If(4 <= CountRows(_r.Celulas); Index(_r.Celulas; 4).Texto; ""); _t5: If(5 <= CountRows(_r.Celulas); Index(_r.Celulas; 5).Texto; ""); _t6: If(6 <= CountRows(_r.Celulas); Index(_r.Celulas; 6).Texto; "")};
+                        {Id: 0 + _i.Value; T1: _t1; X1: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t1); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank()); T2: _t2; X2: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t2); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank()); T3: _t3; X3: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t3); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank()); T4: _t4; X4: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t4); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank()); T5: _t5; X5: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t5); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank()); T6: _t6; X6: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t6); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank())})));
+            // Textos não numéricos em colunas numéricas (ficam como valores em falta)
+            Invalidos: Sort(Table(
+            ForAll(Filter(_corpo As _r; _num1 && (Len(Trim(If(1 <= CountRows(_r.Celulas); Index(_r.Celulas; 1).Texto; ""))) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(If(1 <= CountRows(_r.Celulas); Index(_r.Celulas; 1).Texto; "")); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US")))) As _x; {Linha: _x.Linha; Variavel: _nomes.V1; Texto: If(1 <= CountRows(_x.Celulas); Index(_x.Celulas; 1).Texto; "")});
+            ForAll(Filter(_corpo As _r; _num2 && (Len(Trim(If(2 <= CountRows(_r.Celulas); Index(_r.Celulas; 2).Texto; ""))) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(If(2 <= CountRows(_r.Celulas); Index(_r.Celulas; 2).Texto; "")); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US")))) As _x; {Linha: _x.Linha; Variavel: _nomes.V2; Texto: If(2 <= CountRows(_x.Celulas); Index(_x.Celulas; 2).Texto; "")});
+            ForAll(Filter(_corpo As _r; _num3 && (Len(Trim(If(3 <= CountRows(_r.Celulas); Index(_r.Celulas; 3).Texto; ""))) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(If(3 <= CountRows(_r.Celulas); Index(_r.Celulas; 3).Texto; "")); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US")))) As _x; {Linha: _x.Linha; Variavel: _nomes.V3; Texto: If(3 <= CountRows(_x.Celulas); Index(_x.Celulas; 3).Texto; "")});
+            ForAll(Filter(_corpo As _r; _num4 && (Len(Trim(If(4 <= CountRows(_r.Celulas); Index(_r.Celulas; 4).Texto; ""))) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(If(4 <= CountRows(_r.Celulas); Index(_r.Celulas; 4).Texto; "")); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US")))) As _x; {Linha: _x.Linha; Variavel: _nomes.V4; Texto: If(4 <= CountRows(_x.Celulas); Index(_x.Celulas; 4).Texto; "")});
+            ForAll(Filter(_corpo As _r; _num5 && (Len(Trim(If(5 <= CountRows(_r.Celulas); Index(_r.Celulas; 5).Texto; ""))) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(If(5 <= CountRows(_r.Celulas); Index(_r.Celulas; 5).Texto; "")); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US")))) As _x; {Linha: _x.Linha; Variavel: _nomes.V5; Texto: If(5 <= CountRows(_x.Celulas); Index(_x.Celulas; 5).Texto; "")});
+            ForAll(Filter(_corpo As _r; _num6 && (Len(Trim(If(6 <= CountRows(_r.Celulas); Index(_r.Celulas; 6).Texto; ""))) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(If(6 <= CountRows(_r.Celulas); Index(_r.Celulas; 6).Texto; "")); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US")))) As _x; {Linha: _x.Linha; Variavel: _nomes.V6; Texto: If(6 <= CountRows(_x.Celulas); Index(_x.Celulas; 6).Texto; "")})
+            ); Linha);
+            Cabecalho: _cab;
+            Nomes: _nomes
+        }
     )
 )
 ```
@@ -258,14 +291,15 @@ With(
 O botão *Importar (substituir dados)* usa esse registo assim:
 
 ```powerfx
-// Substitui todos os dados pelos dados colados
+// Substitui todos os dados (e os nomes das variáveis) pelos dados colados
 Set(varImportacao; /* registo de importação (ver acima) */);;
 ClearCollect(colDados; varImportacao.Linhas);;
-If(varImportacao.Cabecalho; Set(varNomes; varImportacao.Nomes));;
+Set(varNomes; varImportacao.Nomes);;
+Set(varVariaveis; /* tabela das variáveis (ver 0.) */);;
 Notify(
     "Importadas " & CountRows(varImportacao.Linhas) & " linhas." &
     If(CountRows(varImportacao.Invalidos) > 0;
-        " Atenção: " & CountRows(varImportacao.Invalidos) & " valor(es) inválido(s) ficaram em branco."; "");
+        " Atenção: " & CountRows(varImportacao.Invalidos) & " valor(es) não numérico(s) ficaram como valores em falta."; "");
     If(CountRows(varImportacao.Invalidos) > 0; NotificationType.Warning; NotificationType.Success)
 )
 ```
@@ -278,19 +312,16 @@ no texto colado, para os encontrar no Excel).
 
 ### 2.1 Escolha da variável e dos grupos
 
-As listas pendentes mostram os nomes dados pelos alunos (`[varNomes.N1; varNomes.N2; varNomes.N3]`). O nome
-escolhido é convertido no índice da variável (1, 2 ou 3) com `Switch`:
+A lista da variável mostra só as variáveis numéricas; a lista «Agrupar por» mostra todas as variáveis com dados.
+Os valores da variável (e, se se pedir agrupamento, o grupo de cada observação e a sua ordem) obtêm-se de
+`colDados`, ignorando as células vazias:
 
 ```powerfx
-Switch(drpDesVar.Selected.Value; varNomes.N1; 1; varNomes.N2; 2; varNomes.N3; 3; 1)
+Filter(ForAll(colDados As _d; {x: Switch(_k; 1; _d.X1; 2; _d.X2; 3; _d.X3; 4; _d.X4; 5; _d.X5; 6; _d.X6; Blank()); g: If(_ng; With({_v: Switch(_kg; 1; _d.X1; 2; _d.X2; 3; _d.X3; 4; _d.X4; 5; _d.X5; 6; _d.X6; Blank())}; If(IsBlank(_v); ""; If(_v = Int(_v); Text(_v; "[$-en-US]0"; "pt-PT"); Text(_v; "[$-en-US]0.##########"; "pt-PT")))); Switch(_kg; 1; _d.T1; 2; _d.T2; 3; _d.T3; 4; _d.T4; 5; _d.T5; 6; _d.T6; "")); o: If(_ng; Switch(_kg; 1; _d.X1; 2; _d.X2; 3; _d.X3; 4; _d.X4; 5; _d.X5; 6; _d.X6; Blank()); 0)}); !IsBlank(x))
 ```
 
-Os valores da variável (e, se se pedir agrupamento, o grupo de cada observação) obtêm-se de `colDados`,
-ignorando as células vazias:
-
-```powerfx
-Filter(ForAll(colDados As _d; {x: Switch(_k; 1; _d.N1; 2; _d.N2; _d.N3); g: Switch(_kg; 1; _d.C1; _d.C2)}); !IsBlank(x))
-```
+Os grupos aparecem por ordem numérica quando a variável de agrupamento é numérica, e por ordem alfabética quando
+é categórica.
 
 ### 2.2 Medidas
 
@@ -418,14 +449,15 @@ Fórmula completa (devolve as linhas da tabela e os parâmetros usados):
 
 ```powerfx
 With(
-    {_kv: Switch(drpFreVar.Selected.Value; varNomes.N1; 1; varNomes.N2; 2; varNomes.N3; 3; varNomes.C1; 4; varNomes.C2; 5; 1)};
+    {_kv: Coalesce(LookUp(varVariaveis; nome = drpFreVar.Selected.Value).k; 0)};
+    With({_isn: Coalesce(LookUp(varVariaveis; k = _kv).numerica; false)};
     With(
-        {_tipo: If(_kv >= 4; 1; If(drpFreTipo.Selected.Value = "Classes (dados agrupados)"; 2; 1));
-         // Valores numéricos (variáveis 1 a 3) e categóricos (4 e 5), sem células vazias
-         _x: Filter(ForAll(colDados As _d; {x: Switch(_kv; 1; _d.N1; 2; _d.N2; 3; _d.N3; Blank())}); !IsBlank(x));
-         _g: Filter(ForAll(colDados As _d; {g: Switch(_kv; 4; _d.C1; 5; _d.C2; "")}); !IsBlank(g))};
+        {_tipo: If(!_isn; 1; If(drpFreTipo.Selected.Value = "Classes (dados agrupados)"; 2; 1));
+         // Valores numéricos (variável numérica) ou textos (variável categórica), sem células vazias
+         _x: Filter(ForAll(colDados As _d; {x: If(_isn; Switch(_kv; 1; _d.X1; 2; _d.X2; 3; _d.X3; 4; _d.X4; 5; _d.X5; 6; _d.X6; Blank()))}); !IsBlank(x));
+         _g: Filter(ForAll(colDados As _d; {g: If(!_isn; Switch(_kv; 1; _d.T1; 2; _d.T2; 3; _d.T3; 4; _d.T4; 5; _d.T5; 6; _d.T6; ""); "")}); !IsBlank(g))};
         With(
-            {_n: If(_kv >= 4; CountRows(_g); CountRows(_x)); _min: Min(_x; x); _max: Max(_x; x)};
+            {_n: If(!_isn; CountRows(_g); CountRows(_x)); _min: Min(_x; x); _max: Max(_x; x)};
             With(
                 // Classes: k pela regra de Sturges (ou o valor escrito), início no mínimo e amplitude (máx − início)/k
                 {_kS: If(_n > 0; RoundUp(1 + Log(_n; 2) - 1E-9; 0); 0);
@@ -460,7 +492,7 @@ With(
             With({_r: Index(_t; _i.Value); _Ni: Sum(FirstN(_t; _i.Value); ni)};
                 {Ordem: _i.Value; Classe: _r.Classe; Centro: _r.Centro; Li: _r.Li; Ls: _r.Ls;
                  ni: _r.ni; fi: _r.ni / _ntot; Ni: _Ni; Fi: _Ni / _ntot})));
-                                    _kv >= 4;
+                                    !_isn;
                                     With({_t: ForAll(Sort(Distinct(_g; g); Value) As _d;
                                             {Classe: _d.Value; Centro: Blank(); Li: Blank(); Ls: Blank(); ni: CountIf(_g; g = _d.Value)}); _ntot: Sum(ForAll(Sort(Distinct(_g; g); Value) As _d;
                                             {Classe: _d.Value; Centro: Blank(); Li: Blank(); Ls: Blank(); ni: CountIf(_g; g = _d.Value)}); ni)};
@@ -485,7 +517,7 @@ With(
             )
         )
     )
-)
+))
 ```
 
 ### 3.4 Gráficos em SVG
@@ -544,7 +576,7 @@ Fórmula do histograma:
 Só entram as observações com **x e y preenchidos** (eliminação por pares):
 
 ```powerfx
-Filter(ForAll(colDados As _d; {x: Switch(_kx; 1; _d.N1; 2; _d.N2; _d.N3); y: Switch(_ky; 1; _d.N1; 2; _d.N2; _d.N3)}); !IsBlank(x) && !IsBlank(y))
+Filter(ForAll(colDados As _d; {x: Switch(_kx; 1; _d.X1; 2; _d.X2; 3; _d.X3; 4; _d.X4; 5; _d.X5; 6; _d.X6; Blank()); y: Switch(_ky; 1; _d.X1; 2; _d.X2; 3; _d.X3; 4; _d.X4; 5; _d.X5; 6; _d.X6; Blank())}); !IsBlank(x) && !IsBlank(y))
 ```
 
 ### 4.2 Fórmulas
@@ -569,7 +601,7 @@ numericamente mais estável do que a fórmula Σxᵢyᵢ − n·x̄·ȳ quando o
 
 ```powerfx
 With(
-    {_p: Filter(ForAll(colDados As _d; {x: Switch(Switch(drpRegX.Selected.Value; varNomes.N1; 1; varNomes.N2; 2; varNomes.N3; 3; 1); 1; _d.N1; 2; _d.N2; _d.N3); y: Switch(Switch(drpRegY.Selected.Value; varNomes.N1; 1; varNomes.N2; 2; varNomes.N3; 3; 1); 1; _d.N1; 2; _d.N2; _d.N3)}); !IsBlank(x) && !IsBlank(y)); _x0: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtRegX0.Text); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank())};
+    {_p: Filter(ForAll(colDados As _d; {x: Switch(Coalesce(LookUp(varVariaveis; nome = drpRegX.Selected.Value).k; 0); 1; _d.X1; 2; _d.X2; 3; _d.X3; 4; _d.X4; 5; _d.X5; 6; _d.X6; Blank()); y: Switch(Coalesce(LookUp(varVariaveis; nome = drpRegY.Selected.Value).k; 0); 1; _d.X1; 2; _d.X2; 3; _d.X3; 4; _d.X4; 5; _d.X5; 6; _d.X6; Blank())}); !IsBlank(x) && !IsBlank(y)); _x0: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtRegX0.Text); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank())};
     With({_n: CountRows(_p)};
     With({_mx: If(_n > 0; Average(_p; x)); _my: If(_n > 0; Average(_p; y))};
     With(
@@ -732,14 +764,14 @@ With(
      _fmt: If(drpTtFormato.Selected.Value = "Duas colunas numéricas"; 2; 1);
      _alt: Switch(drpTtAlternativa.Selected.Value; "Unilateral à esquerda (<)"; 2; "Unilateral à direita (>)"; 3; 1); _alfa: Value(Substitute(drpTtAlfa.Selected.Value; ","; "."); "en-US");
      _d0: Coalesce(IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtTtMu0.Text); " "; ""); UniChar(160); ""); UniChar(8239); ""); ","; "."); "en-US"); Blank()); 0);
-     _k1: Switch(drpTtVar.Selected.Value; varNomes.N1; 1; varNomes.N2; 2; varNomes.N3; 3; 1); _k2: Switch(drpTtVar2.Selected.Value; varNomes.N1; 1; varNomes.N2; 2; varNomes.N3; 3; 1); _kg: Switch(drpTtGrupoVar.Selected.Value; varNomes.C2; 2; 1);
+     _k1: Coalesce(LookUp(varVariaveis; nome = drpTtVar.Selected.Value).k; 0); _k2: Coalesce(LookUp(varVariaveis; nome = drpTtVar2.Selected.Value).k; 0); _kg: Coalesce(LookUp(varVariaveis; nome = drpTtGrupoVar.Selected.Value).k; 0);
      _gA: drpTtGrupoA.Selected.Value; _gB: drpTtGrupoB.Selected.Value};
     With(
         // Amostra A (ou diferenças, no teste emparelhado) e amostra B
-        {_A: Switch(_tipo; 1; Filter(ForAll(colDados As _d; {x: Switch(_k1; 1; _d.N1; 2; _d.N2; _d.N3)}); !IsBlank(x)); 4; Filter(ForAll(colDados As _d; With({_a: Switch(_k1; 1; _d.N1; 2; _d.N2; _d.N3); _b: Switch(_k2; 1; _d.N1; 2; _d.N2; _d.N3)}; {x: If(IsBlank(_a) || IsBlank(_b); Blank(); _a - _b)})); !IsBlank(x));
-                If(_fmt = 1; Filter(ForAll(colDados As _d; {x: Switch(_k1; 1; _d.N1; 2; _d.N2; _d.N3); g: Switch(_kg; 1; _d.C1; _d.C2)}); !IsBlank(x) && g = _gA); Filter(ForAll(colDados As _d; {x: Switch(_k1; 1; _d.N1; 2; _d.N2; _d.N3)}); !IsBlank(x))));
+        {_A: Switch(_tipo; 1; Filter(ForAll(colDados As _d; {x: Switch(_k1; 1; _d.X1; 2; _d.X2; 3; _d.X3; 4; _d.X4; 5; _d.X5; 6; _d.X6; Blank())}); !IsBlank(x)); 4; Filter(ForAll(colDados As _d; With({_a: Switch(_k1; 1; _d.X1; 2; _d.X2; 3; _d.X3; 4; _d.X4; 5; _d.X5; 6; _d.X6; Blank()); _b: Switch(_k2; 1; _d.X1; 2; _d.X2; 3; _d.X3; 4; _d.X4; 5; _d.X5; 6; _d.X6; Blank())}; {x: If(IsBlank(_a) || IsBlank(_b); Blank(); _a - _b)})); !IsBlank(x));
+                If(_fmt = 1; With({_gn: Coalesce(LookUp(varVariaveis; k = _kg).numerica; false)}; Filter(ForAll(colDados As _d; {x: Switch(_k1; 1; _d.X1; 2; _d.X2; 3; _d.X3; 4; _d.X4; 5; _d.X5; 6; _d.X6; Blank()); g: If(_gn; With({_v: Switch(_kg; 1; _d.X1; 2; _d.X2; 3; _d.X3; 4; _d.X4; 5; _d.X5; 6; _d.X6; Blank())}; If(IsBlank(_v); ""; If(_v = Int(_v); Text(_v; "[$-en-US]0"; "pt-PT"); Text(_v; "[$-en-US]0.##########"; "pt-PT")))); Switch(_kg; 1; _d.T1; 2; _d.T2; 3; _d.T3; 4; _d.T4; 5; _d.T5; 6; _d.T6; ""))}); !IsBlank(x) && g = _gA)); Filter(ForAll(colDados As _d; {x: Switch(_k1; 1; _d.X1; 2; _d.X2; 3; _d.X3; 4; _d.X4; 5; _d.X5; 6; _d.X6; Blank())}); !IsBlank(x))));
          _B: If(_tipo = 2 || _tipo = 3;
-                If(_fmt = 1; Filter(ForAll(colDados As _d; {x: Switch(_k1; 1; _d.N1; 2; _d.N2; _d.N3); g: Switch(_kg; 1; _d.C1; _d.C2)}); !IsBlank(x) && g = _gB); Filter(ForAll(colDados As _d; {x: Switch(_k2; 1; _d.N1; 2; _d.N2; _d.N3)}); !IsBlank(x))); FirstN(Table({x: 0}); 0))};
+                If(_fmt = 1; With({_gn: Coalesce(LookUp(varVariaveis; k = _kg).numerica; false)}; Filter(ForAll(colDados As _d; {x: Switch(_k1; 1; _d.X1; 2; _d.X2; 3; _d.X3; 4; _d.X4; 5; _d.X5; 6; _d.X6; Blank()); g: If(_gn; With({_v: Switch(_kg; 1; _d.X1; 2; _d.X2; 3; _d.X3; 4; _d.X4; 5; _d.X5; 6; _d.X6; Blank())}; If(IsBlank(_v); ""; If(_v = Int(_v); Text(_v; "[$-en-US]0"; "pt-PT"); Text(_v; "[$-en-US]0.##########"; "pt-PT")))); Switch(_kg; 1; _d.T1; 2; _d.T2; 3; _d.T3; 4; _d.T4; 5; _d.T5; 6; _d.T6; ""))}); !IsBlank(x) && g = _gB)); Filter(ForAll(colDados As _d; {x: Switch(_k2; 1; _d.X1; 2; _d.X2; 3; _d.X3; 4; _d.X4; 5; _d.X5; 6; _d.X6; Blank())}); !IsBlank(x))); FirstN(Table({x: 0}); 0))};
     With({_n1: CountRows(_A); _n2: CountRows(_B)};
     With({_m1: If(_n1 > 0; Average(_A; x)); _m2: If(_n2 > 0; Average(_B; x))};
     With(
@@ -806,10 +838,12 @@ p = P(F(k − 1, N − k) ≥ F). A app mostra também η² = SQE / SQT.
 ```powerfx
 With(
     {_fmt: If(drpAnoFormato.Selected.Value = "Colunas numéricas como grupos"; 2; 1);
-     _k: Switch(drpAnoVar.Selected.Value; varNomes.N1; 1; varNomes.N2; 2; varNomes.N3; 3; 1); _kg: Switch(drpAnoFator.Selected.Value; varNomes.C2; 2; 1); _alfa: Value(Substitute(drpAnoAlfa.Selected.Value; ","; "."); "en-US")};
+     _k: Coalesce(LookUp(varVariaveis; nome = drpAnoVar.Selected.Value).k; 0); _kg: Coalesce(LookUp(varVariaveis; nome = drpAnoFator.Selected.Value).k; 0); _alfa: Value(Substitute(drpAnoAlfa.Selected.Value; ","; "."); "en-US")};
     With(
         // Resumo de cada grupo: n, média, soma e soma dos quadrados dos desvios em relação à média do grupo
-        {_g: If(_fmt = 1; ForAll(Sort(Filter(Distinct(colDados; Switch(_kg; 1; C1; C2)); !IsBlank(Value)); Value) As _G; With({_v: Filter(ForAll(colDados As _d; {x: Switch(_k; 1; _d.N1; 2; _d.N2; _d.N3); g: Switch(_kg; 1; _d.C1; _d.C2)}); !IsBlank(x) && g = _G.Value)}; With({_n: CountRows(_v)}; With({_m: If(_n > 0; Average(_v; x))}; {Grupo: _G.Value; n: _n; media: _m; soma: Sum(_v; x); sq: Sum(_v; Power(x - _m; 2))})))); Filter(ForAll(Sequence(3) As _j; With({_v: Filter(ForAll(colDados As _d; {x: Switch(_j.Value; 1; _d.N1; 2; _d.N2; _d.N3)}); !IsBlank(x))}; With({_n: CountRows(_v)}; With({_m: If(_n > 0; Average(_v; x))}; {Grupo: Switch(_j.Value; 1; varNomes.N1; 2; varNomes.N2; varNomes.N3); n: _n; media: _m; soma: Sum(_v; x); sq: Sum(_v; Power(x - _m; 2))})))); n > 0))};
+        {_g: If(_fmt = 1; ForAll(With({_c: Filter(ForAll(colDados As _d; {g: If(Coalesce(LookUp(varVariaveis; k = _kg).numerica; false); With({_v: Switch(_kg; 1; _d.X1; 2; _d.X2; 3; _d.X3; 4; _d.X4; 5; _d.X5; 6; _d.X6; Blank())}; If(IsBlank(_v); ""; If(_v = Int(_v); Text(_v; "[$-en-US]0"; "pt-PT"); Text(_v; "[$-en-US]0.##########"; "pt-PT")))); Switch(_kg; 1; _d.T1; 2; _d.T2; 3; _d.T3; 4; _d.T4; 5; _d.T5; 6; _d.T6; "")); o: If(Coalesce(LookUp(varVariaveis; k = _kg).numerica; false); Switch(_kg; 1; _d.X1; 2; _d.X2; 3; _d.X3; 4; _d.X4; 5; _d.X5; 6; _d.X6; Blank()); 0)}); !IsBlank(g))};
+        ForAll(If(Coalesce(LookUp(varVariaveis; k = _kg).numerica; false); Sort(ForAll(Distinct(_c; g) As _u; {g: _u.Value; o: LookUp(_c; g = _u.Value).o}); o);
+                  Sort(ForAll(Distinct(_c; g) As _u; {g: _u.Value; o: 0}); g)) As _z; {Value: _z.g})) As _G; With({_v: With({_gn: Coalesce(LookUp(varVariaveis; k = _kg).numerica; false)}; Filter(ForAll(colDados As _d; {x: Switch(_k; 1; _d.X1; 2; _d.X2; 3; _d.X3; 4; _d.X4; 5; _d.X5; 6; _d.X6; Blank()); g: If(_gn; With({_v: Switch(_kg; 1; _d.X1; 2; _d.X2; 3; _d.X3; 4; _d.X4; 5; _d.X5; 6; _d.X6; Blank())}; If(IsBlank(_v); ""; If(_v = Int(_v); Text(_v; "[$-en-US]0"; "pt-PT"); Text(_v; "[$-en-US]0.##########"; "pt-PT")))); Switch(_kg; 1; _d.T1; 2; _d.T2; 3; _d.T3; 4; _d.T4; 5; _d.T5; 6; _d.T6; ""))}); !IsBlank(x) && g = _G.Value))}; With({_n: CountRows(_v)}; With({_m: If(_n > 0; Average(_v; x))}; {Grupo: _G.Value; n: _n; media: _m; soma: Sum(_v; x); sq: Sum(_v; Power(x - _m; 2))})))); Filter(ForAll(Filter(varVariaveis; numerica) As _j; With({_v: Filter(ForAll(colDados As _d; {x: Switch(_j.k; 1; _d.X1; 2; _d.X2; 3; _d.X3; 4; _d.X4; 5; _d.X5; 6; _d.X6; Blank())}); !IsBlank(x))}; With({_n: CountRows(_v)}; With({_m: If(_n > 0; Average(_v; x))}; {Grupo: _j.nome; n: _n; media: _m; soma: Sum(_v; x); sq: Sum(_v; Power(x - _m; 2))})))); n > 0))};
     With({_N: Sum(_g; n); _kk: CountRows(_g)};
     With({_mg: If(_N > 0; Sum(_g; soma) / _N)};
     With(
@@ -906,7 +940,7 @@ Fórmula completa do teste:
 With(
     {_tipo: If(drpQuiTipo.Selected.Value = "Independência (tabela de contingência)"; 2; 1);
      _orig: If(drpQuiOrigem.Selected.Value = "Tabela colada do Excel"; 2; 1);
-     _k1: Switch(drpQuiVar1.Selected.Value; varNomes.N1; 1; varNomes.N2; 2; varNomes.N3; 3; varNomes.C1; 4; varNomes.C2; 5; 1); _k2: Switch(drpQuiVar2.Selected.Value; varNomes.N1; 1; varNomes.N2; 2; varNomes.N3; 3; varNomes.C1; 4; varNomes.C2; 5; 1);
+     _k1: Coalesce(LookUp(varVariaveis; nome = drpQuiVar1.Selected.Value).k; 0); _k2: Coalesce(LookUp(varVariaveis; nome = drpQuiVar2.Selected.Value).k; 0);
      _alfa: Value(Substitute(drpQuiAlfa.Selected.Value; ","; "."); "en-US")};
     With(
         // Tabela observada: nomes das linhas e colunas e células {i, j, O} (na aderência há só 1 coluna)
@@ -945,16 +979,17 @@ With(
                 }
                 ))))))
             );
-            With({_pr: Filter(ForAll(colDados As _d; With({_A: With({_val: Switch(_k1; 1; _d.N1; 2; _d.N2; 3; _d.N3; Blank())}; {cat: If(_k1 <= 3; If(IsBlank(_val); ""; With({_v: _val}; If(IsBlank(_v); ""; If(_v = Int(_v); Text(_v; "[$-en-US]0"; "pt-PT"); Text(_v; "[$-en-US]0.##########"; "pt-PT"))))); Switch(_k1; 4; _d.C1; _d.C2)); ord: If(_k1 <= 3; _val; 0)}); _B: With({_val: Switch(_k2; 1; _d.N1; 2; _d.N2; 3; _d.N3; Blank())}; {cat: If(_k2 <= 3; If(IsBlank(_val); ""; With({_v: _val}; If(IsBlank(_v); ""; If(_v = Int(_v); Text(_v; "[$-en-US]0"; "pt-PT"); Text(_v; "[$-en-US]0.##########"; "pt-PT"))))); Switch(_k2; 4; _d.C1; _d.C2)); ord: If(_k2 <= 3; _val; 0)})};
+            With({_q1: Coalesce(LookUp(varVariaveis; k = _k1).numerica; false); _q2: Coalesce(LookUp(varVariaveis; k = _k2).numerica; false)};
+            With({_pr: Filter(ForAll(colDados As _d; With({_A: {cat: If(_q1; With({_v: Switch(_k1; 1; _d.X1; 2; _d.X2; 3; _d.X3; 4; _d.X4; 5; _d.X5; 6; _d.X6; Blank())}; If(IsBlank(_v); ""; If(_v = Int(_v); Text(_v; "[$-en-US]0"; "pt-PT"); Text(_v; "[$-en-US]0.##########"; "pt-PT")))); Switch(_k1; 1; _d.T1; 2; _d.T2; 3; _d.T3; 4; _d.T4; 5; _d.T5; 6; _d.T6; "")); ord: If(_q1; Switch(_k1; 1; _d.X1; 2; _d.X2; 3; _d.X3; 4; _d.X4; 5; _d.X5; 6; _d.X6; Blank()); 0)}; _B: {cat: If(_q2; With({_v: Switch(_k2; 1; _d.X1; 2; _d.X2; 3; _d.X3; 4; _d.X4; 5; _d.X5; 6; _d.X6; Blank())}; If(IsBlank(_v); ""; If(_v = Int(_v); Text(_v; "[$-en-US]0"; "pt-PT"); Text(_v; "[$-en-US]0.##########"; "pt-PT")))); Switch(_k2; 1; _d.T1; 2; _d.T2; 3; _d.T3; 4; _d.T4; 5; _d.T5; 6; _d.T6; "")); ord: If(_q2; Switch(_k2; 1; _d.X1; 2; _d.X2; 3; _d.X3; 4; _d.X4; 5; _d.X5; 6; _d.X6; Blank()); 0)}};
                         {a: _A.cat; oa: _A.ord; b: If(_tipo = 2; _B.cat; "Total"); ob: If(_tipo = 2; _B.ord; 0)}));
                         a <> "" && b <> "")};
-                With({_L: With({_ls: ForAll(Distinct(_pr; a) As _c; {nome: _c.Value; o: LookUp(_pr; a = _c.Value).oa})}; If(_k1 <= 3; Sort(_ls; o); Sort(_ls; nome))); _C: With({_ls: ForAll(Distinct(_pr; b) As _c; {nome: _c.Value; o: LookUp(_pr; b = _c.Value).ob})}; If(If(_tipo = 2; _k2; 4) <= 3; Sort(_ls; o); Sort(_ls; nome)))};
+                With({_L: With({_ls: ForAll(Distinct(_pr; a) As _c; {nome: _c.Value; o: LookUp(_pr; a = _c.Value).oa})}; If(_q1; Sort(_ls; o); Sort(_ls; nome))); _C: With({_ls: ForAll(Distinct(_pr; b) As _c; {nome: _c.Value; o: LookUp(_pr; b = _c.Value).ob})}; If(_tipo = 2 && _q2; Sort(_ls; o); Sort(_ls; nome)))};
                     {Linhas: _L; Colunas: _C;
                      Celulas: ForAll(Sequence(CountRows(_L) * CountRows(_C); 0) As _q;
                         With({_i: RoundDown(_q.Value / CountRows(_C); 0) + 1; _j: Mod(_q.Value; CountRows(_C)) + 1};
                             {i: _i; j: _j; t: "";
                              O: CountIf(_pr; a = Index(_L; _i).nome && b = Index(_C; _j).nome); invalido: false}));
-                     TemRotulos: true})))};
+                     TemRotulos: true}))))};
     With(
         // Aderência: frequências observadas = última coluna; se a tabela colada não tiver nomes de texto
         // e tiver 2 ou mais colunas, a 1.ª coluna dá os nomes das categorias (ex.: faces de um dado 1 a 6)

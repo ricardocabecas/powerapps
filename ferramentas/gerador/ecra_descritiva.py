@@ -1,7 +1,7 @@
 """Ecrã 2 — Estatística descritiva."""
 from .yaml_pa import Ecra
 from .comum import cabecalho, props_ecra, etiqueta, lista, html, retangulo, COR_SUAVE, COR_PAINEL, COR_LINHA
-from .f_comum import itens_numericas
+from .f_comum import itens_numericas, default_numerica
 from . import f_descritiva as F
 
 NOME = "scrDescritiva"
@@ -13,9 +13,9 @@ def construir():
     c.append(retangulo("retDesPainel", X - 4, 72, W + 8, 684, COR_PAINEL,
                        extra={"BorderColor": COR_LINHA, "BorderThickness": "1"}))
     c.append(etiqueta("lblDesVar", '"Variável numérica"', X + 8, 80, W - 16, 26, 11, True))
-    c.append(lista("drpDesVar", itens_numericas(), "", X + 8, 108, W - 16, 36))
+    c.append(lista("drpDesVar", itens_numericas(), default_numerica(1), X + 8, 108, W - 16, 36))
     c.append(etiqueta("lblDesGrupo", '"Agrupar por (opcional)"', X + 8, 154, W - 16, 26, 11, True))
-    c.append(lista("drpDesGrupo", f'["{F.SEM_GRUPOS}", varNomes.C1, varNomes.C2]', f'"{F.SEM_GRUPOS}"',
+    c.append(lista("drpDesGrupo", F.itens_grupo(), f'"{F.SEM_GRUPOS}"',
                    X + 8, 182, W - 16, 36))
     c.append(etiqueta("lblDesQuartis", '"Método de cálculo dos quartis"', X + 8, 228, W - 16, 26, 11, True))
     c.append(lista("drpDesQuartis", "[" + ", ".join(f'"{m}"' for m in F.METODOS_QUARTIS) + "]",

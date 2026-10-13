@@ -39,8 +39,9 @@ def construir():
                        extra={"BorderColor": COR_LINHA, "BorderThickness": "1"}))
     c.append(etiqueta("lblIniEstado",
                       '"Dados atuais: " & CountRows(colDados) & " linhas   ·   Variáveis numéricas: " & '
-                      'varNomes.N1 & ", " & varNomes.N2 & ", " & varNomes.N3 & '
-                      '"   ·   Variáveis de grupo: " & varNomes.C1 & ", " & varNomes.C2',
+                      'Coalesce(Concat(Filter(varVariaveis, numerica), nome, ", "), "nenhuma") & '
+                      '"   ·   Categóricas: " & '
+                      'Coalesce(Concat(Filter(varVariaveis, !numerica && n > 0), nome, ", "), "nenhuma")',
                       X0 + 16, Y0 + 104, 1254, 56, 12, extra={"PaddingLeft": "4"}))
     # Cartões: 4 na 1.ª fila e 3 na 2.ª
     W, H, GAP = 304, 196, 22

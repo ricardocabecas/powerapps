@@ -53,9 +53,9 @@ def colunas(lin):
     return res
 
 
-def importar(texto, modo_cab="Automático", nomes=None, mapa=None):
-    """Devolve (linhas, invalidos, cabecalho, nomes, mapa) como a app.
-    mapa: dict var -> n.º da coluna (0 = nenhuma); se None usa a sugestão automática."""
+def importar(texto, modo_cab="Automático", nomes=None, nv=6):
+    """Devolve o registo de importação como a app: a coluna j vai para a variável Vj (j = 1..nv);
+    inválidos = textos não numéricos em colunas numéricas; nomes da 1.ª linha se for cabeçalho."""
     lin = linhas(texto)
     cols = colunas(lin)
     if modo_cab == "Sim":
@@ -64,34 +64,24 @@ def importar(texto, modo_cab="Automático", nomes=None, mapa=None):
         cab = False
     else:
         cab = len(lin) >= 2 and any(c["Numerica"] and c["Topo"] != "" and not c["TopoNumerico"] for c in cols)
-    if mapa is None:
-        num_cols = [c["Col"] for c in cols if c["Numerica"]]
-        cat_cols = [c["Col"] for c in cols if not c["Numerica"] and c["NNaoVazias"] > 0]
-        mapa = {}
-        for i, v in enumerate(["N1", "N2", "N3"]):
-            mapa[v] = num_cols[i] if i < len(num_cols) else 0
-        for i, v in enumerate(["C1", "C2"]):
-            mapa[v] = cat_cols[i] if i < len(cat_cols) else 0
     corpo = lin[1:] if cab else lin
+    numcol = {c["Col"]: c["Numerica"] for c in cols}
 
     def cel(r, j):
         return r["Celulas"][j - 1] if 1 <= j <= len(r["Celulas"]) else ""
-    novos = dict(nomes or {})
-    if cab:
-        for v in ["N1", "N2", "N3", "C1", "C2"]:
-            if mapa[v] > 0:
-                novos[v] = cel(lin[0], mapa[v])
+    novos = {}
+    for j in range(1, nv + 1):
+        h = cel(lin[0], j) if (cab and lin) else ""
+        novos[f"V{j}"] = h if h != "" else f"Variável {j}"
     regs, inval = [], []
     for i, r in enumerate(corpo, start=1):
         reg = {"Id": i}
-        for v in ["N1", "N2", "N3"]:
-            t = cel(r, mapa[v])
+        for j in range(1, nv + 1):
+            t = cel(r, j)
             val, inv = numero(t)
-            reg[v] = val
-            if inv:
-                inval.append({"Linha": r["Linha"], "Variavel": novos.get(v, v), "Texto": t})
-        for v in ["C1", "C2"]:
-            reg[v] = cel(r, mapa[v])
+            reg[f"T{j}"], reg[f"X{j}"] = t, val
+            if inv and numcol.get(j, False):
+                inval.append({"Linha": r["Linha"], "Variavel": novos[f"V{j}"], "Texto": t})
         regs.append(reg)
     inval.sort(key=lambda d: d["Linha"])
-    return {"Linhas": regs, "Invalidos": inval, "Cabecalho": cab, "Nomes": novos, "mapa": mapa, "colunas": cols}
+    return {"Linhas": regs, "Invalidos": inval, "Cabecalho": cab, "Nomes": novos, "colunas": cols}

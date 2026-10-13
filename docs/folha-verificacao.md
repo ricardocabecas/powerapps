@@ -14,13 +14,15 @@ Marque cada linha depois de confirmar. Os números devem coincidir em todas as c
 | ✓ | Ação | Resultado esperado |
 |---|---|---|
 | ☐ | Abrir a app (pré-visualização, F5) | Abre o ecrã **Início** com «Dados atuais: 20 linhas · Variáveis numéricas: Altura (cm), Peso (kg), Nota (0-20) · Variáveis de grupo: Sexo, Turma» e 7 cartões |
-| ☐ | Carregar no cartão «1. Dados» | Tabela com 20 linhas; cabeçalhos «Altura (cm)», «Peso (kg)», «Nota (0-20)», «Sexo», «Turma» |
+| ☐ | Carregar no cartão «1. Dados» | Tabela com 20 linhas; cabeçalhos «Altura (cm)», «Peso (kg)», «Nota (0-20)», «Sexo», «Turma», «Variável 6»; por baixo: numérica, numérica, numérica, categórica, categórica, vazia |
 | ☐ | Na linha 1, escrever `165,5` em Altura e sair da célula | Fica `165,5`; o resumo continua com 0 células vazias |
 | ☐ | Escrever `abc` numa célula numérica | Aviso «não é um número válido»; contorno vermelho; a célula conta como vazia |
 | ☐ | Escrever `1.5` (com ponto) | É aceite e mostrado como `1,5` |
 | ☐ | Carregar em *Repor dados de exemplo* | Volta aos 20 estudantes |
 | ☐ | Colar na caixa da direita o texto abaixo* e carregar em *Analisar* | «Linhas com dados: 5 · Colunas: 2»; «Primeira linha: cabeçalho (nomes: X; Y)»; «⚠ 2 valor(es) inválido(s)»: linha 3, X: «abc» e linha 4, Y: «1,2,3» |
 | ☐ | Carregar em *Importar (substituir dados)* | 5 linhas; variáveis 1 e 2 passam a chamar-se X e Y; notificação com o aviso dos 2 valores inválidos |
+| ☐ | Colar no Excel → app as colunas Numero, Raça, Idade, Peso, Prod. Leite (com cabeçalho), *Analisar* | «Variáveis: 1. Numero (numérica) · 2. Raça (categórica) · 3. Idade (numérica) · 4. Peso (numérica) · 5. Prod. Leite (numérica)» e «✔ Todos os valores das colunas numéricas são números válidos» |
+| ☐ | *Importar (substituir dados)* e abrir a Descritiva | A lista «Variável numérica» mostra Numero, Idade, Peso e Prod. Leite; «Agrupar por» mostra também Raça |
 | ☐ | Carregar em *Repor dados de exemplo* antes de continuar | Volta aos 20 estudantes |
 
 \* Texto a colar (pode copiar destas 6 linhas para o Excel em 2 colunas e daí para a app, ou escrever com tabulações):

@@ -238,14 +238,16 @@
 - drpAnoVar:
     Control: Classic/DropDown
     Properties:
-      Items: =[varNomes.N1, varNomes.N2, varNomes.N3]
+      Items: |-
+        =ForAll(Filter(varVariaveis, numerica) As _v, {Value: _v.nome})
       X: =24
       Y: =160
       Width: =314
       Height: =32
       Font: =Font.'Segoe UI'
       Size: =12
-      Default: =varNomes.N1
+      Default: |-
+        =With({_f: Filter(varVariaveis, numerica)}, If(CountRows(_f) >= 1, Index(_f, 1).nome, Coalesce(First(_f).nome, "")))
       Visible: =drpAnoFormato.Selected.Value = "Variável numérica + fator (grupo)"
 - lblAnoFator:
     Control: Label
@@ -263,14 +265,16 @@
 - drpAnoFator:
     Control: Classic/DropDown
     Properties:
-      Items: =[varNomes.C1, varNomes.C2]
+      Items: |-
+        =ForAll(Filter(varVariaveis, n > 0) As _v, {Value: _v.nome})
       X: =24
       Y: =220
       Width: =314
       Height: =32
       Font: =Font.'Segoe UI'
       Size: =12
-      Default: =varNomes.C2
+      Default: |-
+        =With({_f: Filter(varVariaveis, !numerica && n > 0)}, If(CountRows(_f) >= 2, Index(_f, 2).nome, CountRows(_f) >= 1, First(_f).nome, Coalesce(First(Filter(varVariaveis, n > 0)).nome, "")))
       Visible: =drpAnoFormato.Selected.Value = "Variável numérica + fator (grupo)"
 - lblAnoAlfa:
     Control: Label
@@ -301,7 +305,7 @@
     Control: Label
     Properties:
       Text: |-
-        ="Notas" & Char(10) & Char(10) & "• Formato «variável + fator»: cada linha da tabela de dados é uma observação; o fator diz a que grupo pertence." & Char(10) & Char(10) & "• Formato «colunas como grupos»: cada variável numérica (" & varNomes.N1 & ", " & varNomes.N2 & ", " & varNomes.N3 & ") é um grupo; colunas vazias são ignoradas." & Char(10) & Char(10) & "• Com 2 grupos, a ANOVA dá o mesmo valor de p do teste t com variâncias iguais (F = t²)."
+        ="Notas" & Char(10) & Char(10) & "• Formato «variável + fator»: cada linha da tabela de dados é uma observação; o fator diz a que grupo pertence." & Char(10) & Char(10) & "• Formato «colunas como grupos»: cada variável numérica (" & Concat(Filter(varVariaveis, numerica), nome, ", ") & ") é um grupo." & Char(10) & Char(10) & "• Com 2 grupos, a ANOVA dá o mesmo valor de p do teste t com variâncias iguais (F = t²)."
       X: =24
       Y: =326
       Width: =314
@@ -316,10 +320,12 @@
       HtmlText: |-
         =With({_R: With(
                 {_fmt: If(drpAnoFormato.Selected.Value = "Colunas numéricas como grupos", 2, 1),
-                 _k: Switch(drpAnoVar.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, 1), _kg: Switch(drpAnoFator.Selected.Value, varNomes.C2, 2, 1), _alfa: Value(Substitute(drpAnoAlfa.Selected.Value, ",", "."), "en-US")},
+                 _k: Coalesce(LookUp(varVariaveis, nome = drpAnoVar.Selected.Value).k, 0), _kg: Coalesce(LookUp(varVariaveis, nome = drpAnoFator.Selected.Value).k, 0), _alfa: Value(Substitute(drpAnoAlfa.Selected.Value, ",", "."), "en-US")},
                 With(
                     // Resumo de cada grupo: n, média, soma e soma dos quadrados dos desvios em relação à média do grupo
-                    {_g: If(_fmt = 1, ForAll(Sort(Filter(Distinct(colDados, Switch(_kg, 1, C1, C2)), !IsBlank(Value)), Value) As _G, With({_v: Filter(ForAll(colDados As _d, {x: Switch(_k, 1, _d.N1, 2, _d.N2, _d.N3), g: Switch(_kg, 1, _d.C1, _d.C2)}), !IsBlank(x) && g = _G.Value)}, With({_n: CountRows(_v)}, With({_m: If(_n > 0, Average(_v, x))}, {Grupo: _G.Value, n: _n, media: _m, soma: Sum(_v, x), sq: Sum(_v, Power(x - _m, 2))})))), Filter(ForAll(Sequence(3) As _j, With({_v: Filter(ForAll(colDados As _d, {x: Switch(_j.Value, 1, _d.N1, 2, _d.N2, _d.N3)}), !IsBlank(x))}, With({_n: CountRows(_v)}, With({_m: If(_n > 0, Average(_v, x))}, {Grupo: Switch(_j.Value, 1, varNomes.N1, 2, varNomes.N2, varNomes.N3), n: _n, media: _m, soma: Sum(_v, x), sq: Sum(_v, Power(x - _m, 2))})))), n > 0))},
+                    {_g: If(_fmt = 1, ForAll(With({_c: Filter(ForAll(colDados As _d, {g: If(Coalesce(LookUp(varVariaveis, k = _kg).numerica, false), With({_v: Switch(_kg, 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank())}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT")))), Switch(_kg, 1, _d.T1, 2, _d.T2, 3, _d.T3, 4, _d.T4, 5, _d.T5, 6, _d.T6, "")), o: If(Coalesce(LookUp(varVariaveis, k = _kg).numerica, false), Switch(_kg, 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank()), 0)}), !IsBlank(g))},
+                    ForAll(If(Coalesce(LookUp(varVariaveis, k = _kg).numerica, false), Sort(ForAll(Distinct(_c, g) As _u, {g: _u.Value, o: LookUp(_c, g = _u.Value).o}), o),
+                              Sort(ForAll(Distinct(_c, g) As _u, {g: _u.Value, o: 0}), g)) As _z, {Value: _z.g})) As _G, With({_v: With({_gn: Coalesce(LookUp(varVariaveis, k = _kg).numerica, false)}, Filter(ForAll(colDados As _d, {x: Switch(_k, 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank()), g: If(_gn, With({_v: Switch(_kg, 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank())}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT")))), Switch(_kg, 1, _d.T1, 2, _d.T2, 3, _d.T3, 4, _d.T4, 5, _d.T5, 6, _d.T6, ""))}), !IsBlank(x) && g = _G.Value))}, With({_n: CountRows(_v)}, With({_m: If(_n > 0, Average(_v, x))}, {Grupo: _G.Value, n: _n, media: _m, soma: Sum(_v, x), sq: Sum(_v, Power(x - _m, 2))})))), Filter(ForAll(Filter(varVariaveis, numerica) As _j, With({_v: Filter(ForAll(colDados As _d, {x: Switch(_j.k, 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank())}), !IsBlank(x))}, With({_n: CountRows(_v)}, With({_m: If(_n > 0, Average(_v, x))}, {Grupo: _j.nome, n: _n, media: _m, soma: Sum(_v, x), sq: Sum(_v, Power(x - _m, 2))})))), n > 0))},
                 With({_N: Sum(_g, n), _kk: CountRows(_g)},
                 With({_mg: If(_N > 0, Sum(_g, soma) / _N)},
                 With(

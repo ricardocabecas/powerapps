@@ -1,5 +1,5 @@
 """Correlação de Pearson e regressão linear simples (formato invariante)."""
-from .f_comum import num, fmt, indice_num
+from .f_comum import num, fmt, indice_num, col_num
 from .f_frequencias import fmt_curto
 from . import f_graficos as G
 from . import f_inferencia as FI
@@ -7,8 +7,8 @@ from . import f_inferencia as FI
 
 def pares(kx, ky):
     """Pares (x, y) com os dois valores preenchidos (as linhas com um valor em falta são ignoradas)."""
-    return (f"Filter(ForAll(colDados As _d, {{x: Switch({kx}, 1, _d.N1, 2, _d.N2, _d.N3), "
-            f"y: Switch({ky}, 1, _d.N1, 2, _d.N2, _d.N3)}}), !IsBlank(x) && !IsBlank(y))")
+    return (f"Filter(ForAll(colDados As _d, {{x: {col_num(kx)}, y: {col_num(ky)}}}), "
+            f"!IsBlank(x) && !IsBlank(y))")
 
 
 def resultados(drp_x="drpRegX", drp_y="drpRegY", txt_x0="txtRegX0"):

@@ -1,46 +1,53 @@
 # Resultados da comparação Power Fx × referência Python/scipy
 
-Gerado em 11/10/2026 por `testes/executar_testes.py`. As fórmulas foram executadas com o interpretador open source **Microsoft.PowerFx.Interpreter 1.8.1** (.NET 8), com números em vírgula flutuante (como nas canvas apps).
+Gerado em 13/10/2026 por `testes/executar_testes.py`. As fórmulas foram executadas com o interpretador open source **Microsoft.PowerFx.Interpreter 1.8.1** (.NET 8), com números em vírgula flutuante (como nas canvas apps).
 
-**Total: 6432/6432 verificações sem diferenças.**
+**Total: 6333/6333 verificações sem diferenças.**
 
 ## Sintaxe de todas as fórmulas dos ecrãs
 
-3086 fórmulas analisadas em formato invariante (ficheiros .pa.yaml) e convertidas para pt-PT (barra de fórmulas): **6172/6172 sem erros de sintaxe**.
+3033 fórmulas analisadas em formato invariante (ficheiros .pa.yaml) e convertidas para pt-PT (barra de fórmulas): **6066/6066 sem erros de sintaxe**.
 
 
 ## Fase 1 — Entrada de dados
 
-**55/55 casos de acordo com a referência.**
+**62/62 casos de acordo com a referência.**
 
 | Caso | Resultado | Detalhe |
 |---|---|---|
-| colagem «virgula_com_cabecalho» (Automático) | ✅ | 3 linhas, cabeçalho=True, 0 inválidos, mapa={'N1': 1, 'N2': 2, 'N3': 0, 'C1': 3, 'C2': 0} |
-| diagnóstico «virgula_com_cabecalho» (Automático) | ✅ | Linhas com dados: 3  ·  Colunas: 3 ⏎ Primeira linha: cabeçalho (nomes: Altura; Peso; Sexo) ⏎ ✔ Todos os valores das variáveis numéricas são válidos. |
-| colagem «virgula_com_cabecalho» (Sim) | ✅ | 3 linhas, cabeçalho=True, 0 inválidos, mapa={'N1': 1, 'N2': 2, 'N3': 0, 'C1': 3, 'C2': 0} |
-| diagnóstico «virgula_com_cabecalho» (Sim) | ✅ | Linhas com dados: 3  ·  Colunas: 3 ⏎ Primeira linha: cabeçalho (nomes: Altura; Peso; Sexo) ⏎ ✔ Todos os valores das variáveis numéricas são válidos. |
-| colagem «virgula_com_cabecalho» (Não) | ✅ | 4 linhas, cabeçalho=False, 2 inválidos, mapa={'N1': 1, 'N2': 2, 'N3': 0, 'C1': 3, 'C2': 0} |
-| diagnóstico «virgula_com_cabecalho» (Não) | ✅ | Linhas com dados: 4  ·  Colunas: 3 ⏎ Primeira linha: dados ⏎ ⚠ 2 valor(es) inválido(s) — ficarão em branco: ⏎    linha 1, Altura (cm): «Altura» ⏎    linha 1, Peso (kg): «Peso» |
-| colagem «ponto_sem_cabecalho» (Automático) | ✅ | 3 linhas, cabeçalho=False, 0 inválidos, mapa={'N1': 1, 'N2': 2, 'N3': 0, 'C1': 0, 'C2': 0} |
-| diagnóstico «ponto_sem_cabecalho» (Automático) | ✅ | Linhas com dados: 3  ·  Colunas: 2 ⏎ Primeira linha: dados ⏎ ✔ Todos os valores das variáveis numéricas são válidos. |
-| colagem «uma_coluna» (Automático) | ✅ | 3 linhas, cabeçalho=True, 0 inválidos, mapa={'N1': 1, 'N2': 0, 'N3': 0, 'C1': 0, 'C2': 0} |
-| diagnóstico «uma_coluna» (Automático) | ✅ | Linhas com dados: 3  ·  Colunas: 1 ⏎ Primeira linha: cabeçalho (nomes: Notas) ⏎ ✔ Todos os valores das variáveis numéricas são válidos. |
-| colagem «linhas_vazias_e_espacos» (Automático) | ✅ | 3 linhas, cabeçalho=True, 0 inválidos, mapa={'N1': 1, 'N2': 0, 'N3': 0, 'C1': 2, 'C2': 0} |
-| diagnóstico «linhas_vazias_e_espacos» (Automático) | ✅ | Linhas com dados: 3  ·  Colunas: 2  ·  Linhas vazias ignoradas: 3 ⏎ Primeira linha: cabeçalho (nomes: Valor; Grupo) ⏎ ✔ Todos os valores das variáveis numéricas são válidos. |
-| colagem «invalidos» (Automático) | ✅ | 5 linhas, cabeçalho=True, 2 inválidos, mapa={'N1': 1, 'N2': 2, 'N3': 0, 'C1': 0, 'C2': 0} |
-| diagnóstico «invalidos» (Automático) | ✅ | Linhas com dados: 5  ·  Colunas: 2 ⏎ Primeira linha: cabeçalho (nomes: X; Y) ⏎ ⚠ 2 valor(es) inválido(s) — ficarão em branco: ⏎    linha 3, X: «abc» ⏎    linha 4, Y: «1,2,3» |
-| colagem «milhares_espaco» (Automático) | ✅ | 3 linhas, cabeçalho=True, 0 inválidos, mapa={'N1': 1, 'N2': 0, 'N3': 0, 'C1': 0, 'C2': 0} |
-| diagnóstico «milhares_espaco» (Automático) | ✅ | Linhas com dados: 3  ·  Colunas: 1 ⏎ Primeira linha: cabeçalho (nomes: Rendimento) ⏎ ✔ Todos os valores das variáveis numéricas são válidos. |
-| colagem «grupo_primeiro» (Automático) | ✅ | 3 linhas, cabeçalho=True, 0 inválidos, mapa={'N1': 2, 'N2': 0, 'N3': 0, 'C1': 1, 'C2': 0} |
-| diagnóstico «grupo_primeiro» (Automático) | ✅ | Linhas com dados: 3  ·  Colunas: 2 ⏎ Primeira linha: cabeçalho (nomes: Turma; Nota) ⏎ ✔ Todos os valores das variáveis numéricas são válidos. |
-| colagem «so_categorica» (Automático) | ✅ | 4 linhas, cabeçalho=False, 0 inválidos, mapa={'N1': 0, 'N2': 0, 'N3': 0, 'C1': 1, 'C2': 0} |
-| diagnóstico «so_categorica» (Automático) | ✅ | Linhas com dados: 4  ·  Colunas: 1 ⏎ Primeira linha: dados ⏎ ✔ Todos os valores das variáveis numéricas são válidos. |
-| colagem «linha_unica» (Automático) | ✅ | 1 linhas, cabeçalho=False, 0 inválidos, mapa={'N1': 1, 'N2': 2, 'N3': 0, 'C1': 0, 'C2': 0} |
-| diagnóstico «linha_unica» (Automático) | ✅ | Linhas com dados: 1  ·  Colunas: 2 ⏎ Primeira linha: dados ⏎ ✔ Todos os valores das variáveis numéricas são válidos. |
-| colagem «cinco_colunas» (Automático) | ✅ | 2 linhas, cabeçalho=True, 0 inválidos, mapa={'N1': 1, 'N2': 2, 'N3': 3, 'C1': 4, 'C2': 5} |
-| diagnóstico «cinco_colunas» (Automático) | ✅ | Linhas com dados: 2  ·  Colunas: 5 ⏎ Primeira linha: cabeçalho (nomes: a; b; c; g1; g2) ⏎ ✔ Todos os valores das variáveis numéricas são válidos. |
-| colagem «cientifica_e_percentagem» (Automático) | ✅ | 4 linhas, cabeçalho=True, 0 inválidos, mapa={'N1': 1, 'N2': 0, 'N3': 0, 'C1': 0, 'C2': 0} |
-| diagnóstico «cientifica_e_percentagem» (Automático) | ✅ | Linhas com dados: 4  ·  Colunas: 1 ⏎ Primeira linha: cabeçalho (nomes: v) ⏎ ✔ Todos os valores das variáveis numéricas são válidos. |
+| caso real (bovinos): lista de variáveis numéricas | ✅ | ['Numero', 'Idade', 'Peso', 'Prod. Leite'] |
+| caso real (bovinos): lista de variáveis de grupo | ✅ | ['Numero', 'Raça', 'Idade', 'Peso', 'Prod. Leite'] |
+| caso real (bovinos): descritiva de Prod. Leite por Raça | ✅ | Total: n=7, média=170.7714, BBB: n=2, média=178.6000, Charolesa: n=4, média=175.2500, Cruzada: n=1, média=137.2000 |
+| colagem «virgula_com_cabecalho» (Automático) | ✅ | 3 linhas, cabeçalho=True, 0 inválidos, tipos das colunas = 1:num, 2:num, 3:cat |
+| diagnóstico «virgula_com_cabecalho» (Automático) | ✅ | Linhas com dados: 3  ·  Colunas: 3 ⏎ Primeira linha: cabeçalho (nomes das variáveis) ⏎ Variáveis: 1. Altura (numérica)  ·  2. Peso (numérica)  ·  3. Sexo (categórica) ⏎ ✔ Todos os valores das colunas numéricas são números válidos. |
+| colagem «virgula_com_cabecalho» (Sim) | ✅ | 3 linhas, cabeçalho=True, 0 inválidos, tipos das colunas = 1:num, 2:num, 3:cat |
+| diagnóstico «virgula_com_cabecalho» (Sim) | ✅ | Linhas com dados: 3  ·  Colunas: 3 ⏎ Primeira linha: cabeçalho (nomes das variáveis) ⏎ Variáveis: 1. Altura (numérica)  ·  2. Peso (numérica)  ·  3. Sexo (categórica) ⏎ ✔ Todos os valores das colunas numéricas são números válidos. |
+| colagem «virgula_com_cabecalho» (Não) | ✅ | 4 linhas, cabeçalho=False, 2 inválidos, tipos das colunas = 1:num, 2:num, 3:cat |
+| diagnóstico «virgula_com_cabecalho» (Não) | ✅ | Linhas com dados: 4  ·  Colunas: 3 ⏎ Primeira linha: dados ⏎ Variáveis: 1. Variável 1 (numérica)  ·  2. Variável 2 (numérica)  ·  3. Variável 3 (categórica) ⏎ ⚠ 2 valor(es) não numérico(s) em colunas numéricas — ficarão como valores em falta: ⏎    linha 1, Variável 1: «Altura» ⏎    linha 1, Variável 2: «Peso» |
+| colagem «ponto_sem_cabecalho» (Automático) | ✅ | 3 linhas, cabeçalho=False, 0 inválidos, tipos das colunas = 1:num, 2:num |
+| diagnóstico «ponto_sem_cabecalho» (Automático) | ✅ | Linhas com dados: 3  ·  Colunas: 2 ⏎ Primeira linha: dados ⏎ Variáveis: 1. Variável 1 (numérica)  ·  2. Variável 2 (numérica) ⏎ ✔ Todos os valores das colunas numéricas são números válidos. |
+| colagem «uma_coluna» (Automático) | ✅ | 3 linhas, cabeçalho=True, 0 inválidos, tipos das colunas = 1:num |
+| diagnóstico «uma_coluna» (Automático) | ✅ | Linhas com dados: 3  ·  Colunas: 1 ⏎ Primeira linha: cabeçalho (nomes das variáveis) ⏎ Variáveis: 1. Notas (numérica) ⏎ ✔ Todos os valores das colunas numéricas são números válidos. |
+| colagem «linhas_vazias_e_espacos» (Automático) | ✅ | 3 linhas, cabeçalho=True, 0 inválidos, tipos das colunas = 1:num, 2:cat |
+| diagnóstico «linhas_vazias_e_espacos» (Automático) | ✅ | Linhas com dados: 3  ·  Colunas: 2  ·  Linhas vazias ignoradas: 3 ⏎ Primeira linha: cabeçalho (nomes das variáveis) ⏎ Variáveis: 1. Valor (numérica)  ·  2. Grupo (categórica) ⏎ ✔ Todos os valores das colunas numéricas são números válidos. |
+| colagem «invalidos» (Automático) | ✅ | 5 linhas, cabeçalho=True, 2 inválidos, tipos das colunas = 1:num, 2:num |
+| diagnóstico «invalidos» (Automático) | ✅ | Linhas com dados: 5  ·  Colunas: 2 ⏎ Primeira linha: cabeçalho (nomes das variáveis) ⏎ Variáveis: 1. X (numérica)  ·  2. Y (numérica) ⏎ ⚠ 2 valor(es) não numérico(s) em colunas numéricas — ficarão como valores em falta: ⏎    linha 3, X: «abc» ⏎    linha 4, Y: «1,2,3» |
+| colagem «milhares_espaco» (Automático) | ✅ | 3 linhas, cabeçalho=True, 0 inválidos, tipos das colunas = 1:num |
+| diagnóstico «milhares_espaco» (Automático) | ✅ | Linhas com dados: 3  ·  Colunas: 1 ⏎ Primeira linha: cabeçalho (nomes das variáveis) ⏎ Variáveis: 1. Rendimento (numérica) ⏎ ✔ Todos os valores das colunas numéricas são números válidos. |
+| colagem «grupo_primeiro» (Automático) | ✅ | 3 linhas, cabeçalho=True, 0 inválidos, tipos das colunas = 1:cat, 2:num |
+| diagnóstico «grupo_primeiro» (Automático) | ✅ | Linhas com dados: 3  ·  Colunas: 2 ⏎ Primeira linha: cabeçalho (nomes das variáveis) ⏎ Variáveis: 1. Turma (categórica)  ·  2. Nota (numérica) ⏎ ✔ Todos os valores das colunas numéricas são números válidos. |
+| colagem «so_categorica» (Automático) | ✅ | 4 linhas, cabeçalho=False, 0 inválidos, tipos das colunas = 1:cat |
+| diagnóstico «so_categorica» (Automático) | ✅ | Linhas com dados: 4  ·  Colunas: 1 ⏎ Primeira linha: dados ⏎ Variáveis: 1. Variável 1 (categórica) ⏎ ✔ Todos os valores das colunas numéricas são números válidos. |
+| colagem «linha_unica» (Automático) | ✅ | 1 linhas, cabeçalho=False, 0 inválidos, tipos das colunas = 1:num, 2:num |
+| diagnóstico «linha_unica» (Automático) | ✅ | Linhas com dados: 1  ·  Colunas: 2 ⏎ Primeira linha: dados ⏎ Variáveis: 1. Variável 1 (numérica)  ·  2. Variável 2 (numérica) ⏎ ✔ Todos os valores das colunas numéricas são números válidos. |
+| colagem «cinco_colunas» (Automático) | ✅ | 2 linhas, cabeçalho=True, 0 inválidos, tipos das colunas = 1:num, 2:num, 3:num, 4:cat, 5:cat |
+| diagnóstico «cinco_colunas» (Automático) | ✅ | Linhas com dados: 2  ·  Colunas: 5 ⏎ Primeira linha: cabeçalho (nomes das variáveis) ⏎ Variáveis: 1. a (numérica)  ·  2. b (numérica)  ·  3. c (numérica)  ·  4. g1 (categórica)  ·  5. g2 (categórica) ⏎ ✔ Todos os valores das colunas numéricas são números válidos. |
+| colagem «cientifica_e_percentagem» (Automático) | ✅ | 4 linhas, cabeçalho=True, 0 inválidos, tipos das colunas = 1:num |
+| diagnóstico «cientifica_e_percentagem» (Automático) | ✅ | Linhas com dados: 4  ·  Colunas: 1 ⏎ Primeira linha: cabeçalho (nomes das variáveis) ⏎ Variáveis: 1. v (numérica) ⏎ ✔ Todos os valores das colunas numéricas são números válidos. |
+| colagem «bovinos_excel» (Automático) | ✅ | 7 linhas, cabeçalho=True, 0 inválidos, tipos das colunas = 1:num, 2:cat, 3:num, 4:num, 5:num |
+| diagnóstico «bovinos_excel» (Automático) | ✅ | Linhas com dados: 7  ·  Colunas: 5 ⏎ Primeira linha: cabeçalho (nomes das variáveis) ⏎ Variáveis: 1. Numero (numérica)  ·  2. Raça (categórica)  ·  3. Idade (numérica)  ·  4. Peso (numérica)  ·  5. Prod. Leite (numérica) ⏎ ✔ Todos os valores das colunas numéricas são números válidos. |
+| colagem «sete_colunas» (Automático) | ✅ | 2 linhas, cabeçalho=True, 0 inválidos, tipos das colunas = 1:num, 2:num, 3:num, 4:num, 5:num, 6:num, 7:num |
+| diagnóstico «sete_colunas» (Automático) | ✅ | Linhas com dados: 2  ·  Colunas: 7 ⏎ Primeira linha: cabeçalho (nomes das variáveis) ⏎ Variáveis: 1. a (numérica)  ·  2. b (numérica)  ·  3. c (numérica)  ·  4. d (numérica)  ·  5. e (numérica)  ·  6. f (numérica) ⏎ ⚠ Só as primeiras 6 colunas são importadas. ⏎ ✔ Todos os valores das colunas numéricas são números válidos. |
 | número «1,5» | ✅ | Power Fx=1.5 inválido=False \| referência=1.5 inválido=False |
 | número «1.5» | ✅ | Power Fx=1.5 inválido=False \| referência=1.5 inválido=False |
 | número « 2 » | ✅ | Power Fx=2 inválido=False \| referência=2.0 inválido=False |

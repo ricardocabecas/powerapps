@@ -212,13 +212,16 @@
 - drpDesVar:
     Control: Classic/DropDown
     Properties:
-      Items: =[varNomes.N1, varNomes.N2, varNomes.N3]
+      Items: |-
+        =ForAll(Filter(varVariaveis, numerica) As _v, {Value: _v.nome})
       X: =24
       Y: =108
       Width: =314
       Height: =36
       Font: =Font.'Segoe UI'
       Size: =12
+      Default: |-
+        =With({_f: Filter(varVariaveis, numerica)}, If(CountRows(_f) >= 1, Index(_f, 1).nome, Coalesce(First(_f).nome, "")))
 - lblDesGrupo:
     Control: Label
     Properties:
@@ -234,7 +237,8 @@
 - drpDesGrupo:
     Control: Classic/DropDown
     Properties:
-      Items: =["(sem grupos)", varNomes.C1, varNomes.C2]
+      Items: |-
+        =Table({Value: "(sem grupos)"}, ForAll(Filter(varVariaveis, n > 0) As _v, {Value: _v.nome}))
       X: =24
       Y: =182
       Width: =314
@@ -283,8 +287,9 @@
     Properties:
       HtmlText: |-
         =With({_cols: With(
-                {_k: Switch(drpDesVar.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, 1), _kg: Switch(drpDesGrupo.Selected.Value, varNomes.C1, 1, varNomes.C2, 2, 0)},
-                With({_dados: Filter(ForAll(colDados As _d, {x: Switch(_k, 1, _d.N1, 2, _d.N2, _d.N3), g: Switch(If(_kg = 0, 1, _kg), 1, _d.C1, _d.C2)}), !IsBlank(x))},
+                {_k: Coalesce(LookUp(varVariaveis, nome = drpDesVar.Selected.Value).k, 0), _kg: If(drpDesGrupo.Selected.Value = "(sem grupos)", 0, Coalesce(LookUp(varVariaveis, nome = drpDesGrupo.Selected.Value).k, 0))},
+                With({_ng: Coalesce(LookUp(varVariaveis, k = _kg).numerica, false)},
+                With({_dados: Filter(ForAll(colDados As _d, {x: Switch(_k, 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank()), g: If(_ng, With({_v: Switch(_kg, 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank())}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT")))), Switch(_kg, 1, _d.T1, 2, _d.T2, 3, _d.T3, 4, _d.T4, 5, _d.T5, 6, _d.T6, "")), o: If(_ng, Switch(_kg, 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank()), 0)}), !IsBlank(x))},
                     Table(
                         // Coluna com todos os dados
                         Patch(With(
@@ -327,10 +332,9 @@
                             )))))
                         ),
                             {Grupo: "Total"}),
-                        // Uma coluna por grupo (valores distintos não vazios da variável categórica)
-                        // (sem agrupamento a lista de grupos fica vazia)
-                        ForAll(If(_kg = 0, FirstN(Distinct(_dados, g), 0),
-                                  Sort(Filter(Distinct(_dados, g), !IsBlank(Value)), Value)) As _G,
+                        // Uma coluna por grupo (categorias distintas da variável de agrupamento);
+                        // sem agrupamento a lista de grupos fica vazia
+                        ForAll(If(_kg = 0, FirstN(ForAll(If(_ng, Sort(ForAll(Filter(Distinct(_dados, g), !IsBlank(Value)) As _u, {g: _u.Value, o: LookUp(_dados, g = _u.Value).o}), o), Sort(ForAll(Filter(Distinct(_dados, g), !IsBlank(Value)) As _u, {g: _u.Value, o: 0}), g)) As _z, {Value: _z.g}), 0), ForAll(If(_ng, Sort(ForAll(Filter(Distinct(_dados, g), !IsBlank(Value)) As _u, {g: _u.Value, o: LookUp(_dados, g = _u.Value).o}), o), Sort(ForAll(Filter(Distinct(_dados, g), !IsBlank(Value)) As _u, {g: _u.Value, o: 0}), g)) As _z, {Value: _z.g})) As _G,
                             Patch(With(
                                 // Amostra ordenada por ordem crescente e dimensão
                                 {_s: Sort(ForAll(Filter(_dados, g = _G.Value), {x: x}), x)},
@@ -372,7 +376,7 @@
                             ),
                                 {Grupo: _G.Value}))
                     )
-                )
+                ))
             )},
             "<div style='font-family:Segoe UI,Arial;font-size:13px;color:#212529'>" &
             "<table style='border-collapse:collapse;width:100%'>" &

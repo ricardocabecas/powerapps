@@ -268,14 +268,16 @@ Screens:
       - drpQuiVar1:
           Control: Classic/DropDown
           Properties:
-            Items: =[varNomes.N1, varNomes.N2, varNomes.N3, varNomes.C1, varNomes.C2]
+            Items: |-
+              =ForAll(Filter(varVariaveis, n > 0) As _v, {Value: _v.nome})
             X: =24
             Y: =220
             Width: =314
             Height: =32
             Font: =Font.'Segoe UI'
             Size: =12
-            Default: =varNomes.C1
+            Default: |-
+              =With({_f: Filter(varVariaveis, !numerica && n > 0)}, If(CountRows(_f) >= 1, Index(_f, 1).nome, CountRows(_f) >= 1, First(_f).nome, Coalesce(First(Filter(varVariaveis, n > 0)).nome, "")))
             Visible: =drpQuiOrigem.Selected.Value = "Variáveis da tabela de dados"
       - lblQuiVar2:
           Control: Label
@@ -293,14 +295,16 @@ Screens:
       - drpQuiVar2:
           Control: Classic/DropDown
           Properties:
-            Items: =[varNomes.N1, varNomes.N2, varNomes.N3, varNomes.C1, varNomes.C2]
+            Items: |-
+              =ForAll(Filter(varVariaveis, n > 0) As _v, {Value: _v.nome})
             X: =24
             Y: =280
             Width: =314
             Height: =32
             Font: =Font.'Segoe UI'
             Size: =12
-            Default: =varNomes.C2
+            Default: |-
+              =With({_f: Filter(varVariaveis, !numerica && n > 0)}, If(CountRows(_f) >= 2, Index(_f, 2).nome, CountRows(_f) >= 1, First(_f).nome, Coalesce(First(Filter(varVariaveis, n > 0)).nome, "")))
             Visible: =drpQuiOrigem.Selected.Value = "Variáveis da tabela de dados" && drpQuiTipo.Selected.Value = "Independência (tabela de contingência)"
       - lblQuiTabela:
           Control: Label
@@ -411,7 +415,7 @@ Screens:
           Control: Label
           Properties:
             Text: |-
-              ="As variáveis numéricas são tratadas como categorias (um valor = uma categoria). Na tabela colada, a 1.ª linha e a 1.ª coluna podem ter os nomes das categorias. Na aderência usa-se a 1.ª coluna de números. As proporções esperadas podem ser proporções, percentagens ou pesos: são normalizadas para somar 1."
+              ="Pode escolher qualquer variável: as numéricas são tratadas como categorias (um valor = uma categoria). Na tabela colada, a 1.ª linha e a 1.ª coluna podem ter os nomes das categorias. Na aderência usa-se a 1.ª coluna de números. As proporções esperadas podem ser proporções, percentagens ou pesos: são normalizadas para somar 1."
             X: =24
             Y: =530
             Width: =314
@@ -427,7 +431,7 @@ Screens:
               =With({_R: With(
                       {_tipo: If(drpQuiTipo.Selected.Value = "Independência (tabela de contingência)", 2, 1),
                        _orig: If(drpQuiOrigem.Selected.Value = "Tabela colada do Excel", 2, 1),
-                       _k1: Switch(drpQuiVar1.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, varNomes.C1, 4, varNomes.C2, 5, 1), _k2: Switch(drpQuiVar2.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, varNomes.C1, 4, varNomes.C2, 5, 1),
+                       _k1: Coalesce(LookUp(varVariaveis, nome = drpQuiVar1.Selected.Value).k, 0), _k2: Coalesce(LookUp(varVariaveis, nome = drpQuiVar2.Selected.Value).k, 0),
                        _alfa: Value(Substitute(drpQuiAlfa.Selected.Value, ",", "."), "en-US")},
                       With(
                           // Tabela observada: nomes das linhas e colunas e células {i, j, O} (na aderência há só 1 coluna)
@@ -466,16 +470,17 @@ Screens:
                                   }
                                   ))))))
                               ),
-                              With({_pr: Filter(ForAll(colDados As _d, With({_A: With({_val: Switch(_k1, 1, _d.N1, 2, _d.N2, 3, _d.N3, Blank())}, {cat: If(_k1 <= 3, If(IsBlank(_val), "", With({_v: _val}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT"))))), Switch(_k1, 4, _d.C1, _d.C2)), ord: If(_k1 <= 3, _val, 0)}), _B: With({_val: Switch(_k2, 1, _d.N1, 2, _d.N2, 3, _d.N3, Blank())}, {cat: If(_k2 <= 3, If(IsBlank(_val), "", With({_v: _val}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT"))))), Switch(_k2, 4, _d.C1, _d.C2)), ord: If(_k2 <= 3, _val, 0)})},
+                              With({_q1: Coalesce(LookUp(varVariaveis, k = _k1).numerica, false), _q2: Coalesce(LookUp(varVariaveis, k = _k2).numerica, false)},
+                              With({_pr: Filter(ForAll(colDados As _d, With({_A: {cat: If(_q1, With({_v: Switch(_k1, 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank())}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT")))), Switch(_k1, 1, _d.T1, 2, _d.T2, 3, _d.T3, 4, _d.T4, 5, _d.T5, 6, _d.T6, "")), ord: If(_q1, Switch(_k1, 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank()), 0)}, _B: {cat: If(_q2, With({_v: Switch(_k2, 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank())}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT")))), Switch(_k2, 1, _d.T1, 2, _d.T2, 3, _d.T3, 4, _d.T4, 5, _d.T5, 6, _d.T6, "")), ord: If(_q2, Switch(_k2, 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank()), 0)}},
                                           {a: _A.cat, oa: _A.ord, b: If(_tipo = 2, _B.cat, "Total"), ob: If(_tipo = 2, _B.ord, 0)})),
                                           a <> "" && b <> "")},
-                                  With({_L: With({_ls: ForAll(Distinct(_pr, a) As _c, {nome: _c.Value, o: LookUp(_pr, a = _c.Value).oa})}, If(_k1 <= 3, Sort(_ls, o), Sort(_ls, nome))), _C: With({_ls: ForAll(Distinct(_pr, b) As _c, {nome: _c.Value, o: LookUp(_pr, b = _c.Value).ob})}, If(If(_tipo = 2, _k2, 4) <= 3, Sort(_ls, o), Sort(_ls, nome)))},
+                                  With({_L: With({_ls: ForAll(Distinct(_pr, a) As _c, {nome: _c.Value, o: LookUp(_pr, a = _c.Value).oa})}, If(_q1, Sort(_ls, o), Sort(_ls, nome))), _C: With({_ls: ForAll(Distinct(_pr, b) As _c, {nome: _c.Value, o: LookUp(_pr, b = _c.Value).ob})}, If(_tipo = 2 && _q2, Sort(_ls, o), Sort(_ls, nome)))},
                                       {Linhas: _L, Colunas: _C,
                                        Celulas: ForAll(Sequence(CountRows(_L) * CountRows(_C), 0) As _q,
                                           With({_i: RoundDown(_q.Value / CountRows(_C), 0) + 1, _j: Mod(_q.Value, CountRows(_C)) + 1},
                                               {i: _i, j: _j, t: "",
                                                O: CountIf(_pr, a = Index(_L, _i).nome && b = Index(_C, _j).nome), invalido: false})),
-                                       TemRotulos: true})))},
+                                       TemRotulos: true}))))},
                       With(
                           // Aderência: frequências observadas = última coluna; se a tabela colada não tiver nomes de texto
                           // e tiver 2 ou mais colunas, a 1.ª coluna dá os nomes das categorias (ex.: faces de um dado 1 a 6)

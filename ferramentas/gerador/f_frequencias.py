@@ -1,5 +1,5 @@
 """Tabelas de frequências (dados discretos/categóricos e dados agrupados em classes)."""
-from .f_comum import num, fmt_livre, indice_todas
+from .f_comum import num, fmt_livre, indice_todas, col_num, col_txt, e_numerica
 
 TIPOS = ["Valores distintos (discreta)", "Classes (dados agrupados)"]
 
@@ -24,13 +24,14 @@ def tabela(drp_var="drpFreVar", drp_tipo="drpFreTipo", txt_k="txtFreK", txt_inic
     """Registo com a tabela de frequências (Linhas) e os parâmetros usados."""
     return f"""With(
     {{_kv: {indice_todas(drp_var)}}},
+    With({{_isn: {e_numerica("_kv")}}},
     With(
-        {{_tipo: If(_kv >= 4, 1, If({drp_tipo}.Selected.Value = "{TIPOS[1]}", 2, 1)),
-         // Valores numéricos (variáveis 1 a 3) e categóricos (4 e 5), sem células vazias
-         _x: Filter(ForAll(colDados As _d, {{x: Switch(_kv, 1, _d.N1, 2, _d.N2, 3, _d.N3, Blank())}}), !IsBlank(x)),
-         _g: Filter(ForAll(colDados As _d, {{g: Switch(_kv, 4, _d.C1, 5, _d.C2, "")}}), !IsBlank(g))}},
+        {{_tipo: If(!_isn, 1, If({drp_tipo}.Selected.Value = "{TIPOS[1]}", 2, 1)),
+         // Valores numéricos (variável numérica) ou textos (variável categórica), sem células vazias
+         _x: Filter(ForAll(colDados As _d, {{x: If(_isn, {col_num("_kv")})}}), !IsBlank(x)),
+         _g: Filter(ForAll(colDados As _d, {{g: If(!_isn, {col_txt("_kv")}, "")}}), !IsBlank(g))}},
         With(
-            {{_n: If(_kv >= 4, CountRows(_g), CountRows(_x)), _min: Min(_x, x), _max: Max(_x, x)}},
+            {{_n: If(!_isn, CountRows(_g), CountRows(_x)), _min: Min(_x, x), _max: Max(_x, x)}},
             With(
                 // Classes: k pela regra de Sturges (ou o valor escrito), início no mínimo e amplitude (máx − início)/k
                 {{_kS: If(_n > 0, RoundUp(1 + Log(_n, 2) - 1E-9, 0), 0),
@@ -54,7 +55,7 @@ def tabela(drp_var="drpFreVar", drp_tipo="drpFreTipo", txt_k="txtFreK", txt_inic
                                             {Classe: "[" & ''' + fmt_curto("_a + (_c.Value - 1) * _h") + ''' & " ; " & ''' + fmt_curto("_a + _c.Value * _h") + ''' & If(_c.Value = _k, "]", "["),
                                              Centro: _a + (_c.Value - 0.5) * _h, Li: _a + (_c.Value - 1) * _h, Ls: _a + _c.Value * _h,
                                              ni: CountIf(_cls, c = _c.Value)})''')},
-                                    _kv >= 4,
+                                    !_isn,
                                     {_acumular('''ForAll(Sort(Distinct(_g, g), Value) As _d,
                                             {Classe: _d.Value, Centro: Blank(), Li: Blank(), Ls: Blank(), ni: CountIf(_g, g = _d.Value)})''')},
                                     {_acumular('''ForAll(Sort(Distinct(_x, x), Value) As _d,
@@ -68,7 +69,7 @@ def tabela(drp_var="drpFreVar", drp_tipo="drpFreTipo", txt_k="txtFreK", txt_inic
             )
         )
     )
-)"""
+))"""
 
 
 def resumo(t="_F"):

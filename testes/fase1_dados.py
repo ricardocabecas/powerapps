@@ -18,13 +18,30 @@ def _vars_colagem(texto, modo="Automático"):
          {"nome": "txtColar", "expr": controlo_texto(texto)},
          {"nome": "colColagem", "expr": F.linhas("txtColar.Text")},
          {"nome": "colColunas", "expr": F.colunas()}]
-    for var in VARS:
-        v.append({"nome": f"drpMap{var}", "expr": "{Selected: {Value: " + F.default_mapa(var) + "}}"})
     return v
 
 
+def _vars_pos_importacao(texto):
+    """Contexto depois de carregar em Importar (substituir): colDados, varNomes e varVariaveis."""
+    from gerador import f_comum as FC
+    imp = F.importar("0")
+    return _vars_colagem(texto) + [
+        {"nome": "varImportacao", "expr": imp},
+        {"nome": "colDados", "expr": "varImportacao.Linhas"},
+        {"nome": "varNomes", "expr": "varImportacao.Nomes"},
+        {"nome": "varVariaveis", "expr": FC.variaveis()}]
+
+
 def tarefas():
+    from gerador import f_comum as FC, f_descritiva as FD
     t = []
+    vs = _vars_pos_importacao(D.COLAGENS["bovinos_excel"])
+    t.append({"id": "f1.bovinos.numericas", "vars": vs, "expr": FC.itens_numericas()})
+    t.append({"id": "f1.bovinos.todas", "vars": vs, "expr": FC.itens_todas()})
+    t.append({"id": "f1.bovinos.descritiva", "vars": vs + [
+        {"nome": "drpDesVar", "expr": controlo_lista("Prod. Leite")},
+        {"nome": "drpDesGrupo", "expr": controlo_lista("Raça")},
+        {"nome": "drpDesQuartis", "expr": controlo_lista(FD.METODOS_QUARTIS[0])}], "expr": FD.colunas()})
     for nome, texto in D.COLAGENS.items():
         for modo in (["Automático", "Sim", "Não"] if nome == "virgula_com_cabecalho" else ["Automático"]):
             vs = _vars_colagem(texto, modo)
@@ -47,6 +64,24 @@ def _fmt_ref(x, sep):
 
 def verificar(res):
     out = []
+    # Caso real: Peso e Prod. Leite (contínuas) têm de aparecer nas listas de variáveis numéricas
+    r1, r2, r3 = res["f1.bovinos.numericas"], res["f1.bovinos.todas"], res["f1.bovinos.descritiva"]
+    num = [x["Value"] for x in r1.get("valor") or []]
+    todas = [x["Value"] for x in r2.get("valor") or []]
+    out.append(("caso real (bovinos): lista de variáveis numéricas", num == ["Numero", "Idade", "Peso", "Prod. Leite"],
+                f"{num}"))
+    out.append(("caso real (bovinos): lista de variáveis de grupo", todas == ["Numero", "Raça", "Idade", "Peso", "Prod. Leite"],
+                f"{todas}"))
+    leite = [166.1, 176.3, 137.2, 209.9, 147.7, 167.1, 191.1]
+    racas = ["BBB", "Charolesa", "Cruzada", "Charolesa", "Charolesa", "Charolesa", "BBB"]
+    ok3, det3 = r3["ok"], r3.get("erro", "")
+    if ok3:
+        cols = {c["Grupo"]: c for c in r3["valor"]}
+        esperado = {"Total": leite, **{g: [x for x, rr in zip(leite, racas) if rr == g] for g in set(racas)}}
+        ok3 = set(cols) == set(esperado) and all(
+            iguais(cols[g]["media"], sum(v) / len(v)) and cols[g]["n"] == len(v) for g, v in esperado.items())
+        det3 = ", ".join(f"{g}: n={c['n']}, média={c['media']:.4f}" for g, c in cols.items())
+    out.append(("caso real (bovinos): descritiva de Prod. Leite por Raça", ok3, det3))
     for nome, texto in D.COLAGENS.items():
         for modo in (["Automático", "Sim", "Não"] if nome == "virgula_com_cabecalho" else ["Automático"]):
             ref = R.importar(texto, modo, NOMES_EXEMPLO)
@@ -59,8 +94,9 @@ def verificar(res):
             inv_ref = sorted([(d["Linha"], d["Variavel"], d["Texto"]) for d in ref["Invalidos"]])
             ok = (iguais(v["Linhas"], ref["Linhas"]) and inv_pfx == inv_ref and v["Cabecalho"] == ref["Cabecalho"]
                   and v["Nomes"] == ref["Nomes"])
+            tipos = ", ".join(f"{c['Col']}:{'num' if c['Numerica'] else 'cat'}" for c in ref["colunas"])
             det = (f"{len(v['Linhas'])} linhas, cabeçalho={v['Cabecalho']}, {len(inv_pfx)} inválidos, "
-                   f"mapa={ref['mapa']}")
+                   f"tipos das colunas = {tipos}")
             if not ok:
                 det += f" | Power Fx={v} | referência={ref}"
             out.append((f"colagem «{nome}» ({modo})", ok, det))

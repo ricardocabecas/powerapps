@@ -2,7 +2,7 @@
 from .yaml_pa import Ecra
 from .comum import (cabecalho, props_ecra, etiqueta, lista, caixa_texto, retangulo, html,
                     COR_SUAVE, COR_PAINEL, COR_LINHA)
-from .f_comum import itens_numericas, itens_categoricas
+from .f_comum import itens_numericas, itens_categoricas, default_numerica, default_categorica
 from . import f_inferencia as F
 
 NOME = "scrTestesT"
@@ -34,10 +34,10 @@ def construir():
     campo("lblTtFormato", "Formato dos dados", lista("drpTtFormato", "[" + ", ".join(f'"{t}"' for t in F.FORMATOS_IND) + "]",
                                                      f'"{F.FORMATOS_IND[0]}"', 0, 0, 0, 0), indep)
     campo("lblTtVar", "Variável numérica (1.ª amostra / X)",
-          lista("drpTtVar", itens_numericas(), "varNomes.N1", 0, 0, 0, 0))
+          lista("drpTtVar", itens_numericas(), default_numerica(1), 0, 0, 0, 0))
     campo("lblTtVar2", "2.ª variável numérica (2.ª amostra / Y)",
-          lista("drpTtVar2", itens_numericas(), "varNomes.N2", 0, 0, 0, 0), duas_colunas)
-    campo("lblTtGrupoVar", "Variável de grupo", lista("drpTtGrupoVar", itens_categoricas(), "varNomes.C1", 0, 0, 0, 0),
+          lista("drpTtVar2", itens_numericas(), default_numerica(2), 0, 0, 0, 0), duas_colunas)
+    campo("lblTtGrupoVar", "Variável de grupo", lista("drpTtGrupoVar", itens_categoricas(), default_categorica(1), 0, 0, 0, 0),
           por_grupo)
     niveis = F.niveis(F.indice_cat("drpTtGrupoVar"))
     campo("lblTtGrupoA", "Grupo da amostra 1", lista("drpTtGrupoA", niveis, f"First({niveis}).Value", 0, 0, 0, 0),

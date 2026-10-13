@@ -212,14 +212,16 @@
 - drpRegX:
     Control: Classic/DropDown
     Properties:
-      Items: =[varNomes.N1, varNomes.N2, varNomes.N3]
+      Items: |-
+        =ForAll(Filter(varVariaveis, numerica) As _v, {Value: _v.nome})
       X: =24
       Y: =108
       Width: =284
       Height: =36
       Font: =Font.'Segoe UI'
       Size: =12
-      Default: =varNomes.N1
+      Default: |-
+        =With({_f: Filter(varVariaveis, numerica)}, If(CountRows(_f) >= 1, Index(_f, 1).nome, Coalesce(First(_f).nome, "")))
 - lblRegY:
     Control: Label
     Properties:
@@ -235,14 +237,16 @@
 - drpRegY:
     Control: Classic/DropDown
     Properties:
-      Items: =[varNomes.N1, varNomes.N2, varNomes.N3]
+      Items: |-
+        =ForAll(Filter(varVariaveis, numerica) As _v, {Value: _v.nome})
       X: =24
       Y: =182
       Width: =284
       Height: =36
       Font: =Font.'Segoe UI'
       Size: =12
-      Default: =varNomes.N2
+      Default: |-
+        =With({_f: Filter(varVariaveis, numerica)}, If(CountRows(_f) >= 2, Index(_f, 2).nome, Coalesce(First(_f).nome, "")))
 - lblRegX0:
     Control: Label
     Properties:
@@ -286,7 +290,7 @@
     Properties:
       HtmlText: |-
         =With({_R: With(
-                {_p: Filter(ForAll(colDados As _d, {x: Switch(Switch(drpRegX.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, 1), 1, _d.N1, 2, _d.N2, _d.N3), y: Switch(Switch(drpRegY.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, 1), 1, _d.N1, 2, _d.N2, _d.N3)}), !IsBlank(x) && !IsBlank(y)), _x0: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtRegX0.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())},
+                {_p: Filter(ForAll(colDados As _d, {x: Switch(Coalesce(LookUp(varVariaveis, nome = drpRegX.Selected.Value).k, 0), 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank()), y: Switch(Coalesce(LookUp(varVariaveis, nome = drpRegY.Selected.Value).k, 0), 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank())}), !IsBlank(x) && !IsBlank(y)), _x0: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtRegX0.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())},
                 With({_n: CountRows(_p)},
                 With({_mx: If(_n > 0, Average(_p, x)), _my: If(_n > 0, Average(_p, y))},
                 With(
@@ -381,7 +385,7 @@
     Properties:
       Image: |-
         =With({_R: With(
-            {_p: Filter(ForAll(colDados As _d, {x: Switch(Switch(drpRegX.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, 1), 1, _d.N1, 2, _d.N2, _d.N3), y: Switch(Switch(drpRegY.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, 1), 1, _d.N1, 2, _d.N2, _d.N3)}), !IsBlank(x) && !IsBlank(y)), _x0: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtRegX0.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())},
+            {_p: Filter(ForAll(colDados As _d, {x: Switch(Coalesce(LookUp(varVariaveis, nome = drpRegX.Selected.Value).k, 0), 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank()), y: Switch(Coalesce(LookUp(varVariaveis, nome = drpRegY.Selected.Value).k, 0), 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank())}), !IsBlank(x) && !IsBlank(y)), _x0: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtRegX0.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())},
             With({_n: CountRows(_p)},
             With({_mx: If(_n > 0, Average(_p, x)), _my: If(_n > 0, Average(_p, y))},
             With(
@@ -422,7 +426,7 @@
                                           Min(1, Sum(_Lcau, Exp(L - _M) * w) / Sum(_Ltot, Exp(L - _M) * w))))))))))))
             }
             ))))
-        ), _P: Filter(ForAll(colDados As _d, {x: Switch(Switch(drpRegX.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, 1), 1, _d.N1, 2, _d.N2, _d.N3), y: Switch(Switch(drpRegY.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, 1), 1, _d.N1, 2, _d.N2, _d.N3)}), !IsBlank(x) && !IsBlank(y))},
+        ), _P: Filter(ForAll(colDados As _d, {x: Switch(Coalesce(LookUp(varVariaveis, nome = drpRegX.Selected.Value).k, 0), 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank()), y: Switch(Coalesce(LookUp(varVariaveis, nome = drpRegY.Selected.Value).k, 0), 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank())}), !IsBlank(x) && !IsBlank(y))},
             "data:image/svg+xml;utf8," & EncodeUrl(If(_R.n = 0, "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 400'><text x='320' y='200' text-anchor='middle' font-family='Segoe UI, Arial' font-size='14'>Sem pares de valores</text></svg>",
             With({_xd: If(_R.maxX > _R.minX, _R.maxX - _R.minX, Max(Abs(_R.maxX), 1))}, With({_xp: With({_e: Power(10, Int(Log(_xd / 5, 10) + 1E-9))}, With({_f: _xd / 5 / _e}, If(_f <= 1, 1, _f <= 2, 2, _f <= 5, 5, 10) * _e))}, With({_x0: _xp * Int((_R.minX - 0.04 * _xd) / _xp + 1E-9), _x1: -_xp * Int(-(_R.maxX + 0.04 * _xd) / _xp + 1E-9)},
             With({_yd: If(_R.maxY > _R.minY, _R.maxY - _R.minY, Max(Abs(_R.maxY), 1))}, With({_yp: With({_e: Power(10, Int(Log(_yd / 5, 10) + 1E-9))}, With({_f: _yd / 5 / _e}, If(_f <= 1, 1, _f <= 2, 2, _f <= 5, 5, 10) * _e))}, With({_y0: _yp * Int((_R.minY - 0.04 * _yd) / _yp + 1E-9), _y1: -_yp * Int(-(_R.maxY + 0.04 * _yd) / _yp + 1E-9)},

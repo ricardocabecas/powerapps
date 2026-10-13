@@ -11,18 +11,17 @@ from motor import pfx_valor, controlo_lista, controlo_texto, iguais  # noqa: E40
 from referencia import regressao as R  # noqa: E402
 from referencia.colagem import numero  # noqa: E402
 import dados_teste as D  # noqa: E402
+from modelo import vars_dados, nome as nome_var  # noqa: E402
 
 NOME = "Fase 4 — Correlação e regressão"
 CAMPOS = ["n", "mediaX", "mediaY", "Sxx", "Syy", "Sxy", "sx", "sy", "cov", "r", "r2", "b", "a", "previsao"]
 
 
 def contexto(xs, ys, x0):
-    regs = [{"Id": i + 1, "N1": x, "N2": y, "N3": None, "C1": "", "C2": ""} for i, (x, y) in enumerate(zip(xs, ys))]
-    return [{"nome": "varNomes", "expr": pfx_valor(NOMES_EXEMPLO)},
-            {"nome": "colDados", "expr": pfx_valor(regs)},
-            {"nome": "drpRegX", "expr": controlo_lista(NOMES_EXEMPLO["N1"])},
-            {"nome": "drpRegY", "expr": controlo_lista(NOMES_EXEMPLO["N2"])},
-            {"nome": "txtRegX0", "expr": controlo_texto(x0)}]
+    return vars_dados([xs, ys]) + [
+        {"nome": "drpRegX", "expr": controlo_lista(nome_var(1))},
+        {"nome": "drpRegY", "expr": controlo_lista(nome_var(2))},
+        {"nome": "txtRegX0", "expr": controlo_texto(x0)}]
 
 
 def tarefas():

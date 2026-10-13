@@ -2,7 +2,7 @@
 from .yaml_pa import Ecra
 from .comum import (cabecalho, props_ecra, etiqueta, lista, caixa_texto, retangulo, html, imagem,
                     COR_SUAVE, COR_PAINEL, COR_LINHA)
-from .f_comum import itens_numericas, indice_num
+from .f_comum import itens_numericas, indice_num, default_numerica
 from . import f_regressao as F
 
 NOME = "scrRegressao"
@@ -19,9 +19,9 @@ def construir():
     c.append(retangulo("retRegPainel", X - 4, 72, W + 8, 684, COR_PAINEL,
                        extra={"BorderColor": COR_LINHA, "BorderThickness": "1"}))
     c.append(etiqueta("lblRegX", '"Variável explicativa (x)"', X + 8, 80, W - 16, 26, 11, True))
-    c.append(lista("drpRegX", itens_numericas(), "varNomes.N1", X + 8, 108, W - 16, 36))
+    c.append(lista("drpRegX", itens_numericas(), default_numerica(1), X + 8, 108, W - 16, 36))
     c.append(etiqueta("lblRegY", '"Variável resposta (y)"', X + 8, 154, W - 16, 26, 11, True))
-    c.append(lista("drpRegY", itens_numericas(), "varNomes.N2", X + 8, 182, W - 16, 36))
+    c.append(lista("drpRegY", itens_numericas(), default_numerica(2), X + 8, 182, W - 16, 36))
     c.append(etiqueta("lblRegX0", '"Previsão: valor de x"', X + 8, 228, W - 16, 26, 11, True))
     c.append(caixa_texto("txtRegX0", '""', X + 8, 256, W - 16, 36, dica="ex.: 172,5"))
     c.append(etiqueta("lblRegNotas",

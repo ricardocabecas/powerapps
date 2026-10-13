@@ -21,6 +21,12 @@ COLAGENS = {
     "linha_unica": "3,5\t4,5",
     "cinco_colunas": NL.join(["a\tb\tc\tg1\tg2", "1\t2\t3\tx\ty", "4\t5\t6\tx\tz"]) + NL,
     "cientifica_e_percentagem": NL.join(["v", "1e3", "2,5E-2", "50%", "+7"]) + NL,
+    # caso real enviado pelo professor: 4 colunas numéricas (2 contínuas) e 1 categórica
+    "bovinos_excel": NL.join(["Numero\tRaça\tIdade\tPeso\tProd. Leite", "1\tBBB\t5\t337\t166,1",
+                              "2\tCharolesa\t6\t336\t176,3", "3\tCruzada\t3\t336\t137,2",
+                              "4\tCharolesa\t2\t335\t209,9", "5\tCharolesa\t5\t334\t147,7",
+                              "6\tCharolesa\t4\t334\t167,1", "7\tBBB\t4\t333\t191,1"]) + NL,
+    "sete_colunas": NL.join(["a\tb\tc\td\te\tf\tg", "1\t2\t3\t4\t5\t6\t7", "8\t9\t10\t11\t12\t13\t14"]) + NL,
 }
 
 # Textos isolados para a conversão texto -> número

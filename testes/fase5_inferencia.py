@@ -9,27 +9,24 @@ from motor import pfx_valor, controlo_lista, controlo_texto, iguais  # noqa: E40
 from referencia import inferencia as R  # noqa: E402
 from referencia.colagem import numero  # noqa: E402
 import dados_teste as D  # noqa: E402
+from modelo import vars_dados, nome as nome_var  # noqa: E402
 
 NOME = "Fase 5 — Inferência"
 
 
-def _col(n1, n2=None, c1=None, c2=None, n3=None):
-    m = max(len(x) for x in [n1, n2 or [], c1 or [], c2 or [], n3 or []])
-    def g(l, i, vazio):
-        return l[i] if l is not None and i < len(l) and l[i] is not None else vazio
-    return [{"Id": i + 1, "N1": g(n1, i, None), "N2": g(n2, i, None), "N3": g(n3, i, None),
-             "C1": g(c1, i, ""), "C2": g(c2, i, "")} for i in range(m)]
+def _ctx(n1, n2=None, c1=None, c2=None, n3=None):
+    """V1 = n1, V2 = n2, V3 = n3, V4 = c1, V5 = c2."""
+    return vars_dados([n1, n2, n3, c1, c2])
 
 
 def ctx_t(caso):
     nome, tipo, fmt_, v1, v2, grupos, gA, gB, d0, alt = caso
-    return [{"nome": "varNomes", "expr": pfx_valor(NOMES_EXEMPLO)},
-            {"nome": "colDados", "expr": pfx_valor(_col(v1, v2, grupos))},
+    return _ctx(v1, v2, grupos) + [
             {"nome": "drpTtTipo", "expr": controlo_lista(F.TIPOS_T[tipo - 1])},
             {"nome": "drpTtFormato", "expr": controlo_lista(F.FORMATOS_IND[fmt_ - 1])},
-            {"nome": "drpTtVar", "expr": controlo_lista(NOMES_EXEMPLO["N1"])},
-            {"nome": "drpTtVar2", "expr": controlo_lista(NOMES_EXEMPLO["N2"])},
-            {"nome": "drpTtGrupoVar", "expr": controlo_lista(NOMES_EXEMPLO["C1"])},
+            {"nome": "drpTtVar", "expr": controlo_lista(nome_var(1))},
+            {"nome": "drpTtVar2", "expr": controlo_lista(nome_var(2))},
+            {"nome": "drpTtGrupoVar", "expr": controlo_lista(nome_var(4))},
             {"nome": "drpTtGrupoA", "expr": controlo_lista(gA)},
             {"nome": "drpTtGrupoB", "expr": controlo_lista(gB)},
             {"nome": "txtTtMu0", "expr": controlo_texto(d0)},
@@ -39,11 +36,10 @@ def ctx_t(caso):
 
 def ctx_anova(caso):
     nome, fmt_, n1, fator, n2, n3 = caso
-    return [{"nome": "varNomes", "expr": pfx_valor(NOMES_EXEMPLO)},
-            {"nome": "colDados", "expr": pfx_valor(_col(n1, n2, None, fator, n3))},
+    return _ctx(n1, n2, None, fator, n3) + [
             {"nome": "drpAnoFormato", "expr": controlo_lista(F.FORMATOS_ANOVA[fmt_ - 1])},
-            {"nome": "drpAnoVar", "expr": controlo_lista(NOMES_EXEMPLO["N1"])},
-            {"nome": "drpAnoFator", "expr": controlo_lista(NOMES_EXEMPLO["C2"])},
+            {"nome": "drpAnoVar", "expr": controlo_lista(nome_var(1))},
+            {"nome": "drpAnoFator", "expr": controlo_lista(nome_var(5))},
             {"nome": "drpAnoAlfa", "expr": controlo_lista("0,05")}]
 
 
@@ -58,16 +54,13 @@ def _ref_anova(caso):
 
 
 def ctx_qui(caso):
-    nome, tipo, orig, k1, k2, _, texto, esp, props, _ref = caso
-    nomes = ["N1", "N2", "N3", "C1", "C2"]
-    return [{"nome": "varNomes", "expr": pfx_valor(NOMES_EXEMPLO)},
-            {"nome": "colDados", "expr": pfx_valor(_col([r[1] for r in D.DADOS_EXEMPLO], None,
-                                                        [r[4] for r in D.DADOS_EXEMPLO], [r[5] for r in D.DADOS_EXEMPLO],
-                                                        [r[3] for r in D.DADOS_EXEMPLO]))},
+    _nome, tipo, orig, k1, k2, _, texto, esp, props, _ref = caso
+    return _ctx([r[1] for r in D.DADOS_EXEMPLO], [r[2] for r in D.DADOS_EXEMPLO], [r[4] for r in D.DADOS_EXEMPLO],
+                [r[5] for r in D.DADOS_EXEMPLO], [r[3] for r in D.DADOS_EXEMPLO]) + [
             {"nome": "drpQuiTipo", "expr": controlo_lista(F.TIPOS_QUI[tipo - 1])},
             {"nome": "drpQuiOrigem", "expr": controlo_lista(F.ORIGENS_QUI[orig - 1])},
-            {"nome": "drpQuiVar1", "expr": controlo_lista(NOMES_EXEMPLO[nomes[k1 - 1]])},
-            {"nome": "drpQuiVar2", "expr": controlo_lista(NOMES_EXEMPLO[nomes[k2 - 1]])},
+            {"nome": "drpQuiVar1", "expr": controlo_lista(nome_var(k1))},
+            {"nome": "drpQuiVar2", "expr": controlo_lista(nome_var(k2))},
             {"nome": "txtQuiTabela", "expr": controlo_texto(texto)},
             {"nome": "drpQuiEsperadas", "expr": controlo_lista(F.ESPERADAS_QUI[esp - 1])},
             {"nome": "txtQuiProporcoes", "expr": controlo_texto(props)},

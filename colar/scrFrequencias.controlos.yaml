@@ -212,13 +212,16 @@
 - drpFreVar:
     Control: Classic/DropDown
     Properties:
-      Items: =[varNomes.N1, varNomes.N2, varNomes.N3, varNomes.C1, varNomes.C2]
+      Items: |-
+        =ForAll(Filter(varVariaveis, n > 0) As _v, {Value: _v.nome})
       X: =24
       Y: =108
       Width: =284
       Height: =36
       Font: =Font.'Segoe UI'
       Size: =12
+      Default: |-
+        =With({_f: Filter(varVariaveis, numerica)}, If(CountRows(_f) >= 1, Index(_f, 1).nome, Coalesce(First(_f).nome, "")))
 - lblFreTipo:
     Control: Label
     Properties:
@@ -242,7 +245,7 @@
       Font: =Font.'Segoe UI'
       Size: =12
       Default: ="Valores distintos (discreta)"
-      DisplayMode: =If(Switch(drpFreVar.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, varNomes.C1, 4, varNomes.C2, 5, 1) >= 4, DisplayMode.Disabled, DisplayMode.Edit)
+      DisplayMode: =If(Coalesce(LookUp(varVariaveis, k = Coalesce(LookUp(varVariaveis, nome = drpFreVar.Selected.Value).k, 0)).numerica, false), DisplayMode.Edit, DisplayMode.Disabled)
 - lblFreK:
     Control: Label
     Properties:
@@ -254,7 +257,7 @@
       Font: =Font.'Segoe UI'
       Size: =10
       Color: =RGBA(33, 37, 41, 1)
-      Visible: =Switch(drpFreVar.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, varNomes.C1, 4, varNomes.C2, 5, 1) <= 3 && drpFreTipo.Selected.Value = "Classes (dados agrupados)"
+      Visible: =Coalesce(LookUp(varVariaveis, k = Coalesce(LookUp(varVariaveis, nome = drpFreVar.Selected.Value).k, 0)).numerica, false) && drpFreTipo.Selected.Value = "Classes (dados agrupados)"
 - txtFreK:
     Control: Classic/TextInput
     Properties:
@@ -268,7 +271,7 @@
       BorderColor: =RGBA(206, 212, 218, 1)
       HintText: |-
         ="ex.: 6"
-      Visible: =Switch(drpFreVar.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, varNomes.C1, 4, varNomes.C2, 5, 1) <= 3 && drpFreTipo.Selected.Value = "Classes (dados agrupados)"
+      Visible: =Coalesce(LookUp(varVariaveis, k = Coalesce(LookUp(varVariaveis, nome = drpFreVar.Selected.Value).k, 0)).numerica, false) && drpFreTipo.Selected.Value = "Classes (dados agrupados)"
 - lblFreInicio:
     Control: Label
     Properties:
@@ -280,7 +283,7 @@
       Font: =Font.'Segoe UI'
       Size: =10
       Color: =RGBA(33, 37, 41, 1)
-      Visible: =Switch(drpFreVar.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, varNomes.C1, 4, varNomes.C2, 5, 1) <= 3 && drpFreTipo.Selected.Value = "Classes (dados agrupados)"
+      Visible: =Coalesce(LookUp(varVariaveis, k = Coalesce(LookUp(varVariaveis, nome = drpFreVar.Selected.Value).k, 0)).numerica, false) && drpFreTipo.Selected.Value = "Classes (dados agrupados)"
 - txtFreInicio:
     Control: Classic/TextInput
     Properties:
@@ -294,7 +297,7 @@
       BorderColor: =RGBA(206, 212, 218, 1)
       HintText: |-
         ="ex.: 150"
-      Visible: =Switch(drpFreVar.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, varNomes.C1, 4, varNomes.C2, 5, 1) <= 3 && drpFreTipo.Selected.Value = "Classes (dados agrupados)"
+      Visible: =Coalesce(LookUp(varVariaveis, k = Coalesce(LookUp(varVariaveis, nome = drpFreVar.Selected.Value).k, 0)).numerica, false) && drpFreTipo.Selected.Value = "Classes (dados agrupados)"
 - lblFreAmplitude:
     Control: Label
     Properties:
@@ -306,7 +309,7 @@
       Font: =Font.'Segoe UI'
       Size: =10
       Color: =RGBA(33, 37, 41, 1)
-      Visible: =Switch(drpFreVar.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, varNomes.C1, 4, varNomes.C2, 5, 1) <= 3 && drpFreTipo.Selected.Value = "Classes (dados agrupados)"
+      Visible: =Coalesce(LookUp(varVariaveis, k = Coalesce(LookUp(varVariaveis, nome = drpFreVar.Selected.Value).k, 0)).numerica, false) && drpFreTipo.Selected.Value = "Classes (dados agrupados)"
 - txtFreAmplitude:
     Control: Classic/TextInput
     Properties:
@@ -320,20 +323,21 @@
       BorderColor: =RGBA(206, 212, 218, 1)
       HintText: |-
         ="ex.: 5"
-      Visible: =Switch(drpFreVar.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, varNomes.C1, 4, varNomes.C2, 5, 1) <= 3 && drpFreTipo.Selected.Value = "Classes (dados agrupados)"
+      Visible: =Coalesce(LookUp(varVariaveis, k = Coalesce(LookUp(varVariaveis, nome = drpFreVar.Selected.Value).k, 0)).numerica, false) && drpFreTipo.Selected.Value = "Classes (dados agrupados)"
 - lblFreResumo:
     Control: Label
     Properties:
       Text: |-
         =With({_F: With(
-            {_kv: Switch(drpFreVar.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, varNomes.C1, 4, varNomes.C2, 5, 1)},
+            {_kv: Coalesce(LookUp(varVariaveis, nome = drpFreVar.Selected.Value).k, 0)},
+            With({_isn: Coalesce(LookUp(varVariaveis, k = _kv).numerica, false)},
             With(
-                {_tipo: If(_kv >= 4, 1, If(drpFreTipo.Selected.Value = "Classes (dados agrupados)", 2, 1)),
-                 // Valores numéricos (variáveis 1 a 3) e categóricos (4 e 5), sem células vazias
-                 _x: Filter(ForAll(colDados As _d, {x: Switch(_kv, 1, _d.N1, 2, _d.N2, 3, _d.N3, Blank())}), !IsBlank(x)),
-                 _g: Filter(ForAll(colDados As _d, {g: Switch(_kv, 4, _d.C1, 5, _d.C2, "")}), !IsBlank(g))},
+                {_tipo: If(!_isn, 1, If(drpFreTipo.Selected.Value = "Classes (dados agrupados)", 2, 1)),
+                 // Valores numéricos (variável numérica) ou textos (variável categórica), sem células vazias
+                 _x: Filter(ForAll(colDados As _d, {x: If(_isn, Switch(_kv, 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank()))}), !IsBlank(x)),
+                 _g: Filter(ForAll(colDados As _d, {g: If(!_isn, Switch(_kv, 1, _d.T1, 2, _d.T2, 3, _d.T3, 4, _d.T4, 5, _d.T5, 6, _d.T6, ""), "")}), !IsBlank(g))},
                 With(
-                    {_n: If(_kv >= 4, CountRows(_g), CountRows(_x)), _min: Min(_x, x), _max: Max(_x, x)},
+                    {_n: If(!_isn, CountRows(_g), CountRows(_x)), _min: Min(_x, x), _max: Max(_x, x)},
                     With(
                         // Classes: k pela regra de Sturges (ou o valor escrito), início no mínimo e amplitude (máx − início)/k
                         {_kS: If(_n > 0, RoundUp(1 + Log(_n, 2) - 1E-9, 0), 0),
@@ -368,7 +372,7 @@
                     With({_r: Index(_t, _i.Value), _Ni: Sum(FirstN(_t, _i.Value), ni)},
                         {Ordem: _i.Value, Classe: _r.Classe, Centro: _r.Centro, Li: _r.Li, Ls: _r.Ls,
                          ni: _r.ni, fi: _r.ni / _ntot, Ni: _Ni, Fi: _Ni / _ntot}))),
-                                            _kv >= 4,
+                                            !_isn,
                                             With({_t: ForAll(Sort(Distinct(_g, g), Value) As _d,
                                                     {Classe: _d.Value, Centro: Blank(), Li: Blank(), Ls: Blank(), ni: CountIf(_g, g = _d.Value)}), _ntot: Sum(ForAll(Sort(Distinct(_g, g), Value) As _d,
                                                     {Classe: _d.Value, Centro: Blank(), Li: Blank(), Ls: Blank(), ni: CountIf(_g, g = _d.Value)}), ni)},
@@ -393,7 +397,7 @@
                     )
                 )
             )
-        )}, If(_F.n = 0, "Não há valores para a variável escolhida.",
+        ))}, If(_F.n = 0, "Não há valores para a variável escolhida.",
             "n = " & _F.n & "   ·   " & CountRows(_F.Linhas) & If(_F.Tipo = 2, " classes", " valores distintos") &
             If(_F.Tipo = 2,
                 Char(10) & "Regra de Sturges: k = ⌈1 + log₂ n⌉ = " & _F.kSturges &
@@ -524,14 +528,15 @@
     Properties:
       Items: |-
         =With({_F: With(
-            {_kv: Switch(drpFreVar.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, varNomes.C1, 4, varNomes.C2, 5, 1)},
+            {_kv: Coalesce(LookUp(varVariaveis, nome = drpFreVar.Selected.Value).k, 0)},
+            With({_isn: Coalesce(LookUp(varVariaveis, k = _kv).numerica, false)},
             With(
-                {_tipo: If(_kv >= 4, 1, If(drpFreTipo.Selected.Value = "Classes (dados agrupados)", 2, 1)),
-                 // Valores numéricos (variáveis 1 a 3) e categóricos (4 e 5), sem células vazias
-                 _x: Filter(ForAll(colDados As _d, {x: Switch(_kv, 1, _d.N1, 2, _d.N2, 3, _d.N3, Blank())}), !IsBlank(x)),
-                 _g: Filter(ForAll(colDados As _d, {g: Switch(_kv, 4, _d.C1, 5, _d.C2, "")}), !IsBlank(g))},
+                {_tipo: If(!_isn, 1, If(drpFreTipo.Selected.Value = "Classes (dados agrupados)", 2, 1)),
+                 // Valores numéricos (variável numérica) ou textos (variável categórica), sem células vazias
+                 _x: Filter(ForAll(colDados As _d, {x: If(_isn, Switch(_kv, 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank()))}), !IsBlank(x)),
+                 _g: Filter(ForAll(colDados As _d, {g: If(!_isn, Switch(_kv, 1, _d.T1, 2, _d.T2, 3, _d.T3, 4, _d.T4, 5, _d.T5, 6, _d.T6, ""), "")}), !IsBlank(g))},
                 With(
-                    {_n: If(_kv >= 4, CountRows(_g), CountRows(_x)), _min: Min(_x, x), _max: Max(_x, x)},
+                    {_n: If(!_isn, CountRows(_g), CountRows(_x)), _min: Min(_x, x), _max: Max(_x, x)},
                     With(
                         // Classes: k pela regra de Sturges (ou o valor escrito), início no mínimo e amplitude (máx − início)/k
                         {_kS: If(_n > 0, RoundUp(1 + Log(_n, 2) - 1E-9, 0), 0),
@@ -566,7 +571,7 @@
                     With({_r: Index(_t, _i.Value), _Ni: Sum(FirstN(_t, _i.Value), ni)},
                         {Ordem: _i.Value, Classe: _r.Classe, Centro: _r.Centro, Li: _r.Li, Ls: _r.Ls,
                          ni: _r.ni, fi: _r.ni / _ntot, Ni: _Ni, Fi: _Ni / _ntot}))),
-                                            _kv >= 4,
+                                            !_isn,
                                             With({_t: ForAll(Sort(Distinct(_g, g), Value) As _d,
                                                     {Classe: _d.Value, Centro: Blank(), Li: Blank(), Ls: Blank(), ni: CountIf(_g, g = _d.Value)}), _ntot: Sum(ForAll(Sort(Distinct(_g, g), Value) As _d,
                                                     {Classe: _d.Value, Centro: Blank(), Li: Blank(), Ls: Blank(), ni: CountIf(_g, g = _d.Value)}), ni)},
@@ -591,7 +596,7 @@
                     )
                 )
             )
-        )}, _F.Linhas)
+        ))}, _F.Linhas)
       X: =332
       Y: =106
       Width: =486
@@ -696,14 +701,15 @@
     Properties:
       Image: |-
         =With({_F: With(
-            {_kv: Switch(drpFreVar.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, varNomes.C1, 4, varNomes.C2, 5, 1)},
+            {_kv: Coalesce(LookUp(varVariaveis, nome = drpFreVar.Selected.Value).k, 0)},
+            With({_isn: Coalesce(LookUp(varVariaveis, k = _kv).numerica, false)},
             With(
-                {_tipo: If(_kv >= 4, 1, If(drpFreTipo.Selected.Value = "Classes (dados agrupados)", 2, 1)),
-                 // Valores numéricos (variáveis 1 a 3) e categóricos (4 e 5), sem células vazias
-                 _x: Filter(ForAll(colDados As _d, {x: Switch(_kv, 1, _d.N1, 2, _d.N2, 3, _d.N3, Blank())}), !IsBlank(x)),
-                 _g: Filter(ForAll(colDados As _d, {g: Switch(_kv, 4, _d.C1, 5, _d.C2, "")}), !IsBlank(g))},
+                {_tipo: If(!_isn, 1, If(drpFreTipo.Selected.Value = "Classes (dados agrupados)", 2, 1)),
+                 // Valores numéricos (variável numérica) ou textos (variável categórica), sem células vazias
+                 _x: Filter(ForAll(colDados As _d, {x: If(_isn, Switch(_kv, 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank()))}), !IsBlank(x)),
+                 _g: Filter(ForAll(colDados As _d, {g: If(!_isn, Switch(_kv, 1, _d.T1, 2, _d.T2, 3, _d.T3, 4, _d.T4, 5, _d.T5, 6, _d.T6, ""), "")}), !IsBlank(g))},
                 With(
-                    {_n: If(_kv >= 4, CountRows(_g), CountRows(_x)), _min: Min(_x, x), _max: Max(_x, x)},
+                    {_n: If(!_isn, CountRows(_g), CountRows(_x)), _min: Min(_x, x), _max: Max(_x, x)},
                     With(
                         // Classes: k pela regra de Sturges (ou o valor escrito), início no mínimo e amplitude (máx − início)/k
                         {_kS: If(_n > 0, RoundUp(1 + Log(_n, 2) - 1E-9, 0), 0),
@@ -738,7 +744,7 @@
                     With({_r: Index(_t, _i.Value), _Ni: Sum(FirstN(_t, _i.Value), ni)},
                         {Ordem: _i.Value, Classe: _r.Classe, Centro: _r.Centro, Li: _r.Li, Ls: _r.Ls,
                          ni: _r.ni, fi: _r.ni / _ntot, Ni: _Ni, Fi: _Ni / _ntot}))),
-                                            _kv >= 4,
+                                            !_isn,
                                             With({_t: ForAll(Sort(Distinct(_g, g), Value) As _d,
                                                     {Classe: _d.Value, Centro: Blank(), Li: Blank(), Ls: Blank(), ni: CountIf(_g, g = _d.Value)}), _ntot: Sum(ForAll(Sort(Distinct(_g, g), Value) As _d,
                                                     {Classe: _d.Value, Centro: Blank(), Li: Blank(), Ls: Blank(), ni: CountIf(_g, g = _d.Value)}), ni)},
@@ -763,7 +769,7 @@
                     )
                 )
             )
-        )},
+        ))},
             If(_F.Tipo = 2,
                 "data:image/svg+xml;utf8," & EncodeUrl(With({_lin: _F.Linhas, _k: CountRows(_F.Linhas)},
             With({_mx: Max(Max(_lin, ni), 1)}, With({_passo: Max(1, With({_e: Power(10, Int(Log(_mx / 5, 10) + 1E-9))}, With({_f: _mx / 5 / _e}, If(_f <= 1, 1, _f <= 2, 2, _f <= 5, 5, 10) * _e)))}, With({_ymax: _passo * RoundUp(_mx * 1.08 / _passo - 1E-9, 0)},

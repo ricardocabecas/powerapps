@@ -208,10 +208,10 @@ Screens:
           Control: Label
           Properties:
             Text: |-
-              ="Linhas: " & CountRows(colDados) & "   ·   Células numéricas vazias: " & (CountRows(Filter(colDados, IsBlank(N1))) + CountRows(Filter(colDados, IsBlank(N2))) + CountRows(Filter(colDados, IsBlank(N3))))
-            X: =330
+              ="Linhas: " & CountRows(colDados) & "   ·   Numéricas: " & CountRows(Filter(varVariaveis, numerica)) & "   ·   Categóricas: " & CountRows(Filter(varVariaveis, !numerica && n > 0)) & With({_inv: Sum(varVariaveis, nInv)}, If(_inv > 0, "   ·   ⚠ Não numéricos: " & _inv, ""))
+            X: =300
             Y: =72
-            Width: =380
+            Width: =416
             Height: =30
             Font: =Font.'Segoe UI'
             Size: =11
@@ -230,146 +230,211 @@ Screens:
             Color: =RGBA(33, 37, 41, 1)
             FontWeight: =FontWeight.Semibold
             Align: =Align.Center
-      - txtNomeN1:
+      - txtNomeV1:
           Control: Classic/TextInput
           Properties:
-            Default: =varNomes.N1
-            X: =64
+            Default: =varNomes.V1
+            X: =62
             Y: =106
-            Width: =112
+            Width: =96
             Height: =34
             Font: =Font.'Segoe UI'
-            Size: =11
+            Size: =10
             BorderColor: =RGBA(206, 212, 218, 1)
             HintText: ="Nome da variável"
             OnChange: |-
               =// Muda o nome da variável (um nome vazio repõe o nome por omissão)
-              Set(varNomes, Patch(varNomes, {N1: If(Len(Trim(Self.Text)) = 0, "Variável 1", Trim(Self.Text))}))
+              Set(varNomes, Patch(varNomes, {V1: If(Len(Trim(Self.Text)) = 0, "Variável 1", Trim(Self.Text))}));
+              Set(varVariaveis, ForAll(Sequence(6) As _k,
+                  With({_nv: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.T1, 2, ThisRecord.T2, 3, ThisRecord.T3, 4, ThisRecord.T4, 5, ThisRecord.T5, 6, ThisRecord.T6, "")))),
+                        _nn: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.X1, 2, ThisRecord.X2, 3, ThisRecord.X3, 4, ThisRecord.X4, 5, ThisRecord.X5, 6, ThisRecord.X6, Blank()))))},
+                      {k: _k.Value, nome: Switch(_k.Value, 1, varNomes.V1, 2, varNomes.V2, 3, varNomes.V3, 4, varNomes.V4, 5, varNomes.V5, 6, varNomes.V6, ""), n: _nv, nNum: _nn,
+                       numerica: _nn > 0 && _nn * 2 >= _nv, nInv: If(_nn > 0 && _nn * 2 >= _nv, _nv - _nn, 0)})))
             FontWeight: =FontWeight.Semibold
             Fill: =RGBA(222, 235, 247, 1)
-      - lblTipoN1:
+      - lblTipoV1:
           Control: Label
           Properties:
-            Text: ="numérica"
-            X: =64
+            Text: |-
+              =With({_v: LookUp(varVariaveis, k = 1)}, If(_v.n = 0, "vazia", _v.numerica, "numérica" & If(_v.nInv > 0, " ⚠", ""), "categórica"))
+            X: =62
             Y: =140
-            Width: =112
+            Width: =96
             Height: =22
             Font: =Font.'Segoe UI'
             Size: =9
             Color: =RGBA(90, 98, 106, 1)
             Align: =Align.Center
-      - txtNomeN2:
+      - txtNomeV2:
           Control: Classic/TextInput
           Properties:
-            Default: =varNomes.N2
-            X: =180
+            Default: =varNomes.V2
+            X: =162
             Y: =106
-            Width: =112
+            Width: =96
             Height: =34
             Font: =Font.'Segoe UI'
-            Size: =11
+            Size: =10
             BorderColor: =RGBA(206, 212, 218, 1)
             HintText: ="Nome da variável"
             OnChange: |-
               =// Muda o nome da variável (um nome vazio repõe o nome por omissão)
-              Set(varNomes, Patch(varNomes, {N2: If(Len(Trim(Self.Text)) = 0, "Variável 2", Trim(Self.Text))}))
+              Set(varNomes, Patch(varNomes, {V2: If(Len(Trim(Self.Text)) = 0, "Variável 2", Trim(Self.Text))}));
+              Set(varVariaveis, ForAll(Sequence(6) As _k,
+                  With({_nv: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.T1, 2, ThisRecord.T2, 3, ThisRecord.T3, 4, ThisRecord.T4, 5, ThisRecord.T5, 6, ThisRecord.T6, "")))),
+                        _nn: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.X1, 2, ThisRecord.X2, 3, ThisRecord.X3, 4, ThisRecord.X4, 5, ThisRecord.X5, 6, ThisRecord.X6, Blank()))))},
+                      {k: _k.Value, nome: Switch(_k.Value, 1, varNomes.V1, 2, varNomes.V2, 3, varNomes.V3, 4, varNomes.V4, 5, varNomes.V5, 6, varNomes.V6, ""), n: _nv, nNum: _nn,
+                       numerica: _nn > 0 && _nn * 2 >= _nv, nInv: If(_nn > 0 && _nn * 2 >= _nv, _nv - _nn, 0)})))
             FontWeight: =FontWeight.Semibold
             Fill: =RGBA(222, 235, 247, 1)
-      - lblTipoN2:
+      - lblTipoV2:
           Control: Label
           Properties:
-            Text: ="numérica"
-            X: =180
+            Text: |-
+              =With({_v: LookUp(varVariaveis, k = 2)}, If(_v.n = 0, "vazia", _v.numerica, "numérica" & If(_v.nInv > 0, " ⚠", ""), "categórica"))
+            X: =162
             Y: =140
-            Width: =112
+            Width: =96
             Height: =22
             Font: =Font.'Segoe UI'
             Size: =9
             Color: =RGBA(90, 98, 106, 1)
             Align: =Align.Center
-      - txtNomeN3:
+      - txtNomeV3:
           Control: Classic/TextInput
           Properties:
-            Default: =varNomes.N3
-            X: =296
+            Default: =varNomes.V3
+            X: =262
             Y: =106
-            Width: =112
+            Width: =96
             Height: =34
             Font: =Font.'Segoe UI'
-            Size: =11
+            Size: =10
             BorderColor: =RGBA(206, 212, 218, 1)
             HintText: ="Nome da variável"
             OnChange: |-
               =// Muda o nome da variável (um nome vazio repõe o nome por omissão)
-              Set(varNomes, Patch(varNomes, {N3: If(Len(Trim(Self.Text)) = 0, "Variável 3", Trim(Self.Text))}))
+              Set(varNomes, Patch(varNomes, {V3: If(Len(Trim(Self.Text)) = 0, "Variável 3", Trim(Self.Text))}));
+              Set(varVariaveis, ForAll(Sequence(6) As _k,
+                  With({_nv: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.T1, 2, ThisRecord.T2, 3, ThisRecord.T3, 4, ThisRecord.T4, 5, ThisRecord.T5, 6, ThisRecord.T6, "")))),
+                        _nn: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.X1, 2, ThisRecord.X2, 3, ThisRecord.X3, 4, ThisRecord.X4, 5, ThisRecord.X5, 6, ThisRecord.X6, Blank()))))},
+                      {k: _k.Value, nome: Switch(_k.Value, 1, varNomes.V1, 2, varNomes.V2, 3, varNomes.V3, 4, varNomes.V4, 5, varNomes.V5, 6, varNomes.V6, ""), n: _nv, nNum: _nn,
+                       numerica: _nn > 0 && _nn * 2 >= _nv, nInv: If(_nn > 0 && _nn * 2 >= _nv, _nv - _nn, 0)})))
             FontWeight: =FontWeight.Semibold
             Fill: =RGBA(222, 235, 247, 1)
-      - lblTipoN3:
+      - lblTipoV3:
           Control: Label
           Properties:
-            Text: ="numérica"
-            X: =296
+            Text: |-
+              =With({_v: LookUp(varVariaveis, k = 3)}, If(_v.n = 0, "vazia", _v.numerica, "numérica" & If(_v.nInv > 0, " ⚠", ""), "categórica"))
+            X: =262
             Y: =140
-            Width: =112
+            Width: =96
             Height: =22
             Font: =Font.'Segoe UI'
             Size: =9
             Color: =RGBA(90, 98, 106, 1)
             Align: =Align.Center
-      - txtNomeC1:
+      - txtNomeV4:
           Control: Classic/TextInput
           Properties:
-            Default: =varNomes.C1
-            X: =412
+            Default: =varNomes.V4
+            X: =362
             Y: =106
-            Width: =112
+            Width: =96
             Height: =34
             Font: =Font.'Segoe UI'
-            Size: =11
+            Size: =10
             BorderColor: =RGBA(206, 212, 218, 1)
             HintText: ="Nome da variável"
             OnChange: |-
               =// Muda o nome da variável (um nome vazio repõe o nome por omissão)
-              Set(varNomes, Patch(varNomes, {C1: If(Len(Trim(Self.Text)) = 0, "Grupo 1", Trim(Self.Text))}))
+              Set(varNomes, Patch(varNomes, {V4: If(Len(Trim(Self.Text)) = 0, "Variável 4", Trim(Self.Text))}));
+              Set(varVariaveis, ForAll(Sequence(6) As _k,
+                  With({_nv: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.T1, 2, ThisRecord.T2, 3, ThisRecord.T3, 4, ThisRecord.T4, 5, ThisRecord.T5, 6, ThisRecord.T6, "")))),
+                        _nn: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.X1, 2, ThisRecord.X2, 3, ThisRecord.X3, 4, ThisRecord.X4, 5, ThisRecord.X5, 6, ThisRecord.X6, Blank()))))},
+                      {k: _k.Value, nome: Switch(_k.Value, 1, varNomes.V1, 2, varNomes.V2, 3, varNomes.V3, 4, varNomes.V4, 5, varNomes.V5, 6, varNomes.V6, ""), n: _nv, nNum: _nn,
+                       numerica: _nn > 0 && _nn * 2 >= _nv, nInv: If(_nn > 0 && _nn * 2 >= _nv, _nv - _nn, 0)})))
             FontWeight: =FontWeight.Semibold
             Fill: =RGBA(222, 235, 247, 1)
-      - lblTipoC1:
+      - lblTipoV4:
           Control: Label
           Properties:
-            Text: ="categórica (grupo)"
-            X: =412
+            Text: |-
+              =With({_v: LookUp(varVariaveis, k = 4)}, If(_v.n = 0, "vazia", _v.numerica, "numérica" & If(_v.nInv > 0, " ⚠", ""), "categórica"))
+            X: =362
             Y: =140
-            Width: =112
+            Width: =96
             Height: =22
             Font: =Font.'Segoe UI'
             Size: =9
             Color: =RGBA(90, 98, 106, 1)
             Align: =Align.Center
-      - txtNomeC2:
+      - txtNomeV5:
           Control: Classic/TextInput
           Properties:
-            Default: =varNomes.C2
-            X: =528
+            Default: =varNomes.V5
+            X: =462
             Y: =106
-            Width: =112
+            Width: =96
             Height: =34
             Font: =Font.'Segoe UI'
-            Size: =11
+            Size: =10
             BorderColor: =RGBA(206, 212, 218, 1)
             HintText: ="Nome da variável"
             OnChange: |-
               =// Muda o nome da variável (um nome vazio repõe o nome por omissão)
-              Set(varNomes, Patch(varNomes, {C2: If(Len(Trim(Self.Text)) = 0, "Grupo 2", Trim(Self.Text))}))
+              Set(varNomes, Patch(varNomes, {V5: If(Len(Trim(Self.Text)) = 0, "Variável 5", Trim(Self.Text))}));
+              Set(varVariaveis, ForAll(Sequence(6) As _k,
+                  With({_nv: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.T1, 2, ThisRecord.T2, 3, ThisRecord.T3, 4, ThisRecord.T4, 5, ThisRecord.T5, 6, ThisRecord.T6, "")))),
+                        _nn: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.X1, 2, ThisRecord.X2, 3, ThisRecord.X3, 4, ThisRecord.X4, 5, ThisRecord.X5, 6, ThisRecord.X6, Blank()))))},
+                      {k: _k.Value, nome: Switch(_k.Value, 1, varNomes.V1, 2, varNomes.V2, 3, varNomes.V3, 4, varNomes.V4, 5, varNomes.V5, 6, varNomes.V6, ""), n: _nv, nNum: _nn,
+                       numerica: _nn > 0 && _nn * 2 >= _nv, nInv: If(_nn > 0 && _nn * 2 >= _nv, _nv - _nn, 0)})))
             FontWeight: =FontWeight.Semibold
             Fill: =RGBA(222, 235, 247, 1)
-      - lblTipoC2:
+      - lblTipoV5:
           Control: Label
           Properties:
-            Text: ="categórica (grupo)"
-            X: =528
+            Text: |-
+              =With({_v: LookUp(varVariaveis, k = 5)}, If(_v.n = 0, "vazia", _v.numerica, "numérica" & If(_v.nInv > 0, " ⚠", ""), "categórica"))
+            X: =462
             Y: =140
-            Width: =112
+            Width: =96
+            Height: =22
+            Font: =Font.'Segoe UI'
+            Size: =9
+            Color: =RGBA(90, 98, 106, 1)
+            Align: =Align.Center
+      - txtNomeV6:
+          Control: Classic/TextInput
+          Properties:
+            Default: =varNomes.V6
+            X: =562
+            Y: =106
+            Width: =96
+            Height: =34
+            Font: =Font.'Segoe UI'
+            Size: =10
+            BorderColor: =RGBA(206, 212, 218, 1)
+            HintText: ="Nome da variável"
+            OnChange: |-
+              =// Muda o nome da variável (um nome vazio repõe o nome por omissão)
+              Set(varNomes, Patch(varNomes, {V6: If(Len(Trim(Self.Text)) = 0, "Variável 6", Trim(Self.Text))}));
+              Set(varVariaveis, ForAll(Sequence(6) As _k,
+                  With({_nv: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.T1, 2, ThisRecord.T2, 3, ThisRecord.T3, 4, ThisRecord.T4, 5, ThisRecord.T5, 6, ThisRecord.T6, "")))),
+                        _nn: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.X1, 2, ThisRecord.X2, 3, ThisRecord.X3, 4, ThisRecord.X4, 5, ThisRecord.X5, 6, ThisRecord.X6, Blank()))))},
+                      {k: _k.Value, nome: Switch(_k.Value, 1, varNomes.V1, 2, varNomes.V2, 3, varNomes.V3, 4, varNomes.V4, 5, varNomes.V5, 6, varNomes.V6, ""), n: _nv, nNum: _nn,
+                       numerica: _nn > 0 && _nn * 2 >= _nv, nInv: If(_nn > 0 && _nn * 2 >= _nv, _nv - _nn, 0)})))
+            FontWeight: =FontWeight.Semibold
+            Fill: =RGBA(222, 235, 247, 1)
+      - lblTipoV6:
+          Control: Label
+          Properties:
+            Text: |-
+              =With({_v: LookUp(varVariaveis, k = 6)}, If(_v.n = 0, "vazia", _v.numerica, "numérica" & If(_v.nInv > 0, " ⚠", ""), "categórica"))
+            X: =562
+            Y: =140
+            Width: =96
             Height: =22
             Font: =Font.'Segoe UI'
             Size: =9
@@ -404,104 +469,168 @@ Screens:
                   Size: =11
                   Color: =RGBA(90, 98, 106, 1)
                   Align: =Align.Center
-            - txtGalN1:
+            - txtGalV1:
                 Control: Classic/TextInput
                 Properties:
                   Default: |-
-                    =With({_v: ThisItem.N1}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT"))))
+                    =If(LookUp(varVariaveis, k = 1).numerica && !IsBlank(ThisItem.X1), With({_v: ThisItem.X1}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT")))), ThisItem.T1)
                   OnChange: |-
-                    =// Converte o texto (vírgula ou ponto decimal) e grava na coleção
-                    Patch(colDados, LookUp(colDados, Id = ThisItem.Id), {N1: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())});
-                    If((Len(Trim(Self.Text)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))),
-                        Notify("«" & Self.Text & "» não é um número válido: a célula ficou vazia.", NotificationType.Warning))
-                  X: =48
+                    =// Guarda o texto (T1) e o número (X1; vírgula ou ponto decimal) e atualiza os tipos
+                    Patch(colDados, LookUp(colDados, Id = ThisItem.Id), {T1: Trim(Self.Text), X1: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())});
+                    Set(varVariaveis, ForAll(Sequence(6) As _k,
+                        With({_nv: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.T1, 2, ThisRecord.T2, 3, ThisRecord.T3, 4, ThisRecord.T4, 5, ThisRecord.T5, 6, ThisRecord.T6, "")))),
+                              _nn: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.X1, 2, ThisRecord.X2, 3, ThisRecord.X3, 4, ThisRecord.X4, 5, ThisRecord.X5, 6, ThisRecord.X6, Blank()))))},
+                            {k: _k.Value, nome: Switch(_k.Value, 1, varNomes.V1, 2, varNomes.V2, 3, varNomes.V3, 4, varNomes.V4, 5, varNomes.V5, 6, varNomes.V6, ""), n: _nv, nNum: _nn,
+                             numerica: _nn > 0 && _nn * 2 >= _nv, nInv: If(_nn > 0 && _nn * 2 >= _nv, _nv - _nn, 0)})));
+                    If(Coalesce(LookUp(varVariaveis, k = 1).numerica, false) && (Len(Trim(Self.Text)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))),
+                        Notify("«" & Self.Text & "» não é um número: nesta variável numérica conta como valor em falta.", NotificationType.Warning))
+                  X: =46
                   Y: =4
-                  Width: =112
+                  Width: =96
                   Height: =32
                   Font: =Font.'Segoe UI'
                   Size: =11
-                  Align: =Align.Right
-                  BorderColor: =If((Len(Trim(Self.Text)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), RGBA(176, 0, 32, 1), RGBA(206, 212, 218, 1))
+                  Align: =If(LookUp(varVariaveis, k = 1).numerica, Align.Right, Align.Left)
+                  BorderColor: =If(LookUp(varVariaveis, k = 1).numerica && (Len(Trim(Self.Text)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), RGBA(176, 0, 32, 1), RGBA(206, 212, 218, 1))
                   HintText: ="vazio"
-            - txtGalN2:
+            - txtGalV2:
                 Control: Classic/TextInput
                 Properties:
                   Default: |-
-                    =With({_v: ThisItem.N2}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT"))))
+                    =If(LookUp(varVariaveis, k = 2).numerica && !IsBlank(ThisItem.X2), With({_v: ThisItem.X2}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT")))), ThisItem.T2)
                   OnChange: |-
-                    =// Converte o texto (vírgula ou ponto decimal) e grava na coleção
-                    Patch(colDados, LookUp(colDados, Id = ThisItem.Id), {N2: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())});
-                    If((Len(Trim(Self.Text)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))),
-                        Notify("«" & Self.Text & "» não é um número válido: a célula ficou vazia.", NotificationType.Warning))
-                  X: =164
+                    =// Guarda o texto (T2) e o número (X2; vírgula ou ponto decimal) e atualiza os tipos
+                    Patch(colDados, LookUp(colDados, Id = ThisItem.Id), {T2: Trim(Self.Text), X2: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())});
+                    Set(varVariaveis, ForAll(Sequence(6) As _k,
+                        With({_nv: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.T1, 2, ThisRecord.T2, 3, ThisRecord.T3, 4, ThisRecord.T4, 5, ThisRecord.T5, 6, ThisRecord.T6, "")))),
+                              _nn: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.X1, 2, ThisRecord.X2, 3, ThisRecord.X3, 4, ThisRecord.X4, 5, ThisRecord.X5, 6, ThisRecord.X6, Blank()))))},
+                            {k: _k.Value, nome: Switch(_k.Value, 1, varNomes.V1, 2, varNomes.V2, 3, varNomes.V3, 4, varNomes.V4, 5, varNomes.V5, 6, varNomes.V6, ""), n: _nv, nNum: _nn,
+                             numerica: _nn > 0 && _nn * 2 >= _nv, nInv: If(_nn > 0 && _nn * 2 >= _nv, _nv - _nn, 0)})));
+                    If(Coalesce(LookUp(varVariaveis, k = 2).numerica, false) && (Len(Trim(Self.Text)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))),
+                        Notify("«" & Self.Text & "» não é um número: nesta variável numérica conta como valor em falta.", NotificationType.Warning))
+                  X: =146
                   Y: =4
-                  Width: =112
+                  Width: =96
                   Height: =32
                   Font: =Font.'Segoe UI'
                   Size: =11
-                  Align: =Align.Right
-                  BorderColor: =If((Len(Trim(Self.Text)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), RGBA(176, 0, 32, 1), RGBA(206, 212, 218, 1))
+                  Align: =If(LookUp(varVariaveis, k = 2).numerica, Align.Right, Align.Left)
+                  BorderColor: =If(LookUp(varVariaveis, k = 2).numerica && (Len(Trim(Self.Text)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), RGBA(176, 0, 32, 1), RGBA(206, 212, 218, 1))
                   HintText: ="vazio"
-            - txtGalN3:
+            - txtGalV3:
                 Control: Classic/TextInput
                 Properties:
                   Default: |-
-                    =With({_v: ThisItem.N3}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT"))))
+                    =If(LookUp(varVariaveis, k = 3).numerica && !IsBlank(ThisItem.X3), With({_v: ThisItem.X3}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT")))), ThisItem.T3)
                   OnChange: |-
-                    =// Converte o texto (vírgula ou ponto decimal) e grava na coleção
-                    Patch(colDados, LookUp(colDados, Id = ThisItem.Id), {N3: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())});
-                    If((Len(Trim(Self.Text)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))),
-                        Notify("«" & Self.Text & "» não é um número válido: a célula ficou vazia.", NotificationType.Warning))
-                  X: =280
+                    =// Guarda o texto (T3) e o número (X3; vírgula ou ponto decimal) e atualiza os tipos
+                    Patch(colDados, LookUp(colDados, Id = ThisItem.Id), {T3: Trim(Self.Text), X3: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())});
+                    Set(varVariaveis, ForAll(Sequence(6) As _k,
+                        With({_nv: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.T1, 2, ThisRecord.T2, 3, ThisRecord.T3, 4, ThisRecord.T4, 5, ThisRecord.T5, 6, ThisRecord.T6, "")))),
+                              _nn: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.X1, 2, ThisRecord.X2, 3, ThisRecord.X3, 4, ThisRecord.X4, 5, ThisRecord.X5, 6, ThisRecord.X6, Blank()))))},
+                            {k: _k.Value, nome: Switch(_k.Value, 1, varNomes.V1, 2, varNomes.V2, 3, varNomes.V3, 4, varNomes.V4, 5, varNomes.V5, 6, varNomes.V6, ""), n: _nv, nNum: _nn,
+                             numerica: _nn > 0 && _nn * 2 >= _nv, nInv: If(_nn > 0 && _nn * 2 >= _nv, _nv - _nn, 0)})));
+                    If(Coalesce(LookUp(varVariaveis, k = 3).numerica, false) && (Len(Trim(Self.Text)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))),
+                        Notify("«" & Self.Text & "» não é um número: nesta variável numérica conta como valor em falta.", NotificationType.Warning))
+                  X: =246
                   Y: =4
-                  Width: =112
+                  Width: =96
                   Height: =32
                   Font: =Font.'Segoe UI'
                   Size: =11
-                  Align: =Align.Right
-                  BorderColor: =If((Len(Trim(Self.Text)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), RGBA(176, 0, 32, 1), RGBA(206, 212, 218, 1))
+                  Align: =If(LookUp(varVariaveis, k = 3).numerica, Align.Right, Align.Left)
+                  BorderColor: =If(LookUp(varVariaveis, k = 3).numerica && (Len(Trim(Self.Text)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), RGBA(176, 0, 32, 1), RGBA(206, 212, 218, 1))
                   HintText: ="vazio"
-            - txtGalC1:
+            - txtGalV4:
                 Control: Classic/TextInput
                 Properties:
-                  Default: =ThisItem.C1
+                  Default: |-
+                    =If(LookUp(varVariaveis, k = 4).numerica && !IsBlank(ThisItem.X4), With({_v: ThisItem.X4}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT")))), ThisItem.T4)
                   OnChange: |-
-                    =Patch(colDados, LookUp(colDados, Id = ThisItem.Id), {C1: Trim(Self.Text)})
-                  X: =396
+                    =// Guarda o texto (T4) e o número (X4; vírgula ou ponto decimal) e atualiza os tipos
+                    Patch(colDados, LookUp(colDados, Id = ThisItem.Id), {T4: Trim(Self.Text), X4: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())});
+                    Set(varVariaveis, ForAll(Sequence(6) As _k,
+                        With({_nv: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.T1, 2, ThisRecord.T2, 3, ThisRecord.T3, 4, ThisRecord.T4, 5, ThisRecord.T5, 6, ThisRecord.T6, "")))),
+                              _nn: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.X1, 2, ThisRecord.X2, 3, ThisRecord.X3, 4, ThisRecord.X4, 5, ThisRecord.X5, 6, ThisRecord.X6, Blank()))))},
+                            {k: _k.Value, nome: Switch(_k.Value, 1, varNomes.V1, 2, varNomes.V2, 3, varNomes.V3, 4, varNomes.V4, 5, varNomes.V5, 6, varNomes.V6, ""), n: _nv, nNum: _nn,
+                             numerica: _nn > 0 && _nn * 2 >= _nv, nInv: If(_nn > 0 && _nn * 2 >= _nv, _nv - _nn, 0)})));
+                    If(Coalesce(LookUp(varVariaveis, k = 4).numerica, false) && (Len(Trim(Self.Text)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))),
+                        Notify("«" & Self.Text & "» não é um número: nesta variável numérica conta como valor em falta.", NotificationType.Warning))
+                  X: =346
                   Y: =4
-                  Width: =112
+                  Width: =96
                   Height: =32
                   Font: =Font.'Segoe UI'
                   Size: =11
-                  BorderColor: =RGBA(206, 212, 218, 1)
+                  Align: =If(LookUp(varVariaveis, k = 4).numerica, Align.Right, Align.Left)
+                  BorderColor: =If(LookUp(varVariaveis, k = 4).numerica && (Len(Trim(Self.Text)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), RGBA(176, 0, 32, 1), RGBA(206, 212, 218, 1))
                   HintText: ="vazio"
-            - txtGalC2:
+            - txtGalV5:
                 Control: Classic/TextInput
                 Properties:
-                  Default: =ThisItem.C2
+                  Default: |-
+                    =If(LookUp(varVariaveis, k = 5).numerica && !IsBlank(ThisItem.X5), With({_v: ThisItem.X5}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT")))), ThisItem.T5)
                   OnChange: |-
-                    =Patch(colDados, LookUp(colDados, Id = ThisItem.Id), {C2: Trim(Self.Text)})
-                  X: =512
+                    =// Guarda o texto (T5) e o número (X5; vírgula ou ponto decimal) e atualiza os tipos
+                    Patch(colDados, LookUp(colDados, Id = ThisItem.Id), {T5: Trim(Self.Text), X5: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())});
+                    Set(varVariaveis, ForAll(Sequence(6) As _k,
+                        With({_nv: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.T1, 2, ThisRecord.T2, 3, ThisRecord.T3, 4, ThisRecord.T4, 5, ThisRecord.T5, 6, ThisRecord.T6, "")))),
+                              _nn: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.X1, 2, ThisRecord.X2, 3, ThisRecord.X3, 4, ThisRecord.X4, 5, ThisRecord.X5, 6, ThisRecord.X6, Blank()))))},
+                            {k: _k.Value, nome: Switch(_k.Value, 1, varNomes.V1, 2, varNomes.V2, 3, varNomes.V3, 4, varNomes.V4, 5, varNomes.V5, 6, varNomes.V6, ""), n: _nv, nNum: _nn,
+                             numerica: _nn > 0 && _nn * 2 >= _nv, nInv: If(_nn > 0 && _nn * 2 >= _nv, _nv - _nn, 0)})));
+                    If(Coalesce(LookUp(varVariaveis, k = 5).numerica, false) && (Len(Trim(Self.Text)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))),
+                        Notify("«" & Self.Text & "» não é um número: nesta variável numérica conta como valor em falta.", NotificationType.Warning))
+                  X: =446
                   Y: =4
-                  Width: =112
+                  Width: =96
                   Height: =32
                   Font: =Font.'Segoe UI'
                   Size: =11
-                  BorderColor: =RGBA(206, 212, 218, 1)
+                  Align: =If(LookUp(varVariaveis, k = 5).numerica, Align.Right, Align.Left)
+                  BorderColor: =If(LookUp(varVariaveis, k = 5).numerica && (Len(Trim(Self.Text)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), RGBA(176, 0, 32, 1), RGBA(206, 212, 218, 1))
+                  HintText: ="vazio"
+            - txtGalV6:
+                Control: Classic/TextInput
+                Properties:
+                  Default: |-
+                    =If(LookUp(varVariaveis, k = 6).numerica && !IsBlank(ThisItem.X6), With({_v: ThisItem.X6}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT")))), ThisItem.T6)
+                  OnChange: |-
+                    =// Guarda o texto (T6) e o número (X6; vírgula ou ponto decimal) e atualiza os tipos
+                    Patch(colDados, LookUp(colDados, Id = ThisItem.Id), {T6: Trim(Self.Text), X6: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())});
+                    Set(varVariaveis, ForAll(Sequence(6) As _k,
+                        With({_nv: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.T1, 2, ThisRecord.T2, 3, ThisRecord.T3, 4, ThisRecord.T4, 5, ThisRecord.T5, 6, ThisRecord.T6, "")))),
+                              _nn: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.X1, 2, ThisRecord.X2, 3, ThisRecord.X3, 4, ThisRecord.X4, 5, ThisRecord.X5, 6, ThisRecord.X6, Blank()))))},
+                            {k: _k.Value, nome: Switch(_k.Value, 1, varNomes.V1, 2, varNomes.V2, 3, varNomes.V3, 4, varNomes.V4, 5, varNomes.V5, 6, varNomes.V6, ""), n: _nv, nNum: _nn,
+                             numerica: _nn > 0 && _nn * 2 >= _nv, nInv: If(_nn > 0 && _nn * 2 >= _nv, _nv - _nn, 0)})));
+                    If(Coalesce(LookUp(varVariaveis, k = 6).numerica, false) && (Len(Trim(Self.Text)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))),
+                        Notify("«" & Self.Text & "» não é um número: nesta variável numérica conta como valor em falta.", NotificationType.Warning))
+                  X: =546
+                  Y: =4
+                  Width: =96
+                  Height: =32
+                  Font: =Font.'Segoe UI'
+                  Size: =11
+                  Align: =If(LookUp(varVariaveis, k = 6).numerica, Align.Right, Align.Left)
+                  BorderColor: =If(LookUp(varVariaveis, k = 6).numerica && (Len(Trim(Self.Text)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(Self.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), RGBA(176, 0, 32, 1), RGBA(206, 212, 218, 1))
                   HintText: ="vazio"
             - btnGalApagar:
                 Control: Classic/Button
                 Properties:
                   Text: ="✕"
                   OnSelect: |-
-                    =// Apaga a linha e volta a numerar 1..n
+                    =// Apaga a linha, volta a numerar 1..n e atualiza os tipos das variáveis
                     RemoveIf(colDados, Id = ThisItem.Id);
                     ClearCollect(colTemp, ForAll(Sequence(CountRows(colDados)) As _i, Patch(Index(colDados, _i.Value), {Id: _i.Value})));
                     ClearCollect(colDados, colTemp);
-                    Clear(colTemp)
-                  X: =628
+                    Clear(colTemp);
+                    Set(varVariaveis, ForAll(Sequence(6) As _k,
+                        With({_nv: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.T1, 2, ThisRecord.T2, 3, ThisRecord.T3, 4, ThisRecord.T4, 5, ThisRecord.T5, 6, ThisRecord.T6, "")))),
+                              _nn: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.X1, 2, ThisRecord.X2, 3, ThisRecord.X3, 4, ThisRecord.X4, 5, ThisRecord.X5, 6, ThisRecord.X6, Blank()))))},
+                            {k: _k.Value, nome: Switch(_k.Value, 1, varNomes.V1, 2, varNomes.V2, 3, varNomes.V3, 4, varNomes.V4, 5, varNomes.V5, 6, varNomes.V6, ""), n: _nv, nNum: _nn,
+                             numerica: _nn > 0 && _nn * 2 >= _nv, nInv: If(_nn > 0 && _nn * 2 >= _nv, _nv - _nn, 0)})))
+                  X: =646
                   Y: =6
-                  Width: =32
+                  Width: =30
                   Height: =28
                   Font: =Font.'Segoe UI'
                   Size: =11
@@ -518,7 +647,7 @@ Screens:
             Text: ="+ Adicionar linha"
             OnSelect: |-
               =// Nova linha vazia no fim da tabela
-              Collect(colDados, {Id: Coalesce(Max(colDados, Id), 0) + 1, N1: Blank(), N2: Blank(), N3: Blank(), C1: "", C2: ""})
+              Collect(colDados, {Id: Coalesce(Max(colDados, Id), 0) + 1, T1: "", X1: Blank(), T2: "", X2: Blank(), T3: "", X3: Blank(), T4: "", X4: Blank(), T5: "", X5: Blank(), T6: "", X6: Blank()})
             X: =16
             Y: =676
             Width: =170
@@ -538,29 +667,34 @@ Screens:
           Properties:
             Text: ="Repor dados de exemplo"
             OnSelect: |-
-              =Set(varNomes, {N1: "Altura (cm)", N2: "Peso (kg)", N3: "Nota (0-20)", C1: "Sexo", C2: "Turma"});
+              =Set(varNomes, {V1: "Altura (cm)", V2: "Peso (kg)", V3: "Nota (0-20)", V4: "Sexo", V5: "Turma", V6: "Variável 6"});
               ClearCollect(colDados, Table(
-                  {Id: 1, N1: 165, N2: 58.5, N3: 14, C1: "F", C2: "A"},
-                  {Id: 2, N1: 178, N2: 72, N3: 12, C1: "M", C2: "A"},
-                  {Id: 3, N1: 160, N2: 52.3, N3: 16, C1: "F", C2: "B"},
-                  {Id: 4, N1: 182, N2: 80.1, N3: 11, C1: "M", C2: "B"},
-                  {Id: 5, N1: 170, N2: 65.4, N3: 13, C1: "M", C2: "C"},
-                  {Id: 6, N1: 158, N2: 49.8, N3: 17, C1: "F", C2: "A"},
-                  {Id: 7, N1: 175, N2: 70.2, N3: 10, C1: "M", C2: "C"},
-                  {Id: 8, N1: 168, N2: 61, N3: 15, C1: "F", C2: "B"},
-                  {Id: 9, N1: 185, N2: 85.6, N3: 9, C1: "M", C2: "A"},
-                  {Id: 10, N1: 162, N2: 55.1, N3: 18, C1: "F", C2: "C"},
-                  {Id: 11, N1: 172, N2: 68.3, N3: 12, C1: "M", C2: "B"},
-                  {Id: 12, N1: 166, N2: 60.2, N3: 14, C1: "F", C2: "A"},
-                  {Id: 13, N1: 180, N2: 77.5, N3: 11, C1: "M", C2: "C"},
-                  {Id: 14, N1: 155, N2: 48, N3: 16, C1: "F", C2: "B"},
-                  {Id: 15, N1: 174, N2: 69.9, N3: 13, C1: "M", C2: "A"},
-                  {Id: 16, N1: 163, N2: 57.4, N3: 15, C1: "F", C2: "C"},
-                  {Id: 17, N1: 177, N2: 74.8, N3: 10, C1: "M", C2: "B"},
-                  {Id: 18, N1: 169, N2: 63.1, N3: 14, C1: "F", C2: "C"},
-                  {Id: 19, N1: 171, N2: 66.7, N3: 12, C1: "M", C2: "A"},
-                  {Id: 20, N1: 159, N2: 51.6, N3: 17, C1: "F", C2: "B"}
+                  {Id: 1, T1: "165", X1: 165, T2: "58,5", X2: 58.5, T3: "14", X3: 14, T4: "F", X4: Blank(), T5: "A", X5: Blank(), T6: "", X6: Blank()},
+                  {Id: 2, T1: "178", X1: 178, T2: "72", X2: 72, T3: "12", X3: 12, T4: "M", X4: Blank(), T5: "A", X5: Blank(), T6: "", X6: Blank()},
+                  {Id: 3, T1: "160", X1: 160, T2: "52,3", X2: 52.3, T3: "16", X3: 16, T4: "F", X4: Blank(), T5: "B", X5: Blank(), T6: "", X6: Blank()},
+                  {Id: 4, T1: "182", X1: 182, T2: "80,1", X2: 80.1, T3: "11", X3: 11, T4: "M", X4: Blank(), T5: "B", X5: Blank(), T6: "", X6: Blank()},
+                  {Id: 5, T1: "170", X1: 170, T2: "65,4", X2: 65.4, T3: "13", X3: 13, T4: "M", X4: Blank(), T5: "C", X5: Blank(), T6: "", X6: Blank()},
+                  {Id: 6, T1: "158", X1: 158, T2: "49,8", X2: 49.8, T3: "17", X3: 17, T4: "F", X4: Blank(), T5: "A", X5: Blank(), T6: "", X6: Blank()},
+                  {Id: 7, T1: "175", X1: 175, T2: "70,2", X2: 70.2, T3: "10", X3: 10, T4: "M", X4: Blank(), T5: "C", X5: Blank(), T6: "", X6: Blank()},
+                  {Id: 8, T1: "168", X1: 168, T2: "61", X2: 61, T3: "15", X3: 15, T4: "F", X4: Blank(), T5: "B", X5: Blank(), T6: "", X6: Blank()},
+                  {Id: 9, T1: "185", X1: 185, T2: "85,6", X2: 85.6, T3: "9", X3: 9, T4: "M", X4: Blank(), T5: "A", X5: Blank(), T6: "", X6: Blank()},
+                  {Id: 10, T1: "162", X1: 162, T2: "55,1", X2: 55.1, T3: "18", X3: 18, T4: "F", X4: Blank(), T5: "C", X5: Blank(), T6: "", X6: Blank()},
+                  {Id: 11, T1: "172", X1: 172, T2: "68,3", X2: 68.3, T3: "12", X3: 12, T4: "M", X4: Blank(), T5: "B", X5: Blank(), T6: "", X6: Blank()},
+                  {Id: 12, T1: "166", X1: 166, T2: "60,2", X2: 60.2, T3: "14", X3: 14, T4: "F", X4: Blank(), T5: "A", X5: Blank(), T6: "", X6: Blank()},
+                  {Id: 13, T1: "180", X1: 180, T2: "77,5", X2: 77.5, T3: "11", X3: 11, T4: "M", X4: Blank(), T5: "C", X5: Blank(), T6: "", X6: Blank()},
+                  {Id: 14, T1: "155", X1: 155, T2: "48", X2: 48, T3: "16", X3: 16, T4: "F", X4: Blank(), T5: "B", X5: Blank(), T6: "", X6: Blank()},
+                  {Id: 15, T1: "174", X1: 174, T2: "69,9", X2: 69.9, T3: "13", X3: 13, T4: "M", X4: Blank(), T5: "A", X5: Blank(), T6: "", X6: Blank()},
+                  {Id: 16, T1: "163", X1: 163, T2: "57,4", X2: 57.4, T3: "15", X3: 15, T4: "F", X4: Blank(), T5: "C", X5: Blank(), T6: "", X6: Blank()},
+                  {Id: 17, T1: "177", X1: 177, T2: "74,8", X2: 74.8, T3: "10", X3: 10, T4: "M", X4: Blank(), T5: "B", X5: Blank(), T6: "", X6: Blank()},
+                  {Id: 18, T1: "169", X1: 169, T2: "63,1", X2: 63.1, T3: "14", X3: 14, T4: "F", X4: Blank(), T5: "C", X5: Blank(), T6: "", X6: Blank()},
+                  {Id: 19, T1: "171", X1: 171, T2: "66,7", X2: 66.7, T3: "12", X3: 12, T4: "M", X4: Blank(), T5: "A", X5: Blank(), T6: "", X6: Blank()},
+                  {Id: 20, T1: "159", X1: 159, T2: "51,6", X2: 51.6, T3: "17", X3: 17, T4: "F", X4: Blank(), T5: "B", X5: Blank(), T6: "", X6: Blank()}
               ));
+              Set(varVariaveis, ForAll(Sequence(6) As _k,
+                  With({_nv: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.T1, 2, ThisRecord.T2, 3, ThisRecord.T3, 4, ThisRecord.T4, 5, ThisRecord.T5, 6, ThisRecord.T6, "")))),
+                        _nn: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.X1, 2, ThisRecord.X2, 3, ThisRecord.X3, 4, ThisRecord.X4, 5, ThisRecord.X5, 6, ThisRecord.X6, Blank()))))},
+                      {k: _k.Value, nome: Switch(_k.Value, 1, varNomes.V1, 2, varNomes.V2, 3, varNomes.V3, 4, varNomes.V4, 5, varNomes.V5, 6, varNomes.V6, ""), n: _nv, nNum: _nn,
+                       numerica: _nn > 0 && _nn * 2 >= _nv, nInv: If(_nn > 0 && _nn * 2 >= _nv, _nv - _nn, 0)})));
               Set(varConfirmarApagar, false)
             X: =196
             Y: =676
@@ -586,6 +720,11 @@ Screens:
               =// Pede confirmação: o 1.º clique arma, o 2.º apaga
               If(varConfirmarApagar,
                   Clear(colDados);
+                  Set(varVariaveis, ForAll(Sequence(6) As _k,
+                      With({_nv: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.T1, 2, ThisRecord.T2, 3, ThisRecord.T3, 4, ThisRecord.T4, 5, ThisRecord.T5, 6, ThisRecord.T6, "")))),
+                            _nn: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.X1, 2, ThisRecord.X2, 3, ThisRecord.X3, 4, ThisRecord.X4, 5, ThisRecord.X5, 6, ThisRecord.X6, Blank()))))},
+                          {k: _k.Value, nome: Switch(_k.Value, 1, varNomes.V1, 2, varNomes.V2, 3, varNomes.V3, 4, varNomes.V4, 5, varNomes.V5, 6, varNomes.V6, ""), n: _nv, nNum: _nn,
+                           numerica: _nn > 0 && _nn * 2 >= _nv, nInv: If(_nn > 0 && _nn * 2 >= _nv, _nv - _nn, 0)})));
                   Set(varConfirmarApagar, false),
                   Set(varConfirmarApagar, true)
               )
@@ -609,14 +748,14 @@ Screens:
           Control: Label
           Properties:
             Text: |-
-              =If(CountRows(Distinct([varNomes.N1, varNomes.N2, varNomes.N3, varNomes.C1, varNomes.C2], Value)) < 5, "⚠ Há variáveis com o mesmo nome. Dê nomes diferentes para as poder escolher nos outros ecrãs.", "Dica: clique no cabeçalho de uma coluna para mudar o nome da variável. Pode usar vírgula ou ponto decimal.")
+              =If(CountRows(Distinct([varNomes.V1, varNomes.V2, varNomes.V3, varNomes.V4, varNomes.V5, varNomes.V6], Value)) < 6, "⚠ Há variáveis com o mesmo nome. Dê nomes diferentes para as poder escolher nos outros ecrãs.", "O tipo de cada variável é detetado automaticamente: numérica se pelo menos metade dos valores forem números (vírgula ou ponto decimal); senão, categórica.")
             X: =16
-            Y: =718
+            Y: =716
             Width: =700
-            Height: =40
+            Height: =44
             Font: =Font.'Segoe UI'
             Size: =10
-            Color: =If(CountRows(Distinct([varNomes.N1, varNomes.N2, varNomes.N3, varNomes.C1, varNomes.C2], Value)) < 5, RGBA(176, 0, 32, 1), RGBA(90, 98, 106, 1))
+            Color: =If(CountRows(Distinct([varNomes.V1, varNomes.V2, varNomes.V3, varNomes.V4, varNomes.V5, varNomes.V6], Value)) < 6, RGBA(176, 0, 32, 1), RGBA(90, 98, 106, 1))
       - retPainelColar:
           Control: Rectangle
           Properties:
@@ -642,7 +781,7 @@ Screens:
       - lblColarAjuda:
           Control: Label
           Properties:
-            Text: ="Selecione uma ou várias colunas no Excel, copie (Ctrl+C) e cole aqui (Ctrl+V). A 1.ª linha pode ter os nomes das variáveis. Aceita vírgula ou ponto decimal."
+            Text: ="Selecione até 6 colunas no Excel, copie (Ctrl+C) e cole aqui (Ctrl+V). A 1.ª linha pode ter os nomes das variáveis. A 1.ª coluna colada vai para a variável 1, a 2.ª para a variável 2, e assim por diante. Aceita vírgula ou ponto decimal."
             X: =732
             Y: =106
             Width: =618
@@ -657,7 +796,7 @@ Screens:
             X: =732
             Y: =152
             Width: =618
-            Height: =160
+            Height: =190
             Font: =Font.'Segoe UI'
             Size: =10
             BorderColor: =RGBA(206, 212, 218, 1)
@@ -668,7 +807,7 @@ Screens:
           Properties:
             Text: ="A 1.ª linha é cabeçalho?"
             X: =732
-            Y: =320
+            Y: =350
             Width: =170
             Height: =34
             Font: =Font.'Segoe UI'
@@ -679,7 +818,7 @@ Screens:
           Properties:
             Items: =["Automático", "Sim", "Não"]
             X: =904
-            Y: =320
+            Y: =350
             Width: =130
             Height: =34
             Font: =Font.'Segoe UI'
@@ -728,7 +867,7 @@ Screens:
                   )
               ))
             X: =1046
-            Y: =320
+            Y: =350
             Width: =140
             Height: =34
             Font: =Font.'Segoe UI'
@@ -750,7 +889,7 @@ Screens:
               Clear(colColagem);
               Clear(colColunas)
             X: =1196
-            Y: =320
+            Y: =350
             Width: =154
             Height: =34
             Font: =Font.'Segoe UI'
@@ -772,58 +911,55 @@ Screens:
               =If(CountRows(colColagem) = 0,
                   "Cole os dados na caixa acima e carregue em «Analisar».",
                   With({_R: With(
-                      // Opções escolhidas: cabeçalho e coluna de origem de cada variável
+                      // A 1.ª linha é cabeçalho? E que colunas são numéricas (pelo menos metade das células são números)?
                       {_cab: Switch(drpCabecalho.Selected.Value, "Sim", true, "Não", false, CountRows(colColagem) >= 2 && CountRows(Filter(colColunas, Numerica && Topo <> "" && !TopoNumerico)) > 0),
-                        _jN1: IfError(Value(First(Split(drpMapN1.Selected.Value, " ")).Value, "en-US"), 0),
-                        _jN2: IfError(Value(First(Split(drpMapN2.Selected.Value, " ")).Value, "en-US"), 0),
-                        _jN3: IfError(Value(First(Split(drpMapN3.Selected.Value, " ")).Value, "en-US"), 0),
-                        _jC1: IfError(Value(First(Split(drpMapC1.Selected.Value, " ")).Value, "en-US"), 0),
-                        _jC2: IfError(Value(First(Split(drpMapC2.Selected.Value, " ")).Value, "en-US"), 0)},
+                        _num1: Coalesce(LookUp(colColunas, Col = 1).Numerica, false),
+                            _num2: Coalesce(LookUp(colColunas, Col = 2).Numerica, false),
+                            _num3: Coalesce(LookUp(colColunas, Col = 3).Numerica, false),
+                            _num4: Coalesce(LookUp(colColunas, Col = 4).Numerica, false),
+                            _num5: Coalesce(LookUp(colColunas, Col = 5).Numerica, false),
+                            _num6: Coalesce(LookUp(colColunas, Col = 6).Numerica, false)},
                       With(
                           {_corpo: If(_cab, LastN(colColagem, CountRows(colColagem) - 1), colColagem),
-                            // Se houver cabeçalho, os nomes das variáveis vêm da 1.ª linha
-                            _nomes: With({_c1: First(colColagem)}, {N1: If(_cab && _jN1 > 0, If(_jN1 >= 1 && _jN1 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jN1).Texto, ""), varNomes.N1), N2: If(_cab && _jN2 > 0, If(_jN2 >= 1 && _jN2 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jN2).Texto, ""), varNomes.N2), N3: If(_cab && _jN3 > 0, If(_jN3 >= 1 && _jN3 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jN3).Texto, ""), varNomes.N3), C1: If(_cab && _jC1 > 0, If(_jC1 >= 1 && _jC1 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jC1).Texto, ""), varNomes.C1), C2: If(_cab && _jC2 > 0, If(_jC2 >= 1 && _jC2 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jC2).Texto, ""), varNomes.C2)})},
-                          With(
-                              {_reg: ForAll(Sequence(CountRows(_corpo)) As _i,
+                            _nomes: With({_c1: First(colColagem)}, {V1: With({_h: If(_cab, If(1 <= CountRows(_c1.Celulas), Index(_c1.Celulas, 1).Texto, ""), "")}, If(_h <> "", _h, "Variável 1")), V2: With({_h: If(_cab, If(2 <= CountRows(_c1.Celulas), Index(_c1.Celulas, 2).Texto, ""), "")}, If(_h <> "", _h, "Variável 2")), V3: With({_h: If(_cab, If(3 <= CountRows(_c1.Celulas), Index(_c1.Celulas, 3).Texto, ""), "")}, If(_h <> "", _h, "Variável 3")), V4: With({_h: If(_cab, If(4 <= CountRows(_c1.Celulas), Index(_c1.Celulas, 4).Texto, ""), "")}, If(_h <> "", _h, "Variável 4")), V5: With({_h: If(_cab, If(5 <= CountRows(_c1.Celulas), Index(_c1.Celulas, 5).Texto, ""), "")}, If(_h <> "", _h, "Variável 5")), V6: With({_h: If(_cab, If(6 <= CountRows(_c1.Celulas), Index(_c1.Celulas, 6).Texto, ""), "")}, If(_h <> "", _h, "Variável 6"))})},
+                          {
+                              // Registos prontos a juntar a colDados: a coluna j vai para a variável Vj
+                              Linhas: ForAll(Sequence(CountRows(_corpo)) As _i,
                                   With({_r: Index(_corpo, _i.Value)},
-                                      With({_tN1: If(_jN1 >= 1 && _jN1 <= CountRows(_r.Celulas), Index(_r.Celulas, _jN1).Texto, ""), _tN2: If(_jN2 >= 1 && _jN2 <= CountRows(_r.Celulas), Index(_r.Celulas, _jN2).Texto, ""), _tN3: If(_jN3 >= 1 && _jN3 <= CountRows(_r.Celulas), Index(_r.Celulas, _jN3).Texto, ""), _tC1: If(_jC1 >= 1 && _jC1 <= CountRows(_r.Celulas), Index(_r.Celulas, _jC1).Texto, ""), _tC2: If(_jC2 >= 1 && _jC2 <= CountRows(_r.Celulas), Index(_r.Celulas, _jC2).Texto, "")},
-                                          {Id: 0 + _i.Value, N1: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN1), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), N2: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN2), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), N3: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN3), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), C1: _tC1, C2: _tC2,
-                                           Linha: _r.Linha, _IN1: (Len(Trim(_tN1)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN1), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), _IN2: (Len(Trim(_tN2)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN2), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), _IN3: (Len(Trim(_tN3)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN3), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), _TN1: _tN1, _TN2: _tN2, _TN3: _tN3}
-                                      )
-                                  )
-                              )},
-                              {
-                                  // Registos prontos a juntar a colDados
-                                  Linhas: ForAll(_reg, {Id: Id, N1: N1, N2: N2, N3: N3, C1: C1, C2: C2}),
-                                  // Valores não numéricos em colunas numéricas (ficam em branco)
-                                  Invalidos: Sort(Table(
-                              ForAll(Filter(_reg, _IN1) As _x, {Linha: _x.Linha, Variavel: _nomes.N1, Texto: _x._TN1}),
-                              ForAll(Filter(_reg, _IN2) As _x, {Linha: _x.Linha, Variavel: _nomes.N2, Texto: _x._TN2}),
-                              ForAll(Filter(_reg, _IN3) As _x, {Linha: _x.Linha, Variavel: _nomes.N3, Texto: _x._TN3})
-                                  ), Linha),
-                                  Cabecalho: _cab,
-                                  Nomes: _nomes
-                              }
-                          )
+                                      With({_t1: If(1 <= CountRows(_r.Celulas), Index(_r.Celulas, 1).Texto, ""), _t2: If(2 <= CountRows(_r.Celulas), Index(_r.Celulas, 2).Texto, ""), _t3: If(3 <= CountRows(_r.Celulas), Index(_r.Celulas, 3).Texto, ""), _t4: If(4 <= CountRows(_r.Celulas), Index(_r.Celulas, 4).Texto, ""), _t5: If(5 <= CountRows(_r.Celulas), Index(_r.Celulas, 5).Texto, ""), _t6: If(6 <= CountRows(_r.Celulas), Index(_r.Celulas, 6).Texto, "")},
+                                          {Id: 0 + _i.Value, T1: _t1, X1: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t1), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), T2: _t2, X2: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t2), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), T3: _t3, X3: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t3), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), T4: _t4, X4: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t4), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), T5: _t5, X5: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t5), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), T6: _t6, X6: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t6), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())}))),
+                              // Textos não numéricos em colunas numéricas (ficam como valores em falta)
+                              Invalidos: Sort(Table(
+                              ForAll(Filter(_corpo As _r, _num1 && (Len(Trim(If(1 <= CountRows(_r.Celulas), Index(_r.Celulas, 1).Texto, ""))) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(If(1 <= CountRows(_r.Celulas), Index(_r.Celulas, 1).Texto, "")), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US")))) As _x, {Linha: _x.Linha, Variavel: _nomes.V1, Texto: If(1 <= CountRows(_x.Celulas), Index(_x.Celulas, 1).Texto, "")}),
+                              ForAll(Filter(_corpo As _r, _num2 && (Len(Trim(If(2 <= CountRows(_r.Celulas), Index(_r.Celulas, 2).Texto, ""))) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(If(2 <= CountRows(_r.Celulas), Index(_r.Celulas, 2).Texto, "")), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US")))) As _x, {Linha: _x.Linha, Variavel: _nomes.V2, Texto: If(2 <= CountRows(_x.Celulas), Index(_x.Celulas, 2).Texto, "")}),
+                              ForAll(Filter(_corpo As _r, _num3 && (Len(Trim(If(3 <= CountRows(_r.Celulas), Index(_r.Celulas, 3).Texto, ""))) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(If(3 <= CountRows(_r.Celulas), Index(_r.Celulas, 3).Texto, "")), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US")))) As _x, {Linha: _x.Linha, Variavel: _nomes.V3, Texto: If(3 <= CountRows(_x.Celulas), Index(_x.Celulas, 3).Texto, "")}),
+                              ForAll(Filter(_corpo As _r, _num4 && (Len(Trim(If(4 <= CountRows(_r.Celulas), Index(_r.Celulas, 4).Texto, ""))) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(If(4 <= CountRows(_r.Celulas), Index(_r.Celulas, 4).Texto, "")), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US")))) As _x, {Linha: _x.Linha, Variavel: _nomes.V4, Texto: If(4 <= CountRows(_x.Celulas), Index(_x.Celulas, 4).Texto, "")}),
+                              ForAll(Filter(_corpo As _r, _num5 && (Len(Trim(If(5 <= CountRows(_r.Celulas), Index(_r.Celulas, 5).Texto, ""))) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(If(5 <= CountRows(_r.Celulas), Index(_r.Celulas, 5).Texto, "")), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US")))) As _x, {Linha: _x.Linha, Variavel: _nomes.V5, Texto: If(5 <= CountRows(_x.Celulas), Index(_x.Celulas, 5).Texto, "")}),
+                              ForAll(Filter(_corpo As _r, _num6 && (Len(Trim(If(6 <= CountRows(_r.Celulas), Index(_r.Celulas, 6).Texto, ""))) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(If(6 <= CountRows(_r.Celulas), Index(_r.Celulas, 6).Texto, "")), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US")))) As _x, {Linha: _x.Linha, Variavel: _nomes.V6, Texto: If(6 <= CountRows(_x.Celulas), Index(_x.Celulas, 6).Texto, "")})
+                              ), Linha),
+                              Cabecalho: _cab,
+                              Nomes: _nomes
+                          }
                       )
                   )},
                       "Linhas com dados: " & CountRows(_R.Linhas) & "  ·  Colunas: " & CountRows(colColunas) &
                       With({_vazias: Last(colColagem).Linha - First(colColagem).Linha + 1 - CountRows(colColagem)},
                           If(_vazias > 0, "  ·  Linhas vazias ignoradas: " & _vazias, "")) & Char(10) &
-                      "Primeira linha: " & If(_R.Cabecalho, "cabeçalho (nomes: " & Concat(colColunas, Topo, "; ") & ")", "dados") &
-                      Char(10) &
+                      "Primeira linha: " & If(_R.Cabecalho, "cabeçalho (nomes das variáveis)", "dados") & Char(10) &
+                      "Variáveis: " & Concat(FirstN(colColunas, 6), Col & ". " & If(_R.Cabecalho && Topo <> "", Topo, "Variável " & Col) & " (" & If(Numerica, "numérica", "categórica") & ")", "  ·  ") & Char(10) &
+                      If(CountRows(colColunas) > 6, "⚠ Só as primeiras 6 colunas são importadas." & Char(10), "") &
                       If(CountRows(_R.Invalidos) = 0,
-                          "✔ Todos os valores das variáveis numéricas são válidos.",
-                          "⚠ " & CountRows(_R.Invalidos) & " valor(es) inválido(s) — ficarão em branco:" & Char(10) &
-                          Concat(FirstN(_R.Invalidos, 6), "   linha " & Linha & ", " & Variavel & ": «" & Texto & "»", Char(10)) &
-                          If(CountRows(_R.Invalidos) > 6, Char(10) & "   … e mais " & (CountRows(_R.Invalidos) - 6), "")
+                          "✔ Todos os valores das colunas numéricas são números válidos.",
+                          "⚠ " & CountRows(_R.Invalidos) & " valor(es) não numérico(s) em colunas numéricas — ficarão como valores em falta:" & Char(10) &
+                          Concat(FirstN(_R.Invalidos, 5), "   linha " & Linha & ", " & Variavel & ": «" & Texto & "»", Char(10)) &
+                          If(CountRows(_R.Invalidos) > 5, Char(10) & "   … e mais " & (CountRows(_R.Invalidos) - 5), "")
                       )
                   )
               )
             X: =732
-            Y: =362
+            Y: =394
             Width: =618
-            Height: =150
+            Height: =270
             Font: =Font.'Segoe UI'
             Size: =10
             Color: =If(CountRows(colColagem) > 0 && Find("⚠", Self.Text) > 0, RGBA(176, 0, 32, 1), RGBA(33, 37, 41, 1))
@@ -831,186 +967,55 @@ Screens:
             Fill: =RGBA(248, 249, 250, 1)
             PaddingLeft: =8
             PaddingTop: =6
-      - lblMapaTitulo:
-          Control: Label
-          Properties:
-            Text: ="Coluna de origem de cada variável (— = nenhuma)"
-            X: =732
-            Y: =518
-            Width: =618
-            Height: =26
-            Font: =Font.'Segoe UI'
-            Size: =11
-            Color: =RGBA(33, 37, 41, 1)
-            FontWeight: =FontWeight.Semibold
-      - lblMapaN1:
-          Control: Label
-          Properties:
-            Text: =varNomes.N1
-            X: =732
-            Y: =548
-            Width: =140
-            Height: =34
-            Font: =Font.'Segoe UI'
-            Size: =10
-            Color: =RGBA(33, 37, 41, 1)
-      - drpMapN1:
-          Control: Classic/DropDown
-          Properties:
-            Items: |-
-              =Table({Value: "—"}, ForAll(colColunas, {Value: Rotulo}))
-            X: =874
-            Y: =548
-            Width: =156
-            Height: =34
-            Font: =Font.'Segoe UI'
-            Size: =12
-            Default: |-
-              =With({_f: Filter(colColunas, Numerica)}, If(CountRows(_f) >= 1, Index(_f, 1).Rotulo, "—"))
-      - lblMapaN2:
-          Control: Label
-          Properties:
-            Text: =varNomes.N2
-            X: =732
-            Y: =588
-            Width: =140
-            Height: =34
-            Font: =Font.'Segoe UI'
-            Size: =10
-            Color: =RGBA(33, 37, 41, 1)
-      - drpMapN2:
-          Control: Classic/DropDown
-          Properties:
-            Items: |-
-              =Table({Value: "—"}, ForAll(colColunas, {Value: Rotulo}))
-            X: =874
-            Y: =588
-            Width: =156
-            Height: =34
-            Font: =Font.'Segoe UI'
-            Size: =12
-            Default: |-
-              =With({_f: Filter(colColunas, Numerica)}, If(CountRows(_f) >= 2, Index(_f, 2).Rotulo, "—"))
-      - lblMapaN3:
-          Control: Label
-          Properties:
-            Text: =varNomes.N3
-            X: =732
-            Y: =628
-            Width: =140
-            Height: =34
-            Font: =Font.'Segoe UI'
-            Size: =10
-            Color: =RGBA(33, 37, 41, 1)
-      - drpMapN3:
-          Control: Classic/DropDown
-          Properties:
-            Items: |-
-              =Table({Value: "—"}, ForAll(colColunas, {Value: Rotulo}))
-            X: =874
-            Y: =628
-            Width: =156
-            Height: =34
-            Font: =Font.'Segoe UI'
-            Size: =12
-            Default: |-
-              =With({_f: Filter(colColunas, Numerica)}, If(CountRows(_f) >= 3, Index(_f, 3).Rotulo, "—"))
-      - lblMapaC1:
-          Control: Label
-          Properties:
-            Text: =varNomes.C1
-            X: =1044
-            Y: =548
-            Width: =140
-            Height: =34
-            Font: =Font.'Segoe UI'
-            Size: =10
-            Color: =RGBA(33, 37, 41, 1)
-      - drpMapC1:
-          Control: Classic/DropDown
-          Properties:
-            Items: |-
-              =Table({Value: "—"}, ForAll(colColunas, {Value: Rotulo}))
-            X: =1186
-            Y: =548
-            Width: =156
-            Height: =34
-            Font: =Font.'Segoe UI'
-            Size: =12
-            Default: |-
-              =With({_f: Filter(colColunas, !Numerica && NNaoVazias > 0)}, If(CountRows(_f) >= 1, Index(_f, 1).Rotulo, "—"))
-      - lblMapaC2:
-          Control: Label
-          Properties:
-            Text: =varNomes.C2
-            X: =1044
-            Y: =588
-            Width: =140
-            Height: =34
-            Font: =Font.'Segoe UI'
-            Size: =10
-            Color: =RGBA(33, 37, 41, 1)
-      - drpMapC2:
-          Control: Classic/DropDown
-          Properties:
-            Items: |-
-              =Table({Value: "—"}, ForAll(colColunas, {Value: Rotulo}))
-            X: =1186
-            Y: =588
-            Width: =156
-            Height: =34
-            Font: =Font.'Segoe UI'
-            Size: =12
-            Default: |-
-              =With({_f: Filter(colColunas, !Numerica && NNaoVazias > 0)}, If(CountRows(_f) >= 2, Index(_f, 2).Rotulo, "—"))
       - btnImportarSubstituir:
           Control: Classic/Button
           Properties:
             Text: ="Importar (substituir dados)"
             OnSelect: |-
-              =// Substitui todos os dados pelos dados colados
+              =// Substitui todos os dados (e os nomes das variáveis) pelos dados colados
               Set(varImportacao, With(
-                  // Opções escolhidas: cabeçalho e coluna de origem de cada variável
+                  // A 1.ª linha é cabeçalho? E que colunas são numéricas (pelo menos metade das células são números)?
                   {_cab: Switch(drpCabecalho.Selected.Value, "Sim", true, "Não", false, CountRows(colColagem) >= 2 && CountRows(Filter(colColunas, Numerica && Topo <> "" && !TopoNumerico)) > 0),
-                    _jN1: IfError(Value(First(Split(drpMapN1.Selected.Value, " ")).Value, "en-US"), 0),
-                    _jN2: IfError(Value(First(Split(drpMapN2.Selected.Value, " ")).Value, "en-US"), 0),
-                    _jN3: IfError(Value(First(Split(drpMapN3.Selected.Value, " ")).Value, "en-US"), 0),
-                    _jC1: IfError(Value(First(Split(drpMapC1.Selected.Value, " ")).Value, "en-US"), 0),
-                    _jC2: IfError(Value(First(Split(drpMapC2.Selected.Value, " ")).Value, "en-US"), 0)},
+                    _num1: Coalesce(LookUp(colColunas, Col = 1).Numerica, false),
+                        _num2: Coalesce(LookUp(colColunas, Col = 2).Numerica, false),
+                        _num3: Coalesce(LookUp(colColunas, Col = 3).Numerica, false),
+                        _num4: Coalesce(LookUp(colColunas, Col = 4).Numerica, false),
+                        _num5: Coalesce(LookUp(colColunas, Col = 5).Numerica, false),
+                        _num6: Coalesce(LookUp(colColunas, Col = 6).Numerica, false)},
                   With(
                       {_corpo: If(_cab, LastN(colColagem, CountRows(colColagem) - 1), colColagem),
-                        // Se houver cabeçalho, os nomes das variáveis vêm da 1.ª linha
-                        _nomes: With({_c1: First(colColagem)}, {N1: If(_cab && _jN1 > 0, If(_jN1 >= 1 && _jN1 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jN1).Texto, ""), varNomes.N1), N2: If(_cab && _jN2 > 0, If(_jN2 >= 1 && _jN2 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jN2).Texto, ""), varNomes.N2), N3: If(_cab && _jN3 > 0, If(_jN3 >= 1 && _jN3 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jN3).Texto, ""), varNomes.N3), C1: If(_cab && _jC1 > 0, If(_jC1 >= 1 && _jC1 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jC1).Texto, ""), varNomes.C1), C2: If(_cab && _jC2 > 0, If(_jC2 >= 1 && _jC2 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jC2).Texto, ""), varNomes.C2)})},
-                      With(
-                          {_reg: ForAll(Sequence(CountRows(_corpo)) As _i,
+                        _nomes: With({_c1: First(colColagem)}, {V1: With({_h: If(_cab, If(1 <= CountRows(_c1.Celulas), Index(_c1.Celulas, 1).Texto, ""), "")}, If(_h <> "", _h, "Variável 1")), V2: With({_h: If(_cab, If(2 <= CountRows(_c1.Celulas), Index(_c1.Celulas, 2).Texto, ""), "")}, If(_h <> "", _h, "Variável 2")), V3: With({_h: If(_cab, If(3 <= CountRows(_c1.Celulas), Index(_c1.Celulas, 3).Texto, ""), "")}, If(_h <> "", _h, "Variável 3")), V4: With({_h: If(_cab, If(4 <= CountRows(_c1.Celulas), Index(_c1.Celulas, 4).Texto, ""), "")}, If(_h <> "", _h, "Variável 4")), V5: With({_h: If(_cab, If(5 <= CountRows(_c1.Celulas), Index(_c1.Celulas, 5).Texto, ""), "")}, If(_h <> "", _h, "Variável 5")), V6: With({_h: If(_cab, If(6 <= CountRows(_c1.Celulas), Index(_c1.Celulas, 6).Texto, ""), "")}, If(_h <> "", _h, "Variável 6"))})},
+                      {
+                          // Registos prontos a juntar a colDados: a coluna j vai para a variável Vj
+                          Linhas: ForAll(Sequence(CountRows(_corpo)) As _i,
                               With({_r: Index(_corpo, _i.Value)},
-                                  With({_tN1: If(_jN1 >= 1 && _jN1 <= CountRows(_r.Celulas), Index(_r.Celulas, _jN1).Texto, ""), _tN2: If(_jN2 >= 1 && _jN2 <= CountRows(_r.Celulas), Index(_r.Celulas, _jN2).Texto, ""), _tN3: If(_jN3 >= 1 && _jN3 <= CountRows(_r.Celulas), Index(_r.Celulas, _jN3).Texto, ""), _tC1: If(_jC1 >= 1 && _jC1 <= CountRows(_r.Celulas), Index(_r.Celulas, _jC1).Texto, ""), _tC2: If(_jC2 >= 1 && _jC2 <= CountRows(_r.Celulas), Index(_r.Celulas, _jC2).Texto, "")},
-                                      {Id: 0 + _i.Value, N1: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN1), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), N2: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN2), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), N3: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN3), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), C1: _tC1, C2: _tC2,
-                                       Linha: _r.Linha, _IN1: (Len(Trim(_tN1)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN1), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), _IN2: (Len(Trim(_tN2)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN2), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), _IN3: (Len(Trim(_tN3)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN3), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), _TN1: _tN1, _TN2: _tN2, _TN3: _tN3}
-                                  )
-                              )
-                          )},
-                          {
-                              // Registos prontos a juntar a colDados
-                              Linhas: ForAll(_reg, {Id: Id, N1: N1, N2: N2, N3: N3, C1: C1, C2: C2}),
-                              // Valores não numéricos em colunas numéricas (ficam em branco)
-                              Invalidos: Sort(Table(
-                          ForAll(Filter(_reg, _IN1) As _x, {Linha: _x.Linha, Variavel: _nomes.N1, Texto: _x._TN1}),
-                          ForAll(Filter(_reg, _IN2) As _x, {Linha: _x.Linha, Variavel: _nomes.N2, Texto: _x._TN2}),
-                          ForAll(Filter(_reg, _IN3) As _x, {Linha: _x.Linha, Variavel: _nomes.N3, Texto: _x._TN3})
-                              ), Linha),
-                              Cabecalho: _cab,
-                              Nomes: _nomes
-                          }
-                      )
+                                  With({_t1: If(1 <= CountRows(_r.Celulas), Index(_r.Celulas, 1).Texto, ""), _t2: If(2 <= CountRows(_r.Celulas), Index(_r.Celulas, 2).Texto, ""), _t3: If(3 <= CountRows(_r.Celulas), Index(_r.Celulas, 3).Texto, ""), _t4: If(4 <= CountRows(_r.Celulas), Index(_r.Celulas, 4).Texto, ""), _t5: If(5 <= CountRows(_r.Celulas), Index(_r.Celulas, 5).Texto, ""), _t6: If(6 <= CountRows(_r.Celulas), Index(_r.Celulas, 6).Texto, "")},
+                                      {Id: 0 + _i.Value, T1: _t1, X1: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t1), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), T2: _t2, X2: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t2), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), T3: _t3, X3: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t3), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), T4: _t4, X4: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t4), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), T5: _t5, X5: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t5), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), T6: _t6, X6: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t6), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())}))),
+                          // Textos não numéricos em colunas numéricas (ficam como valores em falta)
+                          Invalidos: Sort(Table(
+                          ForAll(Filter(_corpo As _r, _num1 && (Len(Trim(If(1 <= CountRows(_r.Celulas), Index(_r.Celulas, 1).Texto, ""))) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(If(1 <= CountRows(_r.Celulas), Index(_r.Celulas, 1).Texto, "")), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US")))) As _x, {Linha: _x.Linha, Variavel: _nomes.V1, Texto: If(1 <= CountRows(_x.Celulas), Index(_x.Celulas, 1).Texto, "")}),
+                          ForAll(Filter(_corpo As _r, _num2 && (Len(Trim(If(2 <= CountRows(_r.Celulas), Index(_r.Celulas, 2).Texto, ""))) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(If(2 <= CountRows(_r.Celulas), Index(_r.Celulas, 2).Texto, "")), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US")))) As _x, {Linha: _x.Linha, Variavel: _nomes.V2, Texto: If(2 <= CountRows(_x.Celulas), Index(_x.Celulas, 2).Texto, "")}),
+                          ForAll(Filter(_corpo As _r, _num3 && (Len(Trim(If(3 <= CountRows(_r.Celulas), Index(_r.Celulas, 3).Texto, ""))) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(If(3 <= CountRows(_r.Celulas), Index(_r.Celulas, 3).Texto, "")), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US")))) As _x, {Linha: _x.Linha, Variavel: _nomes.V3, Texto: If(3 <= CountRows(_x.Celulas), Index(_x.Celulas, 3).Texto, "")}),
+                          ForAll(Filter(_corpo As _r, _num4 && (Len(Trim(If(4 <= CountRows(_r.Celulas), Index(_r.Celulas, 4).Texto, ""))) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(If(4 <= CountRows(_r.Celulas), Index(_r.Celulas, 4).Texto, "")), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US")))) As _x, {Linha: _x.Linha, Variavel: _nomes.V4, Texto: If(4 <= CountRows(_x.Celulas), Index(_x.Celulas, 4).Texto, "")}),
+                          ForAll(Filter(_corpo As _r, _num5 && (Len(Trim(If(5 <= CountRows(_r.Celulas), Index(_r.Celulas, 5).Texto, ""))) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(If(5 <= CountRows(_r.Celulas), Index(_r.Celulas, 5).Texto, "")), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US")))) As _x, {Linha: _x.Linha, Variavel: _nomes.V5, Texto: If(5 <= CountRows(_x.Celulas), Index(_x.Celulas, 5).Texto, "")}),
+                          ForAll(Filter(_corpo As _r, _num6 && (Len(Trim(If(6 <= CountRows(_r.Celulas), Index(_r.Celulas, 6).Texto, ""))) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(If(6 <= CountRows(_r.Celulas), Index(_r.Celulas, 6).Texto, "")), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US")))) As _x, {Linha: _x.Linha, Variavel: _nomes.V6, Texto: If(6 <= CountRows(_x.Celulas), Index(_x.Celulas, 6).Texto, "")})
+                          ), Linha),
+                          Cabecalho: _cab,
+                          Nomes: _nomes
+                      }
                   )
               ));
               ClearCollect(colDados, varImportacao.Linhas);
-              If(varImportacao.Cabecalho, Set(varNomes, varImportacao.Nomes));
+              Set(varNomes, varImportacao.Nomes);
+              Set(varVariaveis, ForAll(Sequence(6) As _k,
+                  With({_nv: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.T1, 2, ThisRecord.T2, 3, ThisRecord.T3, 4, ThisRecord.T4, 5, ThisRecord.T5, 6, ThisRecord.T6, "")))),
+                        _nn: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.X1, 2, ThisRecord.X2, 3, ThisRecord.X3, 4, ThisRecord.X4, 5, ThisRecord.X5, 6, ThisRecord.X6, Blank()))))},
+                      {k: _k.Value, nome: Switch(_k.Value, 1, varNomes.V1, 2, varNomes.V2, 3, varNomes.V3, 4, varNomes.V4, 5, varNomes.V5, 6, varNomes.V6, ""), n: _nv, nNum: _nn,
+                       numerica: _nn > 0 && _nn * 2 >= _nv, nInv: If(_nn > 0 && _nn * 2 >= _nv, _nv - _nn, 0)})));
               Notify(
                   "Importadas " & CountRows(varImportacao.Linhas) & " linhas." &
                   If(CountRows(varImportacao.Invalidos) > 0,
-                      " Atenção: " & CountRows(varImportacao.Invalidos) & " valor(es) inválido(s) ficaram em branco.", ""),
+                      " Atenção: " & CountRows(varImportacao.Invalidos) & " valor(es) não numérico(s) ficaram como valores em falta.", ""),
                   If(CountRows(varImportacao.Invalidos) > 0, NotificationType.Warning, NotificationType.Success)
               )
             X: =732
@@ -1035,46 +1040,47 @@ Screens:
             OnSelect: |-
               =// Acrescenta os dados colados no fim da tabela (os nomes das variáveis mantêm-se)
               Set(varImportacao, With(
-                  // Opções escolhidas: cabeçalho e coluna de origem de cada variável
+                  // A 1.ª linha é cabeçalho? E que colunas são numéricas (pelo menos metade das células são números)?
                   {_cab: Switch(drpCabecalho.Selected.Value, "Sim", true, "Não", false, CountRows(colColagem) >= 2 && CountRows(Filter(colColunas, Numerica && Topo <> "" && !TopoNumerico)) > 0),
-                    _jN1: IfError(Value(First(Split(drpMapN1.Selected.Value, " ")).Value, "en-US"), 0),
-                    _jN2: IfError(Value(First(Split(drpMapN2.Selected.Value, " ")).Value, "en-US"), 0),
-                    _jN3: IfError(Value(First(Split(drpMapN3.Selected.Value, " ")).Value, "en-US"), 0),
-                    _jC1: IfError(Value(First(Split(drpMapC1.Selected.Value, " ")).Value, "en-US"), 0),
-                    _jC2: IfError(Value(First(Split(drpMapC2.Selected.Value, " ")).Value, "en-US"), 0)},
+                    _num1: Coalesce(LookUp(colColunas, Col = 1).Numerica, false),
+                        _num2: Coalesce(LookUp(colColunas, Col = 2).Numerica, false),
+                        _num3: Coalesce(LookUp(colColunas, Col = 3).Numerica, false),
+                        _num4: Coalesce(LookUp(colColunas, Col = 4).Numerica, false),
+                        _num5: Coalesce(LookUp(colColunas, Col = 5).Numerica, false),
+                        _num6: Coalesce(LookUp(colColunas, Col = 6).Numerica, false)},
                   With(
                       {_corpo: If(_cab, LastN(colColagem, CountRows(colColagem) - 1), colColagem),
-                        // Se houver cabeçalho, os nomes das variáveis vêm da 1.ª linha
-                        _nomes: With({_c1: First(colColagem)}, {N1: If(_cab && _jN1 > 0, If(_jN1 >= 1 && _jN1 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jN1).Texto, ""), varNomes.N1), N2: If(_cab && _jN2 > 0, If(_jN2 >= 1 && _jN2 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jN2).Texto, ""), varNomes.N2), N3: If(_cab && _jN3 > 0, If(_jN3 >= 1 && _jN3 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jN3).Texto, ""), varNomes.N3), C1: If(_cab && _jC1 > 0, If(_jC1 >= 1 && _jC1 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jC1).Texto, ""), varNomes.C1), C2: If(_cab && _jC2 > 0, If(_jC2 >= 1 && _jC2 <= CountRows(_c1.Celulas), Index(_c1.Celulas, _jC2).Texto, ""), varNomes.C2)})},
-                      With(
-                          {_reg: ForAll(Sequence(CountRows(_corpo)) As _i,
+                        _nomes: With({_c1: First(colColagem)}, {V1: varNomes.V1, V2: varNomes.V2, V3: varNomes.V3, V4: varNomes.V4, V5: varNomes.V5, V6: varNomes.V6})},
+                      {
+                          // Registos prontos a juntar a colDados: a coluna j vai para a variável Vj
+                          Linhas: ForAll(Sequence(CountRows(_corpo)) As _i,
                               With({_r: Index(_corpo, _i.Value)},
-                                  With({_tN1: If(_jN1 >= 1 && _jN1 <= CountRows(_r.Celulas), Index(_r.Celulas, _jN1).Texto, ""), _tN2: If(_jN2 >= 1 && _jN2 <= CountRows(_r.Celulas), Index(_r.Celulas, _jN2).Texto, ""), _tN3: If(_jN3 >= 1 && _jN3 <= CountRows(_r.Celulas), Index(_r.Celulas, _jN3).Texto, ""), _tC1: If(_jC1 >= 1 && _jC1 <= CountRows(_r.Celulas), Index(_r.Celulas, _jC1).Texto, ""), _tC2: If(_jC2 >= 1 && _jC2 <= CountRows(_r.Celulas), Index(_r.Celulas, _jC2).Texto, "")},
-                                      {Id: Coalesce(Max(colDados, Id), 0) + _i.Value, N1: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN1), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), N2: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN2), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), N3: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN3), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), C1: _tC1, C2: _tC2,
-                                       Linha: _r.Linha, _IN1: (Len(Trim(_tN1)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN1), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), _IN2: (Len(Trim(_tN2)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN2), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), _IN3: (Len(Trim(_tN3)) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_tN3), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"))), _TN1: _tN1, _TN2: _tN2, _TN3: _tN3}
-                                  )
-                              )
-                          )},
-                          {
-                              // Registos prontos a juntar a colDados
-                              Linhas: ForAll(_reg, {Id: Id, N1: N1, N2: N2, N3: N3, C1: C1, C2: C2}),
-                              // Valores não numéricos em colunas numéricas (ficam em branco)
-                              Invalidos: Sort(Table(
-                          ForAll(Filter(_reg, _IN1) As _x, {Linha: _x.Linha, Variavel: _nomes.N1, Texto: _x._TN1}),
-                          ForAll(Filter(_reg, _IN2) As _x, {Linha: _x.Linha, Variavel: _nomes.N2, Texto: _x._TN2}),
-                          ForAll(Filter(_reg, _IN3) As _x, {Linha: _x.Linha, Variavel: _nomes.N3, Texto: _x._TN3})
-                              ), Linha),
-                              Cabecalho: _cab,
-                              Nomes: _nomes
-                          }
-                      )
+                                  With({_t1: If(1 <= CountRows(_r.Celulas), Index(_r.Celulas, 1).Texto, ""), _t2: If(2 <= CountRows(_r.Celulas), Index(_r.Celulas, 2).Texto, ""), _t3: If(3 <= CountRows(_r.Celulas), Index(_r.Celulas, 3).Texto, ""), _t4: If(4 <= CountRows(_r.Celulas), Index(_r.Celulas, 4).Texto, ""), _t5: If(5 <= CountRows(_r.Celulas), Index(_r.Celulas, 5).Texto, ""), _t6: If(6 <= CountRows(_r.Celulas), Index(_r.Celulas, 6).Texto, "")},
+                                      {Id: Coalesce(Max(colDados, Id), 0) + _i.Value, T1: _t1, X1: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t1), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), T2: _t2, X2: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t2), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), T3: _t3, X3: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t3), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), T4: _t4, X4: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t4), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), T5: _t5, X5: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t5), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), T6: _t6, X6: IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(_t6), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank())}))),
+                          // Textos não numéricos em colunas numéricas (ficam como valores em falta)
+                          Invalidos: Sort(Table(
+                          ForAll(Filter(_corpo As _r, _num1 && (Len(Trim(If(1 <= CountRows(_r.Celulas), Index(_r.Celulas, 1).Texto, ""))) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(If(1 <= CountRows(_r.Celulas), Index(_r.Celulas, 1).Texto, "")), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US")))) As _x, {Linha: _x.Linha, Variavel: _nomes.V1, Texto: If(1 <= CountRows(_x.Celulas), Index(_x.Celulas, 1).Texto, "")}),
+                          ForAll(Filter(_corpo As _r, _num2 && (Len(Trim(If(2 <= CountRows(_r.Celulas), Index(_r.Celulas, 2).Texto, ""))) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(If(2 <= CountRows(_r.Celulas), Index(_r.Celulas, 2).Texto, "")), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US")))) As _x, {Linha: _x.Linha, Variavel: _nomes.V2, Texto: If(2 <= CountRows(_x.Celulas), Index(_x.Celulas, 2).Texto, "")}),
+                          ForAll(Filter(_corpo As _r, _num3 && (Len(Trim(If(3 <= CountRows(_r.Celulas), Index(_r.Celulas, 3).Texto, ""))) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(If(3 <= CountRows(_r.Celulas), Index(_r.Celulas, 3).Texto, "")), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US")))) As _x, {Linha: _x.Linha, Variavel: _nomes.V3, Texto: If(3 <= CountRows(_x.Celulas), Index(_x.Celulas, 3).Texto, "")}),
+                          ForAll(Filter(_corpo As _r, _num4 && (Len(Trim(If(4 <= CountRows(_r.Celulas), Index(_r.Celulas, 4).Texto, ""))) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(If(4 <= CountRows(_r.Celulas), Index(_r.Celulas, 4).Texto, "")), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US")))) As _x, {Linha: _x.Linha, Variavel: _nomes.V4, Texto: If(4 <= CountRows(_x.Celulas), Index(_x.Celulas, 4).Texto, "")}),
+                          ForAll(Filter(_corpo As _r, _num5 && (Len(Trim(If(5 <= CountRows(_r.Celulas), Index(_r.Celulas, 5).Texto, ""))) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(If(5 <= CountRows(_r.Celulas), Index(_r.Celulas, 5).Texto, "")), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US")))) As _x, {Linha: _x.Linha, Variavel: _nomes.V5, Texto: If(5 <= CountRows(_x.Celulas), Index(_x.Celulas, 5).Texto, "")}),
+                          ForAll(Filter(_corpo As _r, _num6 && (Len(Trim(If(6 <= CountRows(_r.Celulas), Index(_r.Celulas, 6).Texto, ""))) > 0 && IsError(Value(Substitute(Substitute(Substitute(Substitute(Trim(If(6 <= CountRows(_r.Celulas), Index(_r.Celulas, 6).Texto, "")), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US")))) As _x, {Linha: _x.Linha, Variavel: _nomes.V6, Texto: If(6 <= CountRows(_x.Celulas), Index(_x.Celulas, 6).Texto, "")})
+                          ), Linha),
+                          Cabecalho: _cab,
+                          Nomes: _nomes
+                      }
                   )
               ));
               Collect(colDados, varImportacao.Linhas);
+              Set(varVariaveis, ForAll(Sequence(6) As _k,
+                  With({_nv: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.T1, 2, ThisRecord.T2, 3, ThisRecord.T3, 4, ThisRecord.T4, 5, ThisRecord.T5, 6, ThisRecord.T6, "")))),
+                        _nn: CountRows(Filter(colDados, !IsBlank(Switch(_k.Value, 1, ThisRecord.X1, 2, ThisRecord.X2, 3, ThisRecord.X3, 4, ThisRecord.X4, 5, ThisRecord.X5, 6, ThisRecord.X6, Blank()))))},
+                      {k: _k.Value, nome: Switch(_k.Value, 1, varNomes.V1, 2, varNomes.V2, 3, varNomes.V3, 4, varNomes.V4, 5, varNomes.V5, 6, varNomes.V6, ""), n: _nv, nNum: _nn,
+                       numerica: _nn > 0 && _nn * 2 >= _nv, nInv: If(_nn > 0 && _nn * 2 >= _nv, _nv - _nn, 0)})));
               Notify(
                   "Acrescentadas " & CountRows(varImportacao.Linhas) & " linhas." &
                   If(CountRows(varImportacao.Invalidos) > 0,
-                      " Atenção: " & CountRows(varImportacao.Invalidos) & " valor(es) inválido(s) ficaram em branco.", ""),
+                      " Atenção: " & CountRows(varImportacao.Invalidos) & " valor(es) não numérico(s) ficaram como valores em falta.", ""),
                   If(CountRows(varImportacao.Invalidos) > 0, NotificationType.Warning, NotificationType.Success)
               )
             X: =1044

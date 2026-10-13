@@ -268,14 +268,16 @@ Screens:
       - drpTtVar:
           Control: Classic/DropDown
           Properties:
-            Items: =[varNomes.N1, varNomes.N2, varNomes.N3]
+            Items: |-
+              =ForAll(Filter(varVariaveis, numerica) As _v, {Value: _v.nome})
             X: =24
             Y: =220
             Width: =314
             Height: =32
             Font: =Font.'Segoe UI'
             Size: =12
-            Default: =varNomes.N1
+            Default: |-
+              =With({_f: Filter(varVariaveis, numerica)}, If(CountRows(_f) >= 1, Index(_f, 1).nome, Coalesce(First(_f).nome, "")))
             Visible: =true
       - lblTtVar2:
           Control: Label
@@ -293,14 +295,16 @@ Screens:
       - drpTtVar2:
           Control: Classic/DropDown
           Properties:
-            Items: =[varNomes.N1, varNomes.N2, varNomes.N3]
+            Items: |-
+              =ForAll(Filter(varVariaveis, numerica) As _v, {Value: _v.nome})
             X: =24
             Y: =280
             Width: =314
             Height: =32
             Font: =Font.'Segoe UI'
             Size: =12
-            Default: =varNomes.N2
+            Default: |-
+              =With({_f: Filter(varVariaveis, numerica)}, If(CountRows(_f) >= 2, Index(_f, 2).nome, Coalesce(First(_f).nome, "")))
             Visible: =drpTtTipo.Selected.Value = "Amostras emparelhadas" || ((drpTtTipo.Selected.Value = "Duas amostras independentes (variâncias iguais)" || drpTtTipo.Selected.Value = "Duas amostras independentes (Welch, variâncias diferentes)") && drpTtFormato.Selected.Value = "Duas colunas numéricas")
       - lblTtGrupoVar:
           Control: Label
@@ -318,14 +322,16 @@ Screens:
       - drpTtGrupoVar:
           Control: Classic/DropDown
           Properties:
-            Items: =[varNomes.C1, varNomes.C2]
+            Items: |-
+              =ForAll(Filter(varVariaveis, n > 0) As _v, {Value: _v.nome})
             X: =24
             Y: =340
             Width: =314
             Height: =32
             Font: =Font.'Segoe UI'
             Size: =12
-            Default: =varNomes.C1
+            Default: |-
+              =With({_f: Filter(varVariaveis, !numerica && n > 0)}, If(CountRows(_f) >= 1, Index(_f, 1).nome, CountRows(_f) >= 1, First(_f).nome, Coalesce(First(Filter(varVariaveis, n > 0)).nome, "")))
             Visible: =(drpTtTipo.Selected.Value = "Duas amostras independentes (variâncias iguais)" || drpTtTipo.Selected.Value = "Duas amostras independentes (Welch, variâncias diferentes)") && drpTtFormato.Selected.Value = "Variável numérica + variável de grupo"
       - lblTtGrupoA:
           Control: Label
@@ -343,14 +349,20 @@ Screens:
       - drpTtGrupoA:
           Control: Classic/DropDown
           Properties:
-            Items: =Sort(Filter(Distinct(colDados, Switch(Switch(drpTtGrupoVar.Selected.Value, varNomes.C2, 2, 1), 1, C1, C2)), !IsBlank(Value)), Value)
+            Items: |-
+              =With({_c: Filter(ForAll(colDados As _d, {g: If(Coalesce(LookUp(varVariaveis, k = Coalesce(LookUp(varVariaveis, nome = drpTtGrupoVar.Selected.Value).k, 0)).numerica, false), With({_v: Switch(Coalesce(LookUp(varVariaveis, nome = drpTtGrupoVar.Selected.Value).k, 0), 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank())}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT")))), Switch(Coalesce(LookUp(varVariaveis, nome = drpTtGrupoVar.Selected.Value).k, 0), 1, _d.T1, 2, _d.T2, 3, _d.T3, 4, _d.T4, 5, _d.T5, 6, _d.T6, "")), o: If(Coalesce(LookUp(varVariaveis, k = Coalesce(LookUp(varVariaveis, nome = drpTtGrupoVar.Selected.Value).k, 0)).numerica, false), Switch(Coalesce(LookUp(varVariaveis, nome = drpTtGrupoVar.Selected.Value).k, 0), 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank()), 0)}), !IsBlank(g))},
+                      ForAll(If(Coalesce(LookUp(varVariaveis, k = Coalesce(LookUp(varVariaveis, nome = drpTtGrupoVar.Selected.Value).k, 0)).numerica, false), Sort(ForAll(Distinct(_c, g) As _u, {g: _u.Value, o: LookUp(_c, g = _u.Value).o}), o),
+                                Sort(ForAll(Distinct(_c, g) As _u, {g: _u.Value, o: 0}), g)) As _z, {Value: _z.g}))
             X: =24
             Y: =400
             Width: =314
             Height: =32
             Font: =Font.'Segoe UI'
             Size: =12
-            Default: =First(Sort(Filter(Distinct(colDados, Switch(Switch(drpTtGrupoVar.Selected.Value, varNomes.C2, 2, 1), 1, C1, C2)), !IsBlank(Value)), Value)).Value
+            Default: |-
+              =First(With({_c: Filter(ForAll(colDados As _d, {g: If(Coalesce(LookUp(varVariaveis, k = Coalesce(LookUp(varVariaveis, nome = drpTtGrupoVar.Selected.Value).k, 0)).numerica, false), With({_v: Switch(Coalesce(LookUp(varVariaveis, nome = drpTtGrupoVar.Selected.Value).k, 0), 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank())}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT")))), Switch(Coalesce(LookUp(varVariaveis, nome = drpTtGrupoVar.Selected.Value).k, 0), 1, _d.T1, 2, _d.T2, 3, _d.T3, 4, _d.T4, 5, _d.T5, 6, _d.T6, "")), o: If(Coalesce(LookUp(varVariaveis, k = Coalesce(LookUp(varVariaveis, nome = drpTtGrupoVar.Selected.Value).k, 0)).numerica, false), Switch(Coalesce(LookUp(varVariaveis, nome = drpTtGrupoVar.Selected.Value).k, 0), 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank()), 0)}), !IsBlank(g))},
+                      ForAll(If(Coalesce(LookUp(varVariaveis, k = Coalesce(LookUp(varVariaveis, nome = drpTtGrupoVar.Selected.Value).k, 0)).numerica, false), Sort(ForAll(Distinct(_c, g) As _u, {g: _u.Value, o: LookUp(_c, g = _u.Value).o}), o),
+                                Sort(ForAll(Distinct(_c, g) As _u, {g: _u.Value, o: 0}), g)) As _z, {Value: _z.g}))).Value
             Visible: =(drpTtTipo.Selected.Value = "Duas amostras independentes (variâncias iguais)" || drpTtTipo.Selected.Value = "Duas amostras independentes (Welch, variâncias diferentes)") && drpTtFormato.Selected.Value = "Variável numérica + variável de grupo"
       - lblTtGrupoB:
           Control: Label
@@ -368,7 +380,10 @@ Screens:
       - drpTtGrupoB:
           Control: Classic/DropDown
           Properties:
-            Items: =Sort(Filter(Distinct(colDados, Switch(Switch(drpTtGrupoVar.Selected.Value, varNomes.C2, 2, 1), 1, C1, C2)), !IsBlank(Value)), Value)
+            Items: |-
+              =With({_c: Filter(ForAll(colDados As _d, {g: If(Coalesce(LookUp(varVariaveis, k = Coalesce(LookUp(varVariaveis, nome = drpTtGrupoVar.Selected.Value).k, 0)).numerica, false), With({_v: Switch(Coalesce(LookUp(varVariaveis, nome = drpTtGrupoVar.Selected.Value).k, 0), 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank())}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT")))), Switch(Coalesce(LookUp(varVariaveis, nome = drpTtGrupoVar.Selected.Value).k, 0), 1, _d.T1, 2, _d.T2, 3, _d.T3, 4, _d.T4, 5, _d.T5, 6, _d.T6, "")), o: If(Coalesce(LookUp(varVariaveis, k = Coalesce(LookUp(varVariaveis, nome = drpTtGrupoVar.Selected.Value).k, 0)).numerica, false), Switch(Coalesce(LookUp(varVariaveis, nome = drpTtGrupoVar.Selected.Value).k, 0), 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank()), 0)}), !IsBlank(g))},
+                      ForAll(If(Coalesce(LookUp(varVariaveis, k = Coalesce(LookUp(varVariaveis, nome = drpTtGrupoVar.Selected.Value).k, 0)).numerica, false), Sort(ForAll(Distinct(_c, g) As _u, {g: _u.Value, o: LookUp(_c, g = _u.Value).o}), o),
+                                Sort(ForAll(Distinct(_c, g) As _u, {g: _u.Value, o: 0}), g)) As _z, {Value: _z.g}))
             X: =24
             Y: =460
             Width: =314
@@ -376,7 +391,9 @@ Screens:
             Font: =Font.'Segoe UI'
             Size: =12
             Default: |-
-              =With({_n: Sort(Filter(Distinct(colDados, Switch(Switch(drpTtGrupoVar.Selected.Value, varNomes.C2, 2, 1), 1, C1, C2)), !IsBlank(Value)), Value)}, If(CountRows(_n) >= 2, Index(_n, 2).Value, First(_n).Value))
+              =With({_n: With({_c: Filter(ForAll(colDados As _d, {g: If(Coalesce(LookUp(varVariaveis, k = Coalesce(LookUp(varVariaveis, nome = drpTtGrupoVar.Selected.Value).k, 0)).numerica, false), With({_v: Switch(Coalesce(LookUp(varVariaveis, nome = drpTtGrupoVar.Selected.Value).k, 0), 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank())}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT")))), Switch(Coalesce(LookUp(varVariaveis, nome = drpTtGrupoVar.Selected.Value).k, 0), 1, _d.T1, 2, _d.T2, 3, _d.T3, 4, _d.T4, 5, _d.T5, 6, _d.T6, "")), o: If(Coalesce(LookUp(varVariaveis, k = Coalesce(LookUp(varVariaveis, nome = drpTtGrupoVar.Selected.Value).k, 0)).numerica, false), Switch(Coalesce(LookUp(varVariaveis, nome = drpTtGrupoVar.Selected.Value).k, 0), 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank()), 0)}), !IsBlank(g))},
+                      ForAll(If(Coalesce(LookUp(varVariaveis, k = Coalesce(LookUp(varVariaveis, nome = drpTtGrupoVar.Selected.Value).k, 0)).numerica, false), Sort(ForAll(Distinct(_c, g) As _u, {g: _u.Value, o: LookUp(_c, g = _u.Value).o}), o),
+                                Sort(ForAll(Distinct(_c, g) As _u, {g: _u.Value, o: 0}), g)) As _z, {Value: _z.g}))}, If(CountRows(_n) >= 2, Index(_n, 2).Value, First(_n).Value))
             Visible: =(drpTtTipo.Selected.Value = "Duas amostras independentes (variâncias iguais)" || drpTtTipo.Selected.Value = "Duas amostras independentes (Welch, variâncias diferentes)") && drpTtFormato.Selected.Value = "Variável numérica + variável de grupo"
       - lblTtMu0:
           Control: Label
@@ -465,14 +482,14 @@ Screens:
                        _fmt: If(drpTtFormato.Selected.Value = "Duas colunas numéricas", 2, 1),
                        _alt: Switch(drpTtAlternativa.Selected.Value, "Unilateral à esquerda (<)", 2, "Unilateral à direita (>)", 3, 1), _alfa: Value(Substitute(drpTtAlfa.Selected.Value, ",", "."), "en-US"),
                        _d0: Coalesce(IfError(Value(Substitute(Substitute(Substitute(Substitute(Trim(txtTtMu0.Text), " ", ""), UniChar(160), ""), UniChar(8239), ""), ",", "."), "en-US"), Blank()), 0),
-                       _k1: Switch(drpTtVar.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, 1), _k2: Switch(drpTtVar2.Selected.Value, varNomes.N1, 1, varNomes.N2, 2, varNomes.N3, 3, 1), _kg: Switch(drpTtGrupoVar.Selected.Value, varNomes.C2, 2, 1),
+                       _k1: Coalesce(LookUp(varVariaveis, nome = drpTtVar.Selected.Value).k, 0), _k2: Coalesce(LookUp(varVariaveis, nome = drpTtVar2.Selected.Value).k, 0), _kg: Coalesce(LookUp(varVariaveis, nome = drpTtGrupoVar.Selected.Value).k, 0),
                        _gA: drpTtGrupoA.Selected.Value, _gB: drpTtGrupoB.Selected.Value},
                       With(
                           // Amostra A (ou diferenças, no teste emparelhado) e amostra B
-                          {_A: Switch(_tipo, 1, Filter(ForAll(colDados As _d, {x: Switch(_k1, 1, _d.N1, 2, _d.N2, _d.N3)}), !IsBlank(x)), 4, Filter(ForAll(colDados As _d, With({_a: Switch(_k1, 1, _d.N1, 2, _d.N2, _d.N3), _b: Switch(_k2, 1, _d.N1, 2, _d.N2, _d.N3)}, {x: If(IsBlank(_a) || IsBlank(_b), Blank(), _a - _b)})), !IsBlank(x)),
-                                  If(_fmt = 1, Filter(ForAll(colDados As _d, {x: Switch(_k1, 1, _d.N1, 2, _d.N2, _d.N3), g: Switch(_kg, 1, _d.C1, _d.C2)}), !IsBlank(x) && g = _gA), Filter(ForAll(colDados As _d, {x: Switch(_k1, 1, _d.N1, 2, _d.N2, _d.N3)}), !IsBlank(x)))),
+                          {_A: Switch(_tipo, 1, Filter(ForAll(colDados As _d, {x: Switch(_k1, 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank())}), !IsBlank(x)), 4, Filter(ForAll(colDados As _d, With({_a: Switch(_k1, 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank()), _b: Switch(_k2, 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank())}, {x: If(IsBlank(_a) || IsBlank(_b), Blank(), _a - _b)})), !IsBlank(x)),
+                                  If(_fmt = 1, With({_gn: Coalesce(LookUp(varVariaveis, k = _kg).numerica, false)}, Filter(ForAll(colDados As _d, {x: Switch(_k1, 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank()), g: If(_gn, With({_v: Switch(_kg, 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank())}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT")))), Switch(_kg, 1, _d.T1, 2, _d.T2, 3, _d.T3, 4, _d.T4, 5, _d.T5, 6, _d.T6, ""))}), !IsBlank(x) && g = _gA)), Filter(ForAll(colDados As _d, {x: Switch(_k1, 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank())}), !IsBlank(x)))),
                            _B: If(_tipo = 2 || _tipo = 3,
-                                  If(_fmt = 1, Filter(ForAll(colDados As _d, {x: Switch(_k1, 1, _d.N1, 2, _d.N2, _d.N3), g: Switch(_kg, 1, _d.C1, _d.C2)}), !IsBlank(x) && g = _gB), Filter(ForAll(colDados As _d, {x: Switch(_k2, 1, _d.N1, 2, _d.N2, _d.N3)}), !IsBlank(x))), FirstN(Table({x: 0}), 0))},
+                                  If(_fmt = 1, With({_gn: Coalesce(LookUp(varVariaveis, k = _kg).numerica, false)}, Filter(ForAll(colDados As _d, {x: Switch(_k1, 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank()), g: If(_gn, With({_v: Switch(_kg, 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank())}, If(IsBlank(_v), "", If(_v = Int(_v), Text(_v, "[$-en-US]0", "pt-PT"), Text(_v, "[$-en-US]0.##########", "pt-PT")))), Switch(_kg, 1, _d.T1, 2, _d.T2, 3, _d.T3, 4, _d.T4, 5, _d.T5, 6, _d.T6, ""))}), !IsBlank(x) && g = _gB)), Filter(ForAll(colDados As _d, {x: Switch(_k2, 1, _d.X1, 2, _d.X2, 3, _d.X3, 4, _d.X4, 5, _d.X5, 6, _d.X6, Blank())}), !IsBlank(x))), FirstN(Table({x: 0}), 0))},
                       With({_n1: CountRows(_A), _n2: CountRows(_B)},
                       With({_m1: If(_n1 > 0, Average(_A, x)), _m2: If(_n2 > 0, Average(_B, x))},
                       With(

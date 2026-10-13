@@ -89,3 +89,12 @@ Todos os resultados são **fórmulas reativas** (propriedades `HtmlText`, `Items
 e das listas pendentes. Vantagens: não há problemas de ordem de execução (a documentação diz que `Select` só põe o
 `OnSelect` em fila), o resultado está sempre atualizado e as mesmas fórmulas puras podem ser executadas no
 interpretador para os testes. A única lógica de comportamento está no ecrã de dados (editar, colar, importar).
+
+## Modelo de dados com variáveis genéricas (revisão de outubro de 2026)
+
+A primeira versão tinha posições fixas (3 variáveis numéricas e 2 de grupo). Com dados reais de uma aula
+(Numero, Raça, Idade, Peso, Prod. Leite) isso impedia escolher variáveis contínuas nas análises, porque Peso e
+Prod. Leite ficavam em posições «de grupo». O modelo passou a ter **6 variáveis genéricas** (campos `Tk` com o
+texto e `Xk` com o número) e o **tipo de cada variável é detetado a partir dos dados** (tabela `varVariaveis`,
+recalculada sempre que os dados ou os nomes mudam). A colagem deixou de pedir a coluna de origem: a coluna j vai
+para a variável j. Este caso real está nos testes automáticos (`testes/dados_teste.py`, colagem «bovinos_excel»).

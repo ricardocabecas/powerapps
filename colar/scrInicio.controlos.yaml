@@ -225,7 +225,7 @@
     Control: Label
     Properties:
       Text: |-
-        ="Dados atuais: " & CountRows(colDados) & " linhas   ·   Variáveis numéricas: " & varNomes.N1 & ", " & varNomes.N2 & ", " & varNomes.N3 & "   ·   Variáveis de grupo: " & varNomes.C1 & ", " & varNomes.C2
+        ="Dados atuais: " & CountRows(colDados) & " linhas   ·   Variáveis numéricas: " & Coalesce(Concat(Filter(varVariaveis, numerica), nome, ", "), "nenhuma") & "   ·   Categóricas: " & Coalesce(Concat(Filter(varVariaveis, !numerica && n > 0), nome, ", "), "nenhuma")
       X: =56
       Y: =188
       Width: =1254

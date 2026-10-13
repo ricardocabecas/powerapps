@@ -1,138 +1,173 @@
 {
- "total": 6432,
- "ok": 6432,
+ "total": 6333,
+ "ok": 6333,
  "sintaxe_falhas": [],
  "fases": {
   "Fase 1 — Entrada de dados": [
    {
+    "caso": "caso real (bovinos): lista de variáveis numéricas",
+    "ok": true,
+    "detalhe": "['Numero', 'Idade', 'Peso', 'Prod. Leite']"
+   },
+   {
+    "caso": "caso real (bovinos): lista de variáveis de grupo",
+    "ok": true,
+    "detalhe": "['Numero', 'Raça', 'Idade', 'Peso', 'Prod. Leite']"
+   },
+   {
+    "caso": "caso real (bovinos): descritiva de Prod. Leite por Raça",
+    "ok": true,
+    "detalhe": "Total: n=7, média=170.7714, BBB: n=2, média=178.6000, Charolesa: n=4, média=175.2500, Cruzada: n=1, média=137.2000"
+   },
+   {
     "caso": "colagem «virgula_com_cabecalho» (Automático)",
     "ok": true,
-    "detalhe": "3 linhas, cabeçalho=True, 0 inválidos, mapa={'N1': 1, 'N2': 2, 'N3': 0, 'C1': 3, 'C2': 0}"
+    "detalhe": "3 linhas, cabeçalho=True, 0 inválidos, tipos das colunas = 1:num, 2:num, 3:cat"
    },
    {
     "caso": "diagnóstico «virgula_com_cabecalho» (Automático)",
     "ok": true,
-    "detalhe": "Linhas com dados: 3  ·  Colunas: 3 ⏎ Primeira linha: cabeçalho (nomes: Altura; Peso; Sexo) ⏎ ✔ Todos os valores das variáveis numéricas são válidos."
+    "detalhe": "Linhas com dados: 3  ·  Colunas: 3 ⏎ Primeira linha: cabeçalho (nomes das variáveis) ⏎ Variáveis: 1. Altura (numérica)  ·  2. Peso (numérica)  ·  3. Sexo (categórica) ⏎ ✔ Todos os valores das colunas numéricas são números válidos."
    },
    {
     "caso": "colagem «virgula_com_cabecalho» (Sim)",
     "ok": true,
-    "detalhe": "3 linhas, cabeçalho=True, 0 inválidos, mapa={'N1': 1, 'N2': 2, 'N3': 0, 'C1': 3, 'C2': 0}"
+    "detalhe": "3 linhas, cabeçalho=True, 0 inválidos, tipos das colunas = 1:num, 2:num, 3:cat"
    },
    {
     "caso": "diagnóstico «virgula_com_cabecalho» (Sim)",
     "ok": true,
-    "detalhe": "Linhas com dados: 3  ·  Colunas: 3 ⏎ Primeira linha: cabeçalho (nomes: Altura; Peso; Sexo) ⏎ ✔ Todos os valores das variáveis numéricas são válidos."
+    "detalhe": "Linhas com dados: 3  ·  Colunas: 3 ⏎ Primeira linha: cabeçalho (nomes das variáveis) ⏎ Variáveis: 1. Altura (numérica)  ·  2. Peso (numérica)  ·  3. Sexo (categórica) ⏎ ✔ Todos os valores das colunas numéricas são números válidos."
    },
    {
     "caso": "colagem «virgula_com_cabecalho» (Não)",
     "ok": true,
-    "detalhe": "4 linhas, cabeçalho=False, 2 inválidos, mapa={'N1': 1, 'N2': 2, 'N3': 0, 'C1': 3, 'C2': 0}"
+    "detalhe": "4 linhas, cabeçalho=False, 2 inválidos, tipos das colunas = 1:num, 2:num, 3:cat"
    },
    {
     "caso": "diagnóstico «virgula_com_cabecalho» (Não)",
     "ok": true,
-    "detalhe": "Linhas com dados: 4  ·  Colunas: 3 ⏎ Primeira linha: dados ⏎ ⚠ 2 valor(es) inválido(s) — ficarão em branco: ⏎    linha 1, Altura (cm): «Altura» ⏎    linha 1, Peso (kg): «Peso»"
+    "detalhe": "Linhas com dados: 4  ·  Colunas: 3 ⏎ Primeira linha: dados ⏎ Variáveis: 1. Variável 1 (numérica)  ·  2. Variável 2 (numérica)  ·  3. Variável 3 (categórica) ⏎ ⚠ 2 valor(es) não numérico(s) em colunas numéricas — ficarão como valores em falta: ⏎    linha 1, Variável 1: «Altura» ⏎    linha 1, Variável 2: «Peso»"
    },
    {
     "caso": "colagem «ponto_sem_cabecalho» (Automático)",
     "ok": true,
-    "detalhe": "3 linhas, cabeçalho=False, 0 inválidos, mapa={'N1': 1, 'N2': 2, 'N3': 0, 'C1': 0, 'C2': 0}"
+    "detalhe": "3 linhas, cabeçalho=False, 0 inválidos, tipos das colunas = 1:num, 2:num"
    },
    {
     "caso": "diagnóstico «ponto_sem_cabecalho» (Automático)",
     "ok": true,
-    "detalhe": "Linhas com dados: 3  ·  Colunas: 2 ⏎ Primeira linha: dados ⏎ ✔ Todos os valores das variáveis numéricas são válidos."
+    "detalhe": "Linhas com dados: 3  ·  Colunas: 2 ⏎ Primeira linha: dados ⏎ Variáveis: 1. Variável 1 (numérica)  ·  2. Variável 2 (numérica) ⏎ ✔ Todos os valores das colunas numéricas são números válidos."
    },
    {
     "caso": "colagem «uma_coluna» (Automático)",
     "ok": true,
-    "detalhe": "3 linhas, cabeçalho=True, 0 inválidos, mapa={'N1': 1, 'N2': 0, 'N3': 0, 'C1': 0, 'C2': 0}"
+    "detalhe": "3 linhas, cabeçalho=True, 0 inválidos, tipos das colunas = 1:num"
    },
    {
     "caso": "diagnóstico «uma_coluna» (Automático)",
     "ok": true,
-    "detalhe": "Linhas com dados: 3  ·  Colunas: 1 ⏎ Primeira linha: cabeçalho (nomes: Notas) ⏎ ✔ Todos os valores das variáveis numéricas são válidos."
+    "detalhe": "Linhas com dados: 3  ·  Colunas: 1 ⏎ Primeira linha: cabeçalho (nomes das variáveis) ⏎ Variáveis: 1. Notas (numérica) ⏎ ✔ Todos os valores das colunas numéricas são números válidos."
    },
    {
     "caso": "colagem «linhas_vazias_e_espacos» (Automático)",
     "ok": true,
-    "detalhe": "3 linhas, cabeçalho=True, 0 inválidos, mapa={'N1': 1, 'N2': 0, 'N3': 0, 'C1': 2, 'C2': 0}"
+    "detalhe": "3 linhas, cabeçalho=True, 0 inválidos, tipos das colunas = 1:num, 2:cat"
    },
    {
     "caso": "diagnóstico «linhas_vazias_e_espacos» (Automático)",
     "ok": true,
-    "detalhe": "Linhas com dados: 3  ·  Colunas: 2  ·  Linhas vazias ignoradas: 3 ⏎ Primeira linha: cabeçalho (nomes: Valor; Grupo) ⏎ ✔ Todos os valores das variáveis numéricas são válidos."
+    "detalhe": "Linhas com dados: 3  ·  Colunas: 2  ·  Linhas vazias ignoradas: 3 ⏎ Primeira linha: cabeçalho (nomes das variáveis) ⏎ Variáveis: 1. Valor (numérica)  ·  2. Grupo (categórica) ⏎ ✔ Todos os valores das colunas numéricas são números válidos."
    },
    {
     "caso": "colagem «invalidos» (Automático)",
     "ok": true,
-    "detalhe": "5 linhas, cabeçalho=True, 2 inválidos, mapa={'N1': 1, 'N2': 2, 'N3': 0, 'C1': 0, 'C2': 0}"
+    "detalhe": "5 linhas, cabeçalho=True, 2 inválidos, tipos das colunas = 1:num, 2:num"
    },
    {
     "caso": "diagnóstico «invalidos» (Automático)",
     "ok": true,
-    "detalhe": "Linhas com dados: 5  ·  Colunas: 2 ⏎ Primeira linha: cabeçalho (nomes: X; Y) ⏎ ⚠ 2 valor(es) inválido(s) — ficarão em branco: ⏎    linha 3, X: «abc» ⏎    linha 4, Y: «1,2,3»"
+    "detalhe": "Linhas com dados: 5  ·  Colunas: 2 ⏎ Primeira linha: cabeçalho (nomes das variáveis) ⏎ Variáveis: 1. X (numérica)  ·  2. Y (numérica) ⏎ ⚠ 2 valor(es) não numérico(s) em colunas numéricas — ficarão como valores em falta: ⏎    linha 3, X: «abc» ⏎    linha 4, Y: «1,2,3»"
    },
    {
     "caso": "colagem «milhares_espaco» (Automático)",
     "ok": true,
-    "detalhe": "3 linhas, cabeçalho=True, 0 inválidos, mapa={'N1': 1, 'N2': 0, 'N3': 0, 'C1': 0, 'C2': 0}"
+    "detalhe": "3 linhas, cabeçalho=True, 0 inválidos, tipos das colunas = 1:num"
    },
    {
     "caso": "diagnóstico «milhares_espaco» (Automático)",
     "ok": true,
-    "detalhe": "Linhas com dados: 3  ·  Colunas: 1 ⏎ Primeira linha: cabeçalho (nomes: Rendimento) ⏎ ✔ Todos os valores das variáveis numéricas são válidos."
+    "detalhe": "Linhas com dados: 3  ·  Colunas: 1 ⏎ Primeira linha: cabeçalho (nomes das variáveis) ⏎ Variáveis: 1. Rendimento (numérica) ⏎ ✔ Todos os valores das colunas numéricas são números válidos."
    },
    {
     "caso": "colagem «grupo_primeiro» (Automático)",
     "ok": true,
-    "detalhe": "3 linhas, cabeçalho=True, 0 inválidos, mapa={'N1': 2, 'N2': 0, 'N3': 0, 'C1': 1, 'C2': 0}"
+    "detalhe": "3 linhas, cabeçalho=True, 0 inválidos, tipos das colunas = 1:cat, 2:num"
    },
    {
     "caso": "diagnóstico «grupo_primeiro» (Automático)",
     "ok": true,
-    "detalhe": "Linhas com dados: 3  ·  Colunas: 2 ⏎ Primeira linha: cabeçalho (nomes: Turma; Nota) ⏎ ✔ Todos os valores das variáveis numéricas são válidos."
+    "detalhe": "Linhas com dados: 3  ·  Colunas: 2 ⏎ Primeira linha: cabeçalho (nomes das variáveis) ⏎ Variáveis: 1. Turma (categórica)  ·  2. Nota (numérica) ⏎ ✔ Todos os valores das colunas numéricas são números válidos."
    },
    {
     "caso": "colagem «so_categorica» (Automático)",
     "ok": true,
-    "detalhe": "4 linhas, cabeçalho=False, 0 inválidos, mapa={'N1': 0, 'N2': 0, 'N3': 0, 'C1': 1, 'C2': 0}"
+    "detalhe": "4 linhas, cabeçalho=False, 0 inválidos, tipos das colunas = 1:cat"
    },
    {
     "caso": "diagnóstico «so_categorica» (Automático)",
     "ok": true,
-    "detalhe": "Linhas com dados: 4  ·  Colunas: 1 ⏎ Primeira linha: dados ⏎ ✔ Todos os valores das variáveis numéricas são válidos."
+    "detalhe": "Linhas com dados: 4  ·  Colunas: 1 ⏎ Primeira linha: dados ⏎ Variáveis: 1. Variável 1 (categórica) ⏎ ✔ Todos os valores das colunas numéricas são números válidos."
    },
    {
     "caso": "colagem «linha_unica» (Automático)",
     "ok": true,
-    "detalhe": "1 linhas, cabeçalho=False, 0 inválidos, mapa={'N1': 1, 'N2': 2, 'N3': 0, 'C1': 0, 'C2': 0}"
+    "detalhe": "1 linhas, cabeçalho=False, 0 inválidos, tipos das colunas = 1:num, 2:num"
    },
    {
     "caso": "diagnóstico «linha_unica» (Automático)",
     "ok": true,
-    "detalhe": "Linhas com dados: 1  ·  Colunas: 2 ⏎ Primeira linha: dados ⏎ ✔ Todos os valores das variáveis numéricas são válidos."
+    "detalhe": "Linhas com dados: 1  ·  Colunas: 2 ⏎ Primeira linha: dados ⏎ Variáveis: 1. Variável 1 (numérica)  ·  2. Variável 2 (numérica) ⏎ ✔ Todos os valores das colunas numéricas são números válidos."
    },
    {
     "caso": "colagem «cinco_colunas» (Automático)",
     "ok": true,
-    "detalhe": "2 linhas, cabeçalho=True, 0 inválidos, mapa={'N1': 1, 'N2': 2, 'N3': 3, 'C1': 4, 'C2': 5}"
+    "detalhe": "2 linhas, cabeçalho=True, 0 inválidos, tipos das colunas = 1:num, 2:num, 3:num, 4:cat, 5:cat"
    },
    {
     "caso": "diagnóstico «cinco_colunas» (Automático)",
     "ok": true,
-    "detalhe": "Linhas com dados: 2  ·  Colunas: 5 ⏎ Primeira linha: cabeçalho (nomes: a; b; c; g1; g2) ⏎ ✔ Todos os valores das variáveis numéricas são válidos."
+    "detalhe": "Linhas com dados: 2  ·  Colunas: 5 ⏎ Primeira linha: cabeçalho (nomes das variáveis) ⏎ Variáveis: 1. a (numérica)  ·  2. b (numérica)  ·  3. c (numérica)  ·  4. g1 (categórica)  ·  5. g2 (categórica) ⏎ ✔ Todos os valores das colunas numéricas são números válidos."
    },
    {
     "caso": "colagem «cientifica_e_percentagem» (Automático)",
     "ok": true,
-    "detalhe": "4 linhas, cabeçalho=True, 0 inválidos, mapa={'N1': 1, 'N2': 0, 'N3': 0, 'C1': 0, 'C2': 0}"
+    "detalhe": "4 linhas, cabeçalho=True, 0 inválidos, tipos das colunas = 1:num"
    },
    {
     "caso": "diagnóstico «cientifica_e_percentagem» (Automático)",
     "ok": true,
-    "detalhe": "Linhas com dados: 4  ·  Colunas: 1 ⏎ Primeira linha: cabeçalho (nomes: v) ⏎ ✔ Todos os valores das variáveis numéricas são válidos."
+    "detalhe": "Linhas com dados: 4  ·  Colunas: 1 ⏎ Primeira linha: cabeçalho (nomes das variáveis) ⏎ Variáveis: 1. v (numérica) ⏎ ✔ Todos os valores das colunas numéricas são números válidos."
+   },
+   {
+    "caso": "colagem «bovinos_excel» (Automático)",
+    "ok": true,
+    "detalhe": "7 linhas, cabeçalho=True, 0 inválidos, tipos das colunas = 1:num, 2:cat, 3:num, 4:num, 5:num"
+   },
+   {
+    "caso": "diagnóstico «bovinos_excel» (Automático)",
+    "ok": true,
+    "detalhe": "Linhas com dados: 7  ·  Colunas: 5 ⏎ Primeira linha: cabeçalho (nomes das variáveis) ⏎ Variáveis: 1. Numero (numérica)  ·  2. Raça (categórica)  ·  3. Idade (numérica)  ·  4. Peso (numérica)  ·  5. Prod. Leite (numérica) ⏎ ✔ Todos os valores das colunas numéricas são números válidos."
+   },
+   {
+    "caso": "colagem «sete_colunas» (Automático)",
+    "ok": true,
+    "detalhe": "2 linhas, cabeçalho=True, 0 inválidos, tipos das colunas = 1:num, 2:num, 3:num, 4:num, 5:num, 6:num, 7:num"
+   },
+   {
+    "caso": "diagnóstico «sete_colunas» (Automático)",
+    "ok": true,
+    "detalhe": "Linhas com dados: 2  ·  Colunas: 7 ⏎ Primeira linha: cabeçalho (nomes das variáveis) ⏎ Variáveis: 1. a (numérica)  ·  2. b (numérica)  ·  3. c (numérica)  ·  4. d (numérica)  ·  5. e (numérica)  ·  6. f (numérica) ⏎ ⚠ Só as primeiras 6 colunas são importadas. ⏎ ✔ Todos os valores das colunas numéricas são números válidos."
    },
    {
     "caso": "número «1,5»",

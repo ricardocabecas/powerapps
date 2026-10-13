@@ -31,15 +31,36 @@ decimal.
 
 ### Modelo de dados
 
-A coleção `colDados` tem uma linha por observação (unidade estatística) e as colunas:
+A coleção `colDados` tem uma linha por observação (unidade estatística). Há **6 variáveis genéricas**
+(V1 a V6); para cada variável k guardam-se dois campos:
 
 | Campo | Tipo | Significado |
 |---|---|---|
 | `Id` | número | n.º da linha (1, 2, 3…) |
-| `N1`, `N2`, `N3` | número | três variáveis numéricas (em branco = valor em falta) |
-| `C1`, `C2` | texto | duas variáveis categóricas (de grupo) |
+| `T1` … `T6` | texto | o valor tal como foi escrito ou colado |
+| `X1` … `X6` | número | o mesmo valor convertido em número (vazio se o texto não for um número) |
 
-Os nomes que os alunos dão às variáveis ficam no registo `varNomes` (`varNomes.N1`, …, `varNomes.C2`).
+Os nomes que os alunos dão às variáveis ficam no registo `varNomes` (`varNomes.V1`, …, `varNomes.V6`).
+
+**O tipo de cada variável é detetado a partir dos dados**: é *numérica* se pelo menos metade das células
+preenchidas forem números; senão é *categórica*. A tabela `varVariaveis` (uma linha por variável, com o nome,
+o n.º de células preenchidas, o n.º de números, o tipo e o n.º de textos não numéricos) é recalculada sempre que
+os dados ou os nomes mudam:
+
+{{pt: F_comum.variaveis()}}
+
+Daí resultam as listas pendentes dos ecrãs de análise:
+
+* variáveis numéricas (descritiva, regressão, testes t, ANOVA): `ForAll(Filter(varVariaveis; numerica) As _v; {Value: _v.nome})`
+* variáveis de grupo / categorias (qualquer variável com dados; uma variável numérica discreta, como uma idade em
+  anos, também pode formar grupos): `ForAll(Filter(varVariaveis; n > 0) As _v; {Value: _v.nome})`
+
+O nome escolhido numa lista converte-se no índice da variável com `LookUp`, e o valor de cada linha obtém-se
+com `Switch`:
+
+{{pt: F_comum.indice("drpDesVar")}}
+
+{{pt: F_comum.col_num("_k")}}
 
 ### Conversão de texto em número (vírgula ou ponto decimal)
 
@@ -74,18 +95,19 @@ conhecer o tipo das colunas.
 
 ### 1.2 Galeria editável
 
-A galeria `galDados` tem `Items = colDados`. Cada célula numérica é uma caixa de texto:
+A galeria `galDados` tem `Items = colDados` e uma caixa de texto por variável:
 
-* `Default` mostra o número com vírgula decimal e só as casas necessárias:
+* `Default`: numa variável numérica mostra o número com vírgula decimal e só as casas necessárias; numa variável
+  categórica mostra o texto escrito:
 
-{{pt: F_comum.fmt_livre("ThisItem.N1")}}
+{{pt: "If(LookUp(varVariaveis, k = 1).numerica && !IsBlank(ThisItem.X1), " + F_comum.fmt_livre("ThisItem.X1") + ", ThisItem.T1)"}}
 
-* `OnChange` converte o que o aluno escreveu e grava com `Patch` na linha certa (procurada pelo `Id`); se o
-  texto não for um número aparece um aviso:
+* `OnChange` grava o texto e o número com `Patch` na linha certa (procurada pelo `Id`), volta a detetar os tipos
+  e avisa se, numa variável numérica, o texto não for um número:
 
-{{pt: F_dados.ecra_dados_onchange("N1")}}
+{{pt: F_dados.onchange_celula(1)}}
 
-* `BorderColor` fica vermelho enquanto o texto for inválido.
+* `BorderColor` fica vermelho numa variável numérica enquanto o texto não for um número.
 
 O botão ✕ apaga a linha e volta a numerar as linhas de 1 a n (através de uma coleção temporária, porque não se
 pode alterar uma coleção dentro de um `ForAll` que a percorre):
@@ -112,14 +134,10 @@ texto não numérico na 1.ª linha:
 
 {{pt: F_dados.cabecalho()}}
 
-**Passo 4 — escolher a coluna de origem de cada variável.** As listas `drpMapN1`…`drpMapC2` mostram
-`n.º · 1.ª célula`; por omissão as colunas numéricas vão para `N1`, `N2`, `N3` e as de texto para `C1`, `C2`.
-Exemplo para `N1`:
-
-{{pt: F_dados.default_mapa("N1")}}
-
-**Passo 5 — importar.** Constrói-se um registo com as linhas prontas para `colDados`, a lista de valores
-inválidos (que ficam em branco) e os nomes vindos do cabeçalho:
+**Passo 4 — importar.** A 1.ª coluna colada vai para a variável 1, a 2.ª para a variável 2, e assim por diante
+(até 6 colunas). Constrói-se um registo com as linhas prontas para `colDados` (texto e número de cada célula),
+a lista de textos não numéricos em colunas numéricas (que contam como valores em falta) e os nomes das variáveis
+(da 1.ª linha, se for cabeçalho):
 
 {{pt: F_dados.importar("0")}}
 
@@ -135,15 +153,14 @@ no texto colado, para os encontrar no Excel).
 
 ### 2.1 Escolha da variável e dos grupos
 
-As listas pendentes mostram os nomes dados pelos alunos (`[varNomes.N1; varNomes.N2; varNomes.N3]`). O nome
-escolhido é convertido no índice da variável (1, 2 ou 3) com `Switch`:
+A lista da variável mostra só as variáveis numéricas; a lista «Agrupar por» mostra todas as variáveis com dados.
+Os valores da variável (e, se se pedir agrupamento, o grupo de cada observação e a sua ordem) obtêm-se de
+`colDados`, ignorando as células vazias:
 
-{{pt: F_comum.indice_num("drpDesVar")}}
+{{pt: F_descritiva.vetor_com_grupo("_k", "_kg", "_ng")}}
 
-Os valores da variável (e, se se pedir agrupamento, o grupo de cada observação) obtêm-se de `colDados`,
-ignorando as células vazias:
-
-{{pt: F_descritiva.vetor_com_grupo("_k", "_kg")}}
+Os grupos aparecem por ordem numérica quando a variável de agrupamento é numérica, e por ordem alfabética quando
+é categórica.
 
 ### 2.2 Medidas
 

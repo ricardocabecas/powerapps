@@ -1,5 +1,5 @@
 """Fórmulas da estatística descritiva (formato invariante)."""
-from .f_comum import fmt, fmt_livre, vetor_num, indice_num
+from .f_comum import fmt, fmt_livre, vetor_num, indice_num, col_num, col_cat, e_numerica, niveis_ordenados
 
 METODOS_QUARTIS = [
     "Excel QUARTIL.INC — (n−1)p+1",
@@ -81,15 +81,19 @@ def resultados(vetor, metodo="_metodo"):
 )"""
 
 
-def vetor_com_grupo(k, kg):
-    """Tabela {x, g}: valor da variável numérica k e grupo da variável categórica kg (1 = C1, 2 = C2)."""
-    return (f"Filter(ForAll(colDados As _d, {{x: Switch({k}, 1, _d.N1, 2, _d.N2, _d.N3), "
-            f"g: Switch({kg}, 1, _d.C1, _d.C2)}}), !IsBlank(x))")
+def vetor_com_grupo(k, kg, isnumg):
+    """Tabela {x, g, o}: valor da variável numérica k, grupo (categoria da variável kg) e ordem do grupo."""
+    return (f"Filter(ForAll(colDados As _d, {{x: {col_num(k)}, g: {col_cat(kg, isnumg)}, "
+            f"o: If({isnumg}, {col_num(kg)}, 0)}}), !IsBlank(x))")
 
 
 def indice_grupo(drp):
-    """0 = sem grupos, 1 = C1, 2 = C2."""
-    return f"Switch({drp}.Selected.Value, varNomes.C1, 1, varNomes.C2, 2, 0)"
+    """0 = sem grupos; senão o índice da variável escolhida para agrupar."""
+    return f'If({drp}.Selected.Value = "{SEM_GRUPOS}", 0, {indice_num(drp)})'
+
+
+def itens_grupo():
+    return f'Table({{Value: "{SEM_GRUPOS}"}}, ForAll(Filter(varVariaveis, n > 0) As _v, {{Value: _v.nome}}))'
 
 
 def colunas(drp_var="drpDesVar", drp_grupo="drpDesGrupo", drp_metodo="drpDesQuartis"):
@@ -98,19 +102,19 @@ def colunas(drp_var="drpDesVar", drp_grupo="drpDesGrupo", drp_metodo="drpDesQuar
               ", ".join(f'"{m}", {i + 1}' for i, m in enumerate(METODOS_QUARTIS)) + ", 1)")
     return f"""With(
     {{_k: {indice_num(drp_var)}, _kg: {indice_grupo(drp_grupo)}}},
-    With({{_dados: {vetor_com_grupo("_k", "If(_kg = 0, 1, _kg)")}}},
+    With({{_ng: {e_numerica("_kg")}}},
+    With({{_dados: {vetor_com_grupo("_k", "_kg", "_ng")}}},
         Table(
             // Coluna com todos os dados
             Patch({resultados("ForAll(_dados, {x: x})", metodo).replace(chr(10), chr(10) + "            ")},
                 {{Grupo: "Total"}}),
-            // Uma coluna por grupo (valores distintos não vazios da variável categórica)
-            // (sem agrupamento a lista de grupos fica vazia)
-            ForAll(If(_kg = 0, FirstN(Distinct(_dados, g), 0),
-                      Sort(Filter(Distinct(_dados, g), !IsBlank(Value)), Value)) As _G,
+            // Uma coluna por grupo (categorias distintas da variável de agrupamento);
+            // sem agrupamento a lista de grupos fica vazia
+            ForAll(If(_kg = 0, FirstN({niveis_ordenados("_dados", "_ng")}, 0), {niveis_ordenados("_dados", "_ng")}) As _G,
                 Patch({resultados("ForAll(Filter(_dados, g = _G.Value), {x: x})", metodo).replace(chr(10), chr(10) + "                ")},
                     {{Grupo: _G.Value}}))
         )
-    )
+    ))
 )"""
 
 

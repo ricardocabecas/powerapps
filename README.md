@@ -10,7 +10,7 @@ vírgula ou ponto decimal.
 | Ecrã | Conteúdo |
 |---|---|
 | **Início** (`scrInicio`) | Ecrã de entrada: apresentação, estado dos dados atuais e um cartão para abrir cada secção; o seu `OnVisible` cria os dados de exemplo |
-| **Dados** (`scrDados`) | Tabela editável (galeria ligada à coleção `colDados`) com 3 variáveis numéricas e 2 categóricas (de grupo), nomes editáveis; colar uma ou várias colunas do Excel com deteção de cabeçalho, escolha da coluna de origem e aviso dos valores inválidos |
+| **Dados** (`scrDados`) | Tabela editável (galeria ligada à coleção `colDados`) com até 6 variáveis com nome editável; o **tipo de cada variável (numérica ou categórica) é detetado automaticamente**; colar uma ou várias colunas do Excel (a 1.ª coluna vai para a variável 1, etc.) com deteção de cabeçalho e aviso dos textos não numéricos em colunas numéricas |
 | **Descritiva** (`scrDescritiva`) | n, soma, média, mediana, moda, mínimo, máximo, amplitude, quartis (3 métodos), AIQ, variância e desvio padrão **amostrais (n − 1)** e **populacionais (n)**, CV; opcionalmente por grupo |
 | **Frequências** (`scrFrequencias`) | Frequências absolutas, relativas e acumuladas para dados discretos/categóricos e para dados em classes (Sturges, início e amplitude configuráveis); **histograma** e **diagrama de barras** em SVG |
 | **Regressão** (`scrRegressao`) | r de Pearson, R², declive, ordenada na origem, equação da reta, previsão para um x (com aviso de extrapolação), teste de ρ = 0; **diagrama de dispersão com a reta** em SVG |
@@ -100,11 +100,14 @@ Depois, nas propriedades do ecrã, escreva:
 ## Utilização em aula (resumo)
 
 * **Início**: mostra quantas linhas de dados existem e os nomes das variáveis; cada cartão abre uma secção.
-* **Dados**: edite as células (vírgula ou ponto decimal). Uma célula com texto que não é número fica com contorno
-  vermelho e conta como valor em falta. Clique no cabeçalho para dar nome a uma variável.
-* **Colar do Excel**: copie as colunas (com ou sem linha de nomes), cole na caixa da direita, carregue em
-  **Analisar**, confirme a coluna de origem de cada variável e **Importar** (substituir ou acrescentar). Os valores
-  inválidos são listados com o n.º da linha antes de importar e ficam em branco.
+* **Dados**: edite as células (vírgula ou ponto decimal). Por baixo de cada nome aparece o tipo detetado:
+  *numérica* (pelo menos metade dos valores são números) ou *categórica*. Numa variável numérica, um texto que não
+  é número fica com contorno vermelho e conta como valor em falta. Clique no cabeçalho para dar nome a uma variável.
+* **Colar do Excel**: copie até 6 colunas (com ou sem linha de nomes), cole na caixa da direita, carregue em
+  **Analisar**, confira os tipos detetados e **Importar** (substituir ou acrescentar). A 1.ª coluna colada vai para
+  a variável 1, a 2.ª para a variável 2, e assim por diante.
+* Nas análises, as listas de variáveis numéricas mostram todas as variáveis numéricas (discretas ou contínuas); as
+  listas de grupos mostram todas as variáveis com dados.
 * Os ecrãs de análise **atualizam-se sozinhos** quando muda os dados ou as opções.
 
 ## Validação
@@ -113,7 +116,7 @@ Tudo o que foi validado fora do Studio (ver [testes/resultados/comparacao.md](te
 
 * Os 8 ficheiros `.pa.yaml` foram validados contra o **esquema oficial** `pa.schema.yaml` v3.0 da Microsoft;
   os nomes de controlos são únicos em toda a app; parênteses equilibrados em todas as fórmulas.
-* As **3 086 fórmulas** dos ecrãs foram analisadas sem erros de sintaxe pelo **interpretador open source Power Fx**
+* As **3 033 fórmulas** dos ecrãs foram analisadas sem erros de sintaxe pelo **interpretador open source Power Fx**
   (`Microsoft.PowerFx.Interpreter` 1.8.1, .NET 8) em formato invariante **e** convertidas para pt-PT.
 * Os cálculos foram **executados no interpretador** com conjuntos de dados pequenos (incluindo n pequeno, valores
   repetidos, variância nula, média zero, valores em falta, células com frequência esperada baixa) e comparados com
@@ -141,6 +144,8 @@ python3 testes/precisao_valores_p.py      # mede a precisão dos valores de p nu
 * Nada ficou por fazer por exigir PCF: todas as funcionalidades pedidas foram feitas com Power Fx e controlos nativos.
 * Não incluídos (não pedidos): teste exato de Fisher, correção de Yates, comparações múltiplas após a ANOVA,
   testes não paramétricos. A app avisa quando a regra de Cochran não é cumprida e quando a ANOVA rejeita H₀.
+* No máximo 6 variáveis (constante `NV` em `ferramentas/gerador/f_comum.py`; para mais, aumente-a e volte a gerar,
+  mas a tabela do ecrã Dados deixa de caber na largura).
 * Pensada para turmas e conjuntos de dados de aula (dezenas a poucas centenas de linhas). As fórmulas são reativas;
   com milhares de linhas os ecrãs podem ficar lentos.
 * Os dados vivem na sessão (coleção) e perdem-se ao fechar a app; guarde-os no Excel e volte a colar.

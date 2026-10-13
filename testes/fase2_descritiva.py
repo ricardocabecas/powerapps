@@ -8,33 +8,25 @@ from gerador.f_comum import NOMES_EXEMPLO  # noqa: E402
 from motor import pfx_valor, controlo_lista, iguais  # noqa: E402
 from referencia import descritiva as R  # noqa: E402
 import dados_teste as D  # noqa: E402
+from modelo import vars_dados, nome as nome_var  # noqa: E402
 
 NOME = "Fase 2 — Estatística descritiva"
 CAMPOS = ["n", "soma", "media", "mediana", "moda", "minimo", "maximo", "amplitude", "q1", "q3", "varA", "varP",
           "dpA", "dpP", "cv"]
 
 
-def col_dados(n1, c1=None, n2=None, n3=None, c2=None):
-    regs = []
-    for i, v in enumerate(n1):
-        regs.append({"Id": i + 1, "N1": v, "N2": n2[i] if n2 else None, "N3": n3[i] if n3 else None,
-                     "C1": (c1[i] if c1 else None) or "", "C2": (c2[i] if c2 else None) or ""})
-    return regs
-
-
-def contexto(dados, grupo, metodo):
-    return [{"nome": "varNomes", "expr": pfx_valor(NOMES_EXEMPLO)},
-            {"nome": "colDados", "expr": pfx_valor(dados)},
-            {"nome": "drpDesVar", "expr": controlo_lista(NOMES_EXEMPLO["N1"])},
-            {"nome": "drpDesGrupo", "expr": controlo_lista(NOMES_EXEMPLO["C1"] if grupo else F.SEM_GRUPOS)},
-            {"nome": "drpDesQuartis", "expr": controlo_lista(F.METODOS_QUARTIS[metodo - 1])}]
+def contexto(vals, grupos, metodo):
+    return vars_dados([vals, None, None, grupos]) + [
+        {"nome": "drpDesVar", "expr": controlo_lista(nome_var(1))},
+        {"nome": "drpDesGrupo", "expr": controlo_lista(nome_var(4) if grupos is not None else F.SEM_GRUPOS)},
+        {"nome": "drpDesQuartis", "expr": controlo_lista(F.METODOS_QUARTIS[metodo - 1])}]
 
 
 def tarefas():
     t = []
     for nome, (vals, grupos) in D.DESCRITIVA.items():
         for metodo in (1, 2, 3):
-            vs = contexto(col_dados(vals, grupos), grupos is not None, metodo)
+            vs = contexto(vals, grupos, metodo)
             t.append({"id": f"f2.{nome}.{metodo}", "vars": vs, "expr": F.colunas()})
             if metodo == 1:
                 t.append({"id": f"f2.html.{nome}", "vars": vs, "expr": F.html()})

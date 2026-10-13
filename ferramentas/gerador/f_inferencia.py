@@ -16,7 +16,7 @@ Gama, que o Power Fx não tem. Cada integral é calculado pela regra de Gauss-Le
 zona onde o integrando não é desprezável (± 10 «larguras» à volta do máximo). O integrando é avaliado
 em escala logarítmica (Exp(L − Lmax)) para evitar números demasiado grandes ou pequenos.
 """
-from .f_comum import num, fmt, indice_num
+from .f_comum import num, fmt, indice_num, col_num, col_cat, e_numerica, categorias, indice as _indice
 from .f_frequencias import fmt_curto
 
 N_SUB = 100                       # subintervalos de Gauss-Legendre
@@ -144,27 +144,28 @@ FORMATOS_IND = ["Variável numérica + variável de grupo", "Duas colunas numér
 
 
 def indice_cat(drp):
-    return f"Switch({drp}.Selected.Value, varNomes.C2, 2, 1)"
+    """Índice da variável escolhida para formar os grupos (qualquer variável com dados)."""
+    return _indice(drp)
 
 
 def niveis(kg):
-    """Valores distintos (não vazios) da variável categórica kg, por ordem alfabética."""
-    return f"Sort(Filter(Distinct(colDados, Switch({kg}, 1, C1, C2)), !IsBlank(Value)), Value)"
+    """Categorias distintas (não vazias) da variável kg: ordem numérica se for numérica, senão alfabética."""
+    return categorias(kg, e_numerica(kg))
 
 
 def _amostra(k):
-    return f"Filter(ForAll(colDados As _d, {{x: Switch({k}, 1, _d.N1, 2, _d.N2, _d.N3)}}), !IsBlank(x))"
+    return f"Filter(ForAll(colDados As _d, {{x: {col_num(k)}}}), !IsBlank(x))"
 
 
-def _amostra_grupo(k, kg, nivel):
-    return (f"Filter(ForAll(colDados As _d, {{x: Switch({k}, 1, _d.N1, 2, _d.N2, _d.N3), "
-            f"g: Switch({kg}, 1, _d.C1, _d.C2)}}), !IsBlank(x) && g = {nivel})")
+def _amostra_grupo(k, kg, nivel, isnum=None):
+    isnum = isnum or e_numerica(kg)
+    return (f"With({{_gn: {isnum}}}, Filter(ForAll(colDados As _d, {{x: {col_num(k)}, "
+            f"g: {col_cat(kg, '_gn')}}}), !IsBlank(x) && g = {nivel}))")
 
 
 def _diferencas(k1, k2):
-    return (f"Filter(ForAll(colDados As _d, With({{_a: Switch({k1}, 1, _d.N1, 2, _d.N2, _d.N3), "
-            f"_b: Switch({k2}, 1, _d.N1, 2, _d.N2, _d.N3)}}, {{x: If(IsBlank(_a) || IsBlank(_b), Blank(), _a - _b)}})), "
-            f"!IsBlank(x))")
+    return (f"Filter(ForAll(colDados As _d, With({{_a: {col_num(k1)}, _b: {col_num(k2)}}}, "
+            f"{{x: If(IsBlank(_a) || IsBlank(_b), Blank(), _a - _b)}})), !IsBlank(x))")
 
 
 def teste_t():
@@ -294,8 +295,8 @@ def anova():
     """Registo com a tabela da ANOVA a um fator (ecrã scrAnova)."""
     por_fator = (f"ForAll({niveis('_kg')} As _G, "
                  f"{_resumo_grupo('_G.Value', _amostra_grupo('_k', '_kg', '_G.Value'))})")
-    por_colunas = (f"Filter(ForAll(Sequence(3) As _j, "
-                   f"{_resumo_grupo('Switch(_j.Value, 1, varNomes.N1, 2, varNomes.N2, varNomes.N3)', _amostra('_j.Value'))}), n > 0)")
+    por_colunas = (f"Filter(ForAll(Filter(varVariaveis, numerica) As _j, "
+                   f"{_resumo_grupo('_j.nome', _amostra('_j.k'))}), n > 0)")
     return f"""With(
     {{_fmt: If(drpAnoFormato.Selected.Value = "{FORMATOS_ANOVA[1]}", 2, 1),
      _k: {indice_num("drpAnoVar")}, _kg: {indice_cat("drpAnoFator")}, _alfa: {alfa("drpAnoAlfa")}}},
@@ -369,18 +370,16 @@ ORIGENS_QUI = ["Variáveis da tabela de dados", "Tabela colada do Excel"]
 ESPERADAS_QUI = ["Proporções iguais", "Proporções indicadas"]
 
 
-def _categorias(kv, d="_d"):
-    """Valor de uma variável (1-3 numéricas, 4-5 categóricas) como texto de categoria e chave de ordenação."""
-    from .f_comum import fmt_livre
-    return (f"With({{_val: Switch({kv}, 1, {d}.N1, 2, {d}.N2, 3, {d}.N3, Blank())}}, "
-            f"{{cat: If({kv} <= 3, If(IsBlank(_val), \"\", {fmt_livre('_val')}), Switch({kv}, 4, {d}.C1, {d}.C2)), "
-            f"ord: If({kv} <= 3, _val, 0)}})")
+def _categorias(kv, isnum, d="_d"):
+    """Valor de uma variável como texto de categoria (número formatado se a variável for numérica)
+    e chave de ordenação (o próprio número, ou 0 para variáveis categóricas)."""
+    return f"{{cat: {col_cat(kv, isnum, d)}, ord: If({isnum}, {col_num(kv, d)}, 0)}}"
 
 
-def _niveis_de(tab, campo, ordem, kv):
+def _niveis_de(tab, campo, ordem, isnum):
     """Categorias distintas de um campo, por ordem numérica (variáveis numéricas) ou alfabética."""
     return (f"With({{_ls: ForAll(Distinct({tab}, {campo}) As _c, {{nome: _c.Value, "
-            f"o: LookUp({tab}, {campo} = _c.Value).{ordem}}})}}, If({kv} <= 3, Sort(_ls, o), Sort(_ls, nome)))")
+            f"o: LookUp({tab}, {campo} = _c.Value).{ordem}}})}}, If({isnum}, Sort(_ls, o), Sort(_ls, nome)))")
 
 
 def matriz_colada(txt="txtQuiTabela.Text"):
@@ -428,16 +427,17 @@ def qui_quadrado():
     With(
         // Tabela observada: nomes das linhas e colunas e células {{i, j, O}} (na aderência há só 1 coluna)
         {{_T: If(_orig = 2, {matriz_colada().replace(chr(10), chr(10) + "            ")},
-            With({{_pr: Filter(ForAll(colDados As _d, With({{_A: {_categorias("_k1")}, _B: {_categorias("_k2")}}},
+            With({{_q1: {e_numerica("_k1")}, _q2: {e_numerica("_k2")}}},
+            With({{_pr: Filter(ForAll(colDados As _d, With({{_A: {_categorias("_k1", "_q1")}, _B: {_categorias("_k2", "_q2")}}},
                         {{a: _A.cat, oa: _A.ord, b: If(_tipo = 2, _B.cat, "Total"), ob: If(_tipo = 2, _B.ord, 0)}})),
                         a <> "" && b <> "")}},
-                With({{_L: {_niveis_de("_pr", "a", "oa", "_k1")}, _C: {_niveis_de("_pr", "b", "ob", "If(_tipo = 2, _k2, 4)")}}},
+                With({{_L: {_niveis_de("_pr", "a", "oa", "_q1")}, _C: {_niveis_de("_pr", "b", "ob", "_tipo = 2 && _q2")}}},
                     {{Linhas: _L, Colunas: _C,
                      Celulas: ForAll(Sequence(CountRows(_L) * CountRows(_C), 0) As _q,
                         With({{_i: RoundDown(_q.Value / CountRows(_C), 0) + 1, _j: Mod(_q.Value, CountRows(_C)) + 1}},
                             {{i: _i, j: _j, t: "",
                              O: CountIf(_pr, a = Index(_L, _i).nome && b = Index(_C, _j).nome), invalido: false}})),
-                     TemRotulos: true}})))}},
+                     TemRotulos: true}}))))}},
     With(
         // Aderência: frequências observadas = última coluna; se a tabela colada não tiver nomes de texto
         // e tiver 2 ou mais colunas, a 1.ª coluna dá os nomes das categorias (ex.: faces de um dado 1 a 6)

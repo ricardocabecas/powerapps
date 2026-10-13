@@ -2,7 +2,7 @@
 from .yaml_pa import Ecra
 from .comum import (cabecalho, props_ecra, etiqueta, lista, caixa_texto, retangulo, galeria, imagem,
                     COR_SUAVE, COR_PAINEL, COR_LINHA, COR_PRIMARIA, COR_ERRO)
-from .f_comum import itens_todas, indice_todas, fmt
+from .f_comum import itens_todas, indice_todas, fmt, e_numerica, default_numerica
 from . import f_frequencias as F
 from . import f_graficos as G
 
@@ -18,15 +18,15 @@ COLS = [("Classe / valor", 170, "ThisItem.Classe", "Align.Left"),
 def construir():
     c = cabecalho(NOME, "Frequências e gráficos")
     X, W = 16, 300
-    classes = f'{indice_todas("drpFreVar")} <= 3 && drpFreTipo.Selected.Value = "{F.TIPOS[1]}"'
+    classes = f'{e_numerica(indice_todas("drpFreVar"))} && drpFreTipo.Selected.Value = "{F.TIPOS[1]}"'
     c.append(retangulo("retFrePainel", X - 4, 72, W + 8, 684, COR_PAINEL,
                        extra={"BorderColor": COR_LINHA, "BorderThickness": "1"}))
     c.append(etiqueta("lblFreVar", '"Variável"', X + 8, 80, W - 16, 26, 11, True))
-    c.append(lista("drpFreVar", itens_todas(), "", X + 8, 108, W - 16, 36))
+    c.append(lista("drpFreVar", itens_todas(), default_numerica(1), X + 8, 108, W - 16, 36))
     c.append(etiqueta("lblFreTipo", '"Tipo de tabela"', X + 8, 154, W - 16, 26, 11, True))
     c.append(lista("drpFreTipo", "[" + ", ".join(f'"{t}"' for t in F.TIPOS) + "]", f'"{F.TIPOS[0]}"',
                    X + 8, 182, W - 16, 36,
-                   extra={"DisplayMode": f'If({indice_todas("drpFreVar")} >= 4, DisplayMode.Disabled, DisplayMode.Edit)'}))
+                   extra={"DisplayMode": f'If({e_numerica(indice_todas("drpFreVar"))}, DisplayMode.Edit, DisplayMode.Disabled)'}))
     campos = [("K", "N.º de classes (vazio = regra de Sturges)", "ex.: 6"),
               ("Inicio", "Início da 1.ª classe (vazio = mínimo)", "ex.: 150"),
               ("Amplitude", "Amplitude das classes (vazio = automática)", "ex.: 5")]
